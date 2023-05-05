@@ -6,13 +6,13 @@ namespace Hotel.Backend.WebAPI.Database;
 
 public class HotelDbContext : IdentityDbContext<ApplicationUser>
 {
-    DbSet<Room> Rooms;
+    DbSet<Room> Rooms { get; set; }
 
-    DbSet<Image> Images;
+    DbSet<Image> Images { get; set; }
 
-    DbSet<Equipment> Equipments;
+    DbSet<Equipment> Equipments { get; set; }
 
-    DbSet<Reservation> Reservations;
+    DbSet<Reservation> Reservations { get; set; }
     public HotelDbContext(DbContextOptions<HotelDbContext> options) : base(options)
     {
     }
