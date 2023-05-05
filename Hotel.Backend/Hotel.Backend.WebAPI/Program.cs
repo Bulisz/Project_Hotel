@@ -1,5 +1,6 @@
 using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Models;
+using Hotel.Backend.WebAPI.Repositories;
 using Hotel.Backend.WebAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -71,3 +72,4 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
