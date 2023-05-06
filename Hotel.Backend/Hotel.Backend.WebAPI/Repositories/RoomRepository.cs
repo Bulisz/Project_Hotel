@@ -1,6 +1,4 @@
 ﻿using Hotel.Backend.WebAPI.Database;
-using Hotel.Backend.WebAPI.Models;
-using Microsoft.AspNetCore.Http.Connections;
 
 namespace Hotel.Backend.WebAPI.Repositories;
 

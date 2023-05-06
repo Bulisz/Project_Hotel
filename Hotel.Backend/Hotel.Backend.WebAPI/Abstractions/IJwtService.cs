@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Hotel.Backend.WebAPI.Services;
 
-public interface ITokenCreationService
+public interface IJwtService
 {
-    AuthenticationResponse CreateToken(IdentityUser user, IList<string> roles);
+    LoginResponse CreateToken(IdentityUser user, IList<string> roles);
 
 }

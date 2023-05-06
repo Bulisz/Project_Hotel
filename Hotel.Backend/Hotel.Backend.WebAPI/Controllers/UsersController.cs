@@ -1,8 +1,9 @@
-﻿using Hotel.Backend.WebAPI.Models;
+﻿using Hotel.Backend.WebAPI.Abstractions;
+using Hotel.Backend.WebAPI.Helper;
+using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
-using Hotel.Backend.WebAPI.Repositories;
 using Hotel.Backend.WebAPI.Services;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.Backend.WebAPI.Controllers;
@@ -11,98 +12,86 @@ namespace Hotel.Backend.WebAPI.Controllers;
 [ApiController]
 public class UsersController : ControllerBase
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly ITokenCreationService _jwtService;
+    private readonly IJwtService _jwtService;
+    private readonly IUserService _userService;
 
-    public UsersController(UserManager<ApplicationUser> userManager, ITokenCreationService jwtService)
+    public UsersController(IJwtService jwtService, IUserService userService)
     {
-        _userManager = userManager;
         _jwtService = jwtService;
+        _userService = userService;
     }
 
-    // POST: api/Users
-    [HttpPost]
-    public async Task<ActionResult<CreateUserForm>> PostUser(CreateUserForm userForm)
+
+    [Authorize(Roles = "Admin")]
+    [HttpGet("GetUserByName/{username}")]
+    public async Task<ActionResult<UserDetails>> GetUserByName(string username)
     {
-        if (!ModelState.IsValid)
+        try
         {
-            return BadRequest(ModelState);
+            UserDetails? user = await _userService.GetUserByNameAsync(username);
+            if (user is null)
+                return NoContent();
+            else
+                return Ok(user);
         }
-
-        ApplicationUser user = new()
+        catch (HotelException ex)
         {
-            UserName = userForm.UserName,
-            Email = userForm.Email,
-            FirstName = userForm.FirstName,
-            LastName = userForm.LastName,
-        };
-
-        var result = await _userManager.CreateAsync(
-            user,
-            userForm.Password
-        );
-
-        if (!result.Succeeded)
-        {
-            return BadRequest(result.Errors);
+            return StatusCode((int)ex.StatusCode, ex.Message);
         }
-
-        IdentityResult identityResult = await _userManager.AddToRoleAsync(user, role: "Admin");
-
-        if (!identityResult.Succeeded)
-        {
-            throw new Exception("Failed to add user to role");
-        }
-
-        return CreatedAtAction(nameof(GetUser), new { userName = user.UserName }, user);
     }
 
-    // GET: api/Users/username
-    [HttpGet("{username}")]
-    public async Task<ActionResult<UserDetails>> GetUser(string username)
+    [Authorize(Roles = "Admin")]
+    [HttpGet("GetUserById/{id}")]
+    public async Task<ActionResult<UserDetails>> GetUserById(string id)
     {
-        ApplicationUser? user = await _userManager.FindByNameAsync(username);
-
-        if (user == null)
+        try
         {
-            return NotFound();
+            UserDetails? user = await _userService.GetUserByIdAsync(id);
+            if (user is null)
+                return NoContent();
+            else
+                return Ok(user);
         }
-
-        return new UserDetails
+        catch (HotelException ex)
         {
-            UserName = user.UserName ?? string.Empty,
-            Email = user.Email ?? string.Empty,
-            FirstName= user.FirstName,
-            LastName= user.LastName,
-        };
+            return StatusCode((int)ex.StatusCode, ex.Message);
+        }
     }
 
-    // POST: api/Users/BearerToken
-    [HttpPost("BearerToken")]
-    public async Task<ActionResult<AuthenticationResponse>> CreateBearerToken(AuthenticationRequest request)
+    [HttpGet("GetCurrentUser")]
+    [Authorize]
+    public async Task<ActionResult<UserDetails>> GetCurrentUser()
     {
-        if (!ModelState.IsValid)
+        string currentUserId = User.GetCurrentUserId();
+        return (await _userService.GetUserByIdAsync(currentUserId))!;
+    }
+
+    [HttpPost("Register")]
+    public async Task<ActionResult<UserDetails>> Register(CreateUserForm userDTOpost)
+    {
+        try
         {
-            return BadRequest("Bad credentials");
+            UserDetails userDTOget = await _userService.RegisterAsync(userDTOpost);
+            return CreatedAtAction(nameof(GetUserByName), new { userName = userDTOget.UserName }, userDTOget);
         }
-
-        var user = await _userManager.FindByNameAsync(request.UserName);
-
-        if (user == null)
+        catch (HotelException ex)
         {
-            return BadRequest("Bad credentials");
+            return StatusCode((int)ex.StatusCode, ex.Message);
         }
+    }
 
-        var isPasswordValid = await _userManager.CheckPasswordAsync(user, request.Password);
-
-        if (!isPasswordValid)
+    [HttpPost("Login")]
+    public async Task<ActionResult<LoginResponse>> Login(LoginRequest request)
+    {
+        try
         {
-            return BadRequest("Bad credentials");
+            UserLoginDTO userDTOlogin = await _userService.LoginAsync(request);
+            LoginResponse token = _jwtService.CreateToken(userDTOlogin.User!, userDTOlogin.Roles);
+            return Ok(token);
         }
-
-        IList<string> roles = await _userManager.GetRolesAsync(user);
-        var token = _jwtService.CreateToken(user, roles);
-
-        return Ok(token);
+        catch (HotelException ex)
+        {
+            return StatusCode((int)ex.StatusCode, ex.Message);
+        }
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Hotel.Backend.WebAPI.Services;
 
-public class JwtService : ITokenCreationService
+public class JwtService : IJwtService
 {
     private const int EXPIRATION_MINUTES = 30;
 
@@ -18,7 +18,7 @@ public class JwtService : ITokenCreationService
         _configuration = configuration;
     }
 
-    public AuthenticationResponse CreateToken(IdentityUser user, IList<string> roles)
+    public LoginResponse CreateToken(IdentityUser user, IList<string> roles)
     {
         var expiration = DateTime.UtcNow.AddMinutes(EXPIRATION_MINUTES);
 
@@ -30,7 +30,7 @@ public class JwtService : ITokenCreationService
 
         var tokenHandler = new JwtSecurityTokenHandler();
 
-        return new AuthenticationResponse
+        return new LoginResponse
         {
             Token = tokenHandler.WriteToken(token),
             Expiration = expiration
