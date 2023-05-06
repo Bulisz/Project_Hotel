@@ -1,5 +1,5 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions;
-using Hotel.Backend.WebAPI.Database;
+using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Identity;
@@ -43,7 +43,7 @@ public class UserRepository : IUserRepository
 
     public async Task<UserLoginDTO> LoginAsync(LoginRequest request)
     {
-        ApplicationUser? user = await _userManager.FindByNameAsync(request.UserName)
+        ApplicationUser user = await _userManager.FindByNameAsync(request.UserName)
             ?? throw new HotelException(HttpStatusCode.BadRequest, "Invalid name or password");
         bool isPasswordValid = await _userManager.CheckPasswordAsync(user, request.Password);
         if (!isPasswordValid)

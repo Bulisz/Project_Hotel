@@ -22,7 +22,7 @@ public class UsersController : ControllerBase
     }
 
 
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [HttpGet("GetUserByName/{username}")]
     public async Task<ActionResult<UserDetails>> GetUserByName(string username)
     {
@@ -40,7 +40,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [HttpGet("GetUserById/{id}")]
     public async Task<ActionResult<UserDetails>> GetUserById(string id)
     {
@@ -59,7 +59,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("GetCurrentUser")]
-    [Authorize]
+    //[Authorize]
     public async Task<ActionResult<UserDetails>> GetCurrentUser()
     {
         string currentUserId = User.GetCurrentUserId();
