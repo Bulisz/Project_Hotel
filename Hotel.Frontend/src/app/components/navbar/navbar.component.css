@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+}
+
+.hotel-navbar {
+  background-color: #800020;
+  font-family: 'Caveat';
+  font-size: 2.2rem;
+  padding: 0;
+}
+
+img {
+  height: 3.5rem;
+}
+
+.navbar-toggler {
+  background-color: whitesmoke;
+}
+
+.nav-link {
+  color: whitesmoke;
+}
+
+.dropdown-menu {
+  background-color: whitesmoke;
+  border:#800020 2px solid;
+}
+
+.dropdown-item{
+  color:#800020;
+  font-size: 1.5rem;
+}

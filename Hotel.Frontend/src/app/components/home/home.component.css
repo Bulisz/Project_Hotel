@@ -1,0 +1,37 @@
+.outer{
+  border-radius: 2rem;
+  height: 400px;
+  width: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: whitesmoke;
+}
+
+.inner{
+  border-radius: 1.5rem;
+  border: 3px solid #800020;
+  height: 100%;
+  position: inherit;
+  background-image: url("../../../assets/images/logoburgund.png");
+  background-repeat: no-repeat;
+  background-size: 6rem;
+  background-position:left bottom;
+  background-color: whitesmoke;
+}
+
+.title {
+  font-family: caveat;
+  font-size: 4rem;
+  color: #800020;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+img{
+  width: 4rem;
+  position:sticky;
+  align-self: flex-end;
+}
