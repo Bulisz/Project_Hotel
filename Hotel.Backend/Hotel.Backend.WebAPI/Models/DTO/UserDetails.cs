@@ -2,7 +2,7 @@
 
 namespace Hotel.Backend.WebAPI.Models.DTO
 {
-    public class UserDetails
+    public record UserDetails
     {
         public string UserName { get; set; } = string.Empty;
 

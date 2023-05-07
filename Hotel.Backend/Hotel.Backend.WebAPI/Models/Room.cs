@@ -11,7 +11,7 @@ public class Room
     public int NumberOfBeds { get; set; }
     public string Description { get; set; } = string.Empty;
     public bool Available { get; set; }
-    public ICollection<Equipment> Equipments { get; set; }
-    public ICollection<Image> Images { get; set; }
-    public ICollection<Reservation> Reservations { get; set; }
+    public ICollection<Equipment> Equipments { get; set; } = new List<Equipment>();
+    public ICollection<Image> Images { get; set; } = new List<Image>();
+    public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 }

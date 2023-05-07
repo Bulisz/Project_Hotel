@@ -2,7 +2,7 @@
 
 namespace Hotel.Backend.WebAPI.Models.DTO;
 
-public class CreateUserForm
+public record CreateUserForm
 {
     [Required]
     public string UserName { get; set; } = string.Empty;

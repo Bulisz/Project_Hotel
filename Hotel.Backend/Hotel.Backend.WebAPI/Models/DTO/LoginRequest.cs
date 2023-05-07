@@ -2,7 +2,7 @@
 
 namespace Hotel.Backend.WebAPI.Models.DTO;
 
-public class LoginRequest
+public record LoginRequest
 {
     [Required]
     public string UserName { get; set; } = string.Empty;

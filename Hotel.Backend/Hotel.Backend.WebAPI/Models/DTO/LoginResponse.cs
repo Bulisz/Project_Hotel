@@ -1,6 +1,6 @@
 ﻿namespace Hotel.Backend.WebAPI.Models.DTO;
 
-public class LoginResponse
+public record LoginResponse
 {
     public string? Token { get; set; }
 
