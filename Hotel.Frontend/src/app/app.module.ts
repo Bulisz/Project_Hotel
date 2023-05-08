@@ -18,7 +18,7 @@ import { LoginComponent } from './components/login/login.component';
     NavbarComponent,
     HomeComponent,
     RoomListComponent,
-    RegistrationComponent
+    RegistrationComponent,
     RoomListComponent,
     LoginComponent
   ],

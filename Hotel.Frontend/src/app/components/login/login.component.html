@@ -1,13 +1,21 @@
-<h3 class="text-center">Login</h3><hr>
+<div class="container-sm mt-3 outer">
+  <div class="container-sm shadow inner">
 
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div class="mb-3">
-    <label for="userName" class="form-label">Username</label>
-    <input type="text" class="form-control" id="userName" formControlName="userName">
+    <h3 class="text-center title">Login</h3>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="userName" class="form-label">Username</label>
+        <input type="text" class="form-control" id="userName" formControlName="userName">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" formControlName="password">
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn" [disabled]="!loginForm.valid">Enter</button>
+      </div>
+    </form>
+
   </div>
-  <div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password" formControlName="password">
-  </div>
-  <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Submit</button>
-</form>
+</div>
