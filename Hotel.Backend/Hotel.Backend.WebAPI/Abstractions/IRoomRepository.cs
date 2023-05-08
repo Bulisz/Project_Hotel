@@ -1,5 +1,9 @@
-﻿namespace Hotel.Backend.WebAPI.Abstractions;
+﻿using Hotel.Backend.WebAPI.Models;
 
-public interface IRoomRepository
+namespace Hotel.Backend.WebAPI.Abstractions
 {
+    public interface IRoomRepository
+    {
+        Task<List<Room>> GetAllRoomsAsync();
+    }
 }

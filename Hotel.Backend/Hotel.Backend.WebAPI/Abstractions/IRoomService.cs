@@ -1,5 +1,9 @@
-﻿namespace Hotel.Backend.WebAPI.Abstractions;
+﻿using Hotel.Backend.WebAPI.Models.DTO;
 
-public interface IRoomService
+namespace Hotel.Backend.WebAPI.Abstractions
 {
+    public interface IRoomService
+    {
+        Task<IEnumerable<RoomListDTO>> GetListOfRoomsAsync();
+    }
 }

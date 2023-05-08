@@ -22,10 +22,10 @@ public class DatabaseTest
     {
         Room roomToCreate = new Room
         {
-            Name = "Bodri",
+            Name = "Buksi",
             Price = 32_000M,
-            NumberOfBeds = 3,
-            Description = "Közepes szoba",
+            NumberOfBeds = 5,
+            Description = "Óriás szoba",
             Available = true,
         };
 

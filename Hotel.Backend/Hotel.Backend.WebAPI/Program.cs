@@ -10,11 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("No connectionString");
 builder.Services.AddDbContext <HotelDbContext> (options => options.UseSqlServer(connectionString));
 
-//builder.Services.AddScoped<IRoomService, RoomService>();
-//builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+
 
 builder.Services.AddCorsRules();
 builder.Services.AddAuth(builder.Configuration);
