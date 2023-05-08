@@ -3,12 +3,11 @@ using Hotel.Backend.WebAPI.Helper;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Hotel.Backend.WebAPI.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.Backend.WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("hotel/[controller]")]
 [ApiController]
 public class UsersController : ControllerBase
 {
