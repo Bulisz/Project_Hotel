@@ -9,13 +9,15 @@ import { RoomListComponent } from './components/room-list/room-list.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from 'src/utils/auth-interceptor';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    RoomListComponent
+    RoomListComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
