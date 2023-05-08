@@ -22,11 +22,9 @@ public class UserRepository : IUserRepository
         if (!createResult.Succeeded)
             throw new HotelException(HttpStatusCode.BadRequest, string.Join('\n', createResult.Errors.ToList()));
 
-        //TODO add Role to created user
-
-        //IdentityResult identityResult = await _userManager.AddToRoleAsync(user, user.Role.ToString());
-        //if (!identityResult.Succeeded)
-        //    throw new HotelException(HttpStatusCode.BadRequest, "Failed to add user to role");
+        IdentityResult identityResult = await _userManager.AddToRoleAsync(user, Role.Guest.ToString());
+        if (!identityResult.Succeeded)
+            throw new HotelException(HttpStatusCode.BadRequest, "Failed to add user to role");
 
         return user;
     }

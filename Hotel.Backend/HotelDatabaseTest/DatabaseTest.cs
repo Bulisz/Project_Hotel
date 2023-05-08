@@ -1,6 +1,5 @@
 using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelDatabaseTest;
@@ -151,8 +150,8 @@ public class DatabaseTest
         {
             Room = room,
             ApplicationUser = user,
-            BookingFrom = DateTime.Parse("2023-06-20 16:00"),
-            BookingTo = DateTime.Parse("2023-07-11 10:00"),
+            BookingFrom = DateTime.Parse("2023-06-20T16:00"),
+            BookingTo = DateTime.Parse("2023-07-11T10:00"),
         };
 
         _context.Reservations.Add(reservationToCreate);
