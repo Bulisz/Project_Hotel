@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.Backend.WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("hotel/[controller]")]
 [ApiController]
 public class RoomsController : ControllerBase
 {
