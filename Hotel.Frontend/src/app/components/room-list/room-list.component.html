@@ -7,9 +7,12 @@
   </div>
 
   <div class="mainarea">
-    <div class="container-sm bg-light outer">
+    <div class="container-sm bg-light outer" *ngFor="let room of allRooms">
       <div class="container-sm shadow bg-light inner">
-        <p class="title">Welcome</p>
+        <p class="title">{{room.name}}</p>
+        <p *ngFor="let image of room.imageURLs">
+        <img src="{{image}}" alt="kep" >
+      </p>
       </div>
     </div>
 
