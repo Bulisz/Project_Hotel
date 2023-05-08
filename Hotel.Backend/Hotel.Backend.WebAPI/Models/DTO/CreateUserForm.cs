@@ -18,6 +18,4 @@ public record CreateUserForm
 
     [Required]
     public string LastName { get; set; } = string.Empty;
-
-
 }

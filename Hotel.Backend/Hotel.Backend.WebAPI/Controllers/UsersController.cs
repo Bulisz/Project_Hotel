@@ -3,7 +3,6 @@ using Hotel.Backend.WebAPI.Helper;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Hotel.Backend.WebAPI.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.Backend.WebAPI.Controllers;
@@ -86,8 +85,11 @@ public class UsersController : ControllerBase
         try
         {
             UserLoginDTO userDTOlogin = await _userService.LoginAsync(request);
-            LoginResponse token = _jwtService.CreateToken(userDTOlogin.User!, userDTOlogin.Roles);
-            return Ok(token);
+            LoginResponse response = _jwtService.CreateToken(userDTOlogin.User!, userDTOlogin.Roles);
+            response.Username = userDTOlogin.User.UserName;
+            response.Id = userDTOlogin.User.Id;
+            response.Role = userDTOlogin.Roles[0].ToString();
+            return Ok(response);
         }
         catch (HotelException ex)
         {
