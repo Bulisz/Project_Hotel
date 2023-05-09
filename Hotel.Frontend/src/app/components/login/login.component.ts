@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
 
 @Component({

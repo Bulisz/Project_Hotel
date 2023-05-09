@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Hotel.Backend.WebAPI.Abstractions;
+using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
+using System.Net;
 
 namespace Hotel.Backend.WebAPI.Services;
 
@@ -26,5 +28,15 @@ public class RoomService : IRoomService
 
 
 
+    }
+
+    public async Task<RoomDetailsDTO> GetRoomByIdAsync(int id)
+    {
+        Room room = await _roomRepository.GetRoomByIdAsync(id)
+            ?? throw new HotelException(HttpStatusCode.BadRequest, "Invalid room id");
+
+        RoomDetailsDTO roomDetails = _mapper.Map<RoomDetailsDTO>(room);
+
+        return roomDetails;
     }
 }

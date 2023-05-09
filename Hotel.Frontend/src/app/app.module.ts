@@ -12,6 +12,7 @@ import { AuthInterceptor } from 'src/utils/auth-interceptor';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginComponent } from './components/login/login.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { RoomDetailsComponent } from './components/room-details/room-details.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     RoomListComponent,
     RegistrationComponent,
     RoomListComponent,
-    LoginComponent
+    LoginComponent,
+    RoomDetailsComponent
   ],
   imports: [
     BrowserModule,
