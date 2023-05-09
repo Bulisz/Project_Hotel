@@ -1,4 +1,5 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions;
+using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.Backend.WebAPI.Controllers;
@@ -13,4 +14,14 @@ public class RoomsController : ControllerBase
     {
         _roomService = roomService;
     }
+
+
+    [HttpGet(nameof(GetListOfRooms))]
+    public async Task<ActionResult<IEnumerable<RoomListDTO>>> GetListOfRooms()
+    {
+        var listedRooms = await _roomService.GetListOfRoomsAsync();
+        return Ok(listedRooms);
+    }
+
+
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { Router } from '@angular/router';
+import { AccountService } from 'src/app/services/account.service';
 import { RegistrationComponent } from '../registration/registration.component';
 
 @Component({
@@ -22,8 +23,20 @@ export class NavbarComponent {
   }
 
   registerPopup(){
+    let dialogRef = this.dialog.open(RegistrationComponent)
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate([''])
+    })
+  }
+
+  registerPopup(){
     this.dialog.open(RegistrationComponent)
   }
 
   
+
+  logout(){
+    this.as.logout()
+  }
 }

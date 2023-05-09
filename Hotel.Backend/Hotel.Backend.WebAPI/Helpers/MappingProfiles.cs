@@ -10,5 +10,11 @@ public class MappingProfiles : Profile
     {
         CreateMap<CreateUserForm, ApplicationUser>();
         CreateMap<ApplicationUser, UserDetails>();
+        CreateMap<Room, RoomListDTO>()
+            .ForMember(dest => dest.EquipmentNames, op => op.MapFrom(src => src.Equipments.Select(e => e.Name).ToList()))
+            .ForMember(dest => dest.ImageURLs, op => op.MapFrom(src => src.Images.Select(e => e.ImageUrl).ToList()));
     }
+
+
+
 }

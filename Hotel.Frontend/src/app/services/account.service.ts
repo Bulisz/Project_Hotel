@@ -25,7 +25,6 @@ export class AccountService {
     return await firstValueFrom(this.http.post<LoginresponseModel>(`${BASE_URL}/Login`, loginData))
       .then((res) => {
         if(res.token){
-          console.log(res)
           localStorage.setItem('accessToken', res.token);
           this.user.next({id: res.id, role: res.role , userName: res.userName})
         }
