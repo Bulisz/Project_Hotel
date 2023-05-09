@@ -12,7 +12,7 @@ import { RegistrationComponent } from '../registration/registration.component';
 })
 export class NavbarComponent {
 
-  constructor(public dialog: MatDialog, private router: Router){  }
+  constructor(public dialog: MatDialog, private router: Router, private as: AccountService){  }
 
   loginPopup(){
     let dialogRef = this.dialog.open(LoginComponent)
@@ -28,10 +28,6 @@ export class NavbarComponent {
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate([''])
     })
-  }
-
-  registerPopup(){
-    this.dialog.open(RegistrationComponent)
   }
 
   
