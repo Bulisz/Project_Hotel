@@ -5,3 +5,9 @@ body {
   background-attachment: fixed;
   background-position: center center;
 }
+
+.cdk-overlay-container {
+  position: fixed;
+  right: 35%;
+  top: 10%;
+}

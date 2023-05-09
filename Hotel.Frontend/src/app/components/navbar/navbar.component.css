@@ -29,4 +29,9 @@ img {
 .dropdown-item{
   color:#800020;
   font-size: 1.5rem;
+
+}
+
+.dropdown-item:hover {
+  cursor: pointer;
 }
