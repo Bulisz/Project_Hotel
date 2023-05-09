@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { Router } from '@angular/router';
+import { AccountService } from 'src/app/services/account.service';
+import { RegistrationComponent } from '../registration/registration.component';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
 
-  constructor(public dialog: MatDialog, private router: Router){
+  constructor(public dialog: MatDialog, private router: Router, private as: AccountService){
   }
 
   loginPopup(){
@@ -19,5 +21,17 @@ export class NavbarComponent {
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate([''])
     })
+  }
+
+  registerPopup(){
+    let dialogRef = this.dialog.open(RegistrationComponent)
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate([''])
+    })
+  }
+
+  logout(){
+    this.as.logout()
   }
 }
