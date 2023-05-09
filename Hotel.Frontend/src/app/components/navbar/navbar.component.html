@@ -15,11 +15,13 @@
     </ul>
 
     <div class="col-md-3 text-end">
-      <div>
-        <button type="button" class="btn btn-warning me-2" (click)="loginPopup()" >Login</button>
-        <button type="button" class="btn btn-warning me-2" (click)="registerPopup()">Regisztráció</button>
+      <div *ngIf="!user">
+        <button type="button" class="btn btn-secondary me-2 px-4" (click)="loginPopup()" >Login</button>
+        <button type="button" class="btn btn-secondary me-2 px-4" (click)="registerPopup()">Regisztráció</button>
       </div>
-      <!-- <button type="button" class="btn btn-warning me-2" (click)="logout()">Kijelentkezés</button> -->
+      <div *ngIf="user">
+        <button type="button" class="btn btn-warning me-2" (click)="logout()">Kijelentkezés</button>
+      </div>
     </div>
   </header>
 </div>
