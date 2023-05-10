@@ -46,9 +46,9 @@ public class RoomService : IRoomService
 
         
 
-        List<RoomListDTO> rooms = _mapper.Map<List<RoomListDTO>>(allRooms);
+        List<RoomListDTO> bigEnoughrooms = _mapper.Map<List<RoomListDTO>>(allRooms);
 
-        return rooms;
+        return bigEnoughrooms;
 
 
 
