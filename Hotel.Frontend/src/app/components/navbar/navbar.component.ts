@@ -26,7 +26,8 @@ export class NavbarComponent implements OnInit {
   loginPopup(){
     const config = new MatDialogConfig();
 
-    config.disableClose = false
+    config.disableClose = true
+    config.position = {left: '40%', top: '15%'}
 
     let dialogRef = this.dialog.open(LoginComponent,config)
 
@@ -39,7 +40,7 @@ export class NavbarComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
+    dialogConfig.position = {left: '40%', top: '15%'}
 
     let dialogRef = this.dialog.open(RegistrationComponent, dialogConfig)
 

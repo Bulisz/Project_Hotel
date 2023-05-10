@@ -1,3 +1,5 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 body {
   background-image: url("./assets/images/background.webp");
   background-repeat: no-repeat;
@@ -6,8 +8,10 @@ body {
   background-position: center center;
 }
 
-.cdk-overlay-container {
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.cdk-global-overlay-wrapper{
   position: fixed;
-  top: 30%;
-  left: 35%;
 }

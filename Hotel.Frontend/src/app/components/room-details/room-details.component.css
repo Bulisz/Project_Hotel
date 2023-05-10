@@ -1,14 +1,17 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .outer{
   margin-top: 5rem;
   border-radius: 2rem;
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0.5rem;
   background-color: whitesmoke;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .inner{
@@ -50,18 +53,25 @@
   width: 50%;
 }
 
-.right-side {
+img {
+  position: inherit;
+  width: 100%
+}
+
+.right-side{
+  width: 50%;
+  margin-right: 0.5rem;
+}
+
+.image-container {
   border: #800020 2px solid;
-  height: 380px;
   padding: 0.5rem;
-  width:50%;
+  width:100%;
   margin: 0.5rem;
 }
 
-img {
-  position: inherit;
-  height: 360px;
-  width: 100%
+.image-container:hover {
+  cursor: pointer;
 }
 
 .btn-container {

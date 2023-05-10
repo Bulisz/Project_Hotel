@@ -1,0 +1,13 @@
+<div class="container-sm outer">
+  <div class="container-sm shadow inner">
+    <button *ngIf="prevActive" class="carousel-control-prev" type="button" (click)="previous()">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Előző</span>
+    </button>
+    <img src="{{images[activeImage]}}" alt="">
+    <button *ngIf="nextActive" class="carousel-control-next" type="button" (click)="next()">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Következő</span>
+    </button>
+  </div>
+</div>

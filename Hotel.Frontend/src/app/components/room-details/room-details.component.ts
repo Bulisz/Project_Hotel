@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { RoomDetailsModel } from 'src/app/models/room-details-model';
 import { RoomService } from 'src/app/services/room.service';
+import { ImageViewerComponent } from '../image-viewer/image-viewer.component';
 
 @Component({
   selector: 'app-room-details',
@@ -15,7 +17,7 @@ export class RoomDetailsComponent implements OnInit {
   equipments!: string;
   firstImage!: string;
 
-  constructor(private rs: RoomService, private ar: ActivatedRoute){}
+  constructor(private rs: RoomService, private ar: ActivatedRoute, private dialog: MatDialog){}
 
   async ngOnInit(): Promise<void> {
     this.ar.paramMap.subscribe(
@@ -36,7 +38,15 @@ export class RoomDetailsComponent implements OnInit {
     this.firstImage = this.roomDetails.imageURLs[0]
   }
 
-  reserve(){
+  openImages(){
 
+    const config = new MatDialogConfig();
+    config.data = { images: this.roomDetails.imageURLs }
+    config.position = {top: '100px', left: '100px'}
+
+    this.dialog.open(ImageViewerComponent,config);
+  }
+
+  reserve(){
   }
 }
