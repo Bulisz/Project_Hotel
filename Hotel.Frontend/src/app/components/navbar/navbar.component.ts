@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   user?: UserModel | null;
 
   constructor(public dialog: MatDialog, private router: Router, private as: AccountService){  }
-  
+
   ngOnInit(): void {
     this.as.user.subscribe({
       next: (user) => this.user = user
@@ -24,7 +24,12 @@ export class NavbarComponent implements OnInit {
   }
 
   loginPopup(){
-    let dialogRef = this.dialog.open(LoginComponent)
+    const config = new MatDialogConfig();
+
+    config.disableClose = true
+    config.position = {left: '40%', top: '15%'}
+
+    let dialogRef = this.dialog.open(LoginComponent,config)
 
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate([''])
@@ -32,14 +37,19 @@ export class NavbarComponent implements OnInit {
   }
 
   registerPopup(){
-    let dialogRef = this.dialog.open(RegistrationComponent)
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.position = {left: '40%', top: '15%'}
+
+    let dialogRef = this.dialog.open(RegistrationComponent, dialogConfig)
 
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate([''])
     })
   }
 
-  
+
 
   logout(){
     this.as.logout()

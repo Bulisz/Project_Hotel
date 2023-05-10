@@ -1,0 +1,24 @@
+.outer{
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: whitesmoke;
+}
+
+.inner{
+  border-radius: 1.5rem;
+  border: 3px solid #800020;
+  height: 100%;
+  position: inherit;
+  background-color: whitesmoke;
+}
+
+img {
+  margin:0.5rem
+}
+
+:host {
+  position:fixed;
+}
