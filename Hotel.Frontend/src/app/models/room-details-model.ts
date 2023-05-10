@@ -6,6 +6,8 @@ export interface RoomDetailsModel {
   price: number,
   numberOfBeds: number,
   description: string,
+  size: string,
+  longDescription: string,
   available: boolean,
   equipmentNames: Array<string>,
   imageURLs: Array<string>,

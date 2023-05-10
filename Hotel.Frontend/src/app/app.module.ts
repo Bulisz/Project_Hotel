@@ -11,9 +11,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from 'src/utils/auth-interceptor';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginComponent } from './components/login/login.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
 import { RoomDetailsComponent } from './components/room-details/room-details.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
@@ -26,6 +28,7 @@ import { FooterComponent } from './components/footer/footer.component';
     RoomListComponent,
     LoginComponent,
     RoomDetailsComponent,
+    ImageViewerComponent
     FooterComponent
   ],
   imports: [
@@ -34,10 +37,12 @@ import { FooterComponent } from './components/footer/footer.component';
     HttpClientModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    BrowserAnimationsModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
   bootstrap: [AppComponent]
 })

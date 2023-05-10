@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RoomListModel } from 'src/app/models/room-list.model';
 import { RoomService } from 'src/app/services/room.service';
 
@@ -10,8 +12,17 @@ import { RoomService } from 'src/app/services/room.service';
 export class RoomListComponent implements OnInit{
   
   allRooms: Array<RoomListModel> = [];
+
+  roomSelector: FormGroup;
   
-  constructor (private roomService: RoomService) {}
+  constructor (private formBuilder: FormBuilder, private roomService: RoomService, private router: Router) {
+    this.roomSelector = this.formBuilder.group({
+      guestNumber: (null),
+      dogNumber: (null),
+      arrival: (null),
+      leave: (null)
+    })
+  }
 
   ngOnInit(): void {
     this.loadRooms();
@@ -29,4 +40,10 @@ export class RoomListComponent implements OnInit{
     });
   }
 
+  
+  goToDetails(id: number) {
+    this.router.navigate(['room-details', id]);
+  }
+
+  onSubmit() {}
 }
