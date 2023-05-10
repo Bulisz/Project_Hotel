@@ -12,6 +12,7 @@ import { AuthInterceptor } from 'src/utils/auth-interceptor';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginComponent } from './components/login/login.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { RoomDetailsComponent } from './components/room-details/room-details.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
@@ -22,7 +23,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     RoomListComponent,
     RegistrationComponent,
     RoomListComponent,
-    LoginComponent
+    LoginComponent,
+    RoomDetailsComponent
   ],
   imports: [
     BrowserModule,

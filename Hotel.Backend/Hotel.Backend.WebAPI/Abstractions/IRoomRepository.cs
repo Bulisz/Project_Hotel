@@ -5,5 +5,6 @@ namespace Hotel.Backend.WebAPI.Abstractions
     public interface IRoomRepository
     {
         Task<List<Room>> GetAllRoomsAsync();
+        Task<Room?> GetRoomByIdAsync(int id);
     }
 }

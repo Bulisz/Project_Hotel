@@ -22,4 +22,13 @@ public class RoomRepository : IRoomRepository
             .Include(room => room.Reservations)
             .ToListAsync();
     }
+
+    public async Task<Room?> GetRoomByIdAsync(int id)
+    {
+        return await _context.Rooms
+            .Include(room => room.Equipments)
+            .Include(room => room.Images)
+            .Include(room => room.Reservations)
+            .FirstOrDefaultAsync(room => room.Id == id);
+    }
 }
