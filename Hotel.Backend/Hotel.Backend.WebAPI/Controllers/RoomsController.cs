@@ -38,4 +38,11 @@ public class RoomsController : ControllerBase
             return StatusCode((int)ex.StatusCode, ex.Message);
         }
     }
+
+    [HttpGet(nameof(GetAvailableRooms))]
+    public async Task<ActionResult<IEnumerable<RoomListDTO>>> GetAvailableRooms(int guestNumber, int dogNumber)
+    {
+        var listedRooms = await _roomService.GetAvailableRoomsAsync(guestNumber, dogNumber);
+        return Ok(listedRooms);
+    }
 }
