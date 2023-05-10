@@ -1,10 +1,10 @@
-body {
+/* body {
   background-image: url("./assets/images/background.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
   background-position: center center;
-}
+} */
 
 .cdk-overlay-container {
   position: fixed;

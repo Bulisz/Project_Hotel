@@ -14,6 +14,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RoomDetailsComponent } from './components/room-details/room-details.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     RegistrationComponent,
     RoomListComponent,
     LoginComponent,
-    RoomDetailsComponent
+    RoomDetailsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
