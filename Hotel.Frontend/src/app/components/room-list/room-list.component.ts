@@ -45,5 +45,8 @@ export class RoomListComponent implements OnInit{
     this.router.navigate(['room-details', id]);
   }
 
-  onSubmit() {}
+  onSubmit() {
+      this.roomService.getRoomOptions(1,2,new Date,new Date)
+
+  }
 }
