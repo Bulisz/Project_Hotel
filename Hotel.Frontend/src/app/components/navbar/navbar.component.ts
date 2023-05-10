@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   user?: UserModel | null;
 
   constructor(public dialog: MatDialog, private router: Router, private as: AccountService){  }
-  
+
   ngOnInit(): void {
     this.as.user.subscribe({
       next: (user) => this.user = user
@@ -24,7 +24,11 @@ export class NavbarComponent implements OnInit {
   }
 
   loginPopup(){
-    let dialogRef = this.dialog.open(LoginComponent)
+    const config = new MatDialogConfig();
+
+    config.disableClose = false
+
+    let dialogRef = this.dialog.open(LoginComponent,config)
 
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate([''])
@@ -36,7 +40,7 @@ export class NavbarComponent implements OnInit {
 
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    
+
     let dialogRef = this.dialog.open(RegistrationComponent, dialogConfig)
 
     dialogRef.afterClosed().subscribe(() => {
@@ -44,7 +48,7 @@ export class NavbarComponent implements OnInit {
     })
   }
 
-  
+
 
   logout(){
     this.as.logout()
