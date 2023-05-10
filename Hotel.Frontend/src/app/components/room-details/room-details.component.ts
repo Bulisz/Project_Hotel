@@ -31,6 +31,7 @@ export class RoomDetailsComponent implements OnInit {
     .then((res) => this.roomDetails = res)
     .catch((err) => console.log(err))
 
+    console.log(this.roomDetails)
     this.equipments = this.roomDetails.equipmentNames.join()
     this.firstImage = this.roomDetails.imageURLs[0]
   }

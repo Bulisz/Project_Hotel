@@ -8,6 +8,6 @@ body {
 
 .cdk-overlay-container {
   position: fixed;
-  right: 35%;
-  top: 10%;
+  top: 30%;
+  left: 35%;
 }
