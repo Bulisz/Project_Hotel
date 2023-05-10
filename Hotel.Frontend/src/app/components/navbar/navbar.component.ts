@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
@@ -32,7 +32,12 @@ export class NavbarComponent implements OnInit {
   }
 
   registerPopup(){
-    let dialogRef = this.dialog.open(RegistrationComponent)
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    
+    let dialogRef = this.dialog.open(RegistrationComponent, dialogConfig)
 
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate([''])

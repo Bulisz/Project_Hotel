@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
 import { validationHandler } from 'src/utils/validationHandler';
@@ -14,7 +15,8 @@ export class RegistrationComponent implements OnInit {
   registerForm!: FormGroup;
   
   constructor(private accountService: AccountService,
-              private router: Router){}
+              private router: Router,
+              public dialogRef: MatDialogRef<RegistrationComponent>){}
   
   ngOnInit(): void {
     this.registerForm = new FormGroup ({
@@ -31,7 +33,9 @@ export class RegistrationComponent implements OnInit {
     if(this.registerForm.valid) {
       const newAccount = this.registerForm.value;
       await this.accountService.registerNewAccout(newAccount)
-      .then(() => this.router.navigate(['']))
+      .then(() => { this.router.navigate([''])
+                this.dialogRef.close('ok')
+    })
       .catch((err) => validationHandler (err, this.registerForm))
     }
   }
