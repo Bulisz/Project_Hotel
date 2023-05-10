@@ -1,19 +1,26 @@
 <div *ngIf="roomDetails" class="container-sm mt-6 outer">
   <div class="container-sm shadow inner">
+
     <p class="title">{{roomDetails.name}}</p>
+
     <div class="details-body">
+
       <div class="left-side">
         <p class="details">Ágyak száma: <span class="details-content">{{roomDetails.numberOfBeds}}</span></p>
         <p class="details">Felszereltség: <span class="details-content">{{equipments}}</span></p>
         <p class="details">Ár: <span class="details-content">{{roomDetails.price}}</span></p>
         <p class="details last-elem">Leírás: <span class="details-content">Lorem ipsum, dolor sit amet consectetur adipisicing elit.Lorem ipsum, dolor sit amet consectetur adipisicing elit.</span></p>
       </div>
+
       <div class="right-side">
         <img src="{{firstImage}}" alt="">
       </div>
+      
     </div>
+
     <div class="btn-container">
       <button class="btn" (click)="reserve()">Foglalás</button>
     </div>
+
   </div>
 </div>

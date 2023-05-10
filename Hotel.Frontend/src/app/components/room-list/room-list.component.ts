@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RoomListModel } from 'src/app/models/room-list.model';
 import { RoomService } from 'src/app/services/room.service';
 
@@ -11,7 +12,7 @@ export class RoomListComponent implements OnInit{
   
   allRooms: Array<RoomListModel> = [];
   
-  constructor (private roomService: RoomService) {}
+  constructor (private roomService: RoomService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadRooms();
@@ -27,6 +28,11 @@ export class RoomListComponent implements OnInit{
       },
       error: (error) => console.log(error),
     });
+  }
+
+  
+  goToDetails(id: number) {
+    this.router.navigate(['room-details', id]);
   }
 
 }
