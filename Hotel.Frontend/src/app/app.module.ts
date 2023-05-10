@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CopyrightComponent } from './components/copyright/copyright.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { FooterComponent } from './components/footer/footer.component';
     LoginComponent,
     RoomDetailsComponent,
     ImageViewerComponent,
-    FooterComponent
+    FooterComponent,
+    CopyrightComponent
   ],
   imports: [
     BrowserModule,
