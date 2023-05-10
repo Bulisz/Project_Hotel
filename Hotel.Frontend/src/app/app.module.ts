@@ -28,7 +28,7 @@ import { FooterComponent } from './components/footer/footer.component';
     RoomListComponent,
     LoginComponent,
     RoomDetailsComponent,
-    ImageViewerComponent
+    ImageViewerComponent,
     FooterComponent
   ],
   imports: [
