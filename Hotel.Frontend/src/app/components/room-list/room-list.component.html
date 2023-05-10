@@ -2,7 +2,42 @@
 
   <div class="container-sm bg-light aside">
     <div class="container-sm shadow bg-light inner">
-      <p class="title">Welcome</p>
+      <p class="title">Szabad szobák</p>
+
+
+      <form [formGroup]="roomSelector" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="guestNumber" class="form-label">Vendégek száma:</label>
+          <input type="number" class="form-control" id="guestNumber" formControlName="guestNumber">
+        </div>
+        <div class="mb-3">
+          <label for="dogNumber" class="form-label">Kutyusok száma:</label>
+          <input type="number" class="form-control" id="dogNumber" formControlName="dogNumber">
+        </div>
+
+        <div class="mb-3">
+          <label for="arrival" class="form-label">Érkezés:</label>
+          <input type="date" class="form-control" id="arrival" formControlName="arrival">
+        </div>
+
+        <div class="mb-3">
+          <label for="leave" class="form-label">Távozás:</label>
+          <input type="date" class="form-control" id="leave" formControlName="leave">
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn" [disabled]="!roomSelector.valid">Enter</button>
+        </div>
+      </form>
+
+
+
+
+
+
+
+
+
     </div>
   </div>
 
@@ -14,10 +49,10 @@
 
         <div class="details-body">
         <div class="left-side">
-          <p class="details">Ágyak száma: <span class="details-content">{{room.numberOfBeds}}</span>  Ár: <span class="details-content">{{room.price}} Ft/nap</span></p>
+          <p class="details"><span> Ágyak száma: <span class="details-content">{{room.numberOfBeds}}</span></span><span style= "margin-left: 2rem"> Ár: <span class="details-content">{{room.price}} Ft/nap</span></span></p>
           
           
-          <p class="details last-elem">Leírás: <span class="details-content">Lorem ipsum, dolor sitt amet consectetur adipisicing elit.</span></p>
+          <p class="details last-elem">Leírás: <span class="details-content">{{room.description.substring(0, 50)}}</span></p>
         </div>
 
           <div class="right-side">
