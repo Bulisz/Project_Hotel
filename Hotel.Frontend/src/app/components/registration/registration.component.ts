@@ -40,5 +40,9 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
+  closeRegistration() {
+    this.dialogRef.close('ok')
+  }
+
 }
 

@@ -26,4 +26,8 @@ export class LoginComponent {
       })
       .catch((err) => console.log(err))
   }
+
+  closeRegistration() {
+    this.dialogRef.close('ok')
+  }
 }
