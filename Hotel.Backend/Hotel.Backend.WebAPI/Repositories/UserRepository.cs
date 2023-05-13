@@ -21,7 +21,9 @@ public class UserRepository : IUserRepository
         IdentityResult createResult = await _userManager.CreateAsync(user, password);
         if (!createResult.Succeeded)
         {
-            List<HotelFieldError> errors = createResult.Errors.Select(err => new HotelFieldError(err.Description.Substring(0, err.Description.IndexOf(" ")), err.Description)).ToList();
+            List<HotelFieldError> errors = createResult.Errors.Select(err => 
+                new HotelFieldError(err.Description.Substring(0, err.Description.IndexOf(" ")) == "Username" ? "UserName" : 
+                err.Description.Substring(0, err.Description.IndexOf(" ")) == "Passwords" ? "Password" : err.Description.Substring(0, err.Description.IndexOf(" ")), err.Description)).ToList();
             throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
         }
             
