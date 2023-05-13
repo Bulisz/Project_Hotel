@@ -1,6 +1,8 @@
-using Hotel.Backend.WebAPI.Database;
+﻿using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Metrics;
+using System;
 
 namespace HotelDatabaseTest;
 
@@ -22,11 +24,14 @@ public class DatabaseTest
     {
         Room roomToCreate = new Room
         {
-            Name = "Buksi",
-            Price = 32_000M,
-            NumberOfBeds = 5,
-            Description = "�ri�s szoba",
+            Name = "Odin",
+            Price = 80_000M,
+            NumberOfBeds = 6,
+            Description = "Saját balatoni ház sokunk álma: a 90 m²-es, több generáció közös pihenésére is alkalmas, saját kerttel és fedett parkolóval rendelkező apartmanunkban átélhetjük ezt az érzést!",
             Available = true,
+            Size = "6 ágyas kertes nagy apartman",
+            LongDescription = "Házi kedvenceinket sem kell otthon hagyni, hiszen a saját, zárható kert számukra is komfortos és biztonságos elhelyezést biztosít. A hatalmas nappali, 8 személyes étkezővel, teljesen felszerelt konyhával, smart TV-vel és kihúzható kanapéval a minőségi közös időtöltés remek színhelye. A Kertes nagy apartmanban számos helyiség található: nappaliból, 3 franciaágyas hálószobából, zuhanyzós fürdőszobából áll. Két WC és mosógép is található az apartmanban. A konyha felszereltsége: mosogatógép, nagy hűtőszekrény, komplett tűzhely sütővel, vízforraló, tányérok, poharak, evőeszközök, edények. Kisgyermekes vendégeinkre részére, térítésmentesen babaágy és babakád is kérhető.",
+            MaxNumberOfDogs = 6,
         };
 
         _context.Rooms.Add(roomToCreate);
@@ -37,7 +42,7 @@ public class DatabaseTest
         Assert.AreEqual("Bodri", createdRoom!.Name);
         Assert.AreEqual(32_000M, createdRoom!.Price);
         Assert.AreEqual(3, createdRoom!.NumberOfBeds);
-        Assert.AreEqual("K�zepes szoba", createdRoom!.Description);
+        Assert.AreEqual("Közepes szoba", createdRoom!.Description);
         Assert.AreEqual(true, createdRoom!.Available);
     }
 
@@ -46,7 +51,8 @@ public class DatabaseTest
     {
         Equipment equipmentToCreate = new Equipment
         {
-            Name = "WiFi"
+            Name = "WiFi",
+            IsStandard = false
         };
 
         _context.Equipments.Add(equipmentToCreate);
@@ -91,22 +97,19 @@ public class DatabaseTest
     [TestMethod]
     public void CreateAndAttachImageTest()
     {
-        Room? room = _context.Rooms.FirstOrDefault(room => room.Name == "Bodri");
+        Room? room = _context.Rooms.FirstOrDefault(room => room.Name == "Odin");
 
-        Image imageToAttach1 = new Image
+        List<Image> images = new()
         {
-            ImageUrl = "https://www.cesarsway.com/wp-content/uploads/2019/10/AdobeStock_190562703-768x535.jpeg",
-            Description = "K�ly�k Kutya Fej",
-            Room = room
-        };
-        Image imageToAttach2 = new Image
-        {
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Red_Smooth_Saluki.jpg/1200px-Red_Smooth_Saluki.jpg",
-            Description = "Ag�r",
-            Room = room
+            new Image
+            {
+                ImageUrl = "",
+                Description = "Image1_Odin",
+                Room = room
+            },
         };
 
-        _context.Images.AddRange(new Image[] { imageToAttach1, imageToAttach2 });
+        _context.Images.AddRange(images);
         _context.SaveChanges();
 
         Assert.AreEqual(2,room.Images.Count);
@@ -116,7 +119,7 @@ public class DatabaseTest
     public void DetachAndDeleteImageTest()
     {
         Room? room = _context.Rooms.FirstOrDefault(room => room.Name == "Bodri");
-        Image image = _context.Images.FirstOrDefault(image => image.Description == "Ag�r");
+        Image image = _context.Images.FirstOrDefault(image => image.Description == "Agár");
 
         room.Images.Remove(image);
         _context.Rooms.Update(room);
