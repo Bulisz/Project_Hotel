@@ -20,11 +20,18 @@ public class UserRepository : IUserRepository
     {
         IdentityResult createResult = await _userManager.CreateAsync(user, password);
         if (!createResult.Succeeded)
-            throw new HotelException(HttpStatusCode.BadRequest, string.Join('\n', createResult.Errors.ToList()));
+        {
+            List<HotelFieldError> errors = createResult.Errors.Select(err => new HotelFieldError(err.Description.Substring(0, err.Description.IndexOf(" ")), err.Description)).ToList();
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+        }
+            
 
         IdentityResult identityResult = await _userManager.AddToRoleAsync(user, Role.Guest.ToString());
         if (!identityResult.Succeeded)
-            throw new HotelException(HttpStatusCode.BadRequest, "Failed to add user to role");
+        {
+            List<HotelFieldError> errors = identityResult.Errors.Select(err => new HotelFieldError(err.Description.Substring(0, err.Description.IndexOf(" ")), err.Description)).ToList();
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+        }
 
         return user;
     }
@@ -41,11 +48,18 @@ public class UserRepository : IUserRepository
 
     public async Task<UserLoginDTO> LoginAsync(LoginRequest request)
     {
-        ApplicationUser user = await _userManager.FindByNameAsync(request.UserName)
-            ?? throw new HotelException(HttpStatusCode.BadRequest, "Invalid name or password");
+        ApplicationUser? user = await _userManager.FindByNameAsync(request.UserName);
+            if (user == null)
+        {
+            List<HotelFieldError> errors = new() { new HotelFieldError("UserName", "UserName is invalid") };
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+        };
         bool isPasswordValid = await _userManager.CheckPasswordAsync(user, request.Password);
         if (!isPasswordValid)
-            throw new HotelException(HttpStatusCode.BadRequest, "Invalid name or password");
+        {
+            List<HotelFieldError> errors = new() { new HotelFieldError("Password", "Password is invalid") };
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+        }
 
         UserLoginDTO userDTOlogin = new()
         {

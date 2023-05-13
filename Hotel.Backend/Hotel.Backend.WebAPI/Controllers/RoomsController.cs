@@ -35,7 +35,8 @@ public class RoomsController : ControllerBase
         }
         catch (HotelException ex)
         {
-            return StatusCode((int)ex.StatusCode, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
         }
     }
 }

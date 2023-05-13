@@ -4,6 +4,7 @@ using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Hotel.Backend.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace Hotel.Backend.WebAPI.Controllers;
 
@@ -35,7 +36,8 @@ public class UsersController : ControllerBase
         }
         catch (HotelException ex)
         {
-            return StatusCode((int)ex.StatusCode, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
         }
     }
 
@@ -53,7 +55,8 @@ public class UsersController : ControllerBase
         }
         catch (HotelException ex)
         {
-            return StatusCode((int)ex.StatusCode, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
         }
     }
 
@@ -75,7 +78,8 @@ public class UsersController : ControllerBase
         }
         catch (HotelException ex)
         {
-            return StatusCode((int)ex.StatusCode, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
         }
     }
 
@@ -93,7 +97,8 @@ public class UsersController : ControllerBase
         }
         catch (HotelException ex)
         {
-            return StatusCode((int)ex.StatusCode, ex.Message);
+            var error = (new {type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status,error);
         }
     }
 }
