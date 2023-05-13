@@ -88,11 +88,14 @@ public class UsersController : ControllerBase
     {
         try
         {
-            UserLoginDTO userDTOlogin = await _userService.LoginAsync(request);
+            UserDetailsDTO userDTOlogin = await _userService.LoginAsync(request);
             LoginResponse response = _jwtService.CreateToken(userDTOlogin.User!, userDTOlogin.Roles);
             response.Username = userDTOlogin.User.UserName;
             response.Id = userDTOlogin.User.Id;
             response.Role = userDTOlogin.Roles[0].ToString();
+            response.Email = userDTOlogin.User.Email;
+            response.FirstName = userDTOlogin.User.FirstName;
+            response.LastName = userDTOlogin.User.LastName;
             return Ok(response);
         }
         catch (HotelException ex)

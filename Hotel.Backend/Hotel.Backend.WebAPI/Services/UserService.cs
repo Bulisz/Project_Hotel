@@ -20,26 +20,26 @@ public class UserService : IUserService
     {
         ApplicationUser userToRegister = _mapper.Map<ApplicationUser>(userDTOpost);
 
-        ApplicationUser createdUser = await _userRepository.InsertUserAsync(userToRegister, userDTOpost.Password);
+        UserDetailsDTO createdUser = await _userRepository.InsertUserAsync(userToRegister, userDTOpost.Password);
 
         return _mapper.Map<UserDetails>(createdUser);
     }
 
     public async Task<UserDetails?> GetUserByNameAsync(string name)
     {
-        ApplicationUser? user = await _userRepository.GetUserByNameAsync(name);
+        UserDetailsDTO? userDetailsDTO = await _userRepository.GetUserByNameAsync(name);
 
-        return _mapper.Map<UserDetails>(user);
+        return _mapper.Map<UserDetails>(userDetailsDTO);
     }
 
     public async Task<UserDetails?> GetUserByIdAsync(string id)
     {
-        ApplicationUser? user = await _userRepository.GetUserByIdAsync(id);
+        UserDetailsDTO? userDetailsDTO = await _userRepository.GetUserByIdAsync(id);
 
-        return _mapper.Map<UserDetails>(user);
+        return _mapper.Map<UserDetails>(userDetailsDTO);
     }
 
-    public async Task<UserLoginDTO> LoginAsync(LoginRequest userLoginRequest)
+    public async Task<UserDetailsDTO> LoginAsync(LoginRequest userLoginRequest)
     {
         return await _userRepository.LoginAsync(userLoginRequest);
     }
