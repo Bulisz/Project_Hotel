@@ -28,8 +28,16 @@ export class AccountService {
       .then((res) => {
         if(res.token){
           localStorage.setItem('accessToken', res.token);
-          this.user.next({id: res.id, role: res.role , userName: res.userName})
+          this.user.next(res)
         }
+      })
+  }
+
+  async getCurrentUser(): Promise<any> {
+    return await firstValueFrom(this.http.get<UserModel>(`${environment.apiUrl}/${this.BASE_URL}/getcurrentuser`))
+      .then((res) => {
+        this.user.next(res)
+        return res
       })
   }
 

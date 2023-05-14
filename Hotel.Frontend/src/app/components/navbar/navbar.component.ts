@@ -17,19 +17,23 @@ export class NavbarComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private router: Router, private as: AccountService){  }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.as.user.subscribe({
       next: (user) => this.user = user
     })
+
+    if(localStorage.getItem('accessToken')){
+      await this.as.getCurrentUser()
+    }
   }
 
   loginPopup(){
-    const config = new MatDialogConfig();
+    const dialogConfig = new MatDialogConfig();
 
-    config.disableClose = true
-    config.position = {left: '40%', top: '15%'}
+    dialogConfig.disableClose = true
+    dialogConfig.position = {left: '40%', top: '15%'}
 
-    let dialogRef = this.dialog.open(LoginComponent,config)
+    let dialogRef = this.dialog.open(LoginComponent,dialogConfig)
 
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate([''])
@@ -39,7 +43,7 @@ export class NavbarComponent implements OnInit {
   registerPopup(){
     const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.disableClose = false;
+    dialogConfig.disableClose = true;
     dialogConfig.position = {left: '40%', top: '15%'}
 
     let dialogRef = this.dialog.open(RegistrationComponent, dialogConfig)

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AccountService } from 'src/app/services/account.service';
+import { validationHandler } from 'src/utils/validationHandler';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +15,8 @@ export class LoginComponent {
 
   constructor (private as: AccountService, public dialogRef: MatDialogRef<LoginComponent>) {
     this.loginForm = new FormBuilder().group({
-      userName: new FormControl('',Validators.required),
-      password: new FormControl('',Validators.required)
+      userName: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
     })
   }
 
@@ -24,7 +25,7 @@ export class LoginComponent {
       .then(() =>{
         this.dialogRef.close('ok')
       })
-      .catch((err) => console.log(err))
+      .catch((err) => validationHandler(err,this.loginForm))
   }
 
   closeRegistration() {
