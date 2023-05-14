@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, firstValueFrom } from 'rxjs';
 import { RoomListModel } from '../models/room-list.model';
 import { RoomDetailsModel } from '../models/room-details-model';
+import { environment } from '../../environments/environment';
 
 
 const BASE_URL = 'https://localhost:5001/hotel/rooms'
@@ -12,16 +13,16 @@ const BASE_URL = 'https://localhost:5001/hotel/rooms'
 })
 export class RoomService {
 
-  
+  BASE_URL = 'rooms'
 
   constructor(private http: HttpClient) { }
 
   getAllRooms(): Observable<Array<RoomListModel>> {
-    return this.http.get<Array<RoomListModel>>(`${BASE_URL}/getListOfRooms`);
+    return this.http.get<Array<RoomListModel>>(`${environment.apiUrl}/${this.BASE_URL}/getlistofrooms`);
   }
 
   async getRoomById(id: number): Promise<RoomDetailsModel> {
-    return await firstValueFrom(this.http.get<RoomDetailsModel>(`${BASE_URL}/GetRoomById/${id}`))
+    return await firstValueFrom(this.http.get<RoomDetailsModel>(`${environment.apiUrl}/${this.BASE_URL}/getroombyid/${id}`))
   }
 
   getRoomOptions(guestNumber: number, dogNumber: number, bookingFrom: Date, bookingTo: Date): Observable<Array<RoomListModel>> {

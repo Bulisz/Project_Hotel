@@ -32,8 +32,12 @@ public class RoomService : IRoomService
 
     public async Task<RoomDetailsDTO> GetRoomByIdAsync(int id)
     {
-        Room room = await _roomRepository.GetRoomByIdAsync(id)
-            ?? throw new HotelException(HttpStatusCode.BadRequest, "Invalid room id");
+        Room? room = await _roomRepository.GetRoomByIdAsync(id);
+        if(room == null)
+        {
+            List<HotelFieldError> errors = new() { new HotelFieldError("Id", "Room id is invalid") };
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+        };
 
         RoomDetailsDTO roomDetails = _mapper.Map<RoomDetailsDTO>(room);
 

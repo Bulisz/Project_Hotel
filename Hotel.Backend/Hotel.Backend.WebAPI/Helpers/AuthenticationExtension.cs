@@ -31,7 +31,7 @@ public static class AuthenticationExtension
         {
             options.SignIn.RequireConfirmedAccount = false;
             options.User.RequireUniqueEmail = true;
-            options.Password.RequireDigit = false;
+            options.Password.RequireDigit = true;
             options.Password.RequiredLength = 6;
             options.Password.RequireNonAlphanumeric = false;
             options.Password.RequireUppercase = false;

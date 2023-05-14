@@ -4,6 +4,7 @@ using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Hotel.Backend.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace Hotel.Backend.WebAPI.Controllers;
 
@@ -35,7 +36,8 @@ public class UsersController : ControllerBase
         }
         catch (HotelException ex)
         {
-            return StatusCode((int)ex.StatusCode, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
         }
     }
 
@@ -53,7 +55,8 @@ public class UsersController : ControllerBase
         }
         catch (HotelException ex)
         {
-            return StatusCode((int)ex.StatusCode, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
         }
     }
 
@@ -75,7 +78,8 @@ public class UsersController : ControllerBase
         }
         catch (HotelException ex)
         {
-            return StatusCode((int)ex.StatusCode, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
         }
     }
 
@@ -84,16 +88,20 @@ public class UsersController : ControllerBase
     {
         try
         {
-            UserLoginDTO userDTOlogin = await _userService.LoginAsync(request);
+            UserDetailsDTO userDTOlogin = await _userService.LoginAsync(request);
             LoginResponse response = _jwtService.CreateToken(userDTOlogin.User!, userDTOlogin.Roles);
             response.Username = userDTOlogin.User.UserName;
             response.Id = userDTOlogin.User.Id;
             response.Role = userDTOlogin.Roles[0].ToString();
+            response.Email = userDTOlogin.User.Email;
+            response.FirstName = userDTOlogin.User.FirstName;
+            response.LastName = userDTOlogin.User.LastName;
             return Ok(response);
         }
         catch (HotelException ex)
         {
-            return StatusCode((int)ex.StatusCode, ex.Message);
+            var error = (new {type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status,error);
         }
     }
 }

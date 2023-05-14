@@ -4,4 +4,7 @@ export interface LoginresponseModel {
   userName: string;
   id: string;
   role: string;
+  firstName: string;
+  lastName: string;
+  email: string;
 }

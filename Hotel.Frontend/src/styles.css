@@ -1,12 +1,12 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-body {
+/*body {
   background-image: url("./assets/images/background.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
   background-position: center center;
-}
+} */
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

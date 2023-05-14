@@ -1,11 +1,12 @@
-<div
-class="container-sm mt-3 outer"
-role="dialog"
-aria-labelledby="dialog1Title"
-aria-describedby="dialog1Desc">
+<div class="container-sm mt-3 outer">
   <div class="container-sm shadow inner">
 
-    <h3 class="text-center title">Login</h3>
+    <div class="modal-header">
+      <h3 class="text-center title">Login</h3>
+      <button class="btn-close btn-close" type="button" (click)="closeRegistration()"></button>
+
+  </div>
+
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">

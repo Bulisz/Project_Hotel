@@ -14,7 +14,7 @@
   border: 3px solid #800020;
   height: 100%;
   position: inherit;
-  background-image: url("../../../assets/images/logoburgund.png");
+  background-image: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1683705386/Hotel/Logos/logoburgund_uqh1w1.png");
   background-repeat: no-repeat;
   background-size: 6rem;
   background-position:left bottom;
@@ -35,3 +35,4 @@ img{
   position:sticky;
   align-self: flex-end;
 }
+
