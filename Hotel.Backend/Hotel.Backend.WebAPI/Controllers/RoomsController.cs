@@ -40,10 +40,9 @@ public class RoomsController : ControllerBase
     }
 
     [HttpGet(nameof(GetAvailableRooms))]
-    public async Task<ActionResult<IEnumerable<RoomListDTO>>> GetAvailableRooms
-        (int guestNumber, int dogNumber, string BookingFrom, string BookingTo)
+    public async Task<ActionResult<IEnumerable<RoomListDTO>>> GetAvailableRooms()
     {
-        var listedRooms = await _roomService.GetAvailableRoomsAsync(guestNumber, dogNumber);
+        var listedRooms = await _roomService.GetAvailableRoomsAsync();
         return Ok(listedRooms);
     }
 }

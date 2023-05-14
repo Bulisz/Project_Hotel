@@ -32,13 +32,13 @@ public class RoomRepository : IRoomRepository
             .FirstOrDefaultAsync(room => room.Id == id);
     }
 
-    public async Task<List<Room>> GetBigEnoughRoomsAsync(int guestNumber)
+    public async Task<List<Room>> GetBigEnoughRoomsAsync()
     {
         return await _context.Rooms
             .Include(room => room.Equipments)
             .Include(room => room.Images)
             .Include(room => room.Reservations)
-            .Where(room => room.NumberOfBeds >= guestNumber)
+            .Where(room => room.NumberOfBeds >= 1)
             .ToListAsync();
     }
 }

@@ -40,9 +40,9 @@ public class RoomService : IRoomService
         return roomDetails;
     }
 
-    public async Task<IEnumerable<RoomListDTO>> GetAvailableRoomsAsync(int guestNumber, int dogNumber)
+    public async Task<IEnumerable<RoomListDTO>> GetAvailableRoomsAsync()
     {
-        List<Room> allRooms = await _roomRepository.GetBigEnoughRoomsAsync(guestNumber);
+        List<Room> allRooms = await _roomRepository.GetBigEnoughRoomsAsync();
 
         
 
