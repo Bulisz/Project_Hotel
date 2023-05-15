@@ -68,13 +68,13 @@ public class UserRepository : IUserRepository
         ApplicationUser? user = await _userManager.FindByNameAsync(request.UserName);
             if (user == null)
         {
-            List<HotelFieldError> errors = new() { new HotelFieldError("UserName", "UserName is invalid") };
+            List<HotelFieldError> errors = new() { new HotelFieldError("UserName", "UserName or Password is invalid"), new HotelFieldError("Password", "UserName or Password is invalid") };
             throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
         };
         bool isPasswordValid = await _userManager.CheckPasswordAsync(user, request.Password);
         if (!isPasswordValid)
         {
-            List<HotelFieldError> errors = new() { new HotelFieldError("Password", "Password is invalid") };
+            List<HotelFieldError> errors = new() { new HotelFieldError("UserName", "UserName or Password is invalid"), new HotelFieldError("Password", "UserName or Password is invalid") };
             throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
         }
 
