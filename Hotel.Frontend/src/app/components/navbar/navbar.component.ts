@@ -35,9 +35,6 @@ export class NavbarComponent implements OnInit {
 
     let dialogRef = this.dialog.open(LoginComponent,dialogConfig)
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate([''])
-    })
   }
 
   registerPopup(){
@@ -48,9 +45,7 @@ export class NavbarComponent implements OnInit {
 
     let dialogRef = this.dialog.open(RegistrationComponent, dialogConfig)
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate([''])
-    })
+   
   }
 
 
