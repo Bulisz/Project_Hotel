@@ -46,4 +46,11 @@ public class RoomsController : ControllerBase
         var listedRooms = await _roomService.GetAvailableRoomsAsync();
         return Ok(listedRooms);
     }
+
+    [HttpGet(nameof(GetNonStandardEquipments))]
+    public async Task<ActionResult<IEnumerable<NonStandardEquipmentDTO>>> GetNonStandardEquipments()
+    {
+        var nonStandardEquipments = await _roomService.GetNonStandardEquipmentsAsync();
+        return Ok(nonStandardEquipments);
+    }
 }

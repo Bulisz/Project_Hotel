@@ -1,6 +1,7 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions;
 using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Models;
+using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.Backend.WebAPI.Repositories;
@@ -39,6 +40,13 @@ public class RoomRepository : IRoomRepository
             .Include(room => room.Images)
             .Include(room => room.Reservations)
             .Where(room => room.NumberOfBeds >= 1)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Equipment>> GetNonStandardEquipmentAsync()
+    { 
+        return await _context.Equipments
+            .Where(equipment => equipment.IsStandard == false)
             .ToListAsync();
     }
 }

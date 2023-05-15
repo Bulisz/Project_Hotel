@@ -4,6 +4,8 @@ import { Observable, firstValueFrom } from 'rxjs';
 import { RoomListModel } from '../models/room-list.model';
 import { RoomDetailsModel } from '../models/room-details-model';
 import { environment } from '../../environments/environment';
+import { NonStandardEquipmentModel } from '../models/non-standard-equipment-model';
+import { NgFor } from '@angular/common';
 
 
 const BASE_URL = 'https://localhost:5001/hotel/rooms'
@@ -25,13 +27,19 @@ export class RoomService {
     return await firstValueFrom(this.http.get<RoomDetailsModel>(`${environment.apiUrl}/${this.BASE_URL}/getroombyid/${id}`))
   }
 
-  getRoomOptions(guestNumber: number, dogNumber: number, bookingFrom: Date, bookingTo: Date): Observable<Array<RoomListModel>> {
+
+  fetchNonStandardEquipmentData(): Observable<Array<NonStandardEquipmentModel>> {
+    return this.http.get<Array<NonStandardEquipmentModel>>(`${BASE_URL}/GetNonStandardEquipments`);
+  }
+
+  getRoomOptions(parsoltFormValue: any): Observable<Array<RoomListModel>> {
       let params  = new HttpParams();
-      params = params.append('guest', String(guestNumber));
-      params = params.append('dog', String(dogNumber));
-      params = params.append('bookingFrom', String(bookingFrom));
-      params = params.append('bookingTo', String(bookingTo));
-      console.log(params)
+      params = params.append('guest', String(parsoltFormValue.guestNumber));
+      params = params.append('dog', String(parsoltFormValue.dogNumber));
+      params = params.append('bookingFrom', String(parsoltFormValue.bookingFrom));
+      params = params.append('bookingTo', String(parsoltFormValue.bookingTo));
+      params = params.append('choosedEquipments', parsoltFormValue.nonStandardEquipments.join(', '));
+      
     return this.http.get<Array<RoomListModel>>(`${BASE_URL}/getAvailableRooms`, {params: params});
   }
 

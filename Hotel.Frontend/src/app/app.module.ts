@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CopyrightComponent } from './components/copyright/copyright.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { CopyrightComponent } from './components/copyright/copyright.component';
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })

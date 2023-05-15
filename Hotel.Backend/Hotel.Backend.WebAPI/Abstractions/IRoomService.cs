@@ -6,6 +6,8 @@ namespace Hotel.Backend.WebAPI.Abstractions
     {
         Task<IEnumerable<RoomListDTO>> GetAvailableRoomsAsync();
         Task<IEnumerable<RoomListDTO>> GetListOfRoomsAsync();
+        
+        Task<IEnumerable<NonStandardEquipmentDTO>> GetNonStandardEquipmentsAsync();
         Task<RoomDetailsDTO> GetRoomByIdAsync(int id);
     }
 }

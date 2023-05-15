@@ -17,14 +17,23 @@
           <input type="number" class="form-control" id="dogNumber" formControlName="dogNumber">
         </div>
 
-        <div class="mb-3">
-          <label for="arrival" class="form-label">Érkezés:</label>
-          <input type="date" class="form-control" id="arrival" formControlName="arrival">
+        <div class="mb-3" *ngIf = "equipmentsControllers">
+          <p>Felszerelések:</p>
+          <div formArrayName="nonStandardEquipments" *ngFor="let nonStandardEquipment of equipmentFormArray.controls; let i = index">
+            <label  for="nonStandardEquipments">
+              <input id="nonStandardEquipments" type="checkbox" [formControlName]="i" [value]="i">
+          {{nonStandardEquipments[i].name}}</label>
+      </div>
         </div>
 
         <div class="mb-3">
-          <label for="leave" class="form-label">Távozás:</label>
-          <input type="date" class="form-control" id="leave" formControlName="leave">
+          <label for="bookingFrom" class="form-label">Érkezés:</label>
+          <input type="date" class="form-control" id="bookingFrom" formControlName="bookingFrom">
+        </div>
+
+        <div class="mb-3">
+          <label for="bookingTo" class="form-label">Távozás:</label>
+          <input type="date" class="form-control" id="bookingTo" formControlName="bookingTo">
         </div>
 
         <div class="text-center">

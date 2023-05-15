@@ -57,4 +57,11 @@ public class RoomService : IRoomService
 
 
     }
+
+    public async Task<IEnumerable<NonStandardEquipmentDTO>> GetNonStandardEquipmentsAsync()
+    {
+        IEnumerable<Equipment> nonStandardEquipment = await _roomRepository.GetNonStandardEquipmentAsync();
+        List<NonStandardEquipmentDTO> nonStandardEquipmentDTO = _mapper.Map<List<NonStandardEquipmentDTO>>(nonStandardEquipment);
+        return nonStandardEquipmentDTO;
+    }
 }
