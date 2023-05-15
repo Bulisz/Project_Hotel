@@ -1,10 +1,17 @@
-body {
+.body {
   margin: 0;
-  padding: 0;
+  padding: 5rem;
+  background-image: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1683705423/Hotel/Logos/background_j8kb3g.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+  
 }
 
 .outer{
-  margin-top: 5rem;
+  /* margin-top: 5rem; */
+  padding-top: 5rem;
   border-radius: 2rem;
   width: 90%;
   display: flex;
@@ -12,6 +19,7 @@ body {
   align-items: center;
   padding: 0.5rem;
   background-color: whitesmoke;
+  
 }
 
 .inner{
