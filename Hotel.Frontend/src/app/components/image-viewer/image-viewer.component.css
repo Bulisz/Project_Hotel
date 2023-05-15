@@ -25,11 +25,11 @@
   position:fixed;
 }
 
-.img-box{
-  height:auto;
-  max-height:700px;
+@media (min-width: 800px) {
+
+  img{
+    max-height: 270px;
+  }
 }
 
-img{
-  max-width: 1000px;
-}
+

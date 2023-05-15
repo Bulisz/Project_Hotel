@@ -28,24 +28,27 @@ export class NavbarComponent implements OnInit {
   }
 
   loginPopup(){
-    const dialogConfig = new MatDialogConfig();
+    let dialogBoxSettings = {
+      width: '400px',
+      margin: '0 auto',
+      disableClose: true,
+      hasBackdrop: true,
+      position: {top: '10%'}
+    };
 
-    dialogConfig.disableClose = true
-    dialogConfig.position = {left: '40%', top: '15%'}
-
-    let dialogRef = this.dialog.open(LoginComponent,dialogConfig)
-
+    this.dialog.open(LoginComponent,dialogBoxSettings)
   }
 
   registerPopup(){
-    const dialogConfig = new MatDialogConfig();
+    let dialogBoxSettings = {
+      width: '400px',
+      margin: '0 auto',
+      disableClose: true,
+      hasBackdrop: true,
+      position: {top: '10%'}
+    };
 
-    dialogConfig.disableClose = true;
-    dialogConfig.position = {left: '40%', top: '15%'}
-
-    let dialogRef = this.dialog.open(RegistrationComponent, dialogConfig)
-
-   
+    this.dialog.open(RegistrationComponent, dialogBoxSettings)
   }
 
 

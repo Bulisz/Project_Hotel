@@ -1,6 +1,6 @@
+
 .outer{
   border-radius: 2rem;
-  /* height: 320px; */
   width: 400px;
   display: flex;
   justify-content: center;
@@ -24,6 +24,7 @@
   margin: 0;
   padding: 0;
   text-align: center;
+  margin-right: 1rem;
 }
 
 .form-control {
@@ -49,3 +50,4 @@
 :host {
   position:fixed;
 }
+
