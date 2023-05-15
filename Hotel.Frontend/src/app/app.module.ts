@@ -19,6 +19,7 @@ import { ImageViewerComponent } from './components/image-viewer/image-viewer.com
 import { FooterComponent } from './components/footer/footer.component';
 import { CopyrightComponent } from './components/copyright/copyright.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     RoomDetailsComponent,
     ImageViewerComponent,
     FooterComponent,
-    CopyrightComponent
+    CopyrightComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
