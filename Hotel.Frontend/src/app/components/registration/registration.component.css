@@ -5,11 +5,11 @@
     margin: 0;
     padding: 0;
     text-align: center;
+    margin-right: 1rem;
   }
 
   .outer{
     border-radius: 2rem;
-    /* height: 320px; */
     width: 400px;
     display: flex;
     justify-content: center;
@@ -17,7 +17,7 @@
     padding: 0.5rem;
     background-color: whitesmoke;
   }
-  
+
   .inner{
     border-radius: 1.5rem;
     border: 3px solid #800020;
@@ -30,12 +30,12 @@
     border:#800020 solid 2px;
     color: #800020;
   }
-  
+
   .form-label {
     color: #800020;
     font-family: 'Lato';
   }
-  
+
   .btn {
     background-color: #800020;
     border-radius: 2rem;
@@ -44,8 +44,7 @@
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
   }
-  
+
   :host {
     position:fixed;
   }
-  

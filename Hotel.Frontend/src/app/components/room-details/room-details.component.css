@@ -10,8 +10,7 @@
 }
 
 .outer{
-  /* margin-top: 5rem; */
-  padding-top: 5rem;
+  margin-top: 3rem;
   border-radius: 2rem;
   width: 90%;
   display: flex;
@@ -19,7 +18,6 @@
   align-items: center;
   padding: 0.5rem;
   background-color: whitesmoke;
-  
 }
 
 .inner{
@@ -52,13 +50,14 @@
 }
 
 .details-content {
-  font-family: lato;
+  font-family: Roboto;
   font-size: 1.4rem;
   color: #800020;
 }
 
 .left-side {
   width: 50%;
+  line-height: 2rem;
 }
 
 img {
@@ -86,7 +85,8 @@ img {
   display: flex;
   flex-direction: column;
   float: right;
-  margin-top: 3rem
+  margin-top: 3rem;
+  margin-bottom: 1rem;
 }
 
 .btn {
@@ -98,4 +98,23 @@ img {
     width: 200px;
 }
 
+@media only screen
+  and (min-device-width: 360px)
+  and (max-device-width: 1080px) {
 
+    .details-body {
+      display: flex;
+      flex-direction:column;
+    }
+
+    .left-side {
+      width: 100%;
+      line-height: 1.5rem;
+    }
+
+    .right-side{
+      width: 100%;
+      margin-right: 0.5rem;
+    }
+
+}

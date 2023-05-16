@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AccountService } from 'src/app/services/account.service';
@@ -28,7 +28,7 @@ export class LoginComponent {
       .catch((err) => validationHandler(err,this.loginForm))
   }
 
-  closeRegistration() {
+  closeLogin() {
     this.dialogRef.close('ok')
   }
 }
