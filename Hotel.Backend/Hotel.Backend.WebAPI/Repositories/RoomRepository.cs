@@ -3,6 +3,7 @@ using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Hotel.Backend.WebAPI.Repositories;
 
@@ -33,14 +34,23 @@ public class RoomRepository : IRoomRepository
             .FirstOrDefaultAsync(room => room.Id == id);
     }
 
-    public async Task<List<Room>> GetBigEnoughRoomsAsync()
+    public async Task<List<Room>> GetBigEnoughRoomsAsync(int guestNumber, int dogNumber, List<int> choosedEquipments)
     {
         return await _context.Rooms
             .Include(room => room.Equipments)
             .Include(room => room.Images)
             .Include(room => room.Reservations)
-            .Where(room => room.NumberOfBeds >= 1)
+            .Where(room => room.NumberOfBeds >= guestNumber)
+            .Where(room => room.MaxNumberOfDogs >= dogNumber)
+            .Where(room => room.Equipments.Select(eq => eq.Id).ToList().All(id => choosedEquipments.ToList().Any(c => c == id)))
             .ToListAsync();
+
+
+
+        
+
+
+
     }
 
     public async Task<IEnumerable<Equipment>> GetNonStandardEquipmentAsync()

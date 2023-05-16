@@ -4,7 +4,7 @@ namespace Hotel.Backend.WebAPI.Abstractions
 {
     public interface IRoomService
     {
-        Task<IEnumerable<RoomListDTO>> GetAvailableRoomsAsync();
+        Task<IEnumerable<RoomListDTO>> GetAvailableRoomsAsync(RoomSelectorDTO query);
         Task<IEnumerable<RoomListDTO>> GetListOfRoomsAsync();
         
         Task<IEnumerable<NonStandardEquipmentDTO>> GetNonStandardEquipmentsAsync();

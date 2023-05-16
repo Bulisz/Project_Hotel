@@ -44,9 +44,19 @@ public class RoomService : IRoomService
         return roomDetails;
     }
 
-    public async Task<IEnumerable<RoomListDTO>> GetAvailableRoomsAsync()
+    public async Task<IEnumerable<RoomListDTO>> GetAvailableRoomsAsync(RoomSelectorDTO query)
     {
-        List<Room> allRooms = await _roomRepository.GetBigEnoughRoomsAsync();
+        int guestNumber = int.Parse(query.GuestNumber);
+        int dogNumber = int.Parse(query.DogNumber);
+        string[] choosedEquipments = query.NonStandardEquipments.Split(", ");
+        List<int> choosedEquipmentsId = new List<int>();
+        foreach (var item in choosedEquipments)
+        {
+            choosedEquipmentsId.Add(int.Parse(item));
+        }
+       
+        
+        List<Room> allRooms = await _roomRepository.GetBigEnoughRoomsAsync(guestNumber, dogNumber, choosedEquipmentsId);
 
         
 
