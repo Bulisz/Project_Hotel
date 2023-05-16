@@ -20,6 +20,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CopyrightComponent } from './components/copyright/copyright.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ErrorComponent } from './components/error/error.component';
+import { ReservationForRoomComponent } from './components/reservation-for-room/reservation-for-room.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ErrorComponent } from './components/error/error.component';
     ImageViewerComponent,
     FooterComponent,
     CopyrightComponent,
-    ErrorComponent
+    ErrorComponent,
+    ReservationForRoomComponent
   ],
   imports: [
     BrowserModule,

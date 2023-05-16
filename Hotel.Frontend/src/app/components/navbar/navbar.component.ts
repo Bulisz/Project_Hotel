@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
 
   user?: UserModel | null;
 
-  constructor(public dialog: MatDialog, private router: Router, private as: AccountService){  }
+  constructor(public dialog: MatDialog, private as: AccountService){  }
 
   async ngOnInit(): Promise<void> {
     this.as.user.subscribe({
