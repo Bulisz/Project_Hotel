@@ -25,7 +25,6 @@ export class RoomService {
   }
 
   async createReservationForRoom(reservation: ReservationModel): Promise<ReservationDetailsModel> {
-    console.log(reservation)
     return await firstValueFrom(this.http.post<ReservationDetailsModel>(`${environment.apiUrl}/${this.BASE_URL}/createReservationForRoom`,reservation))
   }
 }

@@ -32,8 +32,6 @@ export class ReservationForRoomComponent {
     const formValue = this.reservationForm.getRawValue()
     const parsedFormValue = {...formValue, userId: this.as.user.value?.id, roomId: this.data.roomId}
 
-    console.log(this.as.user.value)
-
     await this.rs.createReservationForRoom(parsedFormValue)
       .then((res) =>{
         this.createdReservation = res;
