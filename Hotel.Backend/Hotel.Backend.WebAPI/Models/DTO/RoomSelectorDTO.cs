@@ -6,7 +6,7 @@
         public string DogNumber { get; set; }
         public string BookingFrom { get; set; }
         public string BookingTo { get; set;}
-        public string NonStandardEquipments { get; set; }
+        public string ChoosedEquipments { get; set; }
 
     }
 }

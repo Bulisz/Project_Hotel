@@ -48,7 +48,7 @@ public class RoomService : IRoomService
     {
         int guestNumber = int.Parse(query.GuestNumber);
         int dogNumber = int.Parse(query.DogNumber);
-        string[] choosedEquipments = query.NonStandardEquipments.Split(", ");
+        string[] choosedEquipments = query.ChoosedEquipments.Split(",");
         List<int> choosedEquipmentsId = new List<int>();
         foreach (var item in choosedEquipments)
         {
