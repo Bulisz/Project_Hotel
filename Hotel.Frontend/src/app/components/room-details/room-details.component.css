@@ -93,19 +93,23 @@ img {
     width: 200px;
 }
 
-@media (max-width: 800px) {
-  .details-body {
-    display: flex;
-    flex-direction:column;
-  }
+@media only screen
+  and (min-device-width: 360px)
+  and (max-device-width: 1080px) {
 
-  .left-side {
-    width: 100%;
-    line-height: 1.5rem;
-  }
+    .details-body {
+      display: flex;
+      flex-direction:column;
+    }
 
-  .right-side{
-    width: 100%;
-    margin-right: 0.5rem;
-  }
+    .left-side {
+      width: 100%;
+      line-height: 1.5rem;
+    }
+
+    .right-side{
+      width: 100%;
+      margin-right: 0.5rem;
+    }
+
 }
