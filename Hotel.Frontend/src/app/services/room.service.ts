@@ -35,10 +35,10 @@ export class RoomService {
   getRoomOptions(parsoltFormValue: any): Observable<Array<RoomListModel>> {
       let params  = new HttpParams();
       params = params.append('guest', String(parsoltFormValue.guestNumber));
-      // params = params.append('dog', String(parsoltFormValue.dogNumber));
-      // params = params.append('bookingFrom', String(parsoltFormValue.bookingFrom));
-      // params = params.append('bookingTo', String(parsoltFormValue.bookingTo));
-      // params = params.append('choosedEquipments', String(parsoltFormValue.nonStandardEquipments.join(',')));
+      params = params.append('dog', String(parsoltFormValue.dogNumber));
+      params = params.append('bookingFrom', String(parsoltFormValue.bookingFrom));
+      params = params.append('bookingTo', String(parsoltFormValue.bookingTo));
+      params = params.append('choosedEquipments', String(parsoltFormValue.nonStandardEquipments.join(',')));
       
     return this.http.get<Array<RoomListModel>>(`${BASE_URL}/getAvailableRooms`, {params: params});
   }
