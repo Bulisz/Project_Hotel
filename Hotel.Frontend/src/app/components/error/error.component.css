@@ -6,89 +6,87 @@
     background-size: cover;
     background-attachment: fixed;
     background-position: center center;
-    
+
   }
-  
+
   .outer{
-    /* margin-top: 5rem; */
-    padding-top: 5rem;
     border-radius: 2rem;
-    width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0.5rem;
     background-color: whitesmoke;
-    
+
   }
-  
+
   .inner{
     border-radius: 1.5rem;
     border: 3px solid #800020;
     height: 100%;
     position: inherit;
     background-color: whitesmoke;
+    text-align: center;
   }
-  
+
   .title {
     font-family: caveat;
     font-size: 4rem;
     color: #800020;
     margin: 0;
     padding: 0;
-    text-align: center;
   }
-  
+
   .details-body {
     display: flex;
     flex-direction:row;
   }
-  
+
   .details {
     font-family: caveat;
     font-size: 2.5rem;
     color: #800020;
     margin-left: 1rem;
+
   }
-  
+
   .details-content {
     font-family: lato;
     font-size: 1.4rem;
     color: #800020;
+    margin: 2rem
   }
-  
+
   .left-side {
     width: 50%;
   }
-  
+
   img {
-    position: inherit;
-    width: 100%
+    width: 90%;
   }
-  
+
   .right-side{
     width: 50%;
     margin-right: 0.5rem;
   }
-  
+
   .image-container {
     border: #800020 2px solid;
     padding: 0.5rem;
     width:100%;
     margin: 0.5rem;
   }
-  
+
   .image-container:hover {
     cursor: pointer;
   }
-  
+
   .btn-container {
     display: flex;
     flex-direction: column;
     float: right;
     margin-top: 3rem
   }
-  
+
   .btn {
       background-color: #800020;
       border-radius: 3rem;

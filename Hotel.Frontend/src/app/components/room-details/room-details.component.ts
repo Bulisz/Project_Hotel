@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RoomDetailsModel } from 'src/app/models/room-details-model';
 import { RoomService } from 'src/app/services/room.service';
 import { ImageViewerComponent } from '../image-viewer/image-viewer.component';
+import { ReservationForRoomComponent } from '../reservation-for-room/reservation-for-room.component';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-room-details',
@@ -16,10 +18,20 @@ export class RoomDetailsComponent implements OnInit {
   roomId!: number;
   equipments!: string;
   firstImage!: string;
+  currentUser: any;
 
-  constructor(private rs: RoomService, private ar: ActivatedRoute, private dialog: MatDialog){}
+  constructor(
+    private rs: RoomService,
+    private ar: ActivatedRoute,
+    private dialog: MatDialog,
+    private router: Router,
+    private as: AccountService){}
 
   async ngOnInit(): Promise<void> {
+    this.as.user.subscribe({
+      next: (res) => this.currentUser=res
+    })
+
     this.ar.paramMap.subscribe(
       paramMap => {
         const roomId: number = Number(paramMap.get('id'));
@@ -31,9 +43,8 @@ export class RoomDetailsComponent implements OnInit {
 
     await this.rs.getRoomById(this.roomId)
     .then((res) => this.roomDetails = res)
-    .catch((err) => console.log(err))
+    .catch((err) => this.router.navigate(['error'],err))
 
-    console.log(this.roomDetails)
     this.equipments = this.roomDetails.equipmentNames.join()
     this.firstImage = this.roomDetails.imageURLs[0]
   }
@@ -42,11 +53,27 @@ export class RoomDetailsComponent implements OnInit {
 
     const config = new MatDialogConfig();
     config.data = { images: this.roomDetails.imageURLs }
-    config.position = {top: '100px', left: '20%'}
+    let dialogBoxSettings = {
+      width: '1000px',
+      margin: '0 auto',
+      hasBackdrop: true,
+      position: {top: '3%'},
+      data: { images: this.roomDetails.imageURLs }
+    };
 
-    this.dialog.open(ImageViewerComponent,config);
+    this.dialog.open(ImageViewerComponent,dialogBoxSettings);
   }
 
-  reserve(){
+  reservationPopup(){
+    let dialogBoxSettings = {
+      width: '400px',
+      margin: '0 auto',
+      disableClose: true,
+      hasBackdrop: true,
+      position: {top: '10%'},
+      data: { roomId: this.roomId }
+    };
+
+    this.dialog.open(ReservationForRoomComponent,dialogBoxSettings)
   }
 }

@@ -23,13 +23,12 @@
 
 :host {
   position:fixed;
+  width: auto;
+  height: auto;
 }
 
-.img-box{
-  height:auto;
-  max-height:700px;
-}
+@media only screen
+  and (min-device-width: 360px)
+  and (max-device-width: 1080px) {
 
-img{
-  max-width: 1000px;
-}
+  }
