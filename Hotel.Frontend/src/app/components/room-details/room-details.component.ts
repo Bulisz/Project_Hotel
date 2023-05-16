@@ -42,9 +42,15 @@ export class RoomDetailsComponent implements OnInit {
 
     const config = new MatDialogConfig();
     config.data = { images: this.roomDetails.imageURLs }
-    config.position = {top: '100px', left: '20%'}
+    let dialogBoxSettings = {
+      width: '1000px',
+      margin: '0 auto',
+      hasBackdrop: true,
+      position: {top: '3%'},
+      data: { images: this.roomDetails.imageURLs }
+    };
 
-    this.dialog.open(ImageViewerComponent,config);
+    this.dialog.open(ImageViewerComponent,dialogBoxSettings);
   }
 
   reserve(){

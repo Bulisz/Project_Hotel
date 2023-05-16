@@ -6,6 +6,7 @@ public record CreateUserForm
 {
     [Required]
     [MinLength(2)]
+    [RegularExpression("^[a-zA-Z0-9]{2,}$", ErrorMessage = "You can only use characters without accent")]
     public string UserName { get; set; } = string.Empty;
 
     [Required]

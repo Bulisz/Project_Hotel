@@ -5,6 +5,7 @@ import { RoomListComponent } from './components/room-list/room-list.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginComponent } from './components/login/login.component';
 import { RoomDetailsComponent } from './components/room-details/room-details.component';
+import { ErrorComponent } from './components/error/error.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'room-details/:id', component: RoomDetailsComponent},
   { path: 'registration', component: RegistrationComponent},
   { path: 'login', component: LoginComponent},
-  { path: '**', component: HomeComponent }
+  { path: 'error', component: ErrorComponent},
+  { path: '**', component: ErrorComponent }
 ];
 
 @NgModule({

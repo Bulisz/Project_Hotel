@@ -1,5 +1,3 @@
-
-
 <div class="allitem">
 
   <div class="container-sm bg-light aside">
@@ -83,3 +81,48 @@
 
   </div>
 </div>
+
+<!-- <div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <h2>Szabad szobák</h2>
+      <form>
+        <div class="form-group">
+          <label for="guestNumber">Vendégek száma:</label>
+          <input type="number" class="form-control" id="guestNumber" name="guestNumber">
+        </div>
+        <div class="form-group">
+          <label for="dogNumber">Kutyusok száma:</label>
+          <input type="number" class="form-control" id="dogNumber" name="dogNumber">
+        </div>
+        <div class="form-group">
+          <label for="arrival">Érkezés:</label>
+          <input type="date" class="form-control" id="arrival" name="arrival">
+        </div>
+        <div class="form-group">
+          <label for="leave">Távozás:</label>
+          <input type="date" class="form-control" id="leave" name="leave">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Enter</button>
+      </form>
+    </div>
+    <div class="col-12 col-md-8">
+      <div class="row">
+        <div class="col-12" *ngFor="let room of allRooms">
+          <div class="card mb-3">
+            <img src="{{room.imageURLs[0]}}" alt="kep" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">{{room.name}}</h5>
+              <p class="card-text">{{room.description.substring(0, 50)}}</p>
+              <p class="card-text"><small class="text-muted">Ágyak száma: {{room.numberOfBeds}} | Ár: {{room.price}} Ft/nap</small></p>
+            </div>
+            <div class="card-footer text-center">
+              <button class="btn btn-primary" (click)="goToDetails(room.id)">Részletek</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
