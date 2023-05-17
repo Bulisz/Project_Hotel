@@ -20,7 +20,8 @@
             <img src="{{firstImage}}" alt="" (click)="openImages()">
           </div>
           <div class="btn-container">
-            <button class="btn" (click)="reserve()">Foglalás</button>
+            <p *ngIf="!currentUser"> A FOGLALÁSHOZ JELENTKEZZEN BE!</p>
+            <button  *ngIf="currentUser" class="btn" (click)="reservationPopup()">Foglalás</button>
           </div>
         </div>
 

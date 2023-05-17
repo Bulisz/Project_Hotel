@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
 
 export function validationHandler(error: Error, form: FormGroup) {
   if (error instanceof HttpErrorResponse && error.status === 400) {
@@ -13,8 +14,7 @@ export function validationHandler(error: Error, form: FormGroup) {
             formControl.setErrors({ serverError: backendError.fieldErrorMessage });
         }
       }
-    }
-    else {
+    } else {
       const backendErrors = error.error.errors;
 
       for (const key of Object.keys(backendErrors)) {
@@ -27,6 +27,5 @@ export function validationHandler(error: Error, form: FormGroup) {
         }
       }
     }
-
   }
 }

@@ -10,6 +10,7 @@ import { NonStandardEquipmentModel } from '../models/non-standard-equipment-mode
 
 const BASE_URL = 'https://localhost:5001/hotel/rooms'
 
+
 @Injectable({
   providedIn: 'root'
 })
