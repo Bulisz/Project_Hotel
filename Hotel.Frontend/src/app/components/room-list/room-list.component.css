@@ -29,12 +29,36 @@
   margin-top: 1rem;
 }
 
+.title-roomSelector {
+  font-family: 'Caveat';
+  font-size: 4rem;
+  color: #800020;
+  margin: 0;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  padding: 0;
+  text-align: center;
+  line-height: 4.5rem;
+  
+}
+
 .inner{
   border-radius: 1.5rem;
   border: 3px solid #800020;
   height: 100%;
   position: inherit;
   background-image: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1683705386/Hotel/Logos/logoburgund_uqh1w1.png");
+  background-repeat: no-repeat;
+  background-size: 6rem;
+  background-position:left bottom;
+  background-color: whitesmoke;
+}
+
+.side-inner{
+  border-radius: 1.5rem;
+  border: 3px solid #800020;
+  height: 100%;
+  position: inherit;
   background-repeat: no-repeat;
   background-size: 6rem;
   background-position:left bottom;
@@ -132,18 +156,6 @@ img {
     .btn {
       font-size: 1.5rem;
       width: 150px;
-    }
-
-    .inner{
-      border-radius: 1.5rem;
-      border: 3px solid #800020;
-      height: 100%;
-      position: inherit;
-      background-image: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1683705386/Hotel/Logos/logoburgund_uqh1w1.png");
-      background-repeat: no-repeat;
-      background-size: 4.5rem;
-      background-position:left bottom;
-      background-color: whitesmoke;
     }
 
   }
