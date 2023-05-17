@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   padding: 0.5rem;
-  background-color: whitesmoke;
+  background-color: #f5f5f5;
 }
 
 .inner{
@@ -48,12 +48,32 @@ img{
 
 .intro-text {
   font-family: 'Roboto';
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: #800020;
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 4.5rem;
 }
 
 .carousel-caption {
   font-size: 1.2rem;
+  color: #800020;
 }
+
+@media only screen
+  and (min-device-width: 360px)
+  and (max-device-width: 1080px) {
+
+    .post-loop {
+      padding: 2rem;
+    }
+
+    .post-loop .title {
+      font-size: 3rem;
+    }
+
+    .post-loop .intro-text {
+      font-size: 1.1rem;
+      margin-bottom: 5rem;
+    }
+  }
+
