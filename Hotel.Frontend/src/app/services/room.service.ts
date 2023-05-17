@@ -7,10 +7,6 @@ import { environment } from '../../environments/environment';
 import { NonStandardEquipmentModel } from '../models/non-standard-equipment-model';
 
 
-
-const BASE_URL = 'https://localhost:5001/hotel/rooms'
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -30,7 +26,7 @@ export class RoomService {
 
 
   fetchNonStandardEquipmentData(): Observable<Array<NonStandardEquipmentModel>> {
-    return this.http.get<Array<NonStandardEquipmentModel>>(`${BASE_URL}/GetNonStandardEquipments`);
+    return this.http.get<Array<NonStandardEquipmentModel>>(`${environment.apiUrl}/${this.BASE_URL}/GetNonStandardEquipments`);
   }
 
   getRoomOptions(parsoltFormValue: any): Observable<Array<RoomListModel>> {
