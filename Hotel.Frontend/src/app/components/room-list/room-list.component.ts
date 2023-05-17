@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NonStandardEquipmentModel } from 'src/app/models/non-standard-equipment-model';
 import { AvailableRoomsModel } from 'src/app/models/available-rooms-model';
@@ -22,11 +22,11 @@ export class RoomListComponent implements OnInit{
   
   constructor (private formBuilder: FormBuilder, private roomService: RoomService, private router: Router) {
     this.roomSelector = this.formBuilder.group({
-      guestNumber: (null),
-      dogNumber:  (null),
+      guestNumber: [null, Validators.required],
+      dogNumber:  [null, Validators.required],
       nonStandardEquipments: new FormArray([]),
-      bookingFrom: (null),
-      bookingTo: (null)
+      bookingFrom: [null, Validators.required],
+      bookingTo: [null, Validators.required]
     })
   }
 
@@ -99,6 +99,19 @@ export class RoomListComponent implements OnInit{
 
   }
 
-
+  get guestNumber(): AbstractControl | null {
+    return this.roomSelector.get('guestNumber')
+  }
   
+  get dogNumber(): AbstractControl | null {
+    return this.roomSelector.get('dogNumber')
+  }
+
+  get bookingFrom(): AbstractControl | null {
+    return this.roomSelector.get('bookingFrom')
+  }
+
+  get bookingTo(): AbstractControl | null {
+    return this.roomSelector.get('bookingTo')
+  }
 }

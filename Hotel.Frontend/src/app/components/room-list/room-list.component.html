@@ -7,12 +7,21 @@
 
       <form [formGroup]="roomSelector" (ngSubmit)="onSubmit()">
         <div class="mb-3">
-          <label for="guestNumber" class="form-label">Vendégek száma:</label>
+          <label for="guestNumber" class="form-label"
+          [ngClass]="{'text-danger': guestNumber?.invalid && guestNumber?.touched}">Vendégek száma:</label>
           <input type="number" class="form-control" id="guestNumber" formControlName="guestNumber">
+          <small *ngIf="guestNumber?.invalid && guestNumber?.touched" class="text-danger">
+            <span *ngIf="guestNumber?.errors?.['required']">Add meg a vendégek számát!</span>
+          </small>
         </div>
+
         <div class="mb-3">
-          <label for="dogNumber" class="form-label">Kutyusok száma:</label>
+          <label for="dogNumber" class="form-label"
+          [ngClass]="{'text-danger': dogNumber?.invalid && dogNumber?.touched}">Kutyusok száma:</label>
           <input type="number" class="form-control" id="dogNumber" formControlName="dogNumber">
+          <small *ngIf="dogNumber?.invalid && dogNumber?.touched" class="text-danger">
+            <span *ngIf="dogNumber?.errors?.['required']">Add meg a vendégek számát!</span>
+          </small>
         </div>
 
         <div class="mb-3" *ngIf = "equipmentsControllers">
@@ -25,17 +34,31 @@
         </div>
 
         <div class="mb-3">
-          <label for="bookingFrom" class="form-label">Érkezés:</label>
+          <label for="bookingFrom" class="form-label"
+          [ngClass]="{'text-danger': bookingFrom?.invalid && bookingFrom?.touched}">Érkezés:</label>
           <input type="date" class="form-control" id="bookingFrom" formControlName="bookingFrom">
+          <small *ngIf="bookingFrom?.invalid && bookingFrom?.touched" class="text-danger">
+            <span *ngIf="bookingFrom?.errors?.['required']">Add meg a vendégek számát!</span>
+          </small>
+          <small *ngIf="roomSelector.get('bookingFrom')?.errors?.['serverError']" class="text-danger">
+            {{roomSelector.get('bookingFrom')?.getError('serverError')}}
+          </small>
         </div>
 
         <div class="mb-3">
-          <label for="bookingTo" class="form-label">Távozás:</label>
+          <label for="bookingTo" class="form-label"
+          [ngClass]="{'text-danger': bookingTo?.invalid && bookingTo?.touched}">Távozás:</label>
           <input type="date" class="form-control" id="bookingTo" formControlName="bookingTo">
+          <small *ngIf="bookingTo?.invalid && bookingTo?.touched" class="text-danger">
+            <span *ngIf="bookingTo?.errors?.['required']">Add meg a vendégek számát!</span>
+          </small>
+          <small *ngIf="roomSelector.get('bookingFrom')?.errors?.['serverError']" class="text-danger">
+            {{roomSelector.get('bookingFrom')?.getError('serverError')}}
+          </small>
         </div>
 
         <div class="text-center">
-          <button type="submit" class="btn" >Enter</button>
+          <button [disabled]="roomSelector.invalid" type="submit" class="btn" >Enter</button>
         </div>
       </form>
 

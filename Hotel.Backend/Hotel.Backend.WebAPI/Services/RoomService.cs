@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Hotel.Backend.WebAPI.Abstractions;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
@@ -46,47 +47,54 @@ public class RoomService : IRoomService
 
     public async Task<IEnumerable<RoomListDTO>> GetAvailableRoomsAsync(RoomSelectorDTO query)
     {
-        int guestNumber = query.Guest;
-        int dogNumber = query.Dog;
-        List<int> choosedEquipmentsId = query.ChoosedEquipments;
-        DateTime bookingFrom = query.BookingFrom;
-        DateTime bookingTo = query.BookingTo;
-
-        List<Room> allRooms = await _roomRepository.GetBigEnoughRoomsAsync(
-            guestNumber, dogNumber, choosedEquipmentsId, bookingFrom, bookingTo);
-        List<Room> onlyRequestedRooms = new();
-        int counter = 0;
-        if (choosedEquipmentsId.Count != 0 && choosedEquipmentsId != null)
+        if (query.BookingFrom < query.BookingTo)
         {
-            foreach (int item in choosedEquipmentsId)
+            int guestNumber = query.Guest;
+            int dogNumber = query.Dog;
+            List<int> choosedEquipmentsId = query.ChoosedEquipments;
+            DateTime bookingFrom = query.BookingFrom;
+            DateTime bookingTo = query.BookingTo;
+
+            List<Room> allRooms = await _roomRepository.GetBigEnoughRoomsAsync(
+                guestNumber, dogNumber, choosedEquipmentsId, bookingFrom, bookingTo);
+            List<Room> onlyRequestedRooms = new();
+            int counter = 0;
+            if (choosedEquipmentsId.Count != 0 && choosedEquipmentsId != null)
             {
-                foreach (Room room in allRooms)
+                foreach (int item in choosedEquipmentsId)
                 {
-                    foreach (var equipment in room.Equipments)
+                    foreach (Room room in allRooms)
                     {
-                        if (item == equipment.Id)
+                        foreach (var equipment in room.Equipments)
                         {
-                            counter ++;
+                            if (item == equipment.Id)
+                            {
+                                counter++;
+                            }
                         }
-                    }
-                    if (counter == choosedEquipmentsId.Count)
-                    {
-                        onlyRequestedRooms.Add(room);
-                        counter = 0;
+                        if (counter == choosedEquipmentsId.Count)
+                        {
+                            onlyRequestedRooms.Add(room);
+                            counter = 0;
+                        }
                     }
                 }
             }
-        }
-        else
-        {
-            foreach (var item in allRooms)
+            else
             {
-                onlyRequestedRooms.Add(item);
+                foreach (var item in allRooms)
+                {
+                    onlyRequestedRooms.Add(item);
+                }
             }
-        }
-        List<RoomListDTO> bigEnoughrooms = _mapper.Map<List<RoomListDTO>>(onlyRequestedRooms);
+            List<RoomListDTO> bigEnoughrooms = _mapper.Map<List<RoomListDTO>>(onlyRequestedRooms);
 
-        return bigEnoughrooms;
+            return bigEnoughrooms;
+        }
+
+        List<HotelFieldError> errors = new() { new HotelFieldError("BookingTo", "A távozásnak később kell lennie, mint az érkezésnek"), new HotelFieldError("BookingFrom", "A távozásnak később kell lennie, mint az érkezésnek") };
+        throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+
     }
 
     public async Task<IEnumerable<NonStandardEquipmentDTO>> GetNonStandardEquipmentsAsync()

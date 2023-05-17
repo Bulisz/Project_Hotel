@@ -1,6 +1,8 @@
-﻿using Hotel.Backend.WebAPI.Abstractions;
+﻿using Azure.Core;
+using Hotel.Backend.WebAPI.Abstractions;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
+using Hotel.Backend.WebAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,8 +45,18 @@ public class RoomsController : ControllerBase
     [HttpGet(nameof(GetAvailableRooms))]
     public async Task<ActionResult<IEnumerable<RoomListDTO>>> GetAvailableRooms([FromQuery]RoomSelectorDTO query)
     {
-        var listedRooms = await _roomService.GetAvailableRoomsAsync(query);
-        return Ok(listedRooms);
+        try
+        {
+            var listedRooms = await _roomService.GetAvailableRoomsAsync(query);
+            return Ok(listedRooms);
+        }
+        catch (HotelException hotelException)
+        {
+            var error = (new { type = "hotelError", message = hotelException.Message, errors = hotelException.HotelErrors });
+            return StatusCode((int)hotelException.Status, error);
+        }
+
+
     }
 
     [HttpGet(nameof(GetNonStandardEquipments))]
