@@ -56,7 +56,7 @@ public class ReservationService : IReservationService
 
         }
 
-        List<HotelFieldError> errors = new() { new HotelFieldError("Foglalási időtartam", "A távozásnak később kell lennie, mint az érkezésnek"), };
+        List<HotelFieldError> errors = new() { new HotelFieldError("BookingTo", "A távozásnak később kell lennie, mint az érkezésnek"), new HotelFieldError("BookingFrom", "A távozásnak később kell lennie, mint az érkezésnek") };
         throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
 
     }
