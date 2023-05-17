@@ -23,10 +23,10 @@
   justify-content: center;
   align-items: center;
   padding: 0.5rem;
-  margin: 1rem;
   font-family: 'Roboto';
   font-size: 1.2rem;
   color: #800020;
+  margin-top: 1rem;
 }
 
 .inner{
@@ -81,7 +81,7 @@
 
 img {
   position: inherit;
-  max-height:100%;
+  height:100%;
   width: 100%;
 }
 
@@ -105,7 +105,45 @@ img {
   and (min-device-width: 360px)
   and (max-device-width: 1080px) {
 
-    .col-12 {
-      margin: 1rem auto;
+    .details-body {
+      flex-direction:column;
     }
+
+    .left-side {
+      width: 100%;
+    }
+
+    .details {
+      font-size: 1.5rem;
+      margin-left: 1rem;
+      line-height: 1.2rem;
+    }
+
+    .details-content {
+      font-size: 1rem;
+    }
+
+    .right-side {
+      padding: 0.5rem;
+      width:95%;
+      margin: 0.5rem;
+    }
+
+    .btn {
+      font-size: 1.5rem;
+      width: 150px;
+    }
+
+    .inner{
+      border-radius: 1.5rem;
+      border: 3px solid #800020;
+      height: 100%;
+      position: inherit;
+      background-image: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1683705386/Hotel/Logos/logoburgund_uqh1w1.png");
+      background-repeat: no-repeat;
+      background-size: 4.5rem;
+      background-position:left bottom;
+      background-color: whitesmoke;
+    }
+
   }
