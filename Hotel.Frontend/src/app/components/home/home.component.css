@@ -57,3 +57,12 @@ img{
 .carousel-caption {
   font-size: 1.2rem;
 }
+
+.carousel-indicators button {
+  background-color: #800020;
+}
+
+.carousel-indicators .active {
+  background-color: #800020;
+}
+
