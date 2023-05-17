@@ -7,4 +7,5 @@ export interface RoomListModel {
     available: true;
     equipmentNames: Array<string>;
     imageURLs: Array<string>;
+    size: string;
 }

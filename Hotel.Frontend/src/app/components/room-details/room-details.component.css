@@ -99,17 +99,49 @@ img {
   and (min-device-width: 360px)
   and (max-device-width: 1080px) {
 
+    .body {
+      padding: 1rem;
+    }
+
     .details-body {
-      display: flex;
       flex-direction:column;
+    }
+
+    .title {
+      font-size: 3rem;
+    }
+
+    .details {
+      font-family: caveat;
+      font-size: 2rem;
+      margin-left: 0.3rem;
+    }
+
+    .details-content {
+      font-size: 1.2rem;
     }
 
     .left-side {
       width: 100%;
+      line-height: 1.5rem;
     }
 
     .right-side{
       width: 100%;
+      margin-right: 0.5rem;
+    }
+
+    .btn-container {
+      display: flex;
+      flex-direction: row;
+      float: right;
+      margin: 1rem
+    }
+
+    .btn {
+        border-radius: 3rem;
+        font-size: 1.8rem;
+        width: 150px;
     }
 
   }
