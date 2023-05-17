@@ -2,11 +2,11 @@
 {
     public class RoomSelectorDTO
     {
-        public string GuestNumber { get; set; }
-        public string DogNumber { get; set; }
-        public string BookingFrom { get; set; }
-        public string BookingTo { get; set; }
-        public string ChoosedEquipments { get; set; }
+        public int Guest { get; set; }
+        public int Dog { get; set; }
+        public DateTime BookingFrom { get; set; }
+        public DateTime BookingTo { get; set; }
+        public List<int>? ChoosedEquipments { get; set; } = new List<int>();
 
     }
 }

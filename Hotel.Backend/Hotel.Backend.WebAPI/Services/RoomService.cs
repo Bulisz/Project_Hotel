@@ -33,7 +33,7 @@ public class RoomService : IRoomService
     public async Task<RoomDetailsDTO> GetRoomByIdAsync(int id)
     {
         Room? room = await _roomRepository.GetRoomByIdAsync(id);
-        if(room == null)
+        if (room == null)
         {
             List<HotelFieldError> errors = new() { new HotelFieldError("Id", "Room id is invalid") };
             throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
@@ -46,26 +46,47 @@ public class RoomService : IRoomService
 
     public async Task<IEnumerable<RoomListDTO>> GetAvailableRoomsAsync(RoomSelectorDTO query)
     {
-        int guestNumber = int.Parse(query.GuestNumber);
-        int dogNumber = int.Parse(query.DogNumber);
-        string[] choosedEquipments = query.ChoosedEquipments.Split(",");
-        List<int> choosedEquipmentsId = new List<int>();
-        foreach (var item in choosedEquipments)
+        int guestNumber = query.Guest;
+        int dogNumber = query.Dog;
+        List<int> choosedEquipmentsId = query.ChoosedEquipments;
+        DateTime bookingFrom = query.BookingFrom;
+        DateTime bookingTo = query.BookingTo;
+
+        List<Room> allRooms = await _roomRepository.GetBigEnoughRoomsAsync(
+            guestNumber, dogNumber, choosedEquipmentsId, bookingFrom, bookingTo);
+        List<Room> onlyRequestedRooms = new();
+        int counter = 0;
+        if (choosedEquipmentsId.Count != 0 && choosedEquipmentsId != null)
         {
-            choosedEquipmentsId.Add(int.Parse(item));
+            foreach (int item in choosedEquipmentsId)
+            {
+                foreach (Room room in allRooms)
+                {
+                    foreach (var equipment in room.Equipments)
+                    {
+                        if (item == equipment.Id)
+                        {
+                            counter ++;
+                        }
+                    }
+                    if (counter == choosedEquipmentsId.Count)
+                    {
+                        onlyRequestedRooms.Add(room);
+                        counter = 0;
+                    }
+                }
+            }
         }
-       
-        
-        List<Room> allRooms = await _roomRepository.GetBigEnoughRoomsAsync(guestNumber, dogNumber, choosedEquipmentsId);
-
-        
-
-        List<RoomListDTO> bigEnoughrooms = _mapper.Map<List<RoomListDTO>>(allRooms);
+        else
+        {
+            foreach (var item in allRooms)
+            {
+                onlyRequestedRooms.Add(item);
+            }
+        }
+        List<RoomListDTO> bigEnoughrooms = _mapper.Map<List<RoomListDTO>>(onlyRequestedRooms);
 
         return bigEnoughrooms;
-
-
-
     }
 
     public async Task<IEnumerable<NonStandardEquipmentDTO>> GetNonStandardEquipmentsAsync()

@@ -34,23 +34,21 @@ public class RoomRepository : IRoomRepository
             .FirstOrDefaultAsync(room => room.Id == id);
     }
 
-    public async Task<List<Room>> GetBigEnoughRoomsAsync(int guestNumber, int dogNumber, List<int> choosedEquipments)
+    public async Task<List<Room>> GetBigEnoughRoomsAsync(int guestNumber, int dogNumber, 
+        List<int> choosedEquipments, DateTime bookingFrom, DateTime bookingTo)
     {
-        return await _context.Rooms
+        List<Room> result = await _context.Rooms
             .Include(room => room.Equipments)
             .Include(room => room.Images)
             .Include(room => room.Reservations)
             .Where(room => room.NumberOfBeds >= guestNumber)
             .Where(room => room.MaxNumberOfDogs >= dogNumber)
-            .Where(room => room.Equipments.Select(eq => eq.Id).ToList().All(id => choosedEquipments.ToList().Any(c => c == id)))
+            //.Where(room => choosedEquipments.All(x => room.Equipments.Select(e => e.Id).Contains(x)))
+            //.Where(room => choosedEquipments.All(x => room.Equipments.Any(e => e.Id == x)))
+            .Where(room => !room.Reservations.Any(ar => ar.BookingFrom < bookingTo && ar.BookingTo > bookingFrom))
             .ToListAsync();
 
-
-
-        
-
-
-
+        return result;
     }
 
     public async Task<IEnumerable<Equipment>> GetNonStandardEquipmentAsync()

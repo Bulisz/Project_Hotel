@@ -43,11 +43,8 @@ public class RoomsController : ControllerBase
     [HttpGet(nameof(GetAvailableRooms))]
     public async Task<ActionResult<IEnumerable<RoomListDTO>>> GetAvailableRooms([FromQuery]RoomSelectorDTO query)
     {
-        RoomListDTO result = new RoomListDTO();
-        return Ok(result);
-
         var listedRooms = await _roomService.GetAvailableRoomsAsync(query);
-        //return Ok(listedRooms);
+        return Ok(listedRooms);
     }
 
     [HttpGet(nameof(GetNonStandardEquipments))]

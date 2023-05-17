@@ -66,14 +66,14 @@ public class DatabaseTest
     [TestMethod]
     public void AttachEquipmentToRoomTest()
     {
-        Room? room = _context.Rooms.FirstOrDefault(room => room.Name == "Bodri");
-        Equipment equipment = _context.Equipments.FirstOrDefault(equipment => equipment.Name == "WiFi")!;
+        Room? room = _context.Rooms.FirstOrDefault(room => room.Name == "Morzsa");
+        Equipment equipment = _context.Equipments.FirstOrDefault(equipment => equipment.Name == "Telefon")!;
 
         room.Equipments.Add(equipment);
         _context.Rooms.Update(room);
         _context.SaveChanges();
 
-        Room? modifiedRoom = _context.Rooms.FirstOrDefault(room => room.Name == "Bodri");
+        Room? modifiedRoom = _context.Rooms.FirstOrDefault(room => room.Name == "Morzsa");
 
         Assert.AreEqual(1, modifiedRoom.Equipments.Count);
     }

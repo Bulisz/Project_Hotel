@@ -7,7 +7,8 @@ namespace Hotel.Backend.WebAPI.Abstractions
         Task<List<Room>> GetAllRoomsAsync();
         Task<Room?> GetRoomByIdAsync(int id);
 
-        Task<List<Room>> GetBigEnoughRoomsAsync(int guestNumber, int dogNumebr, List<int> choosedEquipments);
+        Task<List<Room>> GetBigEnoughRoomsAsync(int guestNumber, int dogNumebr, List<int> choosedEquipments,
+            DateTime bookingFrom, DateTime bookingTo);
         Task<IEnumerable<Equipment>> GetNonStandardEquipmentAsync();
     }
 }

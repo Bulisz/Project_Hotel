@@ -5,6 +5,7 @@ import { NonStandardEquipmentModel } from 'src/app/models/non-standard-equipment
 import { AvailableRoomsModel } from 'src/app/models/available-rooms-model';
 import { RoomListModel } from 'src/app/models/room-list.model';
 import { RoomService } from 'src/app/services/room.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-room-list',
@@ -13,7 +14,8 @@ import { RoomService } from 'src/app/services/room.service';
 })
 export class RoomListComponent implements OnInit{
   
-  allRooms: Array<RoomListModel> = [];
+  allRooms: Array<RoomListModel> | null = null;
+  searchedRooms = new BehaviorSubject<Array<RoomListModel> | null>(null)
   nonStandardEquipments: Array<NonStandardEquipmentModel> =[];
   roomSelector: FormGroup;
   equipmentsControllers: FormArray | undefined;
@@ -30,6 +32,9 @@ export class RoomListComponent implements OnInit{
 
   ngOnInit(): void {
 
+    this.searchedRooms.subscribe({
+      next: (res) => this.allRooms = res
+    })
     this.roomService.fetchNonStandardEquipmentData().subscribe({
       next: (response) => {
         this.nonStandardEquipments = response;
@@ -60,8 +65,8 @@ export class RoomListComponent implements OnInit{
             
     this.roomService.getAllRooms().subscribe( {
 
-      next: (response: RoomListModel[]) =>{ this.allRooms = response
-      console.log(this.allRooms)
+      next: (response: RoomListModel[]) =>{ this.searchedRooms.next(response)  
+      
     
       },
       error: (error) => console.log(error),
@@ -84,10 +89,13 @@ export class RoomListComponent implements OnInit{
     const formValue = this.roomSelector.getRawValue()
     const parsoltFormValue = {...formValue, nonStandardEquipments: selectedList};
     
-    this.roomService.getRoomOptions(parsoltFormValue).subscribe(
-        () => 
-        console.log(parsoltFormValue)
-    );
+    this.roomService.getRoomOptions(parsoltFormValue).subscribe({
+      next: (response: RoomListModel[]) =>{ this.searchedRooms.next(response)
+        console.log(this.searchedRooms.value)
+      
+        },
+        error: (error) => console.log(error),
+      });
 
   }
 
