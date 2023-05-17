@@ -41,6 +41,17 @@
   background-color: whitesmoke;
 }
 
+.side-inner{
+  border-radius: 1.5rem;
+  border: 3px solid #800020;
+  height: 100%;
+  position: inherit;
+  background-repeat: no-repeat;
+  background-size: 6rem;
+  background-position:left bottom;
+  background-color: whitesmoke;
+}
+
 .title {
   font-family: 'Caveat';
   font-size: 4rem;
@@ -134,7 +145,7 @@ img {
       width: 150px;
     }
 
-    .inner{
+    /* .inner{
       border-radius: 1.5rem;
       border: 3px solid #800020;
       height: 100%;
@@ -144,6 +155,6 @@ img {
       background-size: 4.5rem;
       background-position:left bottom;
       background-color: whitesmoke;
-    }
+    } */
 
   }
