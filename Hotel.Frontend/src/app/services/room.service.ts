@@ -13,6 +13,7 @@ import { ReservationDetailsModel } from '../models/reservation-details-model';
 export class RoomService {
 
   BASE_URL = 'rooms'
+  BASE_URL2 = 'reservations'
 
   constructor(private http: HttpClient) { }
 
@@ -25,6 +26,6 @@ export class RoomService {
   }
 
   async createReservationForRoom(reservation: ReservationModel): Promise<ReservationDetailsModel> {
-    return await firstValueFrom(this.http.post<ReservationDetailsModel>(`${environment.apiUrl}/${this.BASE_URL}/createReservationForRoom`,reservation))
+    return await firstValueFrom(this.http.post<ReservationDetailsModel>(`${environment.apiUrl}/${this.BASE_URL2}/createReservationForRoom`,reservation))
   }
 }

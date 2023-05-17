@@ -1,37 +1,33 @@
-﻿using Hotel.Backend.WebAPI.Helpers;
+﻿using Hotel.Backend.WebAPI.Abstractions;
+using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
-using Hotel.Backend.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hotel.Backend.WebAPI.Controllers
+namespace Hotel.Backend.WebAPI.Controllers;
+
+[Route("hotel/[controller]")]
+[ApiController]
+public class ReservationsController : ControllerBase
 {
-    [Route("hotel/[controller]")]
-    [ApiController]
-    public class ReservationsController : ControllerBase
+    private readonly IReservationService _reservationService;
+
+    public ReservationsController(IReservationService reservationService)
     {
-        private ReservationService _reservationService;
+        _reservationService = reservationService;
+    }
 
-        public ReservationsController(ReservationService reservationService)
+    [HttpPost(nameof(CreateReservationForRoom))]
+    public async Task<ActionResult<ReservationDetailsDTO>> CreateReservationForRoom(ReservationRequestDTO request)
+    {
+        try
         {
-            _reservationService = reservationService;
+            ReservationDetailsDTO response = await _reservationService.CreateReservationAsync(request);
+            return Ok(response);
         }
-
-        [HttpPost]
-        public async Task<ActionResult<ReservationDetailsDTO>> createReservationForRoom(ReservationRequestDTO request)
+        catch (HotelException hotelException)
         {
-            try
-            {
-                ReservationDetailsDTO response = await _reservationService.CreateReservationAsync(request);
-                return Ok(response);
-            }
-            catch (HotelException hotelException)
-            {
-                var error = (new { type = "hotelError", message = hotelException.Message, errors = hotelException.HotelErrors });
-                return StatusCode((int)hotelException.Status, error);
-            }
+            var error = (new { type = "hotelError", message = hotelException.Message, errors = hotelException.HotelErrors });
+            return StatusCode((int)hotelException.Status, error);
         }
-
-
-     
     }
 }
