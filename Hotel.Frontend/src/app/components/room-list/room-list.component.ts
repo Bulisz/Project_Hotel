@@ -6,6 +6,7 @@ import { AvailableRoomsModel } from 'src/app/models/available-rooms-model';
 import { RoomListModel } from 'src/app/models/room-list.model';
 import { RoomService } from 'src/app/services/room.service';
 import { BehaviorSubject } from 'rxjs';
+import { validationHandler } from 'src/utils/validationHandler';
 
 @Component({
   selector: 'app-room-list',
@@ -94,7 +95,7 @@ export class RoomListComponent implements OnInit{
         console.log(this.searchedRooms.value)
       
         },
-        error: (error) => console.log(error),
+        error: (error) => validationHandler(error, this.roomSelector),
       });
 
   }
