@@ -30,34 +30,46 @@ public class ReservationService : IReservationService
         if (request.BookingFrom < request.BookingTo)
         {
             UserDetailsDTO? userDTO = await _userRepository.GetUserByIdAsync(request.UserId);
-            ApplicationUser? user = userDTO.User;
+            ApplicationUser? user = userDTO!.User;
 
             Room? room = await _roomRepository.GetRoomByIdAsync(request.RoomId);
 
-            Reservation newReservation = new Reservation
+            bool isRoomAvailable = room!.Reservations.All(reservation =>
+            request.BookingFrom >= reservation.BookingTo || request.BookingTo <= reservation.BookingFrom);
+
+            if (isRoomAvailable)
             {
-                ApplicationUser = user!,
-                BookingFrom = request.BookingFrom,
-                BookingTo = request.BookingTo,
-                Room = room!,
-            };
+                Reservation newReservation = new Reservation
+                {
+                    ApplicationUser = user!,
+                    BookingFrom = request.BookingFrom,
+                    BookingTo = request.BookingTo,
+                    Room = room!,
+                };
 
-            Reservation reservation = await _reservationRepository.CreateReservationAsync(newReservation);
-            ReservationDetailsDTO response = new ReservationDetailsDTO
+                Reservation reservation = await _reservationRepository.CreateReservationAsync(newReservation);
+                ReservationDetailsDTO response = new ReservationDetailsDTO
+                {
+                    Id = reservation.Id,
+                    RoomId = reservation.Room.Id,
+                    UserId = reservation.ApplicationUser.Id,
+                    BookingFrom = request.BookingFrom,
+                    BookingTo = request.BookingTo,
+                };
+
+                return response; 
+            }
+            else
             {
-                Id = reservation.Id,
-                RoomId = reservation.Room.Id,
-                UserId = reservation.ApplicationUser.Id,
-                BookingFrom = request.BookingFrom,
-                BookingTo = request.BookingTo,
-            };
-
-            return response;
-
+                List<HotelFieldError> errors = new() { new HotelFieldError("BookingTo", "Sajnos a megadott időpontokra már foglalt a szoba"), new HotelFieldError("BookingFrom", "Sajnos a megadott időpontokra már foglalt a szoba") };
+                throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+            }
         }
-
-        List<HotelFieldError> errors = new() { new HotelFieldError("BookingTo", "A távozásnak később kell lennie, mint az érkezésnek"), new HotelFieldError("BookingFrom", "A távozásnak később kell lennie, mint az érkezésnek") };
-        throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+        else
+        {
+            List<HotelFieldError> errors = new() { new HotelFieldError("BookingTo", "A távozásnak később kell lennie, mint az érkezésnek"), new HotelFieldError("BookingFrom", "A távozásnak később kell lennie, mint az érkezésnek") };
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+        }
 
     }
 }
