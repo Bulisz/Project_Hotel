@@ -25,6 +25,12 @@ public class ReservationService : IReservationService
         _roomRepository = roomRepository;
     }
 
+    public async Task<PostDTO> CreatePostAsync(PostDTO post)
+    {
+        Post postToCreate = _mapper.Map<Post>(post);
+        return _mapper.Map<PostDTO>(await _reservationRepository.CreatePostAsync(postToCreate));
+    }
+
     public async Task<ReservationDetailsDTO> CreateReservationAsync(ReservationRequestDTO request)
     {
         if (request.BookingFrom < request.BookingTo)

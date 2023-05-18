@@ -30,4 +30,11 @@ public class ReservationsController : ControllerBase
             return StatusCode((int)hotelException.Status, error);
         }
     }
+
+    [HttpPost(nameof(CreatePost))]
+    public async Task<ActionResult<PostDTO>> CreatePost(PostDTO post)
+    {
+        PostDTO createdPost = await _reservationService.CreatePostAsync(post);
+        return Ok(createdPost);
+    }
 }
