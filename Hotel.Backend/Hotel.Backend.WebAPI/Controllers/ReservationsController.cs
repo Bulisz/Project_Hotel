@@ -38,7 +38,7 @@ public class ReservationsController : ControllerBase
         return Ok(createdPost);
     }
 
-    [HttpPost(nameof(GetAllPosts))]
+    [HttpGet(nameof(GetAllPosts))]
     public async Task<ActionResult<IEnumerable<PostDetailsDTO>>> GetAllPosts()
     {
         IEnumerable<PostDetailsDTO> allPosts = await _reservationService.GetAllPostsAsync();
