@@ -9,14 +9,14 @@
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
-        <label for="userName" class="form-label">Username</label>
+        <label for="userName" class="form-label">Felhasználónév</label>
         <input type="text" class="form-control" id="userName" formControlName="userName">
         <small *ngIf="loginForm.get('userName')?.errors?.['serverError']" class="text-danger">
           {{loginForm.get('userName')?.getError('serverError')}}
         </small>
       </div>
       <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
+        <label for="password" class="form-label">Jelszó</label>
         <input type="password" class="form-control" id="password" formControlName="password">
         <small *ngIf="loginForm.get('password')?.errors?.['serverError']" class="text-danger">
           {{loginForm.get('password')?.getError('serverError')}}
