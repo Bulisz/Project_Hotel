@@ -32,9 +32,16 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpPost(nameof(CreatePost))]
-    public async Task<ActionResult<PostDTO>> CreatePost(PostDTO post)
+    public async Task<ActionResult<PostDetailsDTO>> CreatePost(PostCreateDTO post)
     {
-        PostDTO createdPost = await _reservationService.CreatePostAsync(post);
+        PostDetailsDTO createdPost = await _reservationService.CreatePostAsync(post);
         return Ok(createdPost);
+    }
+
+    [HttpPost(nameof(GetAllPosts))]
+    public async Task<ActionResult<IEnumerable<PostDetailsDTO>>> GetAllPosts()
+    {
+        IEnumerable<PostDetailsDTO> allPosts = await _reservationService.GetAllPostsAsync();
+        return Ok(allPosts);
     }
 }

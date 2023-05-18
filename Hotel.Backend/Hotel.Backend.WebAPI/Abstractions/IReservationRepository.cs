@@ -7,5 +7,6 @@ namespace Hotel.Backend.WebAPI.Abstractions
     {
         Task<Post> CreatePostAsync(Post post);
         Task<Reservation> CreateReservationAsync(Reservation newReservation);
+        Task<IEnumerable<Post>> GetAllPostsAsync();
     }
 }

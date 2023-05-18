@@ -22,7 +22,7 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.EquipmentNames, op => op.MapFrom(src => src.Equipments.Select(e => e.Name).ToList()))
             .ForMember(dest => dest.ImageURLs, op => op.MapFrom(src => src.Images.Select(e => e.ImageUrl).ToList()));
         CreateMap<Equipment, NonStandardEquipmentDTO>();
-        CreateMap<Post, PostDTO>();
-        CreateMap<PostDTO, Post>();
+        CreateMap<Post, PostDetailsDTO>();
+        CreateMap<PostCreateDTO, Post>();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Hotel.Backend.WebAPI.Models.DTO;
 
-public record PostDTO
+public record PostCreateDTO
 {
     [Required]
     public string Text { get; set; } = string.Empty;
