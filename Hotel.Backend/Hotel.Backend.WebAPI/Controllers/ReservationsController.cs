@@ -30,4 +30,11 @@ public class ReservationsController : ControllerBase
             return StatusCode((int)hotelException.Status, error);
         }
     }
+
+    [HttpGet(nameof(GetAllReservations))]
+    public async Task<ActionResult<IEnumerable<ReservationDetailsListItemDTO>>> GetAllReservations()
+    {
+            List<ReservationDetailsListItemDTO> reservations = await _reservationService.GetAllReservationsAsync();
+            return Ok(reservations);
+    }
 }

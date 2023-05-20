@@ -1,6 +1,8 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions;
 using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Models;
+using Hotel.Backend.WebAPI.Models.DTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.Backend.WebAPI.Repositories;
 
@@ -19,5 +21,12 @@ public class ReservationRepository : IReservationRepository
         await _context.SaveChangesAsync();
 
         return newReservation;
+    }
+
+    public async Task<List<Reservation>> GetAllReservationsAsync()
+    {
+        return await _context.Reservations.Include(reservation => reservation.ApplicationUser)
+                                          .Include(reservation => reservation.Room)
+                                          .ToListAsync();
     }
 }

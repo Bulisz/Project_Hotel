@@ -72,4 +72,21 @@ public class ReservationService : IReservationService
         }
 
     }
+
+    public async Task<List<ReservationDetailsListItemDTO>> GetAllReservationsAsync()
+    {
+        List<Reservation> reservations = await _reservationRepository.GetAllReservationsAsync();
+
+        List<ReservationDetailsListItemDTO> result = reservations.Select(reservation => new ReservationDetailsListItemDTO
+        {
+            Id = reservation.Id,
+            BookingFrom = reservation.BookingFrom,
+            BookingTo = reservation.BookingTo,
+            UserId = reservation.ApplicationUser.Id,
+            RoomName = reservation.Room.Name
+
+        }).ToList();
+
+        return result;
+    }
 }
