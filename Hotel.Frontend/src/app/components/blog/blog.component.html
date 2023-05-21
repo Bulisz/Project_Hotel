@@ -1,0 +1,25 @@
+<div class="main">
+
+  <div class="container-sm outer"
+    *ngFor="let post of posts"
+    [ngClass]="{
+      'worker': post.role === 'Admin' ||  post.role === 'Operator',
+      'guest': post.role === 'Guest'}">
+    <div class="container-sm shadow inner">
+      <div class="text-heading">
+        <div>
+          <span class="title">Szerző: </span>
+          <span class="text">{{post.userName}}</span>
+        </div>
+        <div>
+          <span class="title">Bejegyzés ideje: </span>
+          <span class="text">{{post.createdAt | date: 'yyyy-MM-dd'}}</span>
+        </div>
+      </div>
+      <p class="text">{{post.text}}</p>
+    </div>
+  </div>
+
+  <div class="floating-button" *ngIf="currentUser" (click)="addNewPost()">Új bejegyzés</div>
+
+</div>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
-import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
 import { RegistrationComponent } from '../registration/registration.component';
 import { UserModel } from 'src/app/models/user-model';
@@ -24,6 +23,8 @@ export class NavbarComponent implements OnInit {
 
     if(localStorage.getItem('accessToken')){
       await this.as.getCurrentUser()
+        .then(res => {})
+        .catch(err => {localStorage.removeItem('accessToken');})
     }
   }
 

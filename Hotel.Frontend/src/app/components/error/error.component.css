@@ -1,25 +1,24 @@
-.body {
+
+  .body {
     margin: 0;
-    padding: 17rem;
+    padding: 3rem;
     background-image: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1683705423/Hotel/Logos/background_j8kb3g.webp");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: center center;
-
   }
 
-  .outer{
+  .outer {
     border-radius: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0.5rem;
     background-color: whitesmoke;
-
   }
-
-  .inner{
+  
+  .inner {
     border-radius: 1.5rem;
     border: 3px solid #800020;
     height: 100%;
@@ -36,62 +35,66 @@
     padding: 0;
   }
 
-  .details-body {
-    display: flex;
-    flex-direction:row;
-  }
-
-  .details {
-    font-family: caveat;
-    font-size: 2.5rem;
-    color: #800020;
-    margin-left: 1rem;
-
-  }
-
   .details-content {
     font-family: lato;
     font-size: 1.4rem;
     color: #800020;
-    margin: 2rem
+    margin: 2rem;
+  }
+  
+ @media screen and (max-width: 768px) {
+    .body {
+      padding: 8rem;
+    }
+  
+    .inner {
+      border-radius: 1.2rem;
+    }
+  
+    .title {
+      font-size: 3rem;
+    }
+  
+    .details {
+      font-size: 1.8rem;
+    }
+  
+    .details-content {
+      font-size: 1.2rem;
+    }
+  
+    img {
+      width: 100%;
+    }
   }
 
-  .left-side {
-    width: 50%;
+  @media screen and (max-width: 480px) {
+    .body {
+      padding: 5rem;
+    }
+  
+    .inner {
+      border-radius: 0.8rem;
+      border-width: 2px;
+    }
+  
+    .title {
+      font-size: 2rem;
+    }
+  
+    .details {
+      font-size: 1.5rem;
+      margin-left: 0.5rem;
+    }
+  
+    .details-content {
+      font-size: 1rem;
+      margin: 1rem;
+    }
+  
+    .left-side,
+    .right-side {
+      width: 100%;
+    }
   }
-
-  img {
-    width: 90%;
-  }
-
-  .right-side{
-    width: 50%;
-    margin-right: 0.5rem;
-  }
-
-  .image-container {
-    border: #800020 2px solid;
-    padding: 0.5rem;
-    width:100%;
-    margin: 0.5rem;
-  }
-
-  .image-container:hover {
-    cursor: pointer;
-  }
-
-  .btn-container {
-    display: flex;
-    flex-direction: column;
-    float: right;
-    margin-top: 3rem
-  }
-
-  .btn {
-      background-color: #800020;
-      border-radius: 3rem;
-      color: whitesmoke;
-      font-family: 'Caveat';
-      font-size: 2.5rem;
-      width: 200px;
-  }
+  

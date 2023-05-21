@@ -8,14 +8,14 @@
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
       <li><a class="nav-link px-2" routerLink="room-list">Szobák</a></li>
-      <li><a class="nav-link px-2" routerLink="event-list">Programok</a></li>
-      <li><a class="nav-link px-2" routerLink="error">Blog</a></li>
+      <li><a class="nav-link px-2" routerLink="error">Programok</a></li>
+      <li><a class="nav-link px-2" routerLink="blog">Blog</a></li>
       <li><a class="nav-link px-2" routerLink="error">Rólunk</a></li>
     </ul>
 
     <div class="col-md-3 text-end">
       <div *ngIf="!user">
-        <button type="button" class="btn btn-secondary me-2 px-4" (click)="loginPopup()" >Login</button>
+        <button type="button" class="btn btn-secondary me-2 px-4" (click)="loginPopup()" >Bejelentkezés</button>
         <button type="button" class="btn btn-secondary me-2 px-4" (click)="registerPopup()">Regisztráció</button>
       </div>
       <div *ngIf="user">

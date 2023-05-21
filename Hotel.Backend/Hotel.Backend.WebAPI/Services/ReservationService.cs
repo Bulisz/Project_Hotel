@@ -25,6 +25,18 @@ public class ReservationService : IReservationService
         _roomRepository = roomRepository;
     }
 
+    public async Task<PostDetailsDTO> CreatePostAsync(PostCreateDTO postDto)
+    {
+        Post postToCreate = _mapper.Map<Post>(postDto);
+        postToCreate.CreatedAt = DateTime.Now;
+        return _mapper.Map<PostDetailsDTO>(await _reservationRepository.CreatePostAsync(postToCreate));
+    }
+
+    public async Task<IEnumerable<PostDetailsDTO>> GetAllPostsAsync()
+    {
+        return _mapper.Map<IEnumerable<PostDetailsDTO>>(await _reservationRepository.GetAllPostsAsync());
+    }
+
     public async Task<ReservationDetailsDTO> CreateReservationAsync(ReservationRequestDTO request)
     {
         if (request.BookingFrom < request.BookingTo)
@@ -70,6 +82,5 @@ public class ReservationService : IReservationService
             List<HotelFieldError> errors = new() { new HotelFieldError("BookingTo", "A távozásnak később kell lennie, mint az érkezésnek"), new HotelFieldError("BookingFrom", "A távozásnak később kell lennie, mint az érkezésnek") };
             throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
         }
-
     }
 }

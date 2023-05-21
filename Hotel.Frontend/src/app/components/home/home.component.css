@@ -77,3 +77,11 @@ img{
     }
   }
 
+.carousel-indicators button {
+  background-color: #800020;
+}
+
+.carousel-indicators .active {
+  background-color: #800020;
+}
+

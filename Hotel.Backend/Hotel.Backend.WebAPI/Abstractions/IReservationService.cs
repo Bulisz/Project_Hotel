@@ -1,9 +1,10 @@
 ﻿using Hotel.Backend.WebAPI.Models.DTO;
 
-namespace Hotel.Backend.WebAPI.Abstractions
+namespace Hotel.Backend.WebAPI.Abstractions;
+
+public interface IReservationService
 {
-    public interface IReservationService
-    {
-        Task<ReservationDetailsDTO> CreateReservationAsync(ReservationRequestDTO request);
-    }
+    Task<PostDetailsDTO> CreatePostAsync(PostCreateDTO post);
+    Task<ReservationDetailsDTO> CreateReservationAsync(ReservationRequestDTO request);
+    Task<IEnumerable<PostDetailsDTO>> GetAllPostsAsync();
 }

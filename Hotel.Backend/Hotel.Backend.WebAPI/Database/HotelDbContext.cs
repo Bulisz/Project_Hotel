@@ -13,6 +13,9 @@ public class HotelDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Equipment> Equipments { get; set; }
 
     public DbSet<Reservation> Reservations { get; set; }
+
+    public DbSet<Post> Posts { get; set; }
+
     public HotelDbContext(DbContextOptions<HotelDbContext> options) : base(options)
     {
     }
