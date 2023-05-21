@@ -9,17 +9,14 @@ namespace Hotel.Backend.WebAPI.Services;
 
 public class ReservationService : IReservationService
 {
-    private readonly IMapper _mapper;
     private readonly IReservationRepository _reservationRepository;
     private readonly IUserRepository _userRepository;
     private readonly IRoomRepository _roomRepository;
 
-    public ReservationService(IMapper mapper,
-                              IReservationRepository reservationRepository,
+    public ReservationService(IReservationRepository reservationRepository,
                               IUserRepository userRepository,
                               IRoomRepository roomRepository)
     {
-        _mapper = mapper;
         _reservationRepository = reservationRepository;
         _userRepository = userRepository;
         _roomRepository = roomRepository;
