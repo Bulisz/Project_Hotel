@@ -67,14 +67,14 @@ public class RoomsController : ControllerBase
     }
 
     [HttpPost("SaveOneImage")]
-    public async Task<ActionResult> SaveRoomWithOneImageAsync([FromForm] SaveOneImageDTO saveOneImage)
+    public async Task<ActionResult> SaveOneImage(SaveOneImageDTO saveOneImage)
     {
         await _roomService.SaveOneImageAsync(saveOneImage);
         return Ok();
     }
 
     [HttpPost("SaveMoreImage")]
-    public async Task<ActionResult> SaveMoreImageAsync([FromForm] SaveMoreImageDTO saveMoreImage)
+    public async Task<ActionResult> SaveMoreImage(SaveMoreImageDTO saveMoreImage)
     {
         await _roomService.SaveMoreImageAsync(saveMoreImage);
         return Ok();
