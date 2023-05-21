@@ -11,5 +11,7 @@ namespace Hotel.Backend.WebAPI.Abstractions
         Task<RoomDetailsDTO> GetRoomByIdAsync(int id);
 
         Task SaveOneImageAsync(SaveOneImageDTO saveOneImage);
+
+        Task SaveMoreImageAsync(SaveMoreImageDTO saveMoreImage);
     }
 }

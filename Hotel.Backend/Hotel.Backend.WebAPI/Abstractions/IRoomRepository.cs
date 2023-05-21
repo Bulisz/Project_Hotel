@@ -12,5 +12,7 @@ namespace Hotel.Backend.WebAPI.Abstractions
         Task<IEnumerable<Equipment>> GetNonStandardEquipmentAsync();
 
         Task SaveOneImageAsync(Image image);
+
+        Task SaveMoreImageAsync(List<Image> images);
     }
 }
