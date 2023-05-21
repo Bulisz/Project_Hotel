@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using Azure.Core;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Hotel.Backend.WebAPI.Abstractions;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
@@ -12,11 +13,13 @@ public class RoomService : IRoomService
 {
     private readonly IRoomRepository _roomRepository;
     private readonly IMapper _mapper;
+    private readonly Cloudinary _cloudinary;
 
-    public RoomService(IRoomRepository roomRepository, IMapper mapper)
+    public RoomService(IRoomRepository roomRepository, IMapper mapper, Cloudinary cloudinary)
     {
         _roomRepository = roomRepository;
         _mapper = mapper;
+        _cloudinary = cloudinary;
     }
 
     public async Task<IEnumerable<RoomListDTO>> GetListOfRoomsAsync()
@@ -102,5 +105,59 @@ public class RoomService : IRoomService
         IEnumerable<Equipment> nonStandardEquipment = await _roomRepository.GetNonStandardEquipmentAsync();
         List<NonStandardEquipmentDTO> nonStandardEquipmentDTO = _mapper.Map<List<NonStandardEquipmentDTO>>(nonStandardEquipment);
         return nonStandardEquipmentDTO;
+    }
+
+    public async Task SaveOneImageAsync(SaveOneImageDTO saveOneImage)
+    {
+        Room room = await _roomRepository.GetRoomByIdAsync(saveOneImage.RoomId);
+
+        var uploadParams = new ImageUploadParams
+        {
+            File = new FileDescription(saveOneImage.Image?.Name, saveOneImage.Image?.OpenReadStream()),
+            PublicId = Guid.NewGuid().ToString(),
+            Folder = $"Hotel/Room{saveOneImage.RoomId}",
+        };
+        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+        var imageurl = uploadResult.SecureUrl.ToString();
+
+        Image newImage = new Image
+        {
+            Description = saveOneImage.Description,
+            ImageUrl = imageurl,
+            Room = room
+        };
+
+        await _roomRepository.SaveOneImageAsync(newImage);
+    }
+
+    public async Task SaveMoreImageAsync(SaveMoreImageDTO saveMoreImage)
+    {
+        Room room = await _roomRepository.GetRoomByIdAsync(saveMoreImage.RoomId);
+        List<Image> images = new();
+
+        foreach (var actualImage in saveMoreImage.Images)
+        {
+            var uploadParams = new ImageUploadParams
+            {
+                File = new FileDescription(actualImage?.Name, actualImage?.OpenReadStream()),
+                PublicId = Guid.NewGuid().ToString(),
+                Folder = $"Hotel/Room{saveMoreImage.RoomId}",
+            };
+
+            var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+
+            var imageurl = uploadResult.SecureUrl.ToString();
+
+            Image image = new Image
+            {
+                Description = saveMoreImage.Description,
+                ImageUrl = imageurl,
+                Room = room
+            };
+
+            images.Add(image);
+        }
+
+        await _roomRepository.SaveMoreImageAsync(images);
     }
 }

@@ -9,5 +9,7 @@ namespace Hotel.Backend.WebAPI.Abstractions
         
         Task<IEnumerable<NonStandardEquipmentDTO>> GetNonStandardEquipmentsAsync();
         Task<RoomDetailsDTO> GetRoomByIdAsync(int id);
+
+        Task SaveOneImageAsync(SaveOneImageDTO saveOneImage);
     }
 }

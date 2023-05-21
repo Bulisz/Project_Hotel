@@ -65,4 +65,18 @@ public class RoomsController : ControllerBase
         var nonStandardEquipments = await _roomService.GetNonStandardEquipmentsAsync();
         return Ok(nonStandardEquipments);
     }
+
+    [HttpPost("SaveOneImage")]
+    public async Task<ActionResult> SaveRoomWithOneImageAsync([FromForm] SaveOneImageDTO saveOneImage)
+    {
+        await _roomService.SaveOneImageAsync(saveOneImage);
+        return Ok();
+    }
+
+    [HttpPost("SaveMoreImage")]
+    public async Task<ActionResult> SaveMoreImageAsync([FromForm] SaveMoreImageDTO saveMoreImage)
+    {
+        await _roomService.SaveMoreImageAsync(saveMoreImage);
+        return Ok();
+    }
 }
