@@ -1,14 +1,27 @@
 using Hotel.Backend.WebAPI.Abstractions;
 using Hotel.Backend.WebAPI.Controllers;
+using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System.Net;
 
 namespace HotelBackend.UnitTests.Controllers;
 
 [TestClass]
 public class ReservationsControllerTests
 {
+
+    private ReservationsController _controller;
+    private Mock<IReservationService> _reservationServiceMock;
+
+    [TestInitialize]
+    public void Setup()
+    {
+        _reservationServiceMock = new Mock<IReservationService>();
+        _controller = new ReservationsController(_reservationServiceMock.Object);
+    }
+
     [TestMethod]
     public async Task GetAllReservationsTests()
     {
@@ -17,16 +30,26 @@ public class ReservationsControllerTests
         var leavingDate = DateTime.Today.AddDays(5);
         var expectedReservationsListItems = new List<ReservationDetailsListItemDTO>
         {
-            new ReservationDetailsListItemDTO {Id = 1, RoomName = "Bodri", UserId = "UserId", BookingFrom = startingDate, BookingTo = leavingDate},
-            new ReservationDetailsListItemDTO {Id = 2, RoomName = "Buksi", UserId = "UserId2", BookingFrom = startingDate, BookingTo = leavingDate}
+            new ReservationDetailsListItemDTO {
+                Id = 1,
+                RoomName = "Bodri",
+                UserId = "UserId",
+                BookingFrom = startingDate,
+                BookingTo = leavingDate
+            },
+            new ReservationDetailsListItemDTO {
+                Id = 2,
+                RoomName = "Buksi",
+                UserId = "UserId2",
+                BookingFrom = startingDate,
+                BookingTo = leavingDate
+            }
         };
 
-        var reservationServiceMock = new Mock<IReservationService>();
-        reservationServiceMock.Setup(m => m.GetAllReservationsAsync()).ReturnsAsync(expectedReservationsListItems);
-        var reservationsController = new ReservationsController(reservationServiceMock.Object);
+        _reservationServiceMock.Setup(m => m.GetAllReservationsAsync()).ReturnsAsync(expectedReservationsListItems);
 
         // Act
-        var actualReservationDetailsListItemDTO = await reservationsController.GetAllReservations();
+        var actualReservationDetailsListItemDTO = await _controller.GetAllReservations();
 
         // Assert
         Assert.IsInstanceOfType(actualReservationDetailsListItemDTO.Result, typeof(OkObjectResult));
@@ -36,7 +59,87 @@ public class ReservationsControllerTests
         CollectionAssert.AreEqual(expectedReservationsListItems, result.ToList());
 
         Assert.AreEqual(expectedReservationsListItems, result);
+    }
 
+    [TestMethod]
+    public async Task CreateReservationForRoom_ValidRequest_ReturnOk()
+    {
+        // Arrange
+        var startingDate = DateTime.Today.AddDays(2);
+        var leavingDate = DateTime.Today.AddDays(5);
+        var request = new ReservationRequestDTO
+        {
+            UserId = "UserId", 
+            RoomId = 3, 
+            BookingFrom = startingDate, 
+            BookingTo= leavingDate
+        };
+
+        var response = new ReservationDetailsDTO
+        {
+            Id = 1,
+            UserId = "UserId",
+            RoomId = 3,
+            BookingFrom = startingDate,
+            BookingTo = leavingDate
+        };
+
+        _reservationServiceMock.Setup(m => m.CreateReservationAsync(request)).ReturnsAsync(response);
+
+        // Act
+        var result = await _controller.CreateReservationForRoom(request);
+
+        // Assert
+        Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
+        var okResult = (OkObjectResult)result.Result;
+        Assert.AreEqual(response, okResult.Value);
+    }
+
+    [TestMethod]
+    public async Task CreateReservationForRoom_HotelException_ReturnsStatusCode()
+    {
+        // Arrange
+        var startingDate = DateTime.Today.AddDays(5);
+        var leavingDate = DateTime.Today.AddDays(2);
+        var request = new ReservationRequestDTO
+        {
+            UserId = "UserId",
+            RoomId = 3,
+            BookingFrom = startingDate,
+            BookingTo = leavingDate
+        };
+
+        var hotelErrors = new List<HotelFieldError>
+        {
+            new HotelFieldError("BookingTo", "A távozásnak késõbb kell lennie, mint az érkezésnek"),
+            new HotelFieldError("BookingFrom", "A távozásnak késõbb kell lennie, mint az érkezésnek")
+        };
+
+        var hotelException = new HotelException(HttpStatusCode.BadRequest, hotelErrors, "One or more hotel errors occurred.");
+
+        _reservationServiceMock.Setup(m => m.CreateReservationAsync(request)).Throws(hotelException);
+
+        // Act
+        var result = await _controller.CreateReservationForRoom(request);
+
+        // Assert
+        Assert.IsInstanceOfType(result.Result, typeof(ObjectResult));
+        var objectResult = (ObjectResult)result.Result;
+        Assert.AreEqual((int)hotelException.Status, objectResult.StatusCode);
+
+        var errorResponse = objectResult.Value;
+
+        var errors = errorResponse.GetType().GetProperty("errors")?.GetValue(errorResponse) as List<HotelFieldError>;
+        Assert.IsNotNull(errors);
+        Assert.AreEqual(hotelErrors.Count, errors.Count);
+
+        for (int i = 0; i < hotelErrors.Count; i++)
+        {
+            var expectedError = hotelErrors[i];
+            var actualError = errors[i];
+            Assert.AreEqual(expectedError.FieldName, actualError.FieldName);
+            Assert.AreEqual(expectedError.FieldErrorMessage, actualError.FieldErrorMessage);
+        }
     }
 
 }
