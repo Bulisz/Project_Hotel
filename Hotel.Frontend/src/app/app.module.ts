@@ -21,8 +21,8 @@ import { CopyrightComponent } from './components/copyright/copyright.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ErrorComponent } from './components/error/error.component';
 import { ReservationForRoomComponent } from './components/reservation-for-room/reservation-for-room.component';
-import { BlogComponentComponent } from './components/blog-component/blog-component.component';
-import { CreateBlogComponentComponent } from './components/create-blog-component/create-blog-component.component';
+import { BlogComponent } from './components/blog/blog.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +39,8 @@ import { CreateBlogComponentComponent } from './components/create-blog-component
     CopyrightComponent,
     ErrorComponent,
     ReservationForRoomComponent,
-    BlogComponentComponent,
-    CreateBlogComponentComponent
+    BlogComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,

@@ -3,27 +3,32 @@ import { MatDialog } from '@angular/material/dialog';
 import { PostDetailsModel } from 'src/app/models/post-details-model';
 import { AccountService } from 'src/app/services/account.service';
 import { ReservationService } from 'src/app/services/reservation.service';
-import { CreateBlogComponentComponent } from '../create-blog-component/create-blog-component.component';
+import { CreatePostComponent } from '../create-post/create-post.component';
+import { UserModel } from 'src/app/models/user-model';
 
 @Component({
-  selector: 'app-blog-component',
-  templateUrl: './blog-component.component.html',
-  styleUrls: ['./blog-component.component.css']
+  selector: 'app-blog',
+  templateUrl: './blog.component.html',
+  styleUrls: ['./blog.component.css']
 })
-export class BlogComponentComponent implements OnInit{
+export class BlogComponent implements OnInit{
 
-  currentUser: any;
+  currentUser: UserModel | null = null;
   posts!: Array<PostDetailsModel>;
 
-  constructor(private as: AccountService, private rs: ReservationService, private dialog: MatDialog,){
+  constructor(
+    private as: AccountService,
+    private rs: ReservationService,
+    private dialog: MatDialog){
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+
     this.as.user.subscribe({
-      next: (res) => this.currentUser=res
+      next: res => this.currentUser = res
     })
 
-    this.getAllPosts();
+    await this.getAllPosts();
   }
 
   async getAllPosts(){
@@ -38,10 +43,10 @@ export class BlogComponentComponent implements OnInit{
       margin: '0 auto',
       disableClose: true,
       hasBackdrop: true,
-      position: {top: '10%'}
+      position: {top: '10%'},
+      data: { userName: this.currentUser?.userName, role: this.currentUser?.role }
     };
-
-    let dialog = this.dialog.open(CreateBlogComponentComponent,dialogBoxSettings);
+    let dialog = this.dialog.open(CreatePostComponent,dialogBoxSettings);
 
     dialog.afterClosed().subscribe({
       next: () => this.getAllPosts()

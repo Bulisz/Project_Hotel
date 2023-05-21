@@ -4,7 +4,6 @@ using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Hotel.Backend.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace Hotel.Backend.WebAPI.Controllers;
 
@@ -64,8 +63,15 @@ public class UsersController : ControllerBase
     //[Authorize]
     public async Task<ActionResult<UserDetails>> GetCurrentUser()
     {
-        string currentUserId = User.GetCurrentUserId();
-        return (await _userService.GetUserByIdAsync(currentUserId))!;
+        try
+        {
+            string currentUserId = User.GetCurrentUserId();
+            return (await _userService.GetUserByIdAsync(currentUserId))!;
+        }
+        catch (Exception)
+        {
+            return NoContent();
+        }
     }
 
     [HttpPost("Register")]
@@ -90,7 +96,7 @@ public class UsersController : ControllerBase
         {
             UserDetailsDTO userDTOlogin = await _userService.LoginAsync(request);
             LoginResponse response = _jwtService.CreateToken(userDTOlogin.User!, userDTOlogin.Roles);
-            response.Username = userDTOlogin.User.UserName;
+            response.UserName = userDTOlogin.User.UserName;
             response.Id = userDTOlogin.User.Id;
             response.Role = userDTOlogin.Roles[0].ToString();
             response.Email = userDTOlogin.User.Email;
