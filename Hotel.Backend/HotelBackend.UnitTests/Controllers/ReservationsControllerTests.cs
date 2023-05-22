@@ -142,4 +142,28 @@ public class ReservationsControllerTests
         }
     }
 
+    [TestMethod]
+    public async Task GetMyOwnReservations_ReturnsOkResultWithReservations()
+    {
+        // Arrange
+        string userId = "user123";
+        var reservations = new List<ReservationDetailsListItemDTO>
+            {
+                new ReservationDetailsListItemDTO { Id = 1, RoomName = "Room 1", UserId = "user123" },
+                new ReservationDetailsListItemDTO { Id = 2, RoomName = "Room 2", UserId = "user123" }
+            };
+
+        _reservationServiceMock.Setup(service => service.GetMyOwnReservationsAsync(userId))
+                               .ReturnsAsync(reservations);
+
+        // Act
+        ActionResult<IEnumerable<ReservationDetailsListItemDTO>> actionResult = await _controller.GetMyOwnReservations(userId);
+
+        // Assert
+        Assert.IsInstanceOfType(actionResult.Result, typeof(OkObjectResult));
+
+        var okResult = actionResult.Result as OkObjectResult;
+        var result = okResult.Value;
+        Assert.AreEqual(reservations, result);
+    }
 }

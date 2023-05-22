@@ -169,5 +169,41 @@ public class ReservationServiceTests
             Assert.AreEqual(expectedReservation.Room.Name, actualReservation.RoomName);
         }
     }
+
+    [TestMethod]
+    public async Task GetMyOwnReservationsAsync_ReturnsReservationDetailsList()
+    {
+        // Arrange
+        string userId = "user123";
+        List<Reservation> reservations = new List<Reservation>
+        {
+            new Reservation
+            {
+                Id = 1,
+                BookingFrom = DateTime.Now.AddDays(2),
+                BookingTo = DateTime.Now.AddDays(5),
+                Room = new Room { Name = "Room1" },
+                ApplicationUser = new ApplicationUser { Id = "user123"}
+            },
+            new Reservation
+            {
+                Id = 2,
+                BookingFrom = DateTime.Now.AddDays(5),
+                BookingTo = DateTime.Now.AddDays(8),
+                Room = new Room { Name = "Room2" },
+                ApplicationUser = new ApplicationUser { Id = "user123"}
+            }
+        };
+        _reservationRepositoryMock.Setup(repository => repository.GetMyReservationsAsync(userId))
+                                 .ReturnsAsync(reservations);
+
+        // Act
+        List<ReservationDetailsListItemDTO> result = await _reservationService.GetMyOwnReservationsAsync(userId);
+
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(reservations.Count, result.Count);
+        Assert.AreEqual(reservations[0].ApplicationUser.Id, userId);
+    }
 }
 
