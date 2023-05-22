@@ -21,6 +21,8 @@ import { CopyrightComponent } from './components/copyright/copyright.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ErrorComponent } from './components/error/error.component';
 import { ReservationForRoomComponent } from './components/reservation-for-room/reservation-for-room.component';
+import { BlogComponent } from './components/blog/blog.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { ReservationForRoomComponent } from './components/reservation-for-room/r
     FooterComponent,
     CopyrightComponent,
     ErrorComponent,
-    ReservationForRoomComponent
+    ReservationForRoomComponent,
+    BlogComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,

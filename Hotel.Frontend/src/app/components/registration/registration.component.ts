@@ -11,13 +11,13 @@ import { validationHandler } from 'src/utils/validationHandler';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  
+
   registerForm!: FormGroup;
-  
+
   constructor(private accountService: AccountService,
               private router: Router,
               public dialogRef: MatDialogRef<RegistrationComponent>){}
-  
+
   ngOnInit(): void {
     this.registerForm = new FormGroup ({
       userName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9]{2,}$')]), //TODO
@@ -29,7 +29,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   async onSubmit(){
-    console.log(this.registerForm.value)
     if(this.registerForm.valid) {
       const newAccount = this.registerForm.value;
       await this.accountService.registerNewAccout(newAccount)

@@ -1,3 +1,4 @@
+using CloudinaryDotNet;
 using Hotel.Backend.WebAPI.Abstractions;
 using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Helpers;
@@ -23,6 +24,11 @@ builder.Services.AddCorsRules();
 builder.Services.AddAuth(builder.Configuration);
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddSingleton(s =>
+    new Cloudinary(new Account(
+        builder.Configuration.GetValue<string>("CloudinaryConfig:Cloud"),
+        builder.Configuration.GetValue<string>("CloudinaryConfig:ApiKey"),
+        builder.Configuration.GetValue<string>("CloudinaryConfig:ApiSecret"))));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

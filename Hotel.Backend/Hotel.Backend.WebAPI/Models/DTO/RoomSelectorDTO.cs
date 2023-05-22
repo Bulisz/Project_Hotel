@@ -1,11 +1,14 @@
 ﻿using Hotel.Backend.WebAPI.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hotel.Backend.WebAPI.Models.DTO
 {
     public class RoomSelectorDTO
     {
-        public int Guest { get; set; }
-        public int Dog { get; set; }
+        [Range(1, 20)]
+        public int NumberOfBeds { get; set; }
+        [Range(1, 10)]
+        public int MaxNumberOfDogs { get; set; }
 
         [NotInThePast(ErrorMessage = "Csak a jövőbeni dátumokra lehetséges foglalni")]
         public DateTime BookingFrom { get; set; }

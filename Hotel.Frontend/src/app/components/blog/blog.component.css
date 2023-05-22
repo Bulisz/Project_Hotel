@@ -1,0 +1,99 @@
+.main {
+  padding: 3rem;
+  background-image: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1683705423/Hotel/Logos/background_j8kb3g.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+}
+
+.outer{
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: whitesmoke;
+  margin-bottom: 1rem;
+  width: 70%;
+}
+
+.inner{
+  border-radius: 1.5rem;
+  border: 3px solid #800020;
+  height: 100%;
+  position: inherit;
+  background-color: whitesmoke;
+}
+
+.text-heading {
+  display: flex;
+  flex-direction: row;
+}
+
+.title {
+  margin-left: 1rem;
+  font-family: 'Caveat';
+  font-size: 1.5rem;
+  color:#800020;
+}
+
+.text {
+  font-family: 'Roboto';
+  font-size: 1.2rem;
+  color: #696969;
+}
+
+.worker {
+  margin-left: 20%;
+  margin-right: 10%;
+}
+
+.guest {
+  margin-left: 10%;
+  margin-right: 20%;
+}
+
+.floating-button {
+  position: fixed;
+  top: 10%;
+  right: 1%;
+  background-color: #800020;
+  border-radius: 2rem;
+  color: whitesmoke;
+  font-family: 'Caveat';
+  font-size: 2.3rem;
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
+}
+
+@media only screen
+  and (min-device-width: 360px)
+  and (max-device-width: 1080px) {
+    .worker {
+      margin-left: 25%;
+      margin-right: 5%;
+    }
+
+    .guest {
+      margin-left: 5%;
+      margin-right: 25%;
+    }
+
+    .text-heading {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title {
+      margin-left: 0;
+    }
+
+    .floating-button {
+      top: 22%;
+      right: 2%;
+      font-size: 1.8rem;
+      width: 150px;
+    }
+  }

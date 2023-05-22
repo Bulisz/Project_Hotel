@@ -23,7 +23,7 @@ export class AccountService {
     return await firstValueFrom(this.http.post(`${environment.apiUrl}/${this.BASE_URL}/register`, newAccount));
   }
 
-  async login(loginData: LoginrequestModel): Promise<any> {
+  async login(loginData: LoginrequestModel): Promise<void> {
     return await firstValueFrom(this.http.post<LoginresponseModel>(`${environment.apiUrl}/${this.BASE_URL}/login`, loginData))
       .then((res) => {
         if(res.token){
@@ -33,11 +33,10 @@ export class AccountService {
       })
   }
 
-  async getCurrentUser(): Promise<any> {
+  async getCurrentUser(): Promise<void> {
     return await firstValueFrom(this.http.get<UserModel>(`${environment.apiUrl}/${this.BASE_URL}/getcurrentuser`))
       .then((res) => {
         this.user.next(res)
-        return res
       })
   }
 

@@ -15,11 +15,22 @@ public class ReservationRepository : IReservationRepository
         _context = context;
     }
 
+    public async Task<Post> CreatePostAsync(Post post)
+    {
+        _context.Posts.Add(post);
+        await _context.SaveChangesAsync();
+        return post;
+    }
+
+    public async Task<IEnumerable<Post>> GetAllPostsAsync()
+    {
+        return await _context.Posts.ToListAsync();
+    }
+
     public async Task<Reservation> CreateReservationAsync(Reservation newReservation)
     {
         _context.Reservations.Add(newReservation);
         await _context.SaveChangesAsync();
-
         return newReservation;
     }
 

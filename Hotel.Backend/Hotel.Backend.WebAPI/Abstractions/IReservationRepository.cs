@@ -5,8 +5,10 @@ namespace Hotel.Backend.WebAPI.Abstractions
 {
     public interface IReservationRepository
     {
+        Task<Post> CreatePostAsync(Post post);
         Task<Reservation> CreateReservationAsync(Reservation newReservation);
         Task<List<Reservation>> GetAllReservationsAsync();
         Task<List<Reservation>> GetMyReservationsAsync(string userId);
+        Task<IEnumerable<Post>> GetAllPostsAsync();
     }
 }

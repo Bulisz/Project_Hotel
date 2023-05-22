@@ -57,4 +57,16 @@ public class RoomRepository : IRoomRepository
             .Where(equipment => equipment.IsStandard == false)
             .ToListAsync();
     }
+
+    public async Task SaveOneImageAsync(Image image)
+    {
+        _context.Images.Add(image);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task SaveMoreImageAsync(List<Image> images)
+    {
+        _context.Images.AddRange(images);
+        await _context.SaveChangesAsync();
+    }
 }
