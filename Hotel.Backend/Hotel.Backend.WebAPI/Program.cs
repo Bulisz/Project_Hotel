@@ -1,5 +1,6 @@
 using CloudinaryDotNet;
-using Hotel.Backend.WebAPI.Abstractions;
+using Hotel.Backend.WebAPI.Abstractions.Repositories;
+using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Repositories;
@@ -18,6 +19,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
+builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
 
 builder.Services.AddCorsRules();

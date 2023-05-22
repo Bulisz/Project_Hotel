@@ -1,4 +1,4 @@
-﻿using Hotel.Backend.WebAPI.Abstractions;
+﻿using Hotel.Backend.WebAPI.Abstractions.Repositories;
 using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
@@ -13,18 +13,6 @@ public class ReservationRepository : IReservationRepository
     public ReservationRepository(HotelDbContext context)
     {
         _context = context;
-    }
-
-    public async Task<Post> CreatePostAsync(Post post)
-    {
-        _context.Posts.Add(post);
-        await _context.SaveChangesAsync();
-        return post;
-    }
-
-    public async Task<IEnumerable<Post>> GetAllPostsAsync()
-    {
-        return await _context.Posts.ToListAsync();
     }
 
     public async Task<Reservation> CreateReservationAsync(Reservation newReservation)

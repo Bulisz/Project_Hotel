@@ -5,6 +5,7 @@ import { AccountService } from 'src/app/services/account.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { CreatePostComponent } from '../create-post/create-post.component';
 import { UserModel } from 'src/app/models/user-model';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-blog',
@@ -18,7 +19,7 @@ export class BlogComponent implements OnInit{
 
   constructor(
     private as: AccountService,
-    private rs: ReservationService,
+    private postService: PostService,
     private dialog: MatDialog){
   }
 
@@ -32,7 +33,7 @@ export class BlogComponent implements OnInit{
   }
 
   async getAllPosts(){
-    await this.rs.getAllPosts()
+    await this.postService.getAllPosts()
       .then((res) => this.posts = res)
       .catch((err) => console.log(err))
   }

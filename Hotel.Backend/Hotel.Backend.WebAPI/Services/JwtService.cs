@@ -1,4 +1,5 @@
-﻿using Hotel.Backend.WebAPI.Models.DTO;
+﻿using Hotel.Backend.WebAPI.Abstractions.Services;
+using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
