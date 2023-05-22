@@ -37,4 +37,11 @@ public class ReservationsController : ControllerBase
             List<ReservationDetailsListItemDTO> reservations = await _reservationService.GetAllReservationsAsync();
             return Ok(reservations);
     }
+
+    [HttpGet(nameof(GetMyOwnReservations))]
+    public async Task<ActionResult<IEnumerable<ReservationDetailsListItemDTO>>> GetMyOwnReservations(string userId)
+    {
+        List<ReservationDetailsListItemDTO> ownReservations = await _reservationService.GetMyOwnReservationsAsync(userId);
+        return Ok(ownReservations);
+    }
 }

@@ -29,4 +29,12 @@ public class ReservationRepository : IReservationRepository
                                           .Include(reservation => reservation.Room)
                                           .ToListAsync();
     }
+
+    public async Task<List<Reservation>> GetMyReservationsAsync(string userId)
+    {
+        return await _context.Reservations.Include(reservation => reservation.ApplicationUser)
+                                          .Include(reservation => reservation.Room)
+                                          .Where(reservation => reservation.ApplicationUser.Id == userId)
+                                          .ToListAsync();
+    }
 }
