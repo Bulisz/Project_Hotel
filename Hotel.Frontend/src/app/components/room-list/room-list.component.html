@@ -10,20 +10,26 @@
 
       <form [formGroup]="roomSelector" (ngSubmit)="onSubmit()">
         <div class="mb-3">
-          <label for="guestNumber" class="form-label"
+          <label for="numberOfBeds" class="form-label"
          >Vendégek száma:</label>
-          <input type="number" class="form-control" id="guestNumber" formControlName="guestNumber">
-          <small *ngIf="guestNumber?.invalid && guestNumber?.touched" class="text-danger">
-            <span *ngIf="guestNumber?.errors?.['required']">Add meg a vendégek számát!</span>
+          <input type="number" class="form-control" id="numberOfBeds" formControlName="numberOfBeds">
+          <small *ngIf="numberOfBeds?.invalid && numberOfBeds?.touched" class="text-danger">
+            <span *ngIf="numberOfBeds?.errors?.['required']">Add meg a vendégek számát!</span>
+          </small>
+          <small *ngIf="roomSelector.get('numberOfBeds')?.errors?.['serverError']" class="text-danger">
+            {{roomSelector.get('numberOfBeds')?.getError('serverError')}}
           </small>
         </div>
 
         <div class="mb-3">
-          <label for="dogNumber" class="form-label"
+          <label for="maxNumberOfDogs" class="form-label"
           >Kutyusok száma:</label>
-          <input type="number" class="form-control" id="dogNumber" formControlName="dogNumber">
-          <small *ngIf="dogNumber?.invalid && dogNumber?.touched" class="text-danger">
-            <span *ngIf="dogNumber?.errors?.['required']">Add meg a kutyusok számát!</span>
+          <input type="number" class="form-control" id="maxNumberOfDogs" formControlName="maxNumberOfDogs">
+          <small *ngIf="maxNumberOfDogs?.invalid && maxNumberOfDogs?.touched" class="text-danger">
+            <span *ngIf="maxNumberOfDogs?.errors?.['required']">Add meg a kutyusok számát!</span>
+          </small>
+          <small *ngIf="roomSelector.get('maxNumberOfDogs')?.errors?.['serverError']" class="text-danger">
+            {{roomSelector.get('maxNumberOfDogs')?.getError('serverError')}}
           </small>
         </div>
 
@@ -40,7 +46,7 @@
         <div class="mb-3">
           <label for="bookingFrom" class="form-label"
          >Érkezés:</label>
-          <input type="date" class="form-control" id="bookingFrom" formControlName="bookingFrom">
+          <input type="date" class="form-control" id="bookingFrom" formControlName="bookingFrom" (input)="changeMe()">
           <small *ngIf="bookingFrom?.invalid && bookingFrom?.touched" class="text-danger">
             <span *ngIf="bookingFrom?.errors?.['required']">Add meg az érkezés dátumát!</span>
           </small>
@@ -52,7 +58,7 @@
         <div class="mb-3">
           <label for="bookingTo" class="form-label"
          >Távozás:</label>
-          <input type="date" class="form-control" id="bookingTo" formControlName="bookingTo">
+          <input type="date" class="form-control" id="bookingTo" formControlName="bookingTo" (input)="changeMe()">
           <small *ngIf="bookingTo?.invalid && bookingTo?.touched" class="text-danger">
             <span *ngIf="bookingTo?.errors?.['required']">Add meg a távozás dátumát!</span>
           </small>

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NonStandardEquipmentModel } from 'src/app/models/non-standard-equipment-model';
-import { AvailableRoomsModel } from 'src/app/models/available-rooms-model';
 import { RoomListModel } from 'src/app/models/room-list.model';
 import { RoomService } from 'src/app/services/room.service';
 import { BehaviorSubject } from 'rxjs';
@@ -14,17 +13,17 @@ import { validationHandler } from 'src/utils/validationHandler';
   styleUrls: ['./room-list.component.css']
 })
 export class RoomListComponent implements OnInit{
-  
+
   allRooms: Array<RoomListModel> | null = null;
   searchedRooms = new BehaviorSubject<Array<RoomListModel> | null>(null)
   nonStandardEquipments: Array<NonStandardEquipmentModel> =[];
   roomSelector: FormGroup;
   equipmentsControllers: FormArray | undefined;
-  
+
   constructor (private formBuilder: FormBuilder, private roomService: RoomService, private router: Router) {
     this.roomSelector = this.formBuilder.group({
-      guestNumber: [null, Validators.required],
-      dogNumber:  [null, Validators.required],
+      numberOfBeds: ['', [Validators.required,  Validators.min(1), Validators.max(20)]],
+      maxNumberOfDogs:  ['', [Validators.required,  Validators.min(1), Validators.max(10)]],
       nonStandardEquipments: new FormArray([]),
       bookingFrom: [null, Validators.required],
       bookingTo: [null, Validators.required]
@@ -41,7 +40,7 @@ export class RoomListComponent implements OnInit{
         this.nonStandardEquipments = response;
 
         this.nonStandardEquipments.forEach(e => {
-          this.equipmentFormArray.push( 
+          this.equipmentFormArray.push(
             new FormControl(false)
           )
         }
@@ -63,18 +62,18 @@ export class RoomListComponent implements OnInit{
   }
 
   loadRooms() {
-            
+
     this.roomService.getAllRooms().subscribe( {
 
-      next: (response: RoomListModel[]) =>{ this.searchedRooms.next(response)  
-      
-    
+      next: (response: RoomListModel[]) =>{ this.searchedRooms.next(response)
+
+
       },
       error: (error) => console.log(error),
     });
   }
 
-  
+
   goToDetails(id: number) {
     this.router.navigate(['room-details', id]);
   }
@@ -89,23 +88,21 @@ export class RoomListComponent implements OnInit{
     });
     const formValue = this.roomSelector.getRawValue()
     const parsoltFormValue = {...formValue, nonStandardEquipments: selectedList};
-    
+
     this.roomService.getRoomOptions(parsoltFormValue).subscribe({
       next: (response: RoomListModel[]) =>{ this.searchedRooms.next(response)
-        console.log(this.searchedRooms.value)
-      
         },
         error: (error) => validationHandler(error, this.roomSelector),
       });
 
   }
 
-  get guestNumber(): AbstractControl | null {
-    return this.roomSelector.get('guestNumber')
+  get numberOfBeds(): AbstractControl | null {
+    return this.roomSelector.get('numberOfBeds')
   }
-  
-  get dogNumber(): AbstractControl | null {
-    return this.roomSelector.get('dogNumber')
+
+  get maxNumberOfDogs(): AbstractControl | null {
+    return this.roomSelector.get('maxNumberOfDogs')
   }
 
   get bookingFrom(): AbstractControl | null {
@@ -114,5 +111,10 @@ export class RoomListComponent implements OnInit{
 
   get bookingTo(): AbstractControl | null {
     return this.roomSelector.get('bookingTo')
+  }
+
+  changeMe(){
+    this.roomSelector.get('bookingFrom')?.setErrors(null)
+    this.roomSelector.get('bookingTo')?.setErrors(null)
   }
 }

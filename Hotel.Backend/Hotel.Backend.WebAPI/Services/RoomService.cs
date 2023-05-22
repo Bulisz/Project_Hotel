@@ -52,8 +52,8 @@ public class RoomService : IRoomService
     {
         if (query.BookingFrom < query.BookingTo)
         {
-            int guestNumber = query.Guest;
-            int dogNumber = query.Dog;
+            int guestNumber = query.NumberOfBeds;
+            int dogNumber = query.MaxNumberOfDogs;
             List<int> choosedEquipmentsId = query.ChoosedEquipments;
             DateTime bookingFrom = query.BookingFrom;
             DateTime bookingTo = query.BookingTo;
