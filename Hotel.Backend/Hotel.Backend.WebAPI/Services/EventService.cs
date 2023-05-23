@@ -5,7 +5,6 @@ using Hotel.Backend.WebAPI.Abstractions.Repositories;
 using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
-
 namespace Hotel.Backend.WebAPI.Services;
 
 public class EventService : IEventService
@@ -37,5 +36,14 @@ public class EventService : IEventService
         @event.ImageUrl = imageurl;
 
         return _mapper.Map<EventDetailsDTO>(await _eventRepository.CreateEventAsync(@event));
+    }
+
+    public async Task<IEnumerable<EventDetailsDTO>> GetListOfEventsAsync()
+    {
+        List<Event> allEvents = await _eventRepository.GetAllEventsAsync();
+
+        List<EventDetailsDTO> events = _mapper.Map<List<EventDetailsDTO>>(allEvents);
+
+        return events;
     }
 }

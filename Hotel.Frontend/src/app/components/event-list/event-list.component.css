@@ -104,6 +104,21 @@
       font-size: 2.5rem;
       width: 200px;
   }
+
+
+  .floating-button {
+    position: fixed;
+    top: 10%;
+    right: 1%;
+    background-color: #800020;
+    border-radius: 2rem;
+    color: whitesmoke;
+    font-family: 'Caveat';
+    font-size: 2.3rem;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+  }
   
   @media only screen
     and (min-device-width: 360px)
