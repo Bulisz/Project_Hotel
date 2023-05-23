@@ -20,12 +20,14 @@ export class CreateEventComponent {
     this.eventForm = new FormBuilder().group({
       title: new FormControl('' , Validators.required),
       text: new FormControl('' , Validators.required),
-      schedule: new FormControl('' , Validators.required)
+      schedule: new FormControl('' , Validators.required),
+      image: new FormControl(null)
     })
   }
 
   public onImageUpload(event: any) {
     this.image = event.target.files[0];
+    this.eventForm.get('image')?.setErrors(null)
   }
 
   async onSubmit(){
@@ -33,9 +35,11 @@ export class CreateEventComponent {
     const parsedFormValue = {...formValue, image: this.image};
     console.log(parsedFormValue)
     await this.es.createEvent(parsedFormValue)
-      .then(res => this.createdEvent = res)
+      .then(res => {
+        this.createdEvent = res
+        this.dialogRef.close()
+      })
       .catch(err => validationHandler(err,this.eventForm))
-    this.dialogRef.close()
   }
 
   closeEvent(){
