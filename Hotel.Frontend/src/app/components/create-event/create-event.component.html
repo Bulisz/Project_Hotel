@@ -25,7 +25,10 @@
 
       <div class="mb-3">
         <label for="image" class="form-label">Az esemény képe:</label>
-        <input type="file" class="form-control" id="image"  (change)="onImageUpload($event)">
+        <input type="file" class="form-control" id="image"  (change)="onImageUpload($event)" formControlName="image">
+        <small *ngIf="eventForm.get('image')?.errors?.['serverError']" class="text-danger">
+          {{eventForm.get('image')?.getError('serverError')}}
+        </small>
       </div>
 
       <div class="text-center">
