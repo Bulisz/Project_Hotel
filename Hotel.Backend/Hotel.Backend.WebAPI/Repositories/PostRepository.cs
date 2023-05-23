@@ -23,6 +23,6 @@ public class PostRepository : IPostRepository
 
     public async Task<IEnumerable<Post>> GetAllPostsAsync()
     {
-        return await _context.Posts.ToListAsync();
+        return await _context.Posts.OrderByDescending(p => p.CreatedAt).ToListAsync();
     }
 }
