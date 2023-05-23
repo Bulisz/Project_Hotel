@@ -16,7 +16,7 @@
     align-items: center;
     padding: 0.5rem;
     background-color: whitesmoke;
-    margin: 1rem;
+    margin-bottom: 1.5rem;
     
   }
   
@@ -110,7 +110,7 @@
     position: fixed;
     top: 10%;
     right: 1%;
-    background-color: #800020;
+    background-color: #6c757d;
     border-radius: 2rem;
     color: whitesmoke;
     font-family: 'Caveat';
@@ -138,12 +138,21 @@
   
       .details {
         font-family: 'Roboto';
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: #800020;
       }
   
       .details-content {
         font-size: 1.2rem;
+      }
+
+      .timetable {
+        font-family: 'Caveat';
+        font-size: 1.4rem;
+        color: #800020;
+        margin-right: 1rem;
+        margin-bottom: 2rem;
+        
       }
   
       .left-side {
@@ -168,7 +177,20 @@
           font-size: 1.8rem;
           width: 150px;
       }
-  
+
+      .floating-button {
+        position: fixed;
+        top: 42%;
+        right: 1%;
+        background-color: #6c757d;
+        border-radius: 2rem;
+        color: whitesmoke;
+        font-family: 'Caveat';
+        font-size: 2.3rem;
+        width: 200px;
+        text-align: center;
+        cursor: pointer;
+      }
     }
   
   
