@@ -16,7 +16,7 @@ public class EventsController : ControllerBase
     }
 
     [HttpPost("CreateEvent")]
-    public async Task<ActionResult<EventDetailsDTO>> CreateEvent(CreateEventDTO createEvent)
+    public async Task<ActionResult<EventDetailsDTO>> CreateEvent([FromForm]CreateEventDTO createEvent)
     {
         EventDetailsDTO createdEvent = await _eventService.CreateEventAsync(createEvent);
         return Ok(createEvent);

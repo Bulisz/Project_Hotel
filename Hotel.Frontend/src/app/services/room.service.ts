@@ -46,10 +46,24 @@ export class RoomService {
   }
 
   async saveOneImage(image: SaveOneImageModel): Promise<any> {
+
+    const formData: FormData = new FormData();
+    formData.append('roomId', String(image.roomId));
+    formData.append('description', image.description);
+    formData.append('image', image.image);
+
     return await firstValueFrom(this.http.post(`${environment.apiUrl}/${this.BASE_URL}/SaveOneImage`,image))
   }
 
   async saveMoreImage(images: SaveMoreImageModel): Promise<any> {
+
+    const formData: FormData = new FormData();
+    formData.append('roomId', String(images.roomId));
+    formData.append('description', images.description);
+    for (let file of images.images){
+      formData.append('images', file);
+    }
+
     return await firstValueFrom(this.http.post(`${environment.apiUrl}/${this.BASE_URL}/SaveMoreImage`,images))
   }
 
