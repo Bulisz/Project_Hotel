@@ -1,0 +1,153 @@
+.main {
+    padding: 3rem;
+    background-image: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1683705423/Hotel/Logos/background_j8kb3g.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+  }
+  
+  
+  .outer{
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    margin: 1rem auto;
+    background-color: whitesmoke;
+  }
+
+  .details-body {
+    display: flex;
+    flex-direction:row;
+  }
+  
+  .inner{
+    border-radius: 1.5rem;
+    border: 3px solid #800020;
+    height: 100%;
+    position: inherit;
+   
+  }
+
+  .col-lg-9 {
+    width: 100%;
+  }
+
+  .left-side {
+    width: 75%;
+  }
+  
+  .text-heading {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .details {
+    font-family: 'Caveat';
+    font-size: 2.5rem;
+    color: #800020;
+    margin-left: 1rem;
+  }
+  
+  .details-content {
+    font-family: 'Roboto';
+    font-size: 1.5rem;
+    color: #800020;
+  }
+  
+  .right-side {
+    border: #800020 2px solid;
+    padding: 0.5rem;
+    width:35%;
+    margin: 0.5rem;
+  }
+  
+  .title {
+    font-family: 'Caveat';
+    font-size: 4rem;
+    color: #800020;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .text {
+    font-family: 'Roboto';
+    font-size: 1.2rem;
+    color: #696969;
+  }
+  
+  .worker {
+    margin-left: 20%;
+    margin-right: 10%;
+  }
+  
+  .guest {
+    margin-left: 10%;
+    margin-right: 20%;
+  }
+  
+  .floating-button {
+    position: fixed;
+    top: 10%;
+    right: 1%;
+    background-color: #800020;
+    border-radius: 2rem;
+    color: whitesmoke;
+    font-family: 'Caveat';
+    font-size: 2.3rem;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .btn-container {
+    display: flex;
+    flex-direction: column;
+    float: right;
+  }
+  
+  .btn {
+    background-color: #800020;
+    border-radius: 3rem;
+    color: whitesmoke;
+    font-family: 'Caveat';
+    font-size: 2.5rem;
+    width: 200px;
+    margin: 1rem;
+  }
+  
+  @media only screen
+    and (min-device-width: 360px)
+    and (max-device-width: 1080px) {
+      .worker {
+        margin-left: 25%;
+        margin-right: 5%;
+      }
+  
+      .guest {
+        margin-left: 5%;
+        margin-right: 25%;
+      }
+  
+      .text-heading {
+        display: flex;
+        flex-direction: column;
+      }
+  
+      .title {
+        margin-left: 0;
+      }
+  
+      .floating-button {
+        top: 22%;
+        right: 2%;
+        font-size: 1.8rem;
+        width: 150px;
+      }
+
+     
+    }
+  

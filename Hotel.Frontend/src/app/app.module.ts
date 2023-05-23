@@ -23,6 +23,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { ReservationForRoomComponent } from './components/reservation-for-room/reservation-for-room.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { PersonalComponent } from './components/personal/personal.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
     ErrorComponent,
     ReservationForRoomComponent,
     BlogComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    PersonalComponent
   ],
   imports: [
     BrowserModule,

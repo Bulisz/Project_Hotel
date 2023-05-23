@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RoomDetailsComponent } from './components/room-details/room-details.component';
 import { ErrorComponent } from './components/error/error.component';
 import { BlogComponent } from './components/blog/blog.component';
+import { PersonalComponent } from './components/personal/personal.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'blog', component: BlogComponent},
   { path: 'registration', component: RegistrationComponent},
   { path: 'login', component: LoginComponent},
+  { path: 'personal', component: PersonalComponent},
   { path: 'error', component: ErrorComponent},
   { path: '**', component: ErrorComponent }
 ];

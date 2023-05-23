@@ -4,8 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ReservationDetailsModel } from '../models/reservation-details-model';
 import { ReservationModel } from '../models/reservation-model';
-import { PostModel } from '../models/post-model';
-import { PostDetailsModel } from '../models/post-details-model';
+import { ReservationListItem } from '../models/reservation-list-item';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +17,9 @@ export class ReservationService {
 
   async createReservationForRoom(reservation: ReservationModel): Promise<ReservationDetailsModel> {
     return await firstValueFrom(this.http.post<ReservationDetailsModel>(`${environment.apiUrl}/${this.BASE_URL}/createReservationForRoom`,reservation))
+  }
+
+  async getMyOwnReservations(userId: string): Promise<Array<ReservationListItem>> {
+    return await firstValueFrom(this.http.get<Array<ReservationListItem>>(`${environment.apiUrl}/${this.BASE_URL}/${userId}`))
   }
 }
