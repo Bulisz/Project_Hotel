@@ -110,7 +110,7 @@ public class RoomService : IRoomService
 
     public async Task SaveOneImageAsync(SaveOneImageDTO saveOneImage)
     {
-        Room room = await _roomRepository.GetRoomByIdAsync(saveOneImage.RoomId);
+        Room room = await _roomRepository.GetRoomByIdAsync(int.Parse(saveOneImage.RoomId));
 
         var uploadParams = new ImageUploadParams
         {
@@ -133,7 +133,7 @@ public class RoomService : IRoomService
 
     public async Task SaveMoreImageAsync(SaveMoreImageDTO saveMoreImage)
     {
-        Room room = await _roomRepository.GetRoomByIdAsync(saveMoreImage.RoomId);
+        Room room = await _roomRepository.GetRoomByIdAsync(int.Parse(saveMoreImage.RoomId));
         List<Image> images = new();
 
         foreach (var actualImage in saveMoreImage.Images)

@@ -208,16 +208,16 @@ public class DatabaseTest
     [TestMethod]
     public void ResetDatabase()
     {
-        _context.Database.ExecuteSqlRaw("DELETE FROM EquipmentRoom");
-        _context.Database.ExecuteSqlRaw("DELETE FROM Equipments");
-        _context.Database.ExecuteSqlRaw("DELETE FROM Images");
-        _context.Database.ExecuteSqlRaw("DELETE FROM Reservations");
-        _context.Database.ExecuteSqlRaw("DELETE FROM Rooms");
+        //_context.Database.ExecuteSqlRaw("DELETE FROM EquipmentRoom");
+        //_context.Database.ExecuteSqlRaw("DELETE FROM Equipments");
+        //_context.Database.ExecuteSqlRaw("DELETE FROM Images");
+        //_context.Database.ExecuteSqlRaw("DELETE FROM Reservations");
+        //_context.Database.ExecuteSqlRaw("DELETE FROM Rooms");
 
-        _context.Database.ExecuteSqlRaw("DBCC CHECKIDENT (EquipmentRoom, RESEED, 0)");
-        _context.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Equipments, RESEED, 0)");
-        _context.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Images, RESEED, 0)");
-        _context.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Reservations, RESEED, 0)");
-        _context.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Rooms, RESEED, 0)");
+        //_context.Database.ExecuteSqlRaw("DBCC CHECKIDENT (EquipmentRoom, RESEED, 0)");
+        //_context.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Equipments, RESEED, 0)");
+        //_context.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Images, RESEED, 0)");
+        //_context.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Reservations, RESEED, 0)");
+        //_context.Database.ExecuteSqlRaw("DBCC CHECKIDENT (Rooms, RESEED, 0)");
     }
 }

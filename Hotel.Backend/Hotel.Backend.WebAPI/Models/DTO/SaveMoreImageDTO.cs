@@ -2,7 +2,7 @@
 
 public record SaveMoreImageDTO
 {
-    public int RoomId { get; set; }
+    public string RoomId { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public List<IFormFile?> Images { get; set; } = new();
 }
