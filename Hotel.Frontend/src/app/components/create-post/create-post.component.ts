@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AccountService } from 'src/app/services/account.service';
+import { PostService } from 'src/app/services/post.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { validationHandler } from 'src/utils/validationHandler';
 
@@ -14,7 +15,7 @@ export class CreatePostComponent{
 
   postForm: FormGroup;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {userName: string, role: string}, private rs: ReservationService, public dialogRef: MatDialogRef<CreatePostComponent>,){
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {userName: string, role: string}, private postService: PostService, public dialogRef: MatDialogRef<CreatePostComponent>,){
     this.postForm = new FormBuilder().group({
       text: new FormControl('' , Validators.required)
     })
@@ -24,7 +25,7 @@ export class CreatePostComponent{
     const formValue = this.postForm.getRawValue()
     const parsedFormValue = {...formValue, userName: this.data.userName, role: this.data.role}
     console.log(parsedFormValue)
-    await this.rs.createPost(parsedFormValue)
+    await this.postService.createPost(parsedFormValue)
       .then(() => {})
       .catch((err) => validationHandler(err,this.postForm))
     this.dialogRef.close()

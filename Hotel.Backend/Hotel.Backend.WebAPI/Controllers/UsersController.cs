@@ -1,8 +1,7 @@
-﻿using Hotel.Backend.WebAPI.Abstractions;
+﻿using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helper;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
-using Hotel.Backend.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.Backend.WebAPI.Controllers;

@@ -23,6 +23,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { ReservationForRoomComponent } from './components/reservation-for-room/reservation-for-room.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { CreateEventComponent } from './components/create-event/create-event.component';
 import { EventListComponent } from './components/event-list/event-list.component';
 
 @NgModule({
@@ -41,6 +42,8 @@ import { EventListComponent } from './components/event-list/event-list.component
     ErrorComponent,
     ReservationForRoomComponent,
     BlogComponent,
+    CreatePostComponent,
+    CreateEventComponent
     CreatePostComponent,
     EventListComponent
   ],

@@ -16,6 +16,8 @@ public class HotelDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<Post> Posts { get; set; }
 
+    public DbSet<Event> Events { get; set; }
+
     public HotelDbContext(DbContextOptions<HotelDbContext> options) : base(options)
     {
     }

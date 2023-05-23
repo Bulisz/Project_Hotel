@@ -16,14 +16,6 @@ export class ReservationService {
 
   constructor(private http: HttpClient) { }
 
-  async createPost(post: PostModel): Promise<PostModel> {
-    return await firstValueFrom(this.http.post<PostModel>(`${environment.apiUrl}/${this.BASE_URL}/createPost`,post))
-  }
-
-  async getAllPosts(): Promise<Array<PostDetailsModel>> {
-    return await firstValueFrom(this.http.get<Array<PostDetailsModel>>(`${environment.apiUrl}/${this.BASE_URL}/getAllPosts`))
-  }
-
   async createReservationForRoom(reservation: ReservationModel): Promise<ReservationDetailsModel> {
     return await firstValueFrom(this.http.post<ReservationDetailsModel>(`${environment.apiUrl}/${this.BASE_URL}/createReservationForRoom`,reservation))
   }

@@ -1,4 +1,4 @@
-﻿using Hotel.Backend.WebAPI.Abstractions;
+﻿using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -31,17 +31,17 @@ public class ReservationsController : ControllerBase
         }
     }
 
-    [HttpPost(nameof(CreatePost))]
-    public async Task<ActionResult<PostDetailsDTO>> CreatePost(PostCreateDTO post)
+    [HttpGet(nameof(GetAllReservations))]
+    public async Task<ActionResult<IEnumerable<ReservationDetailsListItemDTO>>> GetAllReservations()
     {
-        PostDetailsDTO createdPost = await _reservationService.CreatePostAsync(post);
-        return Ok(createdPost);
+            List<ReservationDetailsListItemDTO> reservations = await _reservationService.GetAllReservationsAsync();
+            return Ok(reservations);
     }
 
-    [HttpGet(nameof(GetAllPosts))]
-    public async Task<ActionResult<IEnumerable<PostDetailsDTO>>> GetAllPosts()
+    [HttpGet(nameof(GetMyOwnReservations))]
+    public async Task<ActionResult<IEnumerable<ReservationDetailsListItemDTO>>> GetMyOwnReservations(string userId)
     {
-        IEnumerable<PostDetailsDTO> allPosts = await _reservationService.GetAllPostsAsync();
-        return Ok(allPosts);
+        List<ReservationDetailsListItemDTO> ownReservations = await _reservationService.GetMyOwnReservationsAsync(userId);
+        return Ok(ownReservations);
     }
 }

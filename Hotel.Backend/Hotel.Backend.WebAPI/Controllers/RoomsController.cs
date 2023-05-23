@@ -1,9 +1,6 @@
-﻿using Azure.Core;
-using Hotel.Backend.WebAPI.Abstractions;
+﻿using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
-using Hotel.Backend.WebAPI.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.Backend.WebAPI.Controllers;
@@ -43,7 +40,7 @@ public class RoomsController : ControllerBase
     }
 
     [HttpGet(nameof(GetAvailableRooms))]
-    public async Task<ActionResult<IEnumerable<RoomListDTO>>> GetAvailableRooms([FromQuery]RoomSelectorDTO query)
+    public async Task<ActionResult<IEnumerable<RoomListDTO>>> GetAvailableRooms([FromQuery] RoomSelectorDTO query)
     {
         try
         {
@@ -64,5 +61,19 @@ public class RoomsController : ControllerBase
     {
         var nonStandardEquipments = await _roomService.GetNonStandardEquipmentsAsync();
         return Ok(nonStandardEquipments);
+    }
+
+    [HttpPost("SaveOneImage")]
+    public async Task<ActionResult> SaveOneImage([FromForm] SaveOneImageDTO saveOneImage)
+    {
+        await _roomService.SaveOneImageAsync(saveOneImage);
+        return Ok();
+    }
+
+    [HttpPost("SaveMoreImage")]
+    public async Task<ActionResult> SaveMoreImage([FromForm] SaveMoreImageDTO saveMoreImage)
+    {
+        await _roomService.SaveMoreImageAsync(saveMoreImage);
+        return Ok();
     }
 }

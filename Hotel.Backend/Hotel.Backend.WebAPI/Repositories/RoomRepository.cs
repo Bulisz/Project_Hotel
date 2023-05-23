@@ -1,4 +1,4 @@
-﻿using Hotel.Backend.WebAPI.Abstractions;
+﻿using Hotel.Backend.WebAPI.Abstractions.Repositories;
 using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
@@ -56,5 +56,17 @@ public class RoomRepository : IRoomRepository
         return await _context.Equipments
             .Where(equipment => equipment.IsStandard == false)
             .ToListAsync();
+    }
+
+    public async Task SaveOneImageAsync(Image image)
+    {
+        _context.Images.Add(image);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task SaveMoreImageAsync(List<Image> images)
+    {
+        _context.Images.AddRange(images);
+        await _context.SaveChangesAsync();
     }
 }

@@ -1,4 +1,6 @@
-using Hotel.Backend.WebAPI.Abstractions;
+using CloudinaryDotNet;
+using Hotel.Backend.WebAPI.Abstractions.Repositories;
+using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Repositories;
@@ -17,12 +19,22 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
+builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
 
 builder.Services.AddCorsRules();
 builder.Services.AddAuth(builder.Configuration);
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddSingleton(s =>
+    new Cloudinary(new Account(
+        builder.Configuration.GetValue<string>("CloudinaryConfig:Cloud"),
+        builder.Configuration.GetValue<string>("CloudinaryConfig:ApiKey"),
+        builder.Configuration.GetValue<string>("CloudinaryConfig:ApiSecret"))));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
