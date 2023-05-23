@@ -45,7 +45,7 @@ import { ReservationListComponent } from './components/reservation-list/reservat
     ReservationForRoomComponent,
     BlogComponent,
     PersonalComponent,
-    ReservationListComponent
+    ReservationListComponent,
     CreatePostComponent,
     CreateEventComponent,
     EventListComponent
