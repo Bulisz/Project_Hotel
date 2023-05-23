@@ -28,16 +28,16 @@ public class ReservationsControllerTests
         // Arrange
         var startingDate = DateTime.Today.AddDays(2);
         var leavingDate = DateTime.Today.AddDays(5);
-        var expectedReservationsListItems = new List<ReservationDetailsListItemDTO>
+        var expectedReservationsListItems = new List<ReservationListItemDTO>
         {
-            new ReservationDetailsListItemDTO {
+            new ReservationListItemDTO {
                 Id = 1,
                 RoomName = "Bodri",
                 UserId = "UserId",
                 BookingFrom = startingDate,
                 BookingTo = leavingDate
             },
-            new ReservationDetailsListItemDTO {
+            new ReservationListItemDTO {
                 Id = 2,
                 RoomName = "Buksi",
                 UserId = "UserId2",
@@ -54,7 +54,7 @@ public class ReservationsControllerTests
         // Assert
         Assert.IsInstanceOfType(actualReservationDetailsListItemDTO.Result, typeof(OkObjectResult));
         var okResult = (OkObjectResult)actualReservationDetailsListItemDTO.Result!;
-        var result = (IEnumerable<ReservationDetailsListItemDTO>)okResult.Value!;
+        var result = (IEnumerable<ReservationListItemDTO>)okResult.Value!;
 
         CollectionAssert.AreEqual(expectedReservationsListItems, result.ToList());
 
@@ -147,17 +147,17 @@ public class ReservationsControllerTests
     {
         // Arrange
         string userId = "user123";
-        var reservations = new List<ReservationDetailsListItemDTO>
+        var reservations = new List<ReservationListItemDTO>
             {
-                new ReservationDetailsListItemDTO { Id = 1, RoomName = "Room 1", UserId = "user123" },
-                new ReservationDetailsListItemDTO { Id = 2, RoomName = "Room 2", UserId = "user123" }
+                new ReservationListItemDTO { Id = 1, RoomName = "Room 1", UserId = "user123" },
+                new ReservationListItemDTO { Id = 2, RoomName = "Room 2", UserId = "user123" }
             };
 
         _reservationServiceMock.Setup(service => service.GetMyOwnReservationsAsync(userId))
                                .ReturnsAsync(reservations);
 
         // Act
-        ActionResult<IEnumerable<ReservationDetailsListItemDTO>> actionResult = await _controller.GetMyOwnReservations(userId);
+        ActionResult<IEnumerable<ReservationListItemDTO>> actionResult = await _controller.GetMyOwnReservations(userId);
 
         // Assert
         Assert.IsInstanceOfType(actionResult.Result, typeof(OkObjectResult));

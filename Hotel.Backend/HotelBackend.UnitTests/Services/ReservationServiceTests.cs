@@ -198,7 +198,7 @@ public class ReservationServiceTests
                                  .ReturnsAsync(reservations);
 
         // Act
-        List<ReservationDetailsListItemDTO> result = await _reservationService.GetMyOwnReservationsAsync(userId);
+        List<ReservationListItemDTO> result = await _reservationService.GetMyOwnReservationsAsync(userId);
 
         // Assert
         Assert.IsNotNull(result);
