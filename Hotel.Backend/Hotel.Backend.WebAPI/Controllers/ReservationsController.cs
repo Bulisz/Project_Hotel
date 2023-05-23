@@ -44,4 +44,11 @@ public class ReservationsController : ControllerBase
         List<ReservationListItemDTO> ownReservations = await _reservationService.GetMyOwnReservationsAsync(userId);
         return Ok(ownReservations);
     }
+
+    [HttpDelete("{reservationId}")]
+    public async Task<ActionResult> DeleteReservation(int reservationId)
+    {
+        await _reservationService.DeleteReservationAsync(reservationId);
+        return NoContent();
+    }
 }

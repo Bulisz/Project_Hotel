@@ -1,6 +1,5 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Repositories;
 using Hotel.Backend.WebAPI.Helpers;
-using Hotel.Backend.WebAPI.Migrations;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Identity;
@@ -85,5 +84,11 @@ public class UserRepository : IUserRepository
         };
 
         return userDTOlogin;
+    }
+
+    public async Task DeleteUserAsync(string userId)
+    {
+        ApplicationUser? user = await _userManager.FindByIdAsync(userId);
+        await _userManager.DeleteAsync(user);
     }
 }

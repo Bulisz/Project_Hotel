@@ -44,4 +44,9 @@ public class UserService : IUserService
     {
         return await _userRepository.LoginAsync(userLoginRequest);
     }
+
+    public async Task DeleteReservationAsync(string userId)
+    {
+        await _userRepository.DeleteUserAsync(userId);
+    }
 }

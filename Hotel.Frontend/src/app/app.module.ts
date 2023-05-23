@@ -24,6 +24,7 @@ import { ReservationForRoomComponent } from './components/reservation-for-room/r
 import { BlogComponent } from './components/blog/blog.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { PersonalComponent } from './components/personal/personal.component';
+import { ReservationListComponent } from './components/reservation-list/reservation-list.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { PersonalComponent } from './components/personal/personal.component';
     ReservationForRoomComponent,
     BlogComponent,
     CreatePostComponent,
-    PersonalComponent
+    PersonalComponent,
+    ReservationListComponent
   ],
   imports: [
     BrowserModule,

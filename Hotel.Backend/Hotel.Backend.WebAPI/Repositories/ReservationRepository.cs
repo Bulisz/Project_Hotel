@@ -22,10 +22,19 @@ public class ReservationRepository : IReservationRepository
         return newReservation;
     }
 
+    public async Task DeleteReservationAsync(int reservationId)
+    {
+        Reservation reservation = await _context.Reservations.Where(reservation => reservation.Id == reservationId).FirstOrDefaultAsync()
+            ?? throw new ArgumentException("Nincs ilyen foglalás");
+        _context.Reservations.Remove(reservation);
+        _context.SaveChanges();
+    }
+
     public async Task<List<Reservation>> GetAllReservationsAsync()
     {
         return await _context.Reservations.Include(reservation => reservation.ApplicationUser)
                                           .Include(reservation => reservation.Room)
+                                          .OrderBy(reservation => reservation.BookingFrom)
                                           .ToListAsync();
     }
 
@@ -34,6 +43,7 @@ public class ReservationRepository : IReservationRepository
         return await _context.Reservations.Include(reservation => reservation.ApplicationUser)
                                           .Include(reservation => reservation.Room)
                                           .Where(reservation => reservation.ApplicationUser.Id == userId)
+                                          .OrderBy(reservation => reservation.BookingFrom)
                                           .ToListAsync();
     }
 }

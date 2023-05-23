@@ -4,6 +4,7 @@ namespace Hotel.Backend.WebAPI.Abstractions.Services;
 
 public interface IUserService
 {
+    Task DeleteReservationAsync(string userId);
     Task<UserDetails?> GetUserByIdAsync(string id);
     Task<UserDetails?> GetUserByNameAsync(string name);
     Task<UserDetailsDTO> LoginAsync(LoginRequest userLoginRequest);

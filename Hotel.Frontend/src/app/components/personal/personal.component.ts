@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ReservationListItem } from 'src/app/models/reservation-list-item';
 import { UserModel } from 'src/app/models/user-model';
 import { AccountService } from 'src/app/services/account.service';
@@ -14,7 +15,7 @@ export class PersonalComponent implements OnInit {
   currentUser: UserModel | null = null;
   myReservations!: Array<ReservationListItem>; 
 
-  constructor(private accountService: AccountService, private reservationService: ReservationService){}
+  constructor(private accountService: AccountService, private reservationService: ReservationService, private router: Router){}
   
   ngOnInit(): void {
     this.accountService.user.subscribe({
@@ -27,9 +28,13 @@ export class PersonalComponent implements OnInit {
 
   async getMyReservations(userId: string){
     await this.reservationService.getMyOwnReservations(userId)
-    .then((res) => {this.myReservations = res;
-              console.log(res)})
+    .then((res) => this.myReservations = res)
       .catch((err) => console.log(err))
+  }
+
+  async deleteProfile(userId: string){
+    await this.accountService.deleteProfile(userId)
+    .then(() => this.router.navigate(['']))
   }
 
 }

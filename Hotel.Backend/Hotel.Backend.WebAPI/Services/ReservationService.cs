@@ -70,6 +70,11 @@ public class ReservationService : IReservationService
         }
     }
 
+    public async Task DeleteReservationAsync(int reservationId)
+    {
+        await _reservationRepository.DeleteReservationAsync(reservationId);
+    }
+
     public async Task<List<ReservationListItemDTO>> GetAllReservationsAsync()
     {
         List<Reservation> reservations = await _reservationRepository.GetAllReservationsAsync();

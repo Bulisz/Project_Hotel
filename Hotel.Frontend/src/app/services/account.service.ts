@@ -45,4 +45,9 @@ export class AccountService {
     this.user.next(null)
   }
 
+  async deleteProfile(userId: string): Promise<any> {
+    return await firstValueFrom(this.http.delete(`${environment.apiUrl}/${this.BASE_URL}/${userId}`))
+    .then(() => this.logout())
+  }
+
 }

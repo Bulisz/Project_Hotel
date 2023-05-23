@@ -6,7 +6,7 @@
                 <p class="title">{{currentUser.lastName}} {{currentUser.firstName}}</p>
 
                 <div class="details-body">
-                    <!-- <div class="left-side"> -->
+                    
                         <p class="details"><span> Felhasználónév: <span
                               class="details-content">{{currentUser.userName}}</span></span><br>
                               <span> Email: <span
@@ -17,10 +17,16 @@
                 </div>
 
                 <div class="btn-container">
-                    <button class="btn">Profil törlése</button>
+                    <button class="btn" (click)="deleteProfile(currentUser.id)">Profil törlése</button>
                 </div>
 
             </div>
         </div>
+    </div>
+
+    <div *ngIf="myReservations">
+    <section>
+        <app-reservation-list [reservationList]="myReservations"></app-reservation-list>
+    </section>
     </div>
 </div>

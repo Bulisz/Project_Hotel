@@ -22,4 +22,8 @@ export class ReservationService {
   async getMyOwnReservations(userId: string): Promise<Array<ReservationListItem>> {
     return await firstValueFrom(this.http.get<Array<ReservationListItem>>(`${environment.apiUrl}/${this.BASE_URL}/${userId}`))
   }
+
+  async deleteReservation(reservationId: number): Promise<any> {
+    return await firstValueFrom(this.http.delete(`${environment.apiUrl}/${this.BASE_URL}/${reservationId}`))
+  }
 }
