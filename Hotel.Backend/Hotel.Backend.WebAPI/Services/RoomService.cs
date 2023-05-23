@@ -30,9 +30,6 @@ public class RoomService : IRoomService
         List<RoomListDTO> rooms = _mapper.Map<List<RoomListDTO>>(allRooms);
 
         return rooms;
-
-
-
     }
 
     public async Task<RoomDetailsDTO> GetRoomByIdAsync(int id)

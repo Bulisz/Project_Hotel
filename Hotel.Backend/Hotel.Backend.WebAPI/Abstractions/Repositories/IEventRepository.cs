@@ -5,5 +5,6 @@ namespace Hotel.Backend.WebAPI.Abstractions.Repositories
     public interface IEventRepository
     {
         Task<Event> CreateEventAsync(Event eventToCreate);
+        Task<List<Event>> GetAllEventsAsync();
     }
 }

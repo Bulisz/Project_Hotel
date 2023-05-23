@@ -24,6 +24,7 @@ import { ReservationForRoomComponent } from './components/reservation-for-room/r
 import { BlogComponent } from './components/blog/blog.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { CreateEventComponent } from './components/create-event/create-event.component';
+import { EventListComponent } from './components/event-list/event-list.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CreateEventComponent } from './components/create-event/create-event.com
     ReservationForRoomComponent,
     BlogComponent,
     CreatePostComponent,
-    CreateEventComponent
+    CreateEventComponent,
+    EventListComponent
   ],
   imports: [
     BrowserModule,
