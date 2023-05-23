@@ -41,8 +41,7 @@ import { EventListComponent } from './components/event-list/event-list.component
     ErrorComponent,
     ReservationForRoomComponent,
     BlogComponent,
-    CreatePostComponent
-    ReservationForRoomComponent,
+    CreatePostComponent,
     EventListComponent
   ],
   imports: [
