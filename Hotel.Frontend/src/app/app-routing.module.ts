@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RoomDetailsComponent } from './components/room-details/room-details.component';
 import { ErrorComponent } from './components/error/error.component';
 import { BlogComponent } from './components/blog/blog.component';
+import { EventListComponent } from './components/event-list/event-list.component';
 import { PersonalComponent } from './components/personal/personal.component';
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'room-list', component: RoomListComponent},
   { path: 'room-details/:id', component: RoomDetailsComponent},
   { path: 'blog', component: BlogComponent},
+  { path: 'event-list', component: EventListComponent},
   { path: 'registration', component: RegistrationComponent},
   { path: 'login', component: LoginComponent},
   { path: 'personal', component: PersonalComponent},

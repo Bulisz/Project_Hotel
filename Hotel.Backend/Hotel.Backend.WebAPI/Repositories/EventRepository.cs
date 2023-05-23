@@ -5,24 +5,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.Backend.WebAPI.Repositories;
 
-public class PostRepository : IPostRepository
+public class EventRepository : IEventRepository
 {
     private readonly HotelDbContext _context;
 
-    public PostRepository(HotelDbContext context)
+    public EventRepository(HotelDbContext context)
     {
         _context = context;
     }
 
-    public async Task<Post> CreatePostAsync(Post post)
+    public async Task<Event> CreateEventAsync(Event @event)
     {
-        _context.Posts.Add(post);
+        _context.Events.Add(@event);
         await _context.SaveChangesAsync();
-        return post;
+        return @event;
     }
 
-    public async Task<IEnumerable<Post>> GetAllPostsAsync()
+    public async Task<List<Event>> GetAllEventsAsync()
     {
-        return await _context.Posts.OrderByDescending(p => p.CreatedAt).ToListAsync();
+        return await _context.Events
+            .ToListAsync();
     }
 }

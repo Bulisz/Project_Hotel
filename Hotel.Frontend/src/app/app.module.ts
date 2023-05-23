@@ -23,6 +23,8 @@ import { ErrorComponent } from './components/error/error.component';
 import { ReservationForRoomComponent } from './components/reservation-for-room/reservation-for-room.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { CreateEventComponent } from './components/create-event/create-event.component';
+import { EventListComponent } from './components/event-list/event-list.component';
 import { PersonalComponent } from './components/personal/personal.component';
 import { ReservationListComponent } from './components/reservation-list/reservation-list.component';
 
@@ -42,9 +44,11 @@ import { ReservationListComponent } from './components/reservation-list/reservat
     ErrorComponent,
     ReservationForRoomComponent,
     BlogComponent,
-    CreatePostComponent,
     PersonalComponent,
     ReservationListComponent
+    CreatePostComponent,
+    CreateEventComponent,
+    EventListComponent
   ],
   imports: [
     BrowserModule,

@@ -45,7 +45,7 @@ export class RoomDetailsComponent implements OnInit {
     .then((res) => this.roomDetails = res)
     .catch((err) => this.router.navigate(['error'],err))
 
-    this.equipments = this.roomDetails.equipmentNames.join()
+    this.equipments = this.roomDetails.equipmentNames.join(', ')
     this.firstImage = this.roomDetails.imageURLs[0]
   }
 

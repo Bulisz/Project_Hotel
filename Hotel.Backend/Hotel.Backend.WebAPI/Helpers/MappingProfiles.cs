@@ -29,5 +29,7 @@ public class MappingProfiles : Profile
         CreateMap<Equipment, NonStandardEquipmentDTO>();
         CreateMap<Post, PostDetailsDTO>();
         CreateMap<PostCreateDTO, Post>();
+        CreateMap<CreateEventDTO, Event>();
+        CreateMap<Event,EventDetailsDTO>();
     }
 }

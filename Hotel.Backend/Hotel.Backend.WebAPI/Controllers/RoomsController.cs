@@ -40,7 +40,7 @@ public class RoomsController : ControllerBase
     }
 
     [HttpGet(nameof(GetAvailableRooms))]
-    public async Task<ActionResult<IEnumerable<RoomListDTO>>> GetAvailableRooms([FromQuery]RoomSelectorDTO query)
+    public async Task<ActionResult<IEnumerable<RoomListDTO>>> GetAvailableRooms([FromQuery] RoomSelectorDTO query)
     {
         try
         {
@@ -64,14 +64,14 @@ public class RoomsController : ControllerBase
     }
 
     [HttpPost("SaveOneImage")]
-    public async Task<ActionResult> SaveOneImage(SaveOneImageDTO saveOneImage)
+    public async Task<ActionResult> SaveOneImage([FromForm] SaveOneImageDTO saveOneImage)
     {
         await _roomService.SaveOneImageAsync(saveOneImage);
         return Ok();
     }
 
     [HttpPost("SaveMoreImage")]
-    public async Task<ActionResult> SaveMoreImage(SaveMoreImageDTO saveMoreImage)
+    public async Task<ActionResult> SaveMoreImage([FromForm] SaveMoreImageDTO saveMoreImage)
     {
         await _roomService.SaveMoreImageAsync(saveMoreImage);
         return Ok();
