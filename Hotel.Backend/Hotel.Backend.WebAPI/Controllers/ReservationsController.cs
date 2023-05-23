@@ -32,16 +32,16 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpGet(nameof(GetAllReservations))]
-    public async Task<ActionResult<IEnumerable<ReservationDetailsListItemDTO>>> GetAllReservations()
+    public async Task<ActionResult<IEnumerable<ReservationListItemDTO>>> GetAllReservations()
     {
-            List<ReservationDetailsListItemDTO> reservations = await _reservationService.GetAllReservationsAsync();
+            List<ReservationListItemDTO> reservations = await _reservationService.GetAllReservationsAsync();
             return Ok(reservations);
     }
 
-    [HttpGet(nameof(GetMyOwnReservations))]
-    public async Task<ActionResult<IEnumerable<ReservationDetailsListItemDTO>>> GetMyOwnReservations(string userId)
+    [HttpGet("{userId}")]
+    public async Task<ActionResult<IEnumerable<ReservationListItemDTO>>> GetMyOwnReservations(string userId)
     {
-        List<ReservationDetailsListItemDTO> ownReservations = await _reservationService.GetMyOwnReservationsAsync(userId);
+        List<ReservationListItemDTO> ownReservations = await _reservationService.GetMyOwnReservationsAsync(userId);
         return Ok(ownReservations);
     }
 }

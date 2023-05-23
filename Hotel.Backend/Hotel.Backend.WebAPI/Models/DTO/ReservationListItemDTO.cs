@@ -1,6 +1,6 @@
 ﻿namespace Hotel.Backend.WebAPI.Models.DTO
 {
-    public record ReservationDetailsListItemDTO
+    public record ReservationListItemDTO
     {
         public int Id { get; set; }
         public DateTime BookingFrom { get; set; }

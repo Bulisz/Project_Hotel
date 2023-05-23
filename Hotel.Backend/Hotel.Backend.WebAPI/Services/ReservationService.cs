@@ -70,11 +70,11 @@ public class ReservationService : IReservationService
         }
     }
 
-    public async Task<List<ReservationDetailsListItemDTO>> GetAllReservationsAsync()
+    public async Task<List<ReservationListItemDTO>> GetAllReservationsAsync()
     {
         List<Reservation> reservations = await _reservationRepository.GetAllReservationsAsync();
 
-        List<ReservationDetailsListItemDTO> result = reservations.Select(reservation => new ReservationDetailsListItemDTO
+        List<ReservationListItemDTO> result = reservations.Select(reservation => new ReservationListItemDTO
         {
             Id = reservation.Id,
             BookingFrom = reservation.BookingFrom,
@@ -87,11 +87,11 @@ public class ReservationService : IReservationService
         return result;
     }
 
-    public async Task<List<ReservationDetailsListItemDTO>> GetMyOwnReservationsAsync(string userId)
+    public async Task<List<ReservationListItemDTO>> GetMyOwnReservationsAsync(string userId)
     {
         List<Reservation> ownReservations = await _reservationRepository.GetMyReservationsAsync(userId);
 
-        List<ReservationDetailsListItemDTO> result = ownReservations.Select(reservation => new ReservationDetailsListItemDTO
+        List<ReservationListItemDTO> result = ownReservations.Select(reservation => new ReservationListItemDTO
         {
             Id = reservation.Id,
             BookingFrom = reservation.BookingFrom,
