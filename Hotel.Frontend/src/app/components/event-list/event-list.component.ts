@@ -61,6 +61,7 @@ export class EventListComponent implements OnInit {
   }
 
   async deleteEvent(id: number){
+
     let dialogBoxSettings = {
       width: '400px',
       margin: '0 auto',
@@ -80,8 +81,9 @@ export class EventListComponent implements OnInit {
         }
       }
     })
+  }
 
+  async modifyEvent(id: number){
 
-    
   }
 }
