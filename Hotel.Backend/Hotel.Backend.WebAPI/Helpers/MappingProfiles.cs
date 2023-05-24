@@ -31,5 +31,6 @@ public class MappingProfiles : Profile
         CreateMap<PostCreateDTO, Post>();
         CreateMap<CreateEventDTO, Event>();
         CreateMap<Event,EventDetailsDTO>();
+        CreateMap<EventModifyDTO, Event>();
     }
 }

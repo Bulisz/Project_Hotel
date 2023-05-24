@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PostDetailsModel } from 'src/app/models/post-details-model';
 import { AccountService } from 'src/app/services/account.service';
-import { ReservationService } from 'src/app/services/reservation.service';
 import { CreatePostComponent } from '../create-post/create-post.component';
 import { UserModel } from 'src/app/models/user-model';
 import { PostService } from 'src/app/services/post.service';
-import { CreateEventComponent } from '../create-event/create-event.component';
 
 @Component({
   selector: 'app-blog',

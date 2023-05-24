@@ -63,4 +63,62 @@ public class EventService : IEventService
 
         return events;
     }
+
+    public async Task<EventDetailsDTO> ModifyEventAsync(EventModifyDTO modifyEvent)
+    {
+        string imageUrl = string.Empty;
+
+        if(modifyEvent.Image is not null)
+        {
+            await DeleteImageAsync(modifyEvent.OldImageUrl);
+
+            string[] supportedImageTypes = { "apng", "avif", "gif", "jpg", "jpeg", "jfif", "pjpeg", "pjp", "png", "svg", "webp" };
+            string actualType = modifyEvent.Image.FileName.Split('.')[1].ToLower();
+            if (!supportedImageTypes.Contains(actualType))
+            {
+                List<HotelFieldError> errors = new() { new HotelFieldError("Image", "Nem támogatott kép formátum") };
+                throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotelError occured");
+            }
+
+            if (modifyEvent.Image.Length > 2_500_000)
+            {
+                List<HotelFieldError> errors = new() { new HotelFieldError("Image", "A file méret max 2,5MByte") };
+                throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotelError occured");
+            };
+
+            var uploadParams = new ImageUploadParams
+            {
+                File = new FileDescription(modifyEvent.Image?.Name, modifyEvent.Image?.OpenReadStream()),
+                PublicId = Guid.NewGuid().ToString(),
+                Folder = "Hotel/Event",
+            };
+            var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+            imageUrl = uploadResult.SecureUrl.ToString();
+        }
+
+        Event eventToModify = _mapper.Map<Event>(modifyEvent);
+        if(eventToModify is not null)
+        {
+            eventToModify.ImageUrl = imageUrl;
+        }
+        else
+        {
+            eventToModify.ImageUrl = modifyEvent.OldImageUrl;
+        }
+
+        return _mapper.Map<EventDetailsDTO>(await _eventRepository.ModifyEventAsync(eventToModify));
+    }
+
+    public async Task DeleteEventAsync(int id)
+    {
+        Event @event = await _eventRepository.GetEventByIdAsync(id);
+        DeleteImageAsync(@event.ImageUrl);
+        await _eventRepository.DeleteEventAsync(@event);
+    }
+    private async Task DeleteImageAsync(string imageUrl)
+    {
+        string publicId = imageUrl.Split('/').Last().Split('.')[0];
+        DeletionParams dp = new(publicId);
+        await _cloudinary.DestroyAsync(dp);
+    }
 }
