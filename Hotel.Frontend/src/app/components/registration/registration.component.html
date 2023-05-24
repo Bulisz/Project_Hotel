@@ -127,6 +127,12 @@
               Adja meg a kívánt jelszót
             </small>
 
+            <small *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched
+                                && !registerForm.get('password')?.errors?.['serverError']
+                                && registerForm.get('password')?.errors?.['pattern']" class="text-danger">
+              Legalább 6 karakter hosszúnak kell lennie és tartalmazzon egy számot
+            </small>
+
             <!-- ServerError BE-ről -->
             <small *ngIf="registerForm.get('password')?.errors?.['serverError']" class="text-danger">
               {{registerForm.get('password')?.getError('serverError')}}
