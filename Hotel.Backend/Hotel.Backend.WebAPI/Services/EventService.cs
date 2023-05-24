@@ -7,6 +7,7 @@ using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
 using System.Net;
+using System.Text;
 
 namespace Hotel.Backend.WebAPI.Services;
 
@@ -117,8 +118,19 @@ public class EventService : IEventService
     }
     private async Task DeleteImageAsync(string imageUrl)
     {
-        string publicId = imageUrl.Split('/').Last().Split('.')[0];
-        DeletionParams dp = new(publicId);
+        string[] splittedUrl = imageUrl.Split('/');
+        var publicId = new StringBuilder();
+        publicId.Append(splittedUrl[^3]);
+        publicId.Append("/");
+        publicId.Append(splittedUrl[^2]);
+        publicId.Append("/");
+        publicId.Append(splittedUrl[^1].Split('.')[0]);
+        DeletionParams dp = new(publicId.ToString())
+        {
+            Invalidate = true,
+            ResourceType = ResourceType.Image,
+            Type = "Upload"
+        };
         await _cloudinary.DestroyAsync(dp);
     }
 }
