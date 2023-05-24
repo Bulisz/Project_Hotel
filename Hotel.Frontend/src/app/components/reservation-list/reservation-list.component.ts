@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ReservationListItem } from 'src/app/models/reservation-list-item';
 import { ReservationService } from 'src/app/services/reservation.service';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
 
 @Component({
   selector: 'app-reservation-list',
@@ -14,7 +16,7 @@ export class ReservationListComponent implements OnInit {
   @Output() reservationDeleted = new EventEmitter<string>
   
 
-  constructor(private reservationService: ReservationService, private router: Router){}
+  constructor(private reservationService: ReservationService, private router: Router, private dialog: MatDialog){}
   
   ngOnInit(): void {}
 
@@ -25,10 +27,30 @@ export class ReservationListComponent implements OnInit {
     return new Date(currentDate.setDate(currentDate.getDate())) < new Date(bookingFrom);
   }
 
+
+
   async deleteReservation(id: number){
-    this.reservationService.deleteReservation(id)
-    .then(() => this.reservationDeleted.emit('reservationDeleted'))
-    .catch((err) => console.log(err))
+    
+    let dialogBoxSettings = {
+      width: '400px',
+      margin: '0 auto',
+      disableClose: true,
+      hasBackdrop: true,
+      position: {top: '10%'},
+      data: {message: "Biztos, hogy törlöd a foglalásod?"}
+    };
+
+    let dialogRef = this.dialog.open(ConfirmationComponent, dialogBoxSettings);
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if(res === "agree"){
+          this.reservationService.deleteReservation(id)
+              .then(() => this.reservationDeleted.emit('reservationDeleted'))
+              .catch((err) => console.log(err))
+        }
+      }
+    })
+    
   }
 
 }
