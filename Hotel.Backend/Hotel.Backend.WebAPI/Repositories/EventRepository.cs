@@ -21,9 +21,27 @@ public class EventRepository : IEventRepository
         return @event;
     }
 
+    public async Task DeleteEventAsync(Event @event)
+    {
+        _context.Events.Remove(@event);
+        await _context.SaveChangesAsync();
+    }
+
     public async Task<List<Event>> GetAllEventsAsync()
     {
         return await _context.Events
             .ToListAsync();
+    }
+
+    public async Task<Event> GetEventByIdAsync(int id)
+    {
+        return await _context.Events.FindAsync(id);
+    }
+
+    public async Task<Event> ModifyEventAsync(Event eventToModify)
+    {
+        _context.Events.Update(eventToModify);
+        await _context.SaveChangesAsync();
+        return eventToModify;
     }
 }

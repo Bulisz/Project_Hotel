@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReservationListItem } from 'src/app/models/reservation-list-item';
 import { ReservationService } from 'src/app/services/reservation.service';
@@ -11,23 +11,23 @@ import { ReservationService } from 'src/app/services/reservation.service';
 export class ReservationListComponent implements OnInit {
   
   @Input() reservationList!: Array<ReservationListItem>;
-  today = new Date();
+  @Output() reservationDeleted = new EventEmitter<string>
   
 
   constructor(private reservationService: ReservationService, private router: Router){}
   
   ngOnInit(): void {}
 
-  isDeletable(bookingFrom: Date): boolean {
-    const twoWeeks = new Date(this.today.getTime());
-    twoWeeks.setDate(this.today.getDate() - 14)
+  isDeletable(bookingFrom: Date){
+    const currentDate = new Date(Date.now());
+    currentDate.setDate(currentDate.getDate() + 10);
     
-    return bookingFrom > twoWeeks
+    return new Date(currentDate.setDate(currentDate.getDate())) < new Date(bookingFrom);
   }
 
   async deleteReservation(id: number){
     this.reservationService.deleteReservation(id)
-    .then(() => this.router.navigate(['']))
+    .then(() => this.reservationDeleted.emit('reservationDeleted'))
     .catch((err) => console.log(err))
   }
 

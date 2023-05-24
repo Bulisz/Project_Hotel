@@ -39,5 +39,17 @@ public class EventsController : ControllerBase
         return Ok(listedRooms);
     }
 
+    [HttpPut(nameof(ModifyEvent))]
+    public async Task<ActionResult<EventDetailsDTO>> ModifyEvent([FromForm] EventModifyDTO modifyEvent)
+    {
+        EventDetailsDTO eventDetailsDTO = await _eventService.ModifyEventAsync(modifyEvent);
+        return Ok(eventDetailsDTO);
+    }
 
-}
+    [HttpDelete("DeleteEvent/{id}")]
+    public async Task<IActionResult> DeleteEvent(int id)
+    {
+        await _eventService.DeleteEventAsync(id);
+        return Ok();
+    }
+}   

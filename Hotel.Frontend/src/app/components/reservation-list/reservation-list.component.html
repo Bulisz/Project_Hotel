@@ -19,7 +19,7 @@
           <td class="details-content">{{reservation.bookingFrom | date: 'YYYY. MM. dd.'}}</td>
           <td class="details-content">{{reservation.bookingTo | date: 'YYYY. MM. dd.'}}</td>
           <td>
-            <div class="btn-container">
+            <div class="btn-container" *ngIf="isDeletable(reservation.bookingFrom)">
               <button type="button" class="btn" (click)="deleteReservation(reservation.id)">Törlés</button>
             </div>
           </td>
