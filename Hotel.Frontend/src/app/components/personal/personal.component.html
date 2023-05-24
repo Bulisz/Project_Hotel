@@ -26,7 +26,7 @@
 
     <div *ngIf="myReservations && currentUser">
     <section>
-        <app-reservation-list [reservationList]="myReservations"></app-reservation-list>
+        <app-reservation-list [reservationList]="myReservations" (reservationDeleted)="refreshReservations($event)"></app-reservation-list>
     </section>
     </div>
 </div>

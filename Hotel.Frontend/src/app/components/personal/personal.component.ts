@@ -37,4 +37,10 @@ export class PersonalComponent implements OnInit {
     .then(() => this.router.navigate(['']))
   }
 
+  refreshReservations(message: string){
+    if(this.currentUser){
+      this.getMyReservations(this.currentUser.id)
+    }
+  }
+
 }

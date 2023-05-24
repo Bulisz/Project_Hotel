@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReservationListItem } from 'src/app/models/reservation-list-item';
 import { ReservationService } from 'src/app/services/reservation.service';
@@ -11,6 +11,7 @@ import { ReservationService } from 'src/app/services/reservation.service';
 export class ReservationListComponent implements OnInit {
   
   @Input() reservationList!: Array<ReservationListItem>;
+  @Output() reservationDeleted = new EventEmitter<string>
   
 
   constructor(private reservationService: ReservationService, private router: Router){}
@@ -26,7 +27,7 @@ export class ReservationListComponent implements OnInit {
 
   async deleteReservation(id: number){
     this.reservationService.deleteReservation(id)
-    .then(() => this.router.navigate(['']))
+    .then(() => this.reservationDeleted.emit('reservationDeleted'))
     .catch((err) => console.log(err))
   }
 
