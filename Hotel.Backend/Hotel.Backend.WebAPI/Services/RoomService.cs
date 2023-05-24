@@ -158,4 +158,11 @@ public class RoomService : IRoomService
 
         await _roomRepository.SaveMoreImageAsync(images);
     }
+
+    private async Task DeleteImageAsync(string imageUrl)
+    {
+        string publicId = imageUrl.Split('/').Last().Split('.')[0];
+        DeletionParams dp = new(publicId);
+        await _cloudinary.DestroyAsync(dp);
+    }
 }
