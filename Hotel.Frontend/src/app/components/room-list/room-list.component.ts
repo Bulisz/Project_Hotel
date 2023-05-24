@@ -15,7 +15,7 @@ import { validationHandler } from 'src/utils/validationHandler';
 export class RoomListComponent implements OnInit{
 
   allRooms: Array<RoomListModel> | null = null;
-  searchedRooms = new BehaviorSubject<Array<RoomListModel> | null>(null)
+  searchedRooms = new BehaviorSubject<Array<RoomListModel> | null>(null);
   nonStandardEquipments: Array<NonStandardEquipmentModel> =[];
   roomSelector: FormGroup;
   equipmentsControllers: FormArray | undefined;
@@ -65,10 +65,7 @@ export class RoomListComponent implements OnInit{
 
     this.roomService.getAllRooms().subscribe( {
 
-      next: (response: RoomListModel[]) =>{ this.searchedRooms.next(response)
-
-
-      },
+      next: (response: RoomListModel[]) =>{ this.searchedRooms.next(response)},
       error: (error) => console.log(error),
     });
   }

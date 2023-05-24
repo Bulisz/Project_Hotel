@@ -7,6 +7,8 @@ import { CreateEventComponent } from '../create-event/create-event.component';
 import { AccountService } from 'src/app/services/account.service';
 import { Router } from '@angular/router';
 
+import { BehaviorSubject, async } from 'rxjs';
+
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
@@ -16,6 +18,7 @@ export class EventListComponent implements OnInit {
 
   currentUser: UserModel | null = null;
   allEvents: Array<EventDetailsModel> | null = null;
+
 
   constructor (private as: AccountService, 
               private eventService: EventService, 
@@ -56,12 +59,9 @@ export class EventListComponent implements OnInit {
     })
   }
 
-
-
-  
   async deleteEvent(id: number){
     this.eventService.deleteEvent(id)
-    .then(() => this.router.navigate(['event-list']))
+    .then(() => this.loadEvents())
     .catch((err) => console.log(err))
   }
 }
