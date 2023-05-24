@@ -105,6 +105,16 @@
       width: 200px;
   }
 
+  .btn-admin {
+    background-color: #6c757d;
+    border-radius: 3rem;
+    color: whitesmoke;
+    font-family: 'Caveat';
+    font-size: 2.5rem;
+    width: 200px;
+    margin-bottom: 0.6rem;
+    margin-left: 0.5rem;
+}
 
   .floating-button {
     position: fixed;
@@ -178,6 +188,13 @@
           width: 150px;
       }
 
+      .btn-admin {
+        font-size: 1.2rem;
+        margin-bottom: 0rem;
+        margin-left: 0.5rem;
+        width: 120px;
+        
+      }
       .floating-button {
         position: fixed;
         top: 42%;

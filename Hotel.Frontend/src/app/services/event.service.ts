@@ -28,4 +28,8 @@ export class EventService {
   getAllEvents(): Observable<Array<EventDetailsModel>> {
     return this.http.get<Array<EventDetailsModel>>(`${environment.apiUrl}/${this.BASE_URL}/getlistofevents`);
   }
+
+  async deleteEvent(eventId: number): Promise<any> {
+    return await firstValueFrom(this.http.delete(`${environment.apiUrl}/${this.BASE_URL}/DeleteEvent/${eventId}`))
+  }
 }

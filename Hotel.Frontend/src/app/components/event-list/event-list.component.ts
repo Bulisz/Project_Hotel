@@ -5,6 +5,10 @@ import { UserModel } from 'src/app/models/user-model';
 import { EventService } from 'src/app/services/event.service';
 import { CreateEventComponent } from '../create-event/create-event.component';
 import { AccountService } from 'src/app/services/account.service';
+import { Router } from '@angular/router';
+
+import { BehaviorSubject, async } from 'rxjs';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
 
 @Component({
   selector: 'app-event-list',
@@ -16,7 +20,11 @@ export class EventListComponent implements OnInit {
   currentUser: UserModel | null = null;
   allEvents: Array<EventDetailsModel> | null = null;
 
-  constructor (private as: AccountService, private eventService: EventService, private dialog: MatDialog) {}
+
+  constructor (private as: AccountService, 
+              private eventService: EventService, 
+              private dialog: MatDialog, 
+              private router: Router) {}
 
   async ngOnInit() {
 
@@ -50,5 +58,32 @@ export class EventListComponent implements OnInit {
     dialog.afterClosed().subscribe({
       next: () => this.loadEvents()
     })
+  }
+
+  async deleteEvent(id: number){
+
+    let dialogBoxSettings = {
+      width: '400px',
+      margin: '0 auto',
+      disableClose: true,
+      hasBackdrop: true,
+      position: {top: '10%'},
+      data: {message: "Biztos törlöd ezt a programot?"}
+    };
+    
+    let dialogRef = this.dialog.open(ConfirmationComponent, dialogBoxSettings)
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res === "agree"){
+          this.eventService.deleteEvent(id)
+         .then(() => this.loadEvents())
+         .catch((err) => console.log(err))
+        }
+      }
+    })
+  }
+
+  async modifyEvent(id: number){
+
   }
 }
