@@ -4,6 +4,7 @@ import { LoginComponent } from '../login/login.component';
 import { AccountService } from 'src/app/services/account.service';
 import { RegistrationComponent } from '../registration/registration.component';
 import { UserModel } from 'src/app/models/user-model';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
 
 @Component({
   selector: 'app-navbar',
