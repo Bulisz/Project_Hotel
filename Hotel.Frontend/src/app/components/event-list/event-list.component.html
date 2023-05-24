@@ -19,8 +19,9 @@
                 <img src="{{sport.imageUrl}}" alt="" >
               </div>
               <div class="btn-container">
-                <p> A FOGLALKOZÁS MINDEN KEDVES VENDÉG RÉSZÉRE ELÉRHETŐ!</p>
-                
+                <p *ngIf="!currentUser"> A FOGLALKOZÁS MINDEN KEDVES VENDÉG RÉSZÉRE ELÉRHETŐ!</p>
+                <button *ngIf="currentUser" type="button" class="btn btn-admin" (click)="deleteEvent(sport.id)">Módosítás</button>
+                <button *ngIf="currentUser" type="button" class="btn btn-admin" (click)="deleteEvent(sport.id)">Törlés</button>
               </div>
                
             </div>
