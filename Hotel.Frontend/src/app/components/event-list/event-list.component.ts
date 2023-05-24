@@ -60,8 +60,26 @@ export class EventListComponent implements OnInit {
   }
 
   async deleteEvent(id: number){
-    this.eventService.deleteEvent(id)
-    .then(() => this.loadEvents())
-    .catch((err) => console.log(err))
+    let dialogBoxSettings = {
+      width: '400px',
+      margin: '0 auto',
+      disableClose: true,
+      hasBackdrop: true,
+      position: {top: '10%'}
+      data:{message: "Biztos törlöd ezt a programot?"}
+    };
+    let dialogRef = this.dialog.open(ConfirmationComponent, dialogBoxSettings)
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res === "agree"){
+          this.eventService.deleteEvent(id)
+         .then(() => this.loadEvents())
+         .catch((err) => console.log(err))
+        }
+      }
+    })
+
+
+    
   }
 }
