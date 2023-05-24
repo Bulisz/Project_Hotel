@@ -125,12 +125,7 @@ public class EventService : IEventService
         publicId.Append(splittedUrl[^2]);
         publicId.Append("/");
         publicId.Append(splittedUrl[^1].Split('.')[0]);
-        DeletionParams dp = new(publicId.ToString())
-        {
-            Invalidate = true,
-            ResourceType = ResourceType.Image,
-            Type = "Upload"
-        };
+        DeletionParams dp = new(publicId.ToString());
         await _cloudinary.DestroyAsync(dp);
     }
 }
