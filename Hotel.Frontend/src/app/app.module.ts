@@ -28,6 +28,7 @@ import { EventListComponent } from './components/event-list/event-list.component
 import { PersonalComponent } from './components/personal/personal.component';
 import { ReservationListComponent } from './components/reservation-list/reservation-list.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { UpdateEventComponent } from './components/update-event/update-event.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
     CreatePostComponent,
     CreateEventComponent,
     EventListComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    UpdateEventComponent
   ],
   imports: [
     BrowserModule,

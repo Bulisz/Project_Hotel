@@ -31,6 +31,7 @@ public class MappingProfiles : Profile
         CreateMap<PostCreateDTO, Post>();
         CreateMap<CreateEventDTO, Event>();
         CreateMap<Event,EventDetailsDTO>();
-        CreateMap<EventModifyDTO, Event>();
+        CreateMap<EventModifyDTO, Event>()
+            .ForMember(dest => dest.Id, op => op.MapFrom(src => int.Parse(src.Id)));
     }
 }

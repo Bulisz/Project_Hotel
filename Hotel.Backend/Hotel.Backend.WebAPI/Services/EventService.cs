@@ -98,7 +98,7 @@ public class EventService : IEventService
         }
 
         Event eventToModify = _mapper.Map<Event>(modifyEvent);
-        if(eventToModify is not null)
+        if(modifyEvent.Image is not null)
         {
             eventToModify.ImageUrl = imageUrl;
         }

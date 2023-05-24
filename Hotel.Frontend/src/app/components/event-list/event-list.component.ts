@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 
 import { BehaviorSubject, async } from 'rxjs';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
+import { UpdateEventComponent } from '../update-event/update-event.component';
 
 @Component({
   selector: 'app-event-list',
@@ -84,6 +85,21 @@ export class EventListComponent implements OnInit {
   }
 
   async modifyEvent(id: number){
-
+    
+    let event = this.allEvents?.find(ev => ev.id === id)
+    
+    let dialogBoxSettings = {
+      width: '400px',
+      margin: '0 auto',
+      disableClose: true,
+      hasBackdrop: true,
+      position: {top: '10%'},
+      data: {title: event?.title, text: event?.text, schedule: event?.schedule, id: event?.id, oldImageUrl: event?.imageUrl}
+    };
+    
+    let dialogRef = this.dialog.open(UpdateEventComponent, dialogBoxSettings)
+    dialogRef.afterClosed().subscribe({
+      next: () => this.loadEvents()
+    })
   }
 }

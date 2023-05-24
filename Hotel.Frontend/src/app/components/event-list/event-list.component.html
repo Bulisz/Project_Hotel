@@ -20,8 +20,10 @@
               </div>
               <div class="btn-container">
                 <p *ngIf="!currentUser"> A FOGLALKOZÁS MINDEN KEDVES VENDÉG RÉSZÉRE ELÉRHETŐ!</p>
-                <button *ngIf="currentUser" type="button" class="btn btn-admin" (click)="modifyEvent(sport.id)">Módosítás</button>
-                <button *ngIf="currentUser" type="button" class="btn btn-admin" (click)="deleteEvent(sport.id)">Törlés</button>
+                <div *ngIf="currentUser">
+                <button  type="button" class="btn btn-admin" (click)="modifyEvent(sport.id)">Módosítás</button>
+                <button  type="button" class="btn btn-admin" (click)="deleteEvent(sport.id)">Törlés</button>
+            </div>
               </div>
                
             </div>

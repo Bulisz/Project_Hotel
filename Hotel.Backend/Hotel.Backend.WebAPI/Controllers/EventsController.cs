@@ -42,8 +42,17 @@ public class EventsController : ControllerBase
     [HttpPut(nameof(ModifyEvent))]
     public async Task<ActionResult<EventDetailsDTO>> ModifyEvent([FromForm] EventModifyDTO modifyEvent)
     {
-        EventDetailsDTO eventDetailsDTO = await _eventService.ModifyEventAsync(modifyEvent);
-        return Ok(eventDetailsDTO);
+        try
+        {
+
+            EventDetailsDTO eventDetailsDTO = await _eventService.ModifyEventAsync(modifyEvent);
+            return Ok(eventDetailsDTO);
+        }
+        catch (HotelException ex)
+        {
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
+        }
     }
 
     [HttpDelete("DeleteEvent/{id}")]

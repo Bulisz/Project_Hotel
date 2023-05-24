@@ -4,6 +4,7 @@ import { CreateEventModel } from '../models/create-event-model';
 import { environment } from 'src/environments/environment';
 import { EventDetailsModel } from '../models/event-details-model';
 import {  Observable, firstValueFrom } from 'rxjs';
+import { UpdateEventModel } from '../models/update-event-model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,17 @@ export class EventService {
 
   async deleteEvent(eventId: number): Promise<any> {
     return await firstValueFrom(this.http.delete(`${environment.apiUrl}/${this.BASE_URL}/DeleteEvent/${eventId}`))
+  }
+
+  async updateEvent(data: UpdateEventModel): Promise<EventDetailsModel> {
+    const formData: FormData = new FormData();
+    formData.append('id', String(data.id));
+    formData.append('title', data.title);
+    formData.append('text', data.text);
+    formData.append('schedule', data.schedule);
+    formData.append('image', data.image);
+    formData.append('oldImageUrl', data.oldImageUrl);
+
+    return await firstValueFrom(this.http.put<EventDetailsModel>(`${environment.apiUrl}/${this.BASE_URL}/ModifyEvent`, formData));
   }
 }

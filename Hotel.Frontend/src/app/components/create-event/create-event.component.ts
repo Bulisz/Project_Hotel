@@ -33,7 +33,7 @@ export class CreateEventComponent {
   async onSubmit(){
     const formValue = this.eventForm.getRawValue()
     const parsedFormValue = {...formValue, image: this.image};
-    console.log(parsedFormValue)
+    
     await this.es.createEvent(parsedFormValue)
       .then(res => {
         this.createdEvent = res
