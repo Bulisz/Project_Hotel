@@ -19,6 +19,7 @@ import { UpdateEventComponent } from '../update-event/update-event.component';
 export class EventListComponent implements OnInit {
 
   currentUser: UserModel | null = null;
+  role: string | undefined;
   allEvents: Array<EventDetailsModel> | null = null;
 
 
@@ -30,7 +31,11 @@ export class EventListComponent implements OnInit {
   async ngOnInit() {
 
     this.as.user.subscribe({
-      next: res => this.currentUser = res
+      next: res => {
+        this.currentUser = res
+        this.role = res?.role
+      }
+
     })
 
     await this.loadEvents();
