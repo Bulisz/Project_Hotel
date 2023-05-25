@@ -1,32 +1,39 @@
 <div class="main">
-    <div class="col-12 col-lg-9 align-text-center">
-        <div class="container-sm bg-light outer" *ngIf="currentUser">
-            <div class="container-sm shadow bg-light inner">
+  <div class="col-12 col-lg-9 align-text-center">
+    <div class="container-sm bg-light outer" *ngIf="currentUser">
+      <div class="container-sm shadow bg-light inner">
 
-                <p class="title">{{currentUser.lastName}} {{currentUser.firstName}}</p>
+        <p class="title">{{currentUser.lastName}} {{currentUser.firstName}}</p>
 
-                <div class="details-body">
-                    
-                        <p class="details"><span> Felhasználónév: <span
-                              class="details-content">{{currentUser.userName}}</span></span><br>
-                              <span> Email: <span
-                              class="details-content">{{currentUser.email}}</span></span><br>
-                              <span> Titulus: <span
-                                class="details-content">{{currentUser.role}}</span></span>
-                            </p>
-                </div>
-
-                <div class="btn-container">
-                    <button class="btn" (click)="deleteProfile(currentUser.id)">Profil törlése</button>
-                </div>
-
-            </div>
+        <div class="details-body">
+          <div>
+            <p class="details"><span> Felhasználónév: <span
+                  class="details-content">{{currentUser.userName}}</span></span><br>
+              <span> Email: <span class="details-content">{{currentUser.email}}</span></span><br>
+              <span> Titulus: <span class="details-content">{{titulus}}</span></span>
+            </p>
+          </div>
+          <div>
+            <p class="details">
+              <span> Vezetéknév: <span class="details-content">{{currentUser.lastName}}</span></span><br>
+              <span> Keresztnév: <span class="details-content">{{currentUser.firstName}}</span></span>
+            </p>
+          </div>
         </div>
-    </div>
 
-    <div *ngIf="myReservations && currentUser">
-    <section>
-        <app-reservation-list [reservationList]="myReservations" (reservationDeleted)="refreshReservations($event)"></app-reservation-list>
-    </section>
+        <div class="btn-container">
+          <button class="btn" (click)="modifyProfile(currentUser.id)">Módosítás</button>
+          <button class="btn" (click)="deleteProfile(currentUser.id)">Törlés</button>
+        </div>
+
+      </div>
     </div>
+  </div>
+
+  <div *ngIf="myReservations && currentUser">
+    <section>
+      <app-reservation-list [reservationList]="myReservations"
+        (reservationDeleted)="refreshReservations($event)"></app-reservation-list>
+    </section>
+  </div>
 </div>

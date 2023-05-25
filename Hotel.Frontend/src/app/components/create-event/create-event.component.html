@@ -2,7 +2,7 @@
   <div class="container-sm shadow inner">
 
     <div class="modal-header">
-      <h3 class="text-center title">Új esemény</h3>
+      <h3 class="text-center title">Új program hozzáadása:</h3>
       <button class="btn-close" type="button" (click)="closeEvent()"></button>
     </div>
 
@@ -32,7 +32,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="text" class="form-label">Az esemény szövege</label>
+        <label for="text" class="form-label">Az esemény szövege:</label>
         <textarea type="text" class="form-control" id="text" formControlName="text" 
         [ngClass]="{'is-invalid': eventForm.get('text')?.invalid && eventForm.get('text')?.touched} || eventForm.get('text')?.errors?.['serverError']"></textarea>
 

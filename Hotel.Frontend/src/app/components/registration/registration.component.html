@@ -63,8 +63,6 @@
               formControlName="userName"
               [ngClass]="{'is-invalid': registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched} || registerForm.get('userName')?.errors?.['serverError']">
 
-
-
             <small *ngIf="registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched
                                 && !registerForm.get('userName')?.errors?.['serverError']
                                 && registerForm.get('userName')?.errors?.['pattern']" class="text-danger">
@@ -82,7 +80,6 @@
               class="text-danger">
               Adja meg a felhasználónevét
             </small>
-
 
             <!-- ServerError BE-ről -->
             <small *ngIf="registerForm.get('userName')?.errors?.['serverError']" class="text-danger">
