@@ -10,14 +10,12 @@
   
   .outer{
     border-radius: 2rem;
-   
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0.5rem;
     background-color: whitesmoke;
     margin-bottom: 1.5rem;
-    
   }
   
   .inner{
@@ -148,8 +146,8 @@
   
       .details {
         font-family: 'Roboto';
-    font-size: 1.2rem;
-    color: #800020;
+        font-size: 1.2rem;
+        color: #800020;
       }
   
       .details-content {
