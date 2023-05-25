@@ -17,10 +17,10 @@ export class UpdateUserComponent implements OnInit{
     private dialogRef: MatDialogRef<UpdateUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {userName: string, email: string, firstName: string, lastName: string, id: string}){
     this.userModifyForm = new FormBuilder().group({
-      userName: new FormControl('' , Validators.required),
-      email: new FormControl('' , Validators.required),
-      firstName: new FormControl('' , Validators.required),
-      lastName: new FormControl('' , Validators.required)
+      userName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9]{2,}$')]),
+      email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9.]{2,}@[a-zA-Z0-9]{2,}.[a-zA-Z0-9]{2,}$')]),
+      firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      lastName: new FormControl('', [Validators.required, Validators.minLength(2)])
     })
   }
 
