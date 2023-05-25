@@ -1,13 +1,13 @@
 <div class="container-sm outer">
     <div class="container-sm shadow inner">
-  
+
       <div class="modal-header">
-        <h3 class="text-center title">Program módosítása:</h3>
+        <h3 class="text-center title">Program módosítása</h3>
         <button class="btn-close" type="button" (click)="closeEvent()"></button>
       </div>
-  
+
       <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
-  
+
         <div class="mb-3">
           <label for="title" class="form-label">Az esemény címe:</label>
         <input type="text" class="form-control" id="title" formControlName="title"
@@ -30,10 +30,10 @@
               {{eventForm.get('title')?.getError('serverError')}}
             </small>
         </div>
-  
+
         <div class="mb-3">
           <label for="text" class="form-label">Az esemény szövege</label>
-        <textarea type="text" class="form-control" id="text" formControlName="text" 
+        <textarea type="text" class="form-control" id="text" formControlName="text"
         [ngClass]="{'is-invalid': eventForm.get('text')?.invalid && eventForm.get('text')?.touched} || eventForm.get('text')?.errors?.['serverError']"></textarea>
 
         <small
@@ -47,10 +47,10 @@
               {{eventForm.get('text')?.getError('serverError')}}
             </small>
         </div>
-  
+
         <div class="mb-3">
           <label for="schedule" class="form-label">Az esemény időzítése:</label>
-        <input type="text" class="form-control" id="schedule" formControlName="schedule" 
+        <input type="text" class="form-control" id="schedule" formControlName="schedule"
         [ngClass]="{'is-invalid': eventForm.get('title')?.invalid && eventForm.get('title')?.touched} || eventForm.get('title')?.errors?.['serverError']">
 
         <small
@@ -70,7 +70,7 @@
               {{eventForm.get('schedule')?.getError('serverError')}}
             </small>
         </div>
-  
+
         <div class="mb-3">
           <label for="image" class="form-label">Az esemény képe:</label>
           <input type="file" class="form-control" id="image"  (change)="onImageUpload($event)" formControlName="image">
@@ -78,13 +78,13 @@
             {{eventForm.get('image')?.getError('serverError')}}
           </small>
         </div>
-  
+
         <div class="text-center">
           <button type="submit" class="btn" [disabled]="!eventForm.valid">Elküld</button>
         </div>
-  
+
       </form>
-  
+
     </div>
   </div>
-  
+

@@ -7,7 +7,7 @@
     background-attachment: fixed;
     background-position: center center;
   }
-  
+
   .outer{
     border-radius: 2rem;
     display: flex;
@@ -17,7 +17,7 @@
     background-color: whitesmoke;
     margin-bottom: 1.5rem;
   }
-  
+
   .inner{
     border-radius: 1.5rem;
     border: 3px solid #800020;
@@ -25,7 +25,7 @@
     position: inherit;
     background-color: whitesmoke;
   }
-  
+
   .title {
     font-family: caveat;
     font-size: 4rem;
@@ -34,18 +34,18 @@
     padding: 0;
     text-align: center;
   }
-  
+
   .details-body {
     display: flex;
     flex-direction:row;
   }
-  
+
   .details {
     font-family: 'Roboto';
     font-size: 1.4rem;
     color: #800020;
   }
-  
+
   .timetable {
     font-family: 'Caveat';
     font-size: 2.5rem;
@@ -58,49 +58,49 @@
     font-size: 1.4rem;
     color: #800020;
   }
-  
+
   .left-side {
     width: 70%;
     line-height: 1.7rem;
     margin-right: 1rem;
   }
-  
- 
+
+
 
   img {
     position: inherit;
     width: 100%
   }
-  
+
   .right-side{
     width: 30%;
     margin-right: 0.5rem;
   }
-  
+
   .image-container {
     border: #800020 2px solid;
     padding: 0.5rem;
     width:100%;
   }
-  
+
   .image-container:hover {
     cursor: pointer;
   }
-  
+
   .btn-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     float: right;
-    margin: 2rem
+    margin-top: 1rem;
   }
-  
+
   .btn {
       background-color: #800020;
       border-radius: 3rem;
       color: whitesmoke;
       font-family: 'Caveat';
       font-size: 2.5rem;
-      width: 200px;
+      width: 150px;
   }
 
   .btn-admin {
@@ -108,8 +108,8 @@
     border-radius: 3rem;
     color: whitesmoke;
     font-family: 'Caveat';
-    font-size: 2.5rem;
-    width: 200px;
+    font-size: 2rem;
+    width: 150px;
     margin-bottom: 0.6rem;
     margin-left: 0.5rem;
 }
@@ -127,29 +127,29 @@
     text-align: center;
     cursor: pointer;
   }
-  
+
   @media only screen
     and (min-device-width: 360px)
     and (max-device-width: 1080px) {
-  
+
       .body {
         padding: 1rem;
       }
-  
+
       .details-body {
         flex-direction:column;
       }
-  
+
       .title {
         font-size: 3rem;
       }
-  
+
       .details {
         font-family: 'Roboto';
         font-size: 1.2rem;
         color: #800020;
       }
-  
+
       .details-content {
         font-size: 1.2rem;
       }
@@ -160,26 +160,26 @@
         color: #800020;
         margin-right: 1rem;
         margin-bottom: 2rem;
-        
+
       }
-  
+
       .left-side {
         width: 100%;
         line-height: 1.5rem;
       }
-  
+
       .right-side{
         width: 100%;
         margin-right: 0.5rem;
       }
-  
+
       .btn-container {
         display: flex;
         flex-direction: row;
         float: right;
         margin: 1rem
       }
-  
+
       .btn {
           border-radius: 3rem;
           font-size: 1.8rem;
@@ -191,7 +191,7 @@
         margin-bottom: 0rem;
         margin-left: 0.5rem;
         width: 120px;
-        
+
       }
       .floating-button {
         position: fixed;
@@ -207,5 +207,4 @@
         cursor: pointer;
       }
     }
-  
-  
+

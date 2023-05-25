@@ -1,41 +1,40 @@
 <div class="body">
-    <div class="allItems">
-      <div  class="container-sm outer" *ngFor="let sport of allEvents">
-        <div class="container-sm shadow inner">
-    
-          <p class="title">{{sport.title}}</p>
-    
-          <div class="details-body">
-    
-            <div class="left-side">
-                <div class="left-side-text">
-                    <p class="details">{{sport.text}} </p>
+  <div class="allItems">
+    <div class="container-sm outer" *ngFor="let sport of allEvents">
+      <div class="container-sm shadow inner">
 
-                <p class="timetable">Órarend: {{sport.schedule}}</p>
-                </div>
-            </div>
-            <div class="right-side">
-              <div class="image-container">
-                <img src="{{sport.imageUrl}}" alt="" >
-              </div>
-              <div class="btn-container">
-                <p *ngIf="!(role === 'Admin' || role === 'Operator')"> A FOGLALKOZÁS MINDEN KEDVES VENDÉG RÉSZÉRE ELÉRHETŐ!</p>
-                <div *ngIf="role === 'Admin' || role === 'Operator'">
-                <button  type="button" class="btn btn-admin" (click)="modifyEvent(sport.id)">Módosítás</button>
-                <button  type="button" class="btn btn-admin" (click)="deleteEvent(sport.id)">Törlés</button>
-            </div>
-              </div>
-               
-            </div>
+        <p class="title">{{sport.title}}</p>
 
+        <div class="details-body">
+
+          <div class="left-side">
+            <div class="left-side-text">
+              <p class="details">{{sport.text}} </p>
+
+              <p class="timetable">Órarend: {{sport.schedule}}</p>
+            </div>
+          </div>
+          <div class="right-side">
+            <div class="image-container">
+              <img src="{{sport.imageUrl}}" alt="">
+            </div>
+            <div class="btn-container">
+              <p *ngIf="!(role === 'Admin' || role === 'Operator')"> A FOGLALKOZÁS MINDEN KEDVES VENDÉG RÉSZÉRE
+                ELÉRHETŐ!</p>
+              <div *ngIf="role === 'Admin' || role === 'Operator'">
+                <button type="button" class="btn btn-admin" (click)="modifyEvent(sport.id)">Módosítás</button>
+                <button type="button" class="btn btn-admin" (click)="deleteEvent(sport.id)">Törlés</button>
+              </div>
+            </div>
 
           </div>
-    
-        </div>
-      </div>
 
+
+        </div>
+
+      </div>
     </div>
-    <div class="floating-button" *ngIf="currentUser" (click)="addNewPost()">Új program</div>
-    </div>
-    
-  
+
+  </div>
+  <div class="floating-button" *ngIf="role === 'Admin' || role === 'Operator'" (click)="addNewPost()">Új program</div>
+</div>
