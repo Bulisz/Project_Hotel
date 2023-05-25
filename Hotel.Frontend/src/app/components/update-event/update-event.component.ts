@@ -2,11 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EventDetailsModel } from 'src/app/models/event-details-model';
-import { CreateEventComponent } from '../create-event/create-event.component';
 import { EventService } from 'src/app/services/event.service';
 import { validationHandler } from 'src/utils/validationHandler';
-import { UpdateEventModel } from 'src/app/models/update-event-model';
-import { CreateEventModel } from 'src/app/models/create-event-model';
 
 @Component({
   selector: 'app-update-event',
@@ -18,8 +15,8 @@ export class UpdateEventComponent implements OnInit{
   image: File | null = null;
   updatedEvent!: EventDetailsModel;
 
-  constructor(private es: EventService, 
-              private dialogRef: MatDialogRef<CreateEventComponent>,
+  constructor(private es: EventService,
+              private dialogRef: MatDialogRef<UpdateEventComponent>,
               @Inject(MAT_DIALOG_DATA) public data: {title: string, text: string, schedule: string, id: number, oldImageUrl: string}){
 
     this.eventForm = new FormBuilder().group({
@@ -43,10 +40,10 @@ export class UpdateEventComponent implements OnInit{
   async onSubmit(){
     const formValue = this.eventForm.getRawValue()
     const parsedFormValue = {...formValue, image: this.image, id: this.data.id, oldImageUrl: this.data.oldImageUrl};
-    
+
     await this.es.updateEvent(parsedFormValue)
       .then((res) => {
-        
+
         this.dialogRef.close()
       })
       .catch(err => validationHandler(err,this.eventForm))

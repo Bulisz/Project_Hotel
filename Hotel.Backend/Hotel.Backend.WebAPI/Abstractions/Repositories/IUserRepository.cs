@@ -10,4 +10,5 @@ public interface IUserRepository
     Task<UserDetailsDTO?> GetUserByNameAsync(string name);
     Task<UserDetailsDTO> InsertUserAsync(ApplicationUser user, string password);
     Task<UserDetailsDTO> LoginAsync(LoginRequest request);
+    Task<UserDetailsDTO> UpdateUserAsync(UserUpdateDTO updateUser);
 }

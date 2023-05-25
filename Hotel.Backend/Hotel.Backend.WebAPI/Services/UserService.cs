@@ -45,8 +45,14 @@ public class UserService : IUserService
         return await _userRepository.LoginAsync(userLoginRequest);
     }
 
-    public async Task DeleteReservationAsync(string userId)
+    public async Task DeleteUserAsync(string userId)
     {
         await _userRepository.DeleteUserAsync(userId);
+    }
+
+    public async Task<UserDetailsDTO> UpdateUserAsync(UserUpdateDTO updateUser)
+    {
+        UserDetailsDTO userDetails = await _userRepository.UpdateUserAsync(updateUser);
+        return userDetails;
     }
 }
