@@ -17,6 +17,7 @@ export class PersonalComponent implements OnInit {
 
   currentUser: UserModel | null = null;
   myReservations!: Array<ReservationListItem>;
+  titulus = '';
 
   constructor(private accountService: AccountService,
     private reservationService: ReservationService,
@@ -33,6 +34,13 @@ export class PersonalComponent implements OnInit {
     })
     if (this.currentUser) {
       this.getMyReservations(this.currentUser.id)
+    }
+    if(this.currentUser?.role === "Guest"){
+      this.titulus = 'Vendég'
+    } else if(this.currentUser?.role === "Operator"){
+      this.titulus = 'Operátor'
+    } else {
+      this.titulus = 'Adminisztrátor'
     }
   }
 
