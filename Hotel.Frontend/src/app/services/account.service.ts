@@ -6,6 +6,8 @@ import { LoginrequestModel } from '../models/loginrequest-model';
 import { LoginresponseModel } from '../models/loginresponse-model';
 import { UserModel } from '../models/user-model';
 import { environment } from '../../environments/environment';
+import { UpdateUserComponent } from '../components/update-user/update-user.component';
+import { UpdateUserModel } from '../models/update-user-model';
 
 
 
@@ -48,6 +50,10 @@ export class AccountService {
   async deleteProfile(userId: string): Promise<any> {
     return await firstValueFrom(this.http.delete(`${environment.apiUrl}/${this.BASE_URL}/${userId}`))
     .then(() => this.logout())
+  }
+
+  async updateUser(user: UpdateUserModel): Promise<UserModel> {
+    return await firstValueFrom(this.http.put<UserModel>(`${environment.apiUrl}/${this.BASE_URL}/updateuser`,user))
   }
 
 }
