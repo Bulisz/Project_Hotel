@@ -29,6 +29,7 @@ import { PersonalComponent } from './components/personal/personal.component';
 import { ReservationListComponent } from './components/reservation-list/reservation-list.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { UpdateEventComponent } from './components/update-event/update-event.component';
+import { UpdateUserComponent } from './components/update-user/update-user.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { UpdateEventComponent } from './components/update-event/update-event.com
     CreateEventComponent,
     EventListComponent,
     ConfirmationComponent,
-    UpdateEventComponent
+    UpdateEventComponent,
+    UpdateUserComponent
   ],
   imports: [
     BrowserModule,
