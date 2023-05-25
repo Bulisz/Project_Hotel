@@ -115,7 +115,14 @@ public class UsersController : ControllerBase
     [HttpDelete("{userId}")]
     public async Task<ActionResult> DeleteUser(string userId)
     {
-        await _userService.DeleteReservationAsync(userId);
+        await _userService.DeleteUserAsync(userId);
         return NoContent();
+    }
+
+    [HttpPut(nameof(UpdateUser))]
+    public async Task<ActionResult<UserDetailsDTO>> UpdateUser(UserUpdateDTO updateUser)
+    {
+        UserDetailsDTO userDetails = await _userService.UpdateUserAsync(updateUser);
+        return userDetails;
     }
 }

@@ -91,4 +91,24 @@ public class UserRepository : IUserRepository
         ApplicationUser? user = await _userManager.FindByIdAsync(userId);
         await _userManager.DeleteAsync(user);
     }
+
+    public async Task<UserDetailsDTO> UpdateUserAsync(UserUpdateDTO updateUser)
+    {
+        ApplicationUser? user = await _userManager.FindByIdAsync(updateUser.Id);
+        user.UserName = updateUser.Username;
+        user.FirstName = updateUser.FirstName;
+        user.LastName = updateUser.LastName;
+        user.Email = updateUser.Email;
+        if(user is not null)
+        {
+            await _userManager.UpdateAsync(user);
+        }
+
+        UserDetailsDTO userDetails = new UserDetailsDTO();
+        userDetails.User = user;
+        userDetails.Roles = await _userManager.GetRolesAsync(user);
+
+        return userDetails;
+    }
+
 }
