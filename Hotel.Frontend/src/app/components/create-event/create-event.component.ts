@@ -18,10 +18,10 @@ export class CreateEventComponent {
 
   constructor(private es: EventService, private dialogRef: MatDialogRef<CreateEventComponent>){
     this.eventForm = new FormBuilder().group({
-      title: new FormControl('' , Validators.required),
-      text: new FormControl('' , Validators.required),
-      schedule: new FormControl('' , Validators.required),
-      image: new FormControl(null)
+      title: new FormControl('' , [Validators.required, Validators.maxLength(50)]),
+      text: new FormControl('' , [Validators.required, Validators.minLength(150), Validators.maxLength(1000)]),
+      schedule: new FormControl('' , [Validators.required, Validators.maxLength(50)]),
+      image: new FormControl(null, Validators.required)
     })
   }
 

@@ -10,7 +10,19 @@
 
       <div class="mb-3">
         <label for="text" class="form-label">Bejegyzés szövege</label>
-        <textarea type="text" class="form-control" id="text" formControlName="text"></textarea>
+        <textarea type="text" class="form-control" id="text" formControlName="text"
+        [ngClass]="{'is-invalid': postForm.get('text')?.invalid && postForm.get('text')?.touched} || postForm.get('text')?.errors?.['serverError']"></textarea>
+
+        <small
+        *ngIf="postForm.get('text')?.invalid && postForm.get('text')?.touched && !postForm.get('text')?.errors?.['serverError']"
+        class="text-danger">
+        Írjon egy hozzászólást 2 és 1000 karakter között.
+      </small>
+
+            <!-- ServerError BE-ről -->
+            <small *ngIf="postForm.get('text')?.errors?.['serverError']" class="text-danger">
+              {{postForm.get('text')?.getError('serverError')}}
+            </small>
       </div>
 
       <div class="text-center">

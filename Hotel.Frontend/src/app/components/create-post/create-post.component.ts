@@ -17,7 +17,7 @@ export class CreatePostComponent{
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {userName: string, role: string}, private postService: PostService, public dialogRef: MatDialogRef<CreatePostComponent>,){
     this.postForm = new FormBuilder().group({
-      text: new FormControl('' , Validators.required)
+      text: new FormControl('' , [Validators.required, Validators.minLength(2), Validators.maxLength(1000)])
     })
   }
 

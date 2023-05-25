@@ -10,17 +10,65 @@
   
         <div class="mb-3">
           <label for="title" class="form-label">Az esemény címe:</label>
-          <input type="text" class="form-control" id="title" formControlName="title">
+        <input type="text" class="form-control" id="title" formControlName="title"
+        [ngClass]="{'is-invalid': eventForm.get('title')?.invalid && eventForm.get('title')?.touched} || eventForm.get('title')?.errors?.['serverError']">
+
+        <small
+        *ngIf="eventForm.get('title')?.invalid && eventForm.get('title')?.touched && !eventForm.get('title')?.errors?.['serverError']"
+        class="text-danger">
+        Adja meg az esemény címét legfeljebb 50 karakterben
+      </small>
+
+      <small *ngIf="eventForm.get('title')?.invalid && eventForm.get('title')?.touched
+                                && !eventForm.get('title')?.errors?.['serverError']
+                                && eventForm.get('title')?.errors?.['maxLength']" class="text-danger">
+              Legfeljebb 50 karakter hosszúnak kell lennie
+            </small>
+
+            <!-- ServerError BE-ről -->
+            <small *ngIf="eventForm.get('title')?.errors?.['serverError']" class="text-danger">
+              {{eventForm.get('title')?.getError('serverError')}}
+            </small>
         </div>
   
         <div class="mb-3">
           <label for="text" class="form-label">Az esemény szövege</label>
-          <textarea type="text" class="form-control" id="text" formControlName="text"></textarea>
+        <textarea type="text" class="form-control" id="text" formControlName="text" 
+        [ngClass]="{'is-invalid': eventForm.get('text')?.invalid && eventForm.get('text')?.touched} || eventForm.get('text')?.errors?.['serverError']"></textarea>
+
+        <small
+        *ngIf="eventForm.get('text')?.invalid && eventForm.get('text')?.touched && !eventForm.get('text')?.errors?.['serverError']"
+        class="text-danger">
+        Adja meg a program leírását 150 és 1000 karakter között.
+      </small>
+
+            <!-- ServerError BE-ről -->
+            <small *ngIf="eventForm.get('text')?.errors?.['serverError']" class="text-danger">
+              {{eventForm.get('text')?.getError('serverError')}}
+            </small>
         </div>
   
         <div class="mb-3">
           <label for="schedule" class="form-label">Az esemény időzítése:</label>
-          <input type="text" class="form-control" id="schedule" formControlName="schedule">
+        <input type="text" class="form-control" id="schedule" formControlName="schedule" 
+        [ngClass]="{'is-invalid': eventForm.get('title')?.invalid && eventForm.get('title')?.touched} || eventForm.get('title')?.errors?.['serverError']">
+
+        <small
+        *ngIf="eventForm.get('schedule')?.invalid && eventForm.get('schedule')?.touched && !eventForm.get('schedule')?.errors?.['serverError']"
+        class="text-danger">
+        Adja meg az esemény időpontját legfeljebb 50 karakterben
+      </small>
+
+            <small *ngIf="eventForm.get('schedule')?.invalid && eventForm.get('schedule')?.touched
+                                && !eventForm.get('schedule')?.errors?.['serverError']
+                                && eventForm.get('schedule')?.errors?.['maxLength']" class="text-danger">
+              Legfeljebb 50 karakter hosszúnak kell lennie
+            </small>
+
+            <!-- ServerError BE-ről -->
+            <small *ngIf="eventForm.get('schedule')?.errors?.['serverError']" class="text-danger">
+              {{eventForm.get('schedule')?.getError('serverError')}}
+            </small>
         </div>
   
         <div class="mb-3">
