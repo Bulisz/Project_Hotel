@@ -6,6 +6,7 @@ using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
+using Hotel.Backend.WebAPI.Repositories;
 using System.Net;
 using System.Text;
 
@@ -171,5 +172,22 @@ public class RoomService : IRoomService
         publicId.Append(splittedUrl[^1].Split('.')[0]);
         DeletionParams dp = new(publicId.ToString());
         await _cloudinary.DestroyAsync(dp);
+    }
+
+    public async Task<RoomDetailsDTO> CreateRoomAsync(CreateRoomDTO createRoomDTO)
+    {
+        Room room = _mapper.Map<Room>(createRoomDTO);
+        return _mapper.Map<RoomDetailsDTO>(await _roomRepository.CreateRoomAsync(room));
+    }
+
+    public async Task DeleteRoomAsync(int id)
+    {
+        await _roomRepository.DeleteRoomAsync(id);
+    }
+
+    public async Task<RoomDetailsDTO> ModifyRoomAsync(RoomDetailsDTO roomDetailsDTO)
+    {
+        Room room = _mapper.Map<Room>(roomDetailsDTO);
+        return _mapper.Map<RoomDetailsDTO>(await _roomRepository.ModifyRoomAsync(room));
     }
 }

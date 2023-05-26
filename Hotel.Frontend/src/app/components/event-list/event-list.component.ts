@@ -6,8 +6,6 @@ import { EventService } from 'src/app/services/event.service';
 import { CreateEventComponent } from '../create-event/create-event.component';
 import { AccountService } from 'src/app/services/account.service';
 import { Router } from '@angular/router';
-
-import { BehaviorSubject, async } from 'rxjs';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { UpdateEventComponent } from '../update-event/update-event.component';
 
@@ -23,9 +21,9 @@ export class EventListComponent implements OnInit {
   allEvents: Array<EventDetailsModel> | null = null;
 
 
-  constructor (private as: AccountService, 
-              private eventService: EventService, 
-              private dialog: MatDialog, 
+  constructor (private as: AccountService,
+              private eventService: EventService,
+              private dialog: MatDialog,
               private router: Router) {}
 
   async ngOnInit() {
@@ -76,7 +74,7 @@ export class EventListComponent implements OnInit {
       position: {top: '10%'},
       data: {message: "Biztos törlöd ezt a programot?"}
     };
-    
+
     let dialogRef = this.dialog.open(ConfirmationComponent, dialogBoxSettings)
     dialogRef.afterClosed().subscribe({
       next: (res) => {
@@ -90,9 +88,9 @@ export class EventListComponent implements OnInit {
   }
 
   async modifyEvent(id: number){
-    
+
     let event = this.allEvents?.find(ev => ev.id === id)
-    
+
     let dialogBoxSettings = {
       width: '400px',
       margin: '0 auto',
@@ -101,7 +99,7 @@ export class EventListComponent implements OnInit {
       position: {top: '10%'},
       data: {title: event?.title, text: event?.text, schedule: event?.schedule, id: event?.id, oldImageUrl: event?.imageUrl}
     };
-    
+
     let dialogRef = this.dialog.open(UpdateEventComponent, dialogBoxSettings)
     dialogRef.afterClosed().subscribe({
       next: () => this.loadEvents()

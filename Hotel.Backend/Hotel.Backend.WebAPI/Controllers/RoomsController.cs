@@ -27,7 +27,7 @@ public class RoomsController : ControllerBase
     [HttpGet("GetRoomById/{id}")]
     public async Task<ActionResult<RoomDetailsDTO>> GetRoomById(int id)
     {
-         try
+        try
         {
             RoomDetailsDTO roomDetails = await _roomService.GetRoomByIdAsync(id);
             return Ok(roomDetails);
@@ -52,8 +52,13 @@ public class RoomsController : ControllerBase
             var error = (new { type = "hotelError", message = hotelException.Message, errors = hotelException.HotelErrors });
             return StatusCode((int)hotelException.Status, error);
         }
+    }
 
-
+    [HttpPost(nameof(CreateRoom))]
+    public async Task<ActionResult<RoomDetailsDTO>> CreateRoom(CreateRoomDTO createRoomDTO)
+    {
+        RoomDetailsDTO roomDetailsDTO = await _roomService.CreateRoomAsync(createRoomDTO);
+        return Ok(roomDetailsDTO);
     }
 
     [HttpGet(nameof(GetNonStandardEquipments))]
@@ -75,5 +80,19 @@ public class RoomsController : ControllerBase
     {
         await _roomService.SaveMoreImageAsync(saveMoreImage);
         return Ok();
+    }
+
+    [HttpDelete("DeleteRoom/{id}")]
+    public async Task<ActionResult> DeleteRoom(int id)
+    {
+        await _roomService.DeleteRoomAsync(id);
+        return Ok();
+    }
+
+    [HttpPut(nameof(ModifyRoom))]
+    public async Task<ActionResult<RoomDetailsDTO>> ModifyRoom(RoomDetailsDTO roomDetailsDTO)
+    {
+        RoomDetailsDTO modifiedRoom = await _roomService.ModifyRoomAsync(roomDetailsDTO);
+        return Ok(modifiedRoom);
     }
 }

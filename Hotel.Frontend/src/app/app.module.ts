@@ -31,6 +31,8 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
 import { UpdateEventComponent } from './components/update-event/update-event.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { RoomManagerComponent } from './components/room-manager/room-manager.component';
+import { CreateRoomComponent } from './components/create-room/create-room.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { AdminComponent } from './components/admin/admin.component';
     ConfirmationComponent,
     UpdateEventComponent,
     UpdateUserComponent,
-    AdminComponent
+    AdminComponent,
+    RoomManagerComponent,
+    CreateRoomComponent
   ],
   imports: [
     BrowserModule,

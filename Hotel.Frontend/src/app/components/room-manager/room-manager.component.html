@@ -1,0 +1,41 @@
+<div class="container-sm outer">
+  <div class="container-sm shadow inner">
+
+    <div class="edit-buttons">
+      <button type="button" class="btn-header" (click)="addNewRoom()">Szoba létrehozás</button>
+    </div>
+
+    <hr>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="details" scope="col">Id</th>
+          <th class="details" scope="col">Név</th>
+          <th class="details" scope="col">Képek</th>
+          <th class="details" scope="col">Felszereltség</th>
+          <th class="details" scope="col">Műveletek</th>
+        </tr>
+      </thead>
+
+      <tbody class="table-group-divider">
+        <tr *ngFor="let room of rooms">
+          <td class="details-content">{{room.id}}</td>
+          <td class="details-content">{{room.name}}</td>
+          <td class="details-content">{{room.imageURLs.length}}</td>
+          <td class="details-content">{{room.equipmentNames.length}}</td>
+          <td>
+            <div class="btn-container">
+              <button type="button" class="btn" (click)="modifyRoom(room.id)">Módosítás</button>
+              <button type="button" class="btn">Kép feltöltés</button>
+              <button type="button" class="btn">Kép törlés</button>
+              <button type="button" class="btn" (click)="deleteRoom(room.id)">Törlés</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+</div>

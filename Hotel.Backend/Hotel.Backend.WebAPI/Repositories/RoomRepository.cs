@@ -1,7 +1,6 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Repositories;
 using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Models;
-using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -22,6 +21,7 @@ public class RoomRepository : IRoomRepository
             .Include(room => room.Equipments)
             .Include(room => room.Images)
             .Include(room => room.Reservations)
+            .Where(room => room.Available == true)
             .ToListAsync();
     }
 
@@ -43,6 +43,7 @@ public class RoomRepository : IRoomRepository
             .Include(room => room.Reservations)
             .Where(room => room.NumberOfBeds >= guestNumber)
             .Where(room => room.MaxNumberOfDogs >= dogNumber)
+            .Where(room => room.Available == true)
             //.Where(room => choosedEquipments.All(x => room.Equipments.Select(e => e.Id).Contains(x)))
             //.Where(room => choosedEquipments.All(x => room.Equipments.Any(e => e.Id == x)))
             .Where(room => !room.Reservations.Any(ar => ar.BookingFrom < bookingTo && ar.BookingTo > bookingFrom))
@@ -68,5 +69,28 @@ public class RoomRepository : IRoomRepository
     {
         _context.Images.AddRange(images);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<Room> CreateRoomAsync(Room room)
+    {
+        room.Available = true;
+        _context.Rooms.Add(room);
+        await _context.SaveChangesAsync();
+        return room;
+    }
+
+    public async Task DeleteRoomAsync(int id)
+    {
+        Room room = await _context.Rooms.FindAsync(id);
+        room.Available = false;
+        _context.Rooms.Update(room);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<Room> ModifyRoomAsync(Room room)
+    {
+        _context.Rooms.Update(room);
+        await _context.SaveChangesAsync();
+        return room;
     }
 }

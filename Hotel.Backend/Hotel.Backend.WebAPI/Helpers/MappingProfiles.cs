@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
-using System.Security;
 
 namespace Hotel.Backend.WebAPI.Helpers;
 
@@ -33,5 +32,8 @@ public class MappingProfiles : Profile
         CreateMap<Event,EventDetailsDTO>();
         CreateMap<EventModifyDTO, Event>()
             .ForMember(dest => dest.Id, op => op.MapFrom(src => int.Parse(src.Id)));
+        CreateMap<CreateRoomDTO, Room>()
+            .ForMember(dest => dest.Price, op => op.MapFrom(src => Convert.ToDecimal(src.Price)));
+        CreateMap<RoomDetailsDTO, Room>();
     }
 }

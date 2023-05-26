@@ -10,6 +10,7 @@ public record RoomDetailsDTO
     public string Size { get; set; } = string.Empty;
     public string LongDescription { get; set; } = string.Empty;
     public bool Available { get; set; }
+    public int MaxNumberOfDogs { get; set; }
     public ICollection<string> EquipmentNames { get; set; } = new List<string>();
     public ICollection<string> ImageURLs { get; set; } = new List<string>();
     public ICollection<ReservationDetailsDTO> Reservations { get; set; } = new List<ReservationDetailsDTO>();

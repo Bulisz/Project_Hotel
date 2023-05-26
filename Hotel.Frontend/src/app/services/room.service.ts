@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 import { NonStandardEquipmentModel } from '../models/non-standard-equipment-model';
 import { SaveOneImageModel } from '../models/save-one-image-model';
 import { SaveMoreImageModel } from '../models/save-more-image-model';
+import { CreateRoomModel } from '../models/create-room-model';
 
 
 @Injectable({
@@ -65,6 +66,19 @@ export class RoomService {
     }
 
     return await firstValueFrom(this.http.post(`${environment.apiUrl}/${this.BASE_URL}/SaveMoreImage`,images))
+  }
+
+  async createRoom(room: CreateRoomModel): Promise<RoomDetailsModel>{
+    return await firstValueFrom(this.http.post<RoomDetailsModel>(`${environment.apiUrl}/${this.BASE_URL}/CreateRoom`,room))
+  }
+
+  async deleteRoom(id: number): Promise<any>{
+    return await firstValueFrom(this.http.delete(`${environment.apiUrl}/${this.BASE_URL}/DeleteRoom/${id}`))
+  }
+
+  async updateRoom(room: RoomDetailsModel): Promise<RoomDetailsModel> {
+
+    return await firstValueFrom(this.http.put<RoomDetailsModel>(`${environment.apiUrl}/${this.BASE_URL}/ModifyRoom`, room));
   }
 
 }

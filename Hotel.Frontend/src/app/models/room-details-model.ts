@@ -9,6 +9,7 @@ export interface RoomDetailsModel {
   size: string,
   longDescription: string,
   available: boolean,
+  maxNumberOfDogs: number,
   equipmentNames: Array<string>,
   imageURLs: Array<string>,
   reservations: Array<ReservationDetailsModel>
