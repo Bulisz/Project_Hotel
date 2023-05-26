@@ -9,17 +9,18 @@ import { ErrorComponent } from './components/error/error.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { EventListComponent } from './components/event-list/event-list.component';
 import { PersonalComponent } from './components/personal/personal.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'room-list', component: RoomListComponent},
   { path: 'room-details/:id', component: RoomDetailsComponent},
-  { path: 'blog', component: BlogComponent},
   { path: 'event-list', component: EventListComponent},
+  { path: 'blog', component: BlogComponent},
+  { path: 'admin', component: AdminComponent},
   { path: 'registration', component: RegistrationComponent},
   { path: 'login', component: LoginComponent},
   { path: 'personal', component: PersonalComponent},
-  { path: 'error', component: ErrorComponent},
   { path: '**', component: ErrorComponent }
 ];
 
