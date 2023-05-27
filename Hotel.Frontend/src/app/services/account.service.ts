@@ -8,6 +8,7 @@ import { UserModel } from '../models/user-model';
 import { environment } from '../../environments/environment';
 import { UpdateUserComponent } from '../components/update-user/update-user.component';
 import { UpdateUserModel } from '../models/update-user-model';
+import { UserListModel } from '../models/user-list-model';
 
 
 
@@ -54,6 +55,10 @@ export class AccountService {
 
   async updateUser(user: UpdateUserModel): Promise<UserModel> {
     return await firstValueFrom(this.http.put<UserModel>(`${environment.apiUrl}/${this.BASE_URL}/updateuser`,user))
+  }
+
+  async getUsers(): Promise<Array<UserListModel>>{
+    return await firstValueFrom(this.http.get<Array<UserListModel>>(`${environment.apiUrl}/${this.BASE_URL}/GetUsers`))
   }
 
 }
