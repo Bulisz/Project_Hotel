@@ -6,6 +6,7 @@ import { ReservationService } from 'src/app/services/reservation.service';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { UserModel } from 'src/app/models/user-model';
 import { AccountService } from 'src/app/services/account.service';
+import { ReservationForUserComponent } from '../reservation-for-user/reservation-for-user.component';
 
 @Component({
   selector: 'app-reservation-list',
@@ -46,11 +47,31 @@ export class ReservationListComponent implements OnInit {
 
     let dialogRef = this.dialog.open(ConfirmationComponent, dialogBoxSettings);
     dialogRef.afterClosed().subscribe({
-      next: (res) => {
+      next: res => {
         if(res === "agree"){
           this.reservationService.deleteReservation(id)
               .then(() => this.reservationDeleted.emit('reservationDeleted'))
               .catch((err) => console.log(err))
+        }
+      }
+    })
+  }
+
+  reservationForUser(){
+    let dialogBoxSettings = {
+      width: '400px',
+      margin: '0 auto',
+      disableClose: true,
+      hasBackdrop: true,
+      position: {top: '10%'}
+    };
+
+    let dialogref = this.dialog.open(ReservationForUserComponent,dialogBoxSettings)
+
+    dialogref.afterClosed().subscribe({
+      next: res => {
+        if(res === 'agree'){
+          this.reservationDeleted.emit('reservationDeleted')
         }
       }
     })

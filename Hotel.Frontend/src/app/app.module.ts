@@ -36,6 +36,7 @@ import { UpdateImageComponent } from './components/update-image/update-image.com
 import { DeleteImageComponent } from './components/delete-image/delete-image.component';
 import { MatSelectModule } from '@angular/material/select';
 import { SplitPipe } from '../utils/split.pipe';
+import { ReservationForUserComponent } from './components/reservation-for-user/reservation-for-user.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { SplitPipe } from '../utils/split.pipe';
     CreateRoomComponent,
     UpdateImageComponent,
     DeleteImageComponent,
-    SplitPipe
+    SplitPipe,
+    ReservationForUserComponent
   ],
   imports: [
     BrowserModule,

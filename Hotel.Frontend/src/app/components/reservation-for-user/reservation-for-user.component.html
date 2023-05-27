@@ -1,0 +1,52 @@
+<div class="container-sm mt-3 outer">
+  <div class="container-sm shadow inner">
+
+    <div class="modal-header">
+      <h3 class="text-center title">Foglalás</h3>
+      <button class="btn-close btn-close" type="button" (click)="closeReservation()"></button>
+    </div>
+
+
+    <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+
+      <div class="mb-3">
+        <label for="userId" class="form-label">Felhasználók:</label>
+        <mat-select class="form-control"  id="userId" formControlName="userId">
+          <mat-option *ngFor="let user of users" value="{{user.id}}">
+            {{user.username}}
+          </mat-option>
+        </mat-select>
+      </div>
+
+      <div class="mb-3">
+        <label for="roomId" class="form-label">Szobák:</label>
+        <mat-select class="form-control"  id="roomId" formControlName="roomId">
+          <mat-option *ngFor="let room of rooms" value="{{room.id}}">
+            {{room.name}}
+          </mat-option>
+        </mat-select>
+      </div>
+
+      <div class="mb-3">
+        <label for="bookingFrom" class="form-label">Érkezés</label>
+        <input type="date" class="form-control" id="bookingFrom" formControlName="bookingFrom">
+        <small *ngIf="reservationForm.get('bookingFrom')?.errors?.['serverError']" class="text-danger">
+          {{reservationForm.get('bookingFrom')?.getError('serverError')}}
+        </small>
+      </div>
+
+      <div class="mb-3">
+        <label for="bookingTo" class="form-label">Távozás</label>
+        <input type="date" class="form-control" id="bookingTo" formControlName="bookingTo">
+        <small *ngIf="reservationForm.get('bookingTo')?.errors?.['serverError']" class="text-danger">
+          {{reservationForm.get('bookingTo')?.getError('serverError')}}
+        </small>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn" [disabled]="!reservationForm.valid">Elküld</button>
+      </div>
+    </form>
+
+  </div>
+</div>
