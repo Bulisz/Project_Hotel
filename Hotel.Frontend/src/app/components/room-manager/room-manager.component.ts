@@ -4,6 +4,7 @@ import { CreateRoomComponent } from '../create-room/create-room.component';
 import { RoomService } from 'src/app/services/room.service';
 import { RoomListModel } from 'src/app/models/room-list.model';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
+import { UpdateImageComponent } from '../update-image/update-image.component';
 
 @Component({
   selector: 'app-room-manager',
@@ -66,6 +67,27 @@ export class RoomManagerComponent implements OnInit{
         maxNumberOfDogs: room.maxNumberOfDogs}
     };
     let dialog = this.dialog.open(CreateRoomComponent,dialogBoxSettings);
+
+    dialog.afterClosed().subscribe({
+      next: res => {
+        if(res === 'changed'){
+          this.loadRooms()
+        }
+      }
+    })
+  }
+
+  addImages(roomId: number){
+    let dialogBoxSettings = {
+      width: '400px',
+      margin: '0 auto',
+      disableClose: true,
+      hasBackdrop: true,
+      position: {top: '10%'},
+      data: {roomId: roomId}
+    };
+
+    let dialog = this.dialog.open(UpdateImageComponent, dialogBoxSettings)
 
     dialog.afterClosed().subscribe({
       next: res => {

@@ -33,6 +33,7 @@ import { UpdateUserComponent } from './components/update-user/update-user.compon
 import { AdminComponent } from './components/admin/admin.component';
 import { RoomManagerComponent } from './components/room-manager/room-manager.component';
 import { CreateRoomComponent } from './components/create-room/create-room.component';
+import { UpdateImageComponent } from './components/update-image/update-image.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { CreateRoomComponent } from './components/create-room/create-room.compon
     UpdateUserComponent,
     AdminComponent,
     RoomManagerComponent,
-    CreateRoomComponent
+    CreateRoomComponent,
+    UpdateImageComponent
   ],
   imports: [
     BrowserModule,
