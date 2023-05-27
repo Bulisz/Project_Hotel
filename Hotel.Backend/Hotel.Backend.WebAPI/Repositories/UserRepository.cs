@@ -3,6 +3,7 @@ using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace Hotel.Backend.WebAPI.Repositories;
@@ -109,6 +110,25 @@ public class UserRepository : IUserRepository
         userDetails.Roles = await _userManager.GetRolesAsync(user);
 
         return userDetails;
+    }
+
+    public async Task<List<UserListItem>> GetAllUsersAsync()
+    {
+        List<ApplicationUser> users = await _userManager.Users.ToListAsync();
+
+        List<UserListItem> listedUsers = users.Select(user => new UserListItem
+        {
+            Id = user.Id,
+            Username = user.UserName!,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email!,
+            EmailConfirmed = user.EmailConfirmed.ToString(),
+        }).ToList();
+
+        listedUsers.Select(async user => user.Role = (await _userManager.GetRolesAsync(await _userManager.FindByIdAsync(user.Id)))[0]);
+
+        return listedUsers;
     }
 
 }

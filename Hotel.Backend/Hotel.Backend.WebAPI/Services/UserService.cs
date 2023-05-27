@@ -55,4 +55,9 @@ public class UserService : IUserService
         UserDetailsDTO userDetails = await _userRepository.UpdateUserAsync(updateUser);
         return userDetails;
     }
+
+    public async Task<List<UserListItem>> GetAllUsersAsync()
+    {
+        return await _userRepository.GetAllUsersAsync();
+    }
 }

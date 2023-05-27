@@ -125,4 +125,11 @@ public class UsersController : ControllerBase
         UserDetailsDTO userDetails = await _userService.UpdateUserAsync(updateUser);
         return userDetails;
     }
+
+    [HttpGet(nameof(GetUsers))]
+    public async Task<ActionResult<List<UserListItem>>> GetUsers()
+    {
+        List<UserListItem> users = await _userService.GetAllUsersAsync();
+        return Ok(users);
+    }
 }
