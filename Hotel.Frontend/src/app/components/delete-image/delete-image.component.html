@@ -1,0 +1,31 @@
+<div class="container-sm outer">
+  <div class="container-sm shadow inner">
+
+    <div class="modal-header">
+      <h3 class="text-center title">Kép törlése</h3>
+      <button class="btn-close" type="button" (click)="closeEvent()"></button>
+    </div>
+
+    <form [formGroup]="deleteImageForm" (ngSubmit)="onSubmit()">
+
+      <div class="mb-3">
+        <label for="imageUrls" class="form-label">Kép:</label>
+        <mat-select class="form-control"  id="imageUrls" [(value)]="selectedImageUrl" formControlName="imageUrl">
+          <mat-option *ngFor="let imageUrl of imageUrls" value="{{imageUrl}}">
+            {{imageUrl | split: '/'}}
+          </mat-option>
+        </mat-select>
+      </div>
+
+      <div class="img-container">
+        <img src="{{selectedImageUrl}}" alt="">
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn" [disabled]="!deleteImageForm.valid">Töröl</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

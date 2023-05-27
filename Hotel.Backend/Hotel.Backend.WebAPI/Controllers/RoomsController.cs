@@ -82,6 +82,13 @@ public class RoomsController : ControllerBase
         return Ok();
     }
 
+    [HttpDelete(nameof(DeleteImageOfRoom))]
+    public async Task<ActionResult> DeleteImageOfRoom(DeleteImageDTO image)
+    {
+        await _roomService.DeleteImageOfRoomAsync(image.imageUrl);
+        return Ok();
+    }
+
     [HttpDelete("DeleteRoom/{id}")]
     public async Task<ActionResult> DeleteRoom(int id)
     {

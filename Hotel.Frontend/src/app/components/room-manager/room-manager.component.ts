@@ -5,6 +5,7 @@ import { RoomService } from 'src/app/services/room.service';
 import { RoomListModel } from 'src/app/models/room-list.model';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { UpdateImageComponent } from '../update-image/update-image.component';
+import { DeleteImageComponent } from '../delete-image/delete-image.component';
 
 @Component({
   selector: 'app-room-manager',
@@ -88,6 +89,29 @@ export class RoomManagerComponent implements OnInit{
     };
 
     let dialog = this.dialog.open(UpdateImageComponent, dialogBoxSettings)
+
+    dialog.afterClosed().subscribe({
+      next: res => {
+        if(res === 'changed'){
+          this.loadRooms()
+        }
+      }
+    })
+  }
+
+  async deleteImageOfRoom(id: number){
+    let room = await this.rs.getRoomById(id)
+
+    let dialogBoxSettings = {
+      width: '400px',
+      margin: '0 auto',
+      disableClose: true,
+      hasBackdrop: true,
+      position: { top: '3%' },
+      data: { imageUrls: room.imageURLs }
+    };
+
+    let dialog = this.dialog.open(DeleteImageComponent, dialogBoxSettings)
 
     dialog.afterClosed().subscribe({
       next: res => {

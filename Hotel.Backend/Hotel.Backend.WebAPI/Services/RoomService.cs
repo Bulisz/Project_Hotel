@@ -6,7 +6,6 @@ using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
-using Hotel.Backend.WebAPI.Repositories;
 using System.Net;
 using System.Text;
 
@@ -189,5 +188,11 @@ public class RoomService : IRoomService
     {
         Room room = _mapper.Map<Room>(roomDetailsDTO);
         return _mapper.Map<RoomDetailsDTO>(await _roomRepository.ModifyRoomAsync(room));
+    }
+
+    public async Task DeleteImageOfRoomAsync(string url)
+    {
+        await _roomRepository.DeleteImageOfRoomAsync(url);
+        DeleteImageAsync(url);
     }
 }

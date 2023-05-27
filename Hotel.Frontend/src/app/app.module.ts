@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -34,6 +33,9 @@ import { AdminComponent } from './components/admin/admin.component';
 import { RoomManagerComponent } from './components/room-manager/room-manager.component';
 import { CreateRoomComponent } from './components/create-room/create-room.component';
 import { UpdateImageComponent } from './components/update-image/update-image.component';
+import { DeleteImageComponent } from './components/delete-image/delete-image.component';
+import { MatSelectModule } from '@angular/material/select';
+import { SplitPipe } from '../utils/split.pipe';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { UpdateImageComponent } from './components/update-image/update-image.com
     AdminComponent,
     RoomManagerComponent,
     CreateRoomComponent,
-    UpdateImageComponent
+    UpdateImageComponent,
+    DeleteImageComponent,
+    SplitPipe
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,8 @@ import { UpdateImageComponent } from './components/update-image/update-image.com
     ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSelectModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},

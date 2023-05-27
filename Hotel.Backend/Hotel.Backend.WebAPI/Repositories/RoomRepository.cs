@@ -93,4 +93,11 @@ public class RoomRepository : IRoomRepository
         await _context.SaveChangesAsync();
         return room;
     }
+
+    public async  Task DeleteImageOfRoomAsync(string url)
+    {
+        Image? image = await _context.Images.FirstOrDefaultAsync(img => img.ImageUrl == url);
+        _context.Images.Remove(image);
+        await _context.SaveChangesAsync();
+    }
 }

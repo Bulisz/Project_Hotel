@@ -1,11 +1,9 @@
 <div class="container-sm outer">
   <div class="container-sm shadow inner">
-
-    <div class="edit-buttons">
+    <div class="header">
+      <h3 class="text-left title">Szobák szerkesztése</h3>
       <button type="button" class="btn-header" (click)="addNewRoom()">Szoba létrehozás</button>
     </div>
-
-    <hr>
 
     <table class="table">
       <thead>
@@ -28,7 +26,7 @@
             <div class="btn-container">
               <button type="button" class="btn" (click)="modifyRoom(room.id)">Módosítás</button>
               <button type="button" class="btn" (click)="addImages(room.id)">Kép feltöltés</button>
-              <button type="button" class="btn">Kép törlés</button>
+              <button type="button" class="btn" (click)="deleteImageOfRoom(room.id)">Kép törlés</button>
               <button type="button" class="btn" (click)="deleteRoom(room.id)">Törlés</button>
             </div>
           </td>

@@ -15,5 +15,6 @@ namespace Hotel.Backend.WebAPI.Abstractions.Repositories
         Task<Room> CreateRoomAsync(Room room);
         Task DeleteRoomAsync(int id);
         Task<Room> ModifyRoomAsync(Room room);
+        Task DeleteImageOfRoomAsync(string url);
     }
 }

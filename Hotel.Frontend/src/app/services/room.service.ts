@@ -42,7 +42,6 @@ export class RoomService {
         params = params.append('choosedEquipments', String(element));
       });
 
-
     return this.http.get<Array<RoomListModel>>(`${environment.apiUrl}/${this.BASE_URL}/getAvailableRooms`, {params: params});
   }
 
@@ -56,7 +55,6 @@ export class RoomService {
   }
 
   async saveMoreImage(images: SaveMoreImageModel): Promise<any> {
-
     const formData: FormData = new FormData();
     formData.append('roomId', String(images.roomId));
     formData.append('description', images.description);
@@ -76,8 +74,13 @@ export class RoomService {
   }
 
   async updateRoom(room: RoomDetailsModel): Promise<RoomDetailsModel> {
-
     return await firstValueFrom(this.http.put<RoomDetailsModel>(`${environment.apiUrl}/${this.BASE_URL}/ModifyRoom`, room));
+  }
+
+  async deleteImageOfRoom(url: string): Promise<any>{
+    return await firstValueFrom(this.http.delete(`${environment.apiUrl}/${this.BASE_URL}/DeleteImageOfRoom`,{body:{
+      "imageUrl": url
+    }}))
   }
 
 }
