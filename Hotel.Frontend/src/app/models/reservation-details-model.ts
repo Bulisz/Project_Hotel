@@ -3,5 +3,5 @@ export interface ReservationDetailsModel {
   bookingFrom: Date,
   bookingTo: Date,
   roomId: number,
-  userId: string
+  userId: string,
 }
