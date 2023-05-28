@@ -18,7 +18,7 @@ export class UpdateUserComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data: {userName: string, email: string, firstName: string, lastName: string, id: string}){
     this.userModifyForm = new FormBuilder().group({
       userName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9]{2,}$')]),
-      email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9.]{2,}@[a-zA-Z0-9]{2,}.[a-zA-Z0-9]{2,}$')]),
+      email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9.]{2,}[@][a-z0-9]{2,}[.][a-z]{2,}$')]),
       firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
       lastName: new FormControl('', [Validators.required, Validators.minLength(2)])
     })

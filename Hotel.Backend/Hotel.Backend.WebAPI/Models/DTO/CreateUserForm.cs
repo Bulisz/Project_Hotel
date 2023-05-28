@@ -13,7 +13,7 @@ public record CreateUserForm
     public string Password { get; set; } = string.Empty;
 
     [Required]
-    [RegularExpression("^[a-zA-Z0-9.]{2,}@[a-zA-Z0-9]{2,}.[a-zA-Z0-9]{2,}$", ErrorMessage = "Invalid email address")]
+    [RegularExpression("^^[a-z0-9.]{2,}[@][a-z0-9]{2,}[.][a-z]{2,}$", ErrorMessage = "Invalid email address")]
     public string Email { get; set; } = string.Empty;
 
     [Required]
