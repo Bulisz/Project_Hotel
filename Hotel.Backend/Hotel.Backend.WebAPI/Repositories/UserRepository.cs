@@ -126,7 +126,12 @@ public class UserRepository : IUserRepository
             EmailConfirmed = user.EmailConfirmed.ToString(),
         }).ToList();
 
-        listedUsers.Select(async user => user.Role = (await _userManager.GetRolesAsync(await _userManager.FindByIdAsync(user.Id)))[0]);
+        foreach(var listedUser  in listedUsers)
+        {
+            var user = await _userManager.FindByIdAsync(listedUser.Id);
+            var roles = await _userManager.GetRolesAsync(user);
+            listedUser.Role = roles[0];
+        }
 
         return listedUsers;
     }
