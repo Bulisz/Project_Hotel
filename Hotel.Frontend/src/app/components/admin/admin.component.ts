@@ -14,7 +14,7 @@ export class AdminComponent implements OnInit{
   constructor(private rs: ReservationService){}
 
   async ngOnInit() {
-    this.loadReservations('reservationDeleted')
+    await this.loadReservations('reservationDeleted')
   }
 
   async loadReservations(message: string){

@@ -7,6 +7,7 @@ import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { UserModel } from 'src/app/models/user-model';
 import { AccountService } from 'src/app/services/account.service';
 import { ReservationForUserComponent } from '../reservation-for-user/reservation-for-user.component';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-reservation-list',
@@ -20,7 +21,7 @@ export class ReservationListComponent implements OnInit {
   user: UserModel | null = null;
 
 
-  constructor(private reservationService: ReservationService, private dialog: MatDialog, private as: AccountService){}
+  constructor(private reservationService: ReservationService, private dialog: MatDialog, private as: AccountService, private dialogService: DialogService){}
 
   ngOnInit(): void {}
 
@@ -36,25 +37,12 @@ export class ReservationListComponent implements OnInit {
   }
 
   async deleteReservation(id: number){
-    let dialogBoxSettings = {
-      width: '400px',
-      margin: '0 auto',
-      disableClose: true,
-      hasBackdrop: true,
-      position: {top: '10%'},
-      data: {message: "Biztos, hogy törlöd a foglalásod?"}
-    };
-
-    let dialogRef = this.dialog.open(ConfirmationComponent, dialogBoxSettings);
-    dialogRef.afterClosed().subscribe({
-      next: res => {
-        if(res === "agree"){
-          this.reservationService.deleteReservation(id)
+    let result = await this.dialogService.confirmationDialog("Biztos, hogy törlöd a foglalásod?")
+    if(result === "agree"){
+      this.reservationService.deleteReservation(id)
               .then(() => this.reservationDeleted.emit('reservationDeleted'))
               .catch((err) => console.log(err))
-        }
-      }
-    })
+    }
   }
 
   reservationForUser(){

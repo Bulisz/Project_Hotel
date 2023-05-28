@@ -6,6 +6,7 @@ import { RoomListModel } from 'src/app/models/room-list.model';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { UpdateImageComponent } from '../update-image/update-image.component';
 import { DeleteImageComponent } from '../delete-image/delete-image.component';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-room-manager',
@@ -16,7 +17,7 @@ export class RoomManagerComponent implements OnInit{
 
   rooms!: Array<RoomListModel>
 
-  constructor (private dialog: MatDialog, private rs: RoomService) {}
+  constructor (private dialog: MatDialog, private rs: RoomService, private ds: DialogService) {}
 
   ngOnInit(): void {
     this.loadRooms()
@@ -123,25 +124,12 @@ export class RoomManagerComponent implements OnInit{
   }
 
   async deleteRoom(id: number){
-    let dialogBoxSettings = {
-      width: '400px',
-      margin: '0 auto',
-      disableClose: true,
-      hasBackdrop: true,
-      position: { top: '10%' },
-      data: { message: "Biztosan törlöd a szobát?" }
-    };
-
-    let dialogRef = this.dialog.open(ConfirmationComponent, dialogBoxSettings);
-    dialogRef.afterClosed().subscribe({
-      next: async (res) => {
-        if (res === "agree") {
-          await this.rs.deleteRoom(id)
-            .catch(err => console.log(err));
-          this.loadRooms();
-        }
-      }
-    })
+    let result = await this.ds.confirmationDialog("Biztosan törlöd a szobát?")
+    if(result === "agree"){
+      await this.rs.deleteRoom(id)
+      .catch(err => console.log(err));
+      this.loadRooms();
+    }
   }
 
 }
