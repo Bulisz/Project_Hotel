@@ -32,7 +32,7 @@ export class BlogComponent implements OnInit{
   }
 
   async getAllPosts(){
-    await this.postService.getAllPosts()
+    await this.postService.getConfirmedPosts()
       .then((res) => this.posts = res)
       .catch((err) => console.log(err))
   }

@@ -14,6 +14,14 @@ public class PostRepository : IPostRepository
         _context = context;
     }
 
+    public async Task ConfirmPostAsync(int id)
+    {
+        Post post = await _context.Posts.FindAsync(id);
+        post.Confirmed = true;
+        _context.Posts.Update(post);
+        await _context.SaveChangesAsync();
+    }
+
     public async Task<Post> CreatePostAsync(Post post)
     {
         _context.Posts.Add(post);
@@ -21,8 +29,20 @@ public class PostRepository : IPostRepository
         return post;
     }
 
-    public async Task<IEnumerable<Post>> GetAllPostsAsync()
+    public async Task DeletePostAsync(int id)
     {
-        return await _context.Posts.OrderByDescending(p => p.CreatedAt).ToListAsync();
+        Post post = await _context.Posts.FindAsync(id);
+        _context.Posts.Remove(post);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<Post>> GetConfirmedPostsAsync()
+    {
+        return await _context.Posts.Where(p => p.Confirmed == true).OrderByDescending(p => p.CreatedAt).ToListAsync();
+    }
+
+    public async Task<IEnumerable<Post>> GetNonConfirmedPostsAsync()
+    {
+        return await _context.Posts.Where(p => p.Confirmed == false).OrderByDescending(p => p.CreatedAt).ToListAsync();
     }
 }

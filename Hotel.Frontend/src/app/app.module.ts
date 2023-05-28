@@ -38,6 +38,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { SplitPipe } from '../utils/split.pipe';
 import { ReservationForUserComponent } from './components/reservation-for-user/reservation-for-user.component';
 import { OperatorComponent } from './components/operator/operator.component';
+import { PostManagerComponent } from './components/post-manager/post-manager.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { OperatorComponent } from './components/operator/operator.component';
     DeleteImageComponent,
     SplitPipe,
     ReservationForUserComponent,
-    OperatorComponent
+    OperatorComponent,
+    PostManagerComponent
   ],
   imports: [
     BrowserModule,

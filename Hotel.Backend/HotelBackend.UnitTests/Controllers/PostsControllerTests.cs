@@ -76,10 +76,10 @@ public class PostsControllerTests
             }
         };
 
-        _postServiceMock.Setup(m => m.GetAllPostsAsync()).ReturnsAsync(list);
+        _postServiceMock.Setup(m => m.GetConfirmedPostsAsync()).ReturnsAsync(list);
 
         //Act
-        var result = await _controller.GetAllPosts();
+        var result = await _controller.GetConfirmedPosts();
 
         //Assert
         Assert.IsInstanceOfType(result, typeof(ActionResult<IEnumerable<PostDetailsDTO>>));

@@ -1,0 +1,67 @@
+.outer{
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: whitesmoke;
+  margin-bottom: 1.5rem;
+}
+
+.inner{
+  border-radius: 1.5rem;
+  border: 3px solid #800020;
+  height: 100%;
+  position: inherit;
+  background-color: whitesmoke;
+}
+
+.title {
+  font-family: 'Caveat';
+  font-size: 3.5rem;
+  color: #800020;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  float: left;
+}
+
+.btn-header {
+  background-color: #800020;
+  border-radius: 3rem;
+  color: whitesmoke;
+  font-family: 'Caveat';
+  font-size: 2rem;
+  margin-top: 1rem;
+  width: 250px;
+  float: right;
+}
+
+.details {
+  font-family: 'Caveat';
+  font-size: 2rem;
+  color: #800020;
+  margin-left: 1rem;
+}
+
+.details-content {
+  font-family: 'Roboto';
+  font-size: 1.5rem;
+  color: #800020;
+}
+
+.btn {
+  background-color: #800020;
+  border-radius: 1.5rem;
+  color: whitesmoke;
+  font-family: 'Caveat';
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  float: center;
+}

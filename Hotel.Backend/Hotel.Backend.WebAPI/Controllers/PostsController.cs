@@ -22,10 +22,31 @@ public class PostsController : ControllerBase
         return Ok(createdPost);
     }
 
-    [HttpGet(nameof(GetAllPosts))]
-    public async Task<ActionResult<IEnumerable<PostDetailsDTO>>> GetAllPosts()
+    [HttpGet(nameof(GetConfirmedPosts))]
+    public async Task<ActionResult<IEnumerable<PostDetailsDTO>>> GetConfirmedPosts()
     {
-        IEnumerable<PostDetailsDTO> allPosts = await _postService.GetAllPostsAsync();
-        return Ok(allPosts);
+        IEnumerable<PostDetailsDTO> confirmedPosts = await _postService.GetConfirmedPostsAsync();
+        return Ok(confirmedPosts);
+    }
+
+    [HttpGet(nameof(GetNonConfirmedPosts))]
+    public async Task<ActionResult<IEnumerable<PostDetailsDTO>>> GetNonConfirmedPosts()
+    {
+        IEnumerable<PostDetailsDTO> nonConfirmedPosts = await _postService.GetNonConfirmedPostsAsync();
+        return Ok(nonConfirmedPosts);
+    }
+
+    [HttpPut(nameof(ConfirmPost))]
+    public async Task<IActionResult> ConfirmPost(ConfirmPostDTO confirmPostDTO)
+    {
+        await _postService.ConfirmPostAsync(confirmPostDTO.Id);
+        return Ok();
+    }
+
+    [HttpDelete("DeletePost/{id}")]
+    public async Task<IActionResult> DeletePost(int id)
+    {
+        await _postService.DeletePostAsync(id);
+        return Ok();
     }
 }

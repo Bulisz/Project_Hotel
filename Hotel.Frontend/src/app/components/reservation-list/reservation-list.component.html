@@ -23,8 +23,8 @@
           <tr *ngFor="let reservation of reservationList">
             <td class="details-content">{{reservation.roomName}}</td>
             <td class="details-content"  *ngIf="user?.role === 'Admin' || user?.role === 'Operator'">{{reservation.userName}}</td>
-            <td class="details-content">{{reservation.bookingFrom | date: 'YYYY. MM. dd.'}}</td>
-            <td class="details-content">{{reservation.bookingTo | date: 'YYYY. MM. dd.'}}</td>
+            <td class="details-content">{{reservation.bookingFrom | date: 'YYYY-MM-dd'}}</td>
+            <td class="details-content">{{reservation.bookingTo | date: 'YYYY-MM-dd'}}</td>
             <td>
               <div class="btn-container" *ngIf="isDeletable(reservation.bookingFrom) || user?.role === 'Admin' || user?.role === 'Operator'">
                 <button type="button" class="btn" (click)="deleteReservation(reservation.id)">Törlés</button>
