@@ -7,6 +7,7 @@ import { AccountService } from 'src/app/services/account.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { UpdateUserComponent } from '../update-user/update-user.component';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-personal',
@@ -22,6 +23,7 @@ export class PersonalComponent implements OnInit {
   constructor(private accountService: AccountService,
     private reservationService: ReservationService,
     private router: Router,
+    private dialogService: DialogService,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -51,25 +53,11 @@ export class PersonalComponent implements OnInit {
   }
 
   async deleteProfile(userId: string) {
-
-    let dialogBoxSettings = {
-      width: '400px',
-      margin: '0 auto',
-      disableClose: true,
-      hasBackdrop: true,
-      position: { top: '10%' },
-      data: { message: "Biztosan törlöd a profilodat?" }
-    };
-
-    let dialogRef = this.dialog.open(ConfirmationComponent, dialogBoxSettings);
-    dialogRef.afterClosed().subscribe({
-      next: (res) => {
-        if (res === "agree") {
-          this.accountService.deleteProfile(userId)
-            .then(() => this.router.navigate(['']))
-        }
-      }
-    })
+    let result = await this.dialogService.confirmationDialog("Biztosan törlöd a profilodat?")
+    if(result === "agree"){
+      this.accountService.deleteProfile(userId)
+        .then(() => this.router.navigate(['']))
+    }
   }
 
   modifyProfile(id: string) {

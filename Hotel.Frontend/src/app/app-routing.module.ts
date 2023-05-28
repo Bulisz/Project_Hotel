@@ -10,6 +10,7 @@ import { BlogComponent } from './components/blog/blog.component';
 import { EventListComponent } from './components/event-list/event-list.component';
 import { PersonalComponent } from './components/personal/personal.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { OperatorComponent } from './components/operator/operator.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'event-list', component: EventListComponent},
   { path: 'blog', component: BlogComponent},
   { path: 'admin', component: AdminComponent},
+  { path: 'operator', component: OperatorComponent},
   { path: 'registration', component: RegistrationComponent},
   { path: 'login', component: LoginComponent},
   { path: 'personal', component: PersonalComponent},

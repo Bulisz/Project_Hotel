@@ -8,6 +8,7 @@ import { AccountService } from 'src/app/services/account.service';
 import { Router } from '@angular/router';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { UpdateEventComponent } from '../update-event/update-event.component';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-event-list',
@@ -22,6 +23,7 @@ export class EventListComponent implements OnInit {
 
 
   constructor (private as: AccountService,
+              private dialogService: DialogService,
               private eventService: EventService,
               private dialog: MatDialog,
               private router: Router) {}
@@ -65,26 +67,12 @@ export class EventListComponent implements OnInit {
   }
 
   async deleteEvent(id: number){
-
-    let dialogBoxSettings = {
-      width: '400px',
-      margin: '0 auto',
-      disableClose: true,
-      hasBackdrop: true,
-      position: {top: '10%'},
-      data: {message: "Biztos törlöd ezt a programot?"}
-    };
-
-    let dialogRef = this.dialog.open(ConfirmationComponent, dialogBoxSettings)
-    dialogRef.afterClosed().subscribe({
-      next: (res) => {
-        if (res === "agree"){
-          this.eventService.deleteEvent(id)
+    let result = await this.dialogService.confirmationDialog("Biztos törlöd ezt a programot?")
+    if(result === "agree"){
+      this.eventService.deleteEvent(id)
          .then(() => this.loadEvents())
          .catch((err) => console.log(err))
-        }
-      }
-    })
+    }
   }
 
   async modifyEvent(id: number){
@@ -103,6 +91,7 @@ export class EventListComponent implements OnInit {
     let dialogRef = this.dialog.open(UpdateEventComponent, dialogBoxSettings)
     dialogRef.afterClosed().subscribe({
       next: () => this.loadEvents()
+      //csak ha tényleg módosítva lett
     })
   }
 }

@@ -4,4 +4,5 @@ export interface ReservationListItem {
     bookingTo: Date,
     roomName: string,
     userId: string,
+    userName: string,
 }

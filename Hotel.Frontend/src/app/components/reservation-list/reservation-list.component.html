@@ -3,10 +3,16 @@
   <div class="container-sm bg-light outer">
     <div class="container-sm shadow bg-light inner">
 
+      <div class="header">
+        <h3 class="text-left title">Foglalások</h3>
+        <button type="button" class="btn-header" (click)="reservationForUser()" *ngIf="user?.role === 'Admin' || user?.role === 'Operator'">Foglalás rögzítés</button>
+      </div>
+
       <table class="table">
         <thead>
           <tr>
             <th class="details" scope="col">Szoba</th>
+            <th class="details" scope="col" *ngIf="user?.role === 'Admin' || user?.role === 'Operator'">Vendég</th>
             <th class="details" scope="col">Érkezés</th>
             <th class="details" scope="col">Távozás</th>
             <th class="details" scope="col">Műveletek</th>
@@ -16,10 +22,11 @@
         <tbody class="table-group-divider" *ngIf="reservationList">
           <tr *ngFor="let reservation of reservationList">
             <td class="details-content">{{reservation.roomName}}</td>
+            <td class="details-content"  *ngIf="user?.role === 'Admin' || user?.role === 'Operator'">{{reservation.userName}}</td>
             <td class="details-content">{{reservation.bookingFrom | date: 'YYYY. MM. dd.'}}</td>
             <td class="details-content">{{reservation.bookingTo | date: 'YYYY. MM. dd.'}}</td>
             <td>
-              <div class="btn-container" *ngIf="isDeletable(reservation.bookingFrom)">
+              <div class="btn-container" *ngIf="isDeletable(reservation.bookingFrom) || user?.role === 'Admin' || user?.role === 'Operator'">
                 <button type="button" class="btn" (click)="deleteReservation(reservation.id)">Törlés</button>
               </div>
             </td>

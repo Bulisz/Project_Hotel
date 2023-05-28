@@ -3,18 +3,18 @@ import { ReservationListItem } from 'src/app/models/reservation-list-item';
 import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-operator',
+  templateUrl: './operator.component.html',
+  styleUrls: ['./operator.component.css']
 })
-export class AdminComponent implements OnInit{
+export class OperatorComponent  implements OnInit{
 
   reservations: Array<ReservationListItem> = [];
 
   constructor(private rs: ReservationService){}
 
   async ngOnInit() {
-    await this.loadReservations('reservationDeleted')
+    this.loadReservations('reservationDeleted')
   }
 
   async loadReservations(message: string){
