@@ -1,0 +1,34 @@
+<div class="container-sm outer">
+  <div class="container-sm shadow inner">
+    <div class="header">
+      <h3 class="text-left title">Hozzászólások moderálása</h3>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="details" scope="col">Dátum</th>
+          <th class="details" scope="col">Név</th>
+          <th class="details" scope="col">Szöveg</th>
+          <th class="details" scope="col">Műveletek</th>
+        </tr>
+      </thead>
+
+      <tbody class="table-group-divider">
+        <tr *ngFor="let post of nonConfirmedPosts">
+          <td class="details-content">{{post.createdAt | date: 'YYYY-MM-dd'}}</td>
+          <td class="details-content">{{post.userName}}</td>
+          <td class="details-content">{{post.text}}</td>
+          <td>
+            <div class="btn-container">
+              <button type="button" class="btn" (click)="confirmPost(post.id)">Jóváhagyás</button>
+              <button type="button" class="btn" (click)="deletePost(post.id)">Törlés</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+</div>

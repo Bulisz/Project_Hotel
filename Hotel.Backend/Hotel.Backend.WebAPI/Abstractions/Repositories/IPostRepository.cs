@@ -4,7 +4,10 @@ namespace Hotel.Backend.WebAPI.Abstractions.Repositories
 {
     public interface IPostRepository
     {
+        Task ConfirmPostAsync(int id);
         Task<Post> CreatePostAsync(Post post);
-        Task<IEnumerable<Post>> GetAllPostsAsync();
+        Task DeletePostAsync(int id);
+        Task<IEnumerable<Post>> GetConfirmedPostsAsync();
+        Task<IEnumerable<Post>> GetNonConfirmedPostsAsync();
     }
 }

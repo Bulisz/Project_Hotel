@@ -26,7 +26,8 @@ public class MappingProfiles : Profile
         CreateMap<Room, RoomDetailsDTO>()
             .ForMember(dest => dest.EquipmentNames, op => op.MapFrom(src => src.Equipments.Select(e => e.Name).ToList()))
             .ForMember(dest => dest.ImageURLs, op => op.MapFrom(src => src.Images.Select(e => e.ImageUrl).ToList()));
-        CreateMap<Equipment, NonStandardEquipmentDTO>();
+        CreateMap<Equipment, EquipmentDTO>();
+        CreateMap<EquipmentDTO, Equipment>();
         CreateMap<Post, PostDetailsDTO>();
         CreateMap<PostCreateDTO, Post>();
         CreateMap<CreateEventDTO, Event>();
@@ -36,5 +37,6 @@ public class MappingProfiles : Profile
         CreateMap<CreateRoomDTO, Room>()
             .ForMember(dest => dest.Price, op => op.MapFrom(src => Convert.ToDecimal(src.Price)));
         CreateMap<RoomDetailsDTO, Room>();
+        CreateMap<CreateEquipmentDTO, Equipment>();
     }
 }

@@ -6,6 +6,7 @@ using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
+using Hotel.Backend.WebAPI.Repositories;
 using System.Net;
 using System.Text;
 
@@ -97,13 +98,6 @@ public class RoomService : IRoomService
         List<HotelFieldError> errors = new() { new HotelFieldError("BookingTo", "A távozásnak később kell lennie, mint az érkezésnek"), new HotelFieldError("BookingFrom", "A távozásnak később kell lennie, mint az érkezésnek") };
         throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
 
-    }
-
-    public async Task<IEnumerable<NonStandardEquipmentDTO>> GetNonStandardEquipmentsAsync()
-    {
-        IEnumerable<Equipment> nonStandardEquipment = await _roomRepository.GetNonStandardEquipmentAsync();
-        List<NonStandardEquipmentDTO> nonStandardEquipmentDTO = _mapper.Map<List<NonStandardEquipmentDTO>>(nonStandardEquipment);
-        return nonStandardEquipmentDTO;
     }
 
     public async Task SaveOneImageAsync(SaveOneImageDTO saveOneImage)

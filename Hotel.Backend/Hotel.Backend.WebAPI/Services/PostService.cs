@@ -19,15 +19,32 @@ public class PostService : IPostService
         _postRepository = postRepository;
         _dateTimeProvider = dateTimeProvider;
     }
+
+    public async Task ConfirmPostAsync(int id)
+    {
+        await _postRepository.ConfirmPostAsync(id);
+    }
+
     public async Task<PostDetailsDTO> CreatePostAsync(PostCreateDTO postDto)
     {
         Post postToCreate = _mapper.Map<Post>(postDto);
         postToCreate.CreatedAt = _dateTimeProvider.Now;
+        postToCreate.Confirmed = postToCreate.Role == Role.Guest ? false : true;
         return _mapper.Map<PostDetailsDTO>(await _postRepository.CreatePostAsync(postToCreate));
     }
 
-    public async Task<IEnumerable<PostDetailsDTO>> GetAllPostsAsync()
+    public async Task DeletePostAsync(int id)
     {
-        return _mapper.Map<IEnumerable<PostDetailsDTO>>(await _postRepository.GetAllPostsAsync());
+        await _postRepository.DeletePostAsync(id);
+    }
+
+    public async Task<IEnumerable<PostDetailsDTO>> GetConfirmedPostsAsync()
+    {
+        return _mapper.Map<IEnumerable<PostDetailsDTO>>(await _postRepository.GetConfirmedPostsAsync());
+    }
+
+    public async Task<IEnumerable<PostDetailsDTO>> GetNonConfirmedPostsAsync()
+    {
+        return _mapper.Map<IEnumerable<PostDetailsDTO>>(await _postRepository.GetNonConfirmedPostsAsync());
     }
 }

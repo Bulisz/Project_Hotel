@@ -4,7 +4,10 @@ namespace Hotel.Backend.WebAPI.Abstractions.Services
 {
     public interface IPostService
     {
+        Task ConfirmPostAsync(int id);
         Task<PostDetailsDTO> CreatePostAsync(PostCreateDTO postDto);
-        Task<IEnumerable<PostDetailsDTO>> GetAllPostsAsync();
+        Task DeletePostAsync(int id);
+        Task<IEnumerable<PostDetailsDTO>> GetConfirmedPostsAsync();
+        Task<IEnumerable<PostDetailsDTO>> GetNonConfirmedPostsAsync();
     }
 }

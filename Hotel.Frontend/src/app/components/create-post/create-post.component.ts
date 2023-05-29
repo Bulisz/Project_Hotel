@@ -24,7 +24,6 @@ export class CreatePostComponent{
   async onSubmit(){
     const formValue = this.postForm.getRawValue()
     const parsedFormValue = {...formValue, userName: this.data.userName, role: this.data.role}
-    console.log(parsedFormValue)
     await this.postService.createPost(parsedFormValue)
       .then(() => {})
       .catch((err) => validationHandler(err,this.postForm))

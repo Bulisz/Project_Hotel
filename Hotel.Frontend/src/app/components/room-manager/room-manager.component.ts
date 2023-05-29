@@ -19,15 +19,14 @@ export class RoomManagerComponent implements OnInit{
 
   constructor (private dialog: MatDialog, private rs: RoomService, private ds: DialogService) {}
 
-  ngOnInit(): void {
-    this.loadRooms()
+  async ngOnInit() {
+    await this.loadRooms()
   }
 
-  loadRooms(){
-    this.rs.getAllRooms()
-      .subscribe({
-        next: res => this.rooms = res
-      })
+  async loadRooms(){
+    await this.rs.getAllRooms()
+      .then(res => this.rooms = res)
+      .catch(err =>  console.log(err))
   }
 
   addNewRoom(){
