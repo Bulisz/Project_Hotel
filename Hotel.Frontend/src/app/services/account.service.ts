@@ -6,7 +6,6 @@ import { LoginrequestModel } from '../models/loginrequest-model';
 import { LoginresponseModel } from '../models/loginresponse-model';
 import { UserModel } from '../models/user-model';
 import { environment } from '../../environments/environment';
-import { UpdateUserComponent } from '../components/update-user/update-user.component';
 import { UpdateUserModel } from '../models/update-user-model';
 import { UserListModel } from '../models/user-list-model';
 
@@ -59,6 +58,14 @@ export class AccountService {
 
   async getUsers(): Promise<Array<UserListModel>>{
     return await firstValueFrom(this.http.get<Array<UserListModel>>(`${environment.apiUrl}/${this.BASE_URL}/GetUsers`))
+  }
+
+  async getUserById(userId: string): Promise<UserListModel> {
+    return await firstValueFrom(this.http.get<UserListModel>(`${environment.apiUrl}/${this.BASE_URL}/GetUserById/${userId}`))
+  }
+
+  async updateUserAsAdmin(updateUser: UserListModel): Promise<UserListModel> {
+    return await firstValueFrom(this.http.put<UserListModel>(`${environment.apiUrl}/${this.BASE_URL}/UpdateUserAsAdmin`, updateUser))
   }
 
 }

@@ -12,10 +12,11 @@ public class MappingProfiles : Profile
         CreateMap<UserDetailsDTO, UserDetails>()
             .ForMember(dest => dest.Role, op => op.MapFrom(src => src.Roles[0].ToString()))
             .ForMember(dest => dest.Id, op => op.MapFrom(src => src.User.Id))
-            .ForMember(dest => dest.UserName, op => op.MapFrom(src => src.User.UserName))
+            .ForMember(dest => dest.Username, op => op.MapFrom(src => src.User.UserName))
             .ForMember(dest => dest.Email, op => op.MapFrom(src => src.User.Email))
             .ForMember(dest => dest.FirstName, op => op.MapFrom(src => src.User.FirstName))
-            .ForMember(dest => dest.LastName, op => op.MapFrom(src => src.User.LastName));        
+            .ForMember(dest => dest.EmailConfirmed, op => op.MapFrom(src => src.User.EmailConfirmed.ToString()))
+            .ForMember(dest => dest.LastName, op => op.MapFrom(src => src.User.LastName));
         CreateMap<Room, RoomListDTO>()
             .ForMember(dest => dest.EquipmentNames, op => op.MapFrom(src => src.Equipments.Select(e => e.Name).ToList()))
             .ForMember(dest => dest.ImageURLs, op => op.MapFrom(src => src.Images.Select(e => e.ImageUrl).ToList()));

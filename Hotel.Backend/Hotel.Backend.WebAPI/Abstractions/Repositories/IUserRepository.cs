@@ -12,4 +12,5 @@ public interface IUserRepository
     Task<UserDetailsDTO> LoginAsync(LoginRequest request);
     Task<UserDetailsDTO> UpdateUserAsync(UserUpdateDTO updateUser);
     Task<List<UserListItem>> GetAllUsersAsync();
+    Task<UserDetailsDTO> UpdateUserAsAdminAsync(UserDetails request);
 }

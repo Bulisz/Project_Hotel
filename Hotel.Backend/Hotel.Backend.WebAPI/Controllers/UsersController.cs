@@ -81,7 +81,7 @@ public class UsersController : ControllerBase
         try
         {
             UserDetails userDTOget = await _userService.RegisterAsync(userDTOpost);
-            return CreatedAtAction(nameof(GetUserByName), new { userName = userDTOget.UserName }, userDTOget);
+            return CreatedAtAction(nameof(GetUserByName), new { userName = userDTOget.Username }, userDTOget);
         }
         catch (HotelException ex)
         {
@@ -131,5 +131,12 @@ public class UsersController : ControllerBase
     {
         List<UserListItem> users = await _userService.GetAllUsersAsync();
         return Ok(users);
+    }
+
+    [HttpPut(nameof(UpdateUserAsAdmin))]
+    public async Task<ActionResult<UserDetailsDTO>> UpdateUserAsAdmin(UserDetails updateUser)
+    {
+        UserDetailsDTO newUser = await _userService.UpdateUserAsAdminAsync(updateUser);
+        return Ok(newUser);
     }
 }

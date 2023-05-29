@@ -38,6 +38,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { SplitPipe } from '../utils/split.pipe';
 import { ReservationForUserComponent } from './components/reservation-for-user/reservation-for-user.component';
 import { OperatorComponent } from './components/operator/operator.component';
+import { UserManagerComponent } from './components/user-manager/user-manager.component';
+import { UpdateUserAsAdmin } from './components/update-user-as-admin/update-user-as-admin.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import { OperatorComponent } from './components/operator/operator.component';
     DeleteImageComponent,
     SplitPipe,
     ReservationForUserComponent,
-    OperatorComponent
+    OperatorComponent,
+    UserManagerComponent,
+    UpdateUserAsAdmin
   ],
   imports: [
     BrowserModule,
