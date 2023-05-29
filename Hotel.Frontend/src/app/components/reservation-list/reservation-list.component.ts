@@ -65,4 +65,24 @@ export class ReservationListComponent implements OnInit {
     })
   }
 
+
+  showRoomCalendar(){
+    let dialogBoxSettings = {
+      width: '400px',
+      margin: '0 auto',
+      disableClose: true,
+      hasBackdrop: true,
+      position: {top: '10%'}
+    };
+
+    let dialogref = this.dialog.open(ReservationForUserComponent,dialogBoxSettings)
+
+    dialogref.afterClosed().subscribe({
+      next: res => {
+        if(res === 'agree'){
+          this.reservationDeleted.emit('reservationDeleted')
+        }
+      }
+    })
+  }
 }

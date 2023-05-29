@@ -39,6 +39,7 @@ import { SplitPipe } from '../utils/split.pipe';
 import { ReservationForUserComponent } from './components/reservation-for-user/reservation-for-user.component';
 import { OperatorComponent } from './components/operator/operator.component';
 import { PostManagerComponent } from './components/post-manager/post-manager.component';
+import { RoomCalendarComponent } from './components/room-calendar/room-calendar.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { PostManagerComponent } from './components/post-manager/post-manager.com
     SplitPipe,
     ReservationForUserComponent,
     OperatorComponent,
-    PostManagerComponent
+    PostManagerComponent,
+    RoomCalendarComponent
   ],
   imports: [
     BrowserModule,

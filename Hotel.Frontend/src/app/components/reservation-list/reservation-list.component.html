@@ -5,6 +5,7 @@
 
       <div class="header">
         <h3 class="text-left title">Foglalások</h3>
+        <button type="button" class="btn-header" (click)="showRoomCalendar()">Naptár nézet</button>
         <button type="button" class="btn-header" (click)="reservationForUser()" *ngIf="user?.role === 'Admin' || user?.role === 'Operator'">Foglalás rögzítés</button>
       </div>
 
