@@ -1,5 +1,5 @@
 export interface DaysModel {
-    dateOfMonth: Date;
-    weekDay: number;
-    weekDayString: string;
+    day: Date;
+    dateNumber: number;
+    weekDayNumber: number;
 }

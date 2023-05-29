@@ -42,6 +42,10 @@
 
 }
 
+.roomColor {
+  background-color: #800020;
+}
+
 .background1{
     background-repeat: no-repeat;
   background-size: cover;

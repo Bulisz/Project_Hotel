@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { DailyReservationModel } from 'src/app/models/daily-reservation-model';
 import { DayOfMonthModel } from 'src/app/models/day-of-month-model';
 import { DaysModel } from 'src/app/models/days-model';
 import { ReservationListItem } from 'src/app/models/reservation-list-item';
@@ -34,10 +35,11 @@ export class RoomCalendarComponent implements OnInit {
   users: Array<UserListModel> = [];
   rooms: Array<RoomListModel> = [];
   calendar: any[][] = [];
-  firstMonday: DayOfMonthModel = {
+  firstMonday: DaysModel = {
     day: new Date(),
     dateNumber: 0,
-    weekDayNumber: 0
+    weekDayNumber: 0,
+    
   }
   firstMondayNumber: number = 0;
 
@@ -53,7 +55,7 @@ export class RoomCalendarComponent implements OnInit {
 
     async ngOnInit() {
 
-      this.dateToday = new Date(2023, 7, 6);
+      this.dateToday = new Date(2023, 6, 6);
       // this.dateToday = new Date(Date.now());
       this.monthToday = this.dateToday.getMonth();
       this.yearNow = this.dateToday.getFullYear();

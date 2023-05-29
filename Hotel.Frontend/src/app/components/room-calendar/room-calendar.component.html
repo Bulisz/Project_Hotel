@@ -23,8 +23,14 @@
                 <td *ngFor="let item of row">
                   <div class="dateNumber" *ngIf = "item.dateNumber">
                           {{item.dateNumber}}
-                        </div>
+                      
+                       
+                        <tr *ngFor = "let room of item.roomStatus" [style.background-color]="room.roomNumber === 3 ? 'red' : 'blue'">
+                          rooooom
+                        </tr>
+                     
                         
+                      </div>
                 </td>
               
              
