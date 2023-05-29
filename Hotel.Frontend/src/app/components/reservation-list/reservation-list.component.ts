@@ -37,7 +37,7 @@ export class ReservationListComponent implements OnInit {
   }
 
   async deleteReservation(id: number){
-    let result = await this.dialogService.confirmationDialog("Biztos, hogy törlöd a foglalásod?")
+    let result = await this.dialogService.confirmationDialog("Biztos, hogy törlöd a foglalást?")
     if(result === "agree"){
       this.reservationService.deleteReservation(id)
               .then(() => this.reservationDeleted.emit('reservationDeleted'))

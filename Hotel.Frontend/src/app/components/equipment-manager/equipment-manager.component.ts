@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { RoomDetailsModel } from 'src/app/models/room-details-model';
-import { DialogService } from 'src/app/services/dialog.service';
-import { EquipmentService } from 'src/app/services/equipment.service';
 import { RoomService } from 'src/app/services/room.service';
 import { CreateEquipmentComponent } from '../create-equipment/create-equipment.component';
 import { DeleteEquipmentComponent } from '../delete-equipment/delete-equipment.component';
@@ -25,6 +22,7 @@ export class EquipmentManagerComponent implements OnInit{
   }
 
   async refreshRooms(){
+    this.rooms = []
     await this.rs.getAllRooms()
       .then(res => {
         res.forEach(room => {
@@ -52,7 +50,15 @@ export class EquipmentManagerComponent implements OnInit{
       hasBackdrop: true,
       position: {top: '3%'}
     };
-    this.dialog.open(DeleteEquipmentComponent,dialogBoxSettings);
+    let dialog = this.dialog.open(DeleteEquipmentComponent,dialogBoxSettings);
+
+    dialog.afterClosed().subscribe({
+      next: async res => {
+        if(res === 'changed'){
+          await this.refreshRooms()
+        }
+      }
+    })
   }
 
   addEquipmentToRoom(roomId: number){

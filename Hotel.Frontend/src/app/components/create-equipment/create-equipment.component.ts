@@ -15,7 +15,7 @@ export class CreateEquipmentComponent {
   constructor(private dialogRef: MatDialogRef<CreateEquipmentComponent>, private es: EquipmentService){
     this.createEquipmentForm = new FormBuilder().group({
       name: new FormControl('', Validators.required),
-      isStandard: new FormControl(Boolean, Validators.required)
+      isStandard: new FormControl('', Validators.required)
     })
   }
 
