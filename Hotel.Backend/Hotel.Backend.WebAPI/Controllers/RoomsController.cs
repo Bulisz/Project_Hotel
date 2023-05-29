@@ -61,13 +61,6 @@ public class RoomsController : ControllerBase
         return Ok(roomDetailsDTO);
     }
 
-    [HttpGet(nameof(GetNonStandardEquipments))]
-    public async Task<ActionResult<IEnumerable<NonStandardEquipmentDTO>>> GetNonStandardEquipments()
-    {
-        var nonStandardEquipments = await _roomService.GetNonStandardEquipmentsAsync();
-        return Ok(nonStandardEquipments);
-    }
-
     [HttpPost("SaveOneImage")]
     public async Task<ActionResult> SaveOneImage([FromForm] SaveOneImageDTO saveOneImage)
     {
