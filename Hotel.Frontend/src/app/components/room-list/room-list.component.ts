@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NonStandardEquipmentModel } from 'src/app/models/non-standard-equipment-model';
+import { EquipmentModel } from 'src/app/models/equipment-model';
 import { RoomListModel } from 'src/app/models/room-list.model';
 import { RoomService } from 'src/app/services/room.service';
 import { BehaviorSubject } from 'rxjs';
 import { validationHandler } from 'src/utils/validationHandler';
+import { EquipmentService } from 'src/app/services/equipment.service';
 
 @Component({
   selector: 'app-room-list',
@@ -16,11 +17,11 @@ export class RoomListComponent implements OnInit{
 
   allRooms: Array<RoomListModel> | null = null;
   searchedRooms = new BehaviorSubject<Array<RoomListModel> | null>(null);
-  nonStandardEquipments: Array<NonStandardEquipmentModel> =[];
+  nonStandardEquipments: Array<EquipmentModel> =[];
   roomSelector: FormGroup;
   equipmentsControllers: FormArray | undefined;
 
-  constructor (private formBuilder: FormBuilder, private roomService: RoomService, private router: Router) {
+  constructor (private formBuilder: FormBuilder, private roomService: RoomService, private router: Router, private equipmentService: EquipmentService) {
     this.roomSelector = this.formBuilder.group({
       numberOfBeds: ['', [Validators.required,  Validators.min(1), Validators.max(20)]],
       maxNumberOfDogs:  ['', [Validators.required,  Validators.min(1), Validators.max(10)]],
@@ -30,30 +31,23 @@ export class RoomListComponent implements OnInit{
     })
   }
 
-  ngOnInit(): void {
-
+  async ngOnInit() {
     this.searchedRooms.subscribe({
       next: (res) => this.allRooms = res
     })
-    this.roomService.fetchNonStandardEquipmentData().subscribe({
-      next: (response) => {
-        this.nonStandardEquipments = response;
 
+    await this.equipmentService.getNonStandardEquipments()
+      .then(res => {
+        this.nonStandardEquipments = res;
         this.nonStandardEquipments.forEach(e => {
           this.equipmentFormArray.push(
             new FormControl(false)
           )
-        }
-          )
+        })
         this.equipmentsControllers = this.roomSelector.controls['nonStandardEquipments'] as FormArray;
+      })
 
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
-
-    this.loadRooms();
+    await this.loadRooms();
   }
 
 
@@ -61,13 +55,10 @@ export class RoomListComponent implements OnInit{
     return this.roomSelector.controls['nonStandardEquipments'] as FormArray
   }
 
-  loadRooms() {
-
-    this.roomService.getAllRooms().subscribe( {
-
-      next: (response: RoomListModel[]) =>{ this.searchedRooms.next(response)},
-      error: (error) => console.log(error),
-    });
+  async loadRooms() {
+    await this.roomService.getAllRooms()
+      .then(res => this.searchedRooms.next(res))
+      .catch(err => console.log(err))
   }
 
 
@@ -81,8 +72,8 @@ export class RoomListComponent implements OnInit{
       if (element.value === true) {
         selectedList.push(this.nonStandardEquipments[i].id)
       }
-
     });
+
     const formValue = this.roomSelector.getRawValue()
     const parsoltFormValue = {...formValue, nonStandardEquipments: selectedList};
 

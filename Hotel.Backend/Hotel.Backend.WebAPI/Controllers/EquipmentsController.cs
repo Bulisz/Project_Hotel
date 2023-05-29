@@ -15,7 +15,7 @@ public class EquipmentsController : ControllerBase
         _equipmentService = equipmentService;
     }
 
-    [HttpPut(nameof(CreateEquipment))]
+    [HttpPost(nameof(CreateEquipment))]
     public async Task<ActionResult<EquipmentDTO>> CreateEquipment(CreateEquipmentDTO createEquipmentDTO)
     {
         EquipmentDTO createdEquipment = await _equipmentService.CreateEquipmentAsync(createEquipmentDTO);
