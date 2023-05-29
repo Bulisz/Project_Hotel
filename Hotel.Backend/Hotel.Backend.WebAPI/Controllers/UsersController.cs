@@ -60,8 +60,8 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpGet("GetCurrentUser")]
     //[Authorize]
+    [HttpGet("GetCurrentUser")]
     public async Task<ActionResult<UserDetails>> GetCurrentUser()
     {
         try
@@ -112,6 +112,7 @@ public class UsersController : ControllerBase
         }
     }
 
+    //[Authorize]
     [HttpDelete("{userId}")]
     public async Task<ActionResult> DeleteUser(string userId)
     {
@@ -119,6 +120,7 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 
+    //[Authorize]
     [HttpPut(nameof(UpdateUser))]
     public async Task<ActionResult<UserDetailsDTO>> UpdateUser(UserUpdateDTO updateUser)
     {
@@ -126,6 +128,7 @@ public class UsersController : ControllerBase
         return userDetails;
     }
 
+    //[Authorize(Roles = "Admin")]
     [HttpGet(nameof(GetUsers))]
     public async Task<ActionResult<List<UserListItem>>> GetUsers()
     {
@@ -133,6 +136,7 @@ public class UsersController : ControllerBase
         return Ok(users);
     }
 
+    //[Authorize(Roles = "Admin")]
     [HttpPut(nameof(UpdateUserAsAdmin))]
     public async Task<ActionResult<UserDetailsDTO>> UpdateUserAsAdmin(UserDetails updateUser)
     {
