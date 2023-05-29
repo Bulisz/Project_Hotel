@@ -1,1 +1,40 @@
-<p>room-calendar works!</p>
+<div class="container-sm mt-3 outer">
+    <div class="container-sm shadow inner">
+  
+      <div class="modal-header">
+        <h3 class="text-center title">{{thisMonth}}</h3>
+        <button class="btn-close btn-close" type="button" (click)="closeCalendar()"></button>
+      </div>
+      <table class="table calendar">
+        <thead >
+            <tr>
+                <th>Hétfő</th>
+                <th>Kedd</th>
+                <th>Szerda</th>
+                <th>Csütörtök</th>
+                <th>Péntek</th>
+                <th>Szombat</th>
+                <th>Vasárnap</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+            <tr *ngFor="let row of calendar">
+                <td *ngFor="let item of row">
+                  <div class="dateNumber" *ngIf = "item.dateNumber">
+                          {{item.dateNumber}}
+                        </div>
+                        
+                </td>
+              
+             
+              
+            </tr>
+         
+        </tbody>
+      </table>
+      
+    </div>
+  </div>
+  
+

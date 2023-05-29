@@ -36,10 +36,16 @@
     text-align: center;
 }
 
+.dateNumber {
+  font-size: 1rem;
+  text-align: right;
+
+}
+
 .background1{
     background-repeat: no-repeat;
   background-size: cover;
-    background-image: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1685041121/Hotel/Post-it/postit-zold_nvpmxa.jpg");
+   background-color: #800020;
 }
 
 .background2{
