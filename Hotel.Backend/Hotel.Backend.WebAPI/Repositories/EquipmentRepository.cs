@@ -55,7 +55,7 @@ public class EquipmentRepository : IEquipmentRepository
 
     public async Task RemoveEquipmentFromRoomAsync(EquipmentAndRoomDTO equipmentAndRoomDTO)
     {
-        Room room = await _context.Rooms.FindAsync(equipmentAndRoomDTO.RoomId);
+        Room room = await _context.Rooms.Include(room => room.Equipments).FirstOrDefaultAsync(room => room.Id == equipmentAndRoomDTO.RoomId);
         Equipment equipment = await _context.Equipments.FindAsync(equipmentAndRoomDTO.EquipmentId);
 
         room.Equipments.Remove(equipment);
