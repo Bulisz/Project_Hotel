@@ -11,5 +11,5 @@ public interface IUserService
     Task<UserDetails> RegisterAsync(CreateUserForm userDTOpost);
     Task<UserDetailsDTO> UpdateUserAsync(UserUpdateDTO updateUser);
     Task<List<UserListItem>> GetAllUsersAsync();
-    Task<UserDetailsDTO> UpdateUserAsAdminAsync(UserDetails updateUser);
+    Task<UserDetailsDTO> UpdateUserAsAdminAsync(UserDetailsForAdmin updateUser);
 }

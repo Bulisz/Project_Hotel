@@ -138,7 +138,7 @@ public class UsersController : ControllerBase
 
     //[Authorize(Roles = "Admin")]
     [HttpPut(nameof(UpdateUserAsAdmin))]
-    public async Task<ActionResult<UserDetailsDTO>> UpdateUserAsAdmin(UserDetails updateUser)
+    public async Task<ActionResult<UserDetailsDTO>> UpdateUserAsAdmin(UserDetailsForAdmin updateUser)
     {
         UserDetailsDTO newUser = await _userService.UpdateUserAsAdminAsync(updateUser);
         return Ok(newUser);

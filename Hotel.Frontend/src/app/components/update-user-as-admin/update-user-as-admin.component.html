@@ -10,12 +10,56 @@
 
         <div class="mb-3">
           <label for="lastName" class="form-label">Vezetéknév:</label>
-          <input type="text" class="form-control" id="lastName" formControlName="lastName">
+          <input type="text" class="form-control" id="lastName" formControlName="lastName"
+          [ngClass]="{'is-invalid': updateUser.get('lastName')?.invalid && updateUser.get('lastName')?.touched} || updateUser.get('lastName')?.errors?.['serverError']">
+
+          <small
+              *ngIf="updateUser.get('lastName')?.invalid
+              && updateUser.get('lastName')?.touched
+              && !updateUser.get('lastName')?.errors?.['pattern']
+              && !updateUser.get('lastName')?.errors?.['serverError']"
+              class="text-danger">
+              Adja meg a vezetéknevét
+            </small>
+
+            <small *ngIf="updateUser.get('lastName')?.invalid && updateUser.get('lastName')?.dirty
+                                && !updateUser.get('lastName')?.errors?.['serverError']
+                                && updateUser.get('lastName')?.errors?.['pattern']" class="text-danger">
+              2 és 50 betűből álló tulajdonnév
+            </small>
+
+            <!-- ServerError BE-ről -->
+            <small *ngIf="updateUser.get('lastName')?.errors?.['serverError']" class="text-danger">
+              {{updateUser.get('lastName')?.getError('serverError')}}
+            </small>
+
+
         </div>
   
         <div class="mb-3">
           <label for="firstName" class="form-label">Keresztnév:</label>
-          <input type="text" class="form-control" id="firstName" formControlName="firstName">
+          <input type="text" class="form-control" id="firstName" formControlName="firstName"
+          [ngClass]="{'is-invalid': updateUser.get('firstName')?.invalid && updateUser.get('firstName')?.touched} || updateUser.get('firstName')?.errors?.['serverError']">
+
+          <small
+              *ngIf="updateUser.get('firstName')?.invalid 
+              && updateUser.get('firstName')?.touched
+              && !updateUser.get('firstName')?.errors?.['pattern']
+              && !updateUser.get('firstName')?.errors?.['serverError']"
+              class="text-danger">
+              Adja meg a keresznevét
+            </small>
+
+            <small *ngIf="updateUser.get('firstName')?.invalid && updateUser.get('firstName')?.dirty
+                                && !updateUser.get('firstName')?.errors?.['serverError']
+                                && updateUser.get('firstName')?.errors?.['pattern']" class="text-danger">
+              2 és 50 betűből álló tulajdonnév
+            </small>
+
+            <!-- ServerError BE-ről -->
+            <small *ngIf="updateUser.get('firstName')?.errors?.['serverError']" class="text-danger">
+              {{updateUser.get('firstName')?.getError('serverError')}}
+            </small>
         </div>
   
         <div class="mb-3">
@@ -25,17 +69,81 @@
   
         <div class="mb-3">
           <label for="email" class="form-label">Email:</label>
-          <input type="text" class="form-control" id="email" formControlName="email">
+          <input type="text" class="form-control" id="email" formControlName="email"
+          [ngClass]="{'is-invalid': updateUser.get('email')?.invalid && updateUser.get('email')?.touched} || updateUser.get('email')?.errors?.['serverError']">
+
+          <small *ngIf="updateUser.get('email')?.invalid && updateUser.get('email')?.dirty
+                                && !updateUser.get('email')?.errors?.['serverError']
+                                && updateUser.get('email')?.errors?.['pattern']" class="text-danger">
+              Valós email-címet adjon meg
+            </small>
+
+            <small
+              *ngIf="updateUser.get('email')?.invalid 
+              && updateUser.get('email')?.touched 
+              && !updateUser.get('email')?.errors?.['pattern']
+              && !updateUser.get('email')?.errors?.['serverError']"
+              class="text-danger">
+              Adja meg az email-címét
+            </small>
+
+            <!-- ServerError BE-ről -->
+            <small *ngIf="updateUser.get('email')?.errors?.['serverError']" class="text-danger">
+              {{updateUser.get('email')?.getError('serverError')}}
+            </small>
         </div>
   
         <div class="mb-3">
           <label for="emailConfirmed" class="form-label">Email visszaigazolva:</label>
-          <input type="text" class="form-control" id="emailConfirmed" formControlName="emailConfirmed">
+          <input type="text" class="form-control" id="emailConfirmed" formControlName="emailConfirmed"
+          [ngClass]="{'is-invalid': updateUser.get('emailConfirmed')?.invalid && updateUser.get('emailConfirmed')?.touched} || updateUser.get('emailConfirmed')?.errors?.['serverError']">
+
+          <small
+              *ngIf="updateUser.get('emailConfirmed')?.invalid
+              && updateUser.get('emailConfirmed')?.touched
+              && !updateUser.get('emailConfirmed')?.errors?.['pattern']
+              && !updateUser.get('emailConfirmed')?.errors?.['serverError']"
+              class="text-danger">
+              Igaz vagy hamis?
+            </small>
+
+            <small *ngIf="updateUser.get('emailConfirmed')?.invalid && updateUser.get('emailConfirmed')?.dirty
+                                && !updateUser.get('emailConfirmed')?.errors?.['serverError']
+                                && updateUser.get('emailConfirmed')?.errors?.['pattern']" class="text-danger">
+              True vagy False lehet
+            </small>
+
+            <!-- ServerError BE-ről -->
+            <small *ngIf="updateUser.get('emailConfirmed')?.errors?.['serverError']" class="text-danger">
+              {{updateUser.get('emailConfirmed')?.getError('serverError')}}
+            </small>
         </div>
   
         <div class="mb-3">
           <label for="role" class="form-label">Szerep:</label>
-          <input type="text" class="form-control" id="role" formControlName="role">
+          <input type="text" class="form-control" id="role" formControlName="role"
+          [ngClass]="{'is-invalid': updateUser.get('role')?.invalid && updateUser.get('role')?.touched} || updateUser.get('role')?.errors?.['serverError']">
+
+          <small
+              *ngIf="updateUser.get('role')?.invalid
+              && updateUser.get('role')?.touched
+              && !updateUser.get('role')?.errors?.['pattern']
+              && !updateUser.get('role')?.errors?.['serverError']"
+              class="text-danger">
+              Írjon be egy létező szerepet
+            </small>
+
+            <small *ngIf="updateUser.get('role')?.invalid && updateUser.get('role')?.dirty
+                                && !updateUser.get('role')?.errors?.['serverError']
+                                && updateUser.get('role')?.errors?.['pattern']" class="text-danger">
+              Admin, Operator vagy Guest lehet
+            </small>
+
+            <!-- ServerError BE-ről -->
+            <small *ngIf="updateUser.get('role')?.errors?.['serverError']" class="text-danger">
+              {{updateUser.get('role')?.getError('serverError')}}
+            </small>
+
         </div>
   
         <div class="text-center">

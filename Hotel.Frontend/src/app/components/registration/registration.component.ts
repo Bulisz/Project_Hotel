@@ -20,11 +20,11 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = new FormGroup ({
-      userName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9]{2,}$')]),
-      password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*\\d).{6,}$')]),
-      email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9.]{2,}@[a-zA-Z0-9]{2,}.[a-zA-Z0-9]{2,}$')]),
-      firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      userName: new FormControl('', [Validators.required, Validators.pattern('^(?!.*(?:admin|Admin|operator|Operator))[a-zA-Z0-9]{2,30}$')]),
+      password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*\\d)(?!.*\\s).{6,}$')]),
+      email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9.]{2,}[@][a-z0-9]{2,}[.][a-z]{2,}$')]),
+      firstName: new FormControl('', [Validators.required, Validators.pattern('^[A-Z](?!.*  )[a-zA-ZÀ-ÖØ-öø-ÿ ]{1,49}$')]),
+      lastName: new FormControl('', [Validators.required, Validators.pattern('^[A-Z](?!.*  )[a-zA-ZÀ-ÖØ-öø-ÿ ]{1,49}$')]),
     });
   }
 

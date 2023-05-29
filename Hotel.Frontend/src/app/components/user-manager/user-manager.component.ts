@@ -21,7 +21,7 @@ export class UserManagerComponent implements OnInit {
   ngOnInit(): void {}
 
   async deleteProfile(userId: string) {
-    let result = await this.dialogService.confirmationDialog("Biztosan törlöd a profilodat?")
+    let result = await this.dialogService.confirmationDialog("Biztosan törlöd a profilt?")
     if(result === 'agree'){
       this.accountService.deleteProfile(userId)
         .then(() => this.userModified.emit('userDeleted'))

@@ -24,12 +24,12 @@ export class UpdateUserAsAdmin implements OnInit {
                 emailConfirmed: string,
                 role: string}){
                   this.updateUser = new FormBuilder().group({
-                    firstName: new FormControl('' , Validators.required),
-                    lastName: new FormControl(''),
-                    username: new FormControl(''),
-                    email: new FormControl(''),
-                    emailConfirmed: new FormControl(''),
-                    role: new FormControl(''),
+                    firstName: new FormControl('' , [Validators.required, Validators.pattern('^[A-Z](?!.*  )[a-zA-ZÀ-ÖØ-öø-ÿ ]{1,49}$')]),
+                    lastName: new FormControl('', [Validators.required, Validators.pattern('^[A-Z](?!.*  )[a-zA-ZÀ-ÖØ-öø-ÿ ]{1,49}$')]),
+                    username: new FormControl('', [Validators.required, Validators.pattern('^(?!.*(?:admin|Admin|operator|Operator))[a-zA-Z0-9]{2,30}$')]),
+                    email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9.]{2,}[@][a-z0-9]{2,}[.][a-z]{2,}$')]),
+                    emailConfirmed: new FormControl('', [Validators.required, Validators.pattern('^(True|False)$')]),
+                    role: new FormControl('', [Validators.required, Validators.pattern('^(Admin|Operator|Guest)$')]),
                   })
                 }
   

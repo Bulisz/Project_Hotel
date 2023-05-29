@@ -61,7 +61,7 @@ public class UserService : IUserService
         return await _userRepository.GetAllUsersAsync();
     }
 
-    public async Task<UserDetailsDTO> UpdateUserAsAdminAsync(UserDetails updateUser)
+    public async Task<UserDetailsDTO> UpdateUserAsAdminAsync(UserDetailsForAdmin updateUser)
     {
         UserDetailsDTO newUser = await _userRepository.UpdateUserAsAdminAsync(updateUser);
         return newUser;

@@ -136,7 +136,7 @@ public class UserRepository : IUserRepository
         return listedUsers;
     }
 
-    public async Task<UserDetailsDTO> UpdateUserAsAdminAsync(UserDetails request)
+    public async Task<UserDetailsDTO> UpdateUserAsAdminAsync(UserDetailsForAdmin request)
     {
         ApplicationUser user = await _userManager.FindByIdAsync(request.Id);
         

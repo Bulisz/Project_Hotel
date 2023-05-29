@@ -15,15 +15,18 @@
               [ngClass]="{'is-invalid': registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched} || registerForm.get('lastName')?.errors?.['serverError']">
 
             <small
-              *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched && !registerForm.get('lastName')?.errors?.['serverError']"
+              *ngIf="registerForm.get('lastName')?.invalid
+              && registerForm.get('lastName')?.touched
+              && !registerForm.get('lastName')?.errors?.['pattern']
+              && !registerForm.get('lastName')?.errors?.['serverError']"
               class="text-danger">
               Adja meg a vezetéknevét
             </small>
 
-            <small *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched
+            <small *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.dirty
                                 && !registerForm.get('lastName')?.errors?.['serverError']
-                                && registerForm.get('lastName')?.errors?.['minLength']" class="text-danger">
-              Legalább 2 karakter hosszúnak kell lennie
+                                && registerForm.get('lastName')?.errors?.['pattern']" class="text-danger">
+              2 és 50 betűből álló tulajdonnév
             </small>
 
             <!-- ServerError BE-ről -->
@@ -39,15 +42,18 @@
               [ngClass]="{'is-invalid': registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched} || registerForm.get('firstName')?.errors?.['serverError']">
 
             <small
-              *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched && !registerForm.get('firstName')?.errors?.['serverError']"
+              *ngIf="registerForm.get('firstName')?.invalid 
+              && registerForm.get('firstName')?.touched
+              && !registerForm.get('firstName')?.errors?.['pattern']
+              && !registerForm.get('firstName')?.errors?.['serverError']"
               class="text-danger">
               Adja meg a keresznevét
             </small>
 
-            <small *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched
+            <small *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.dirty
                                 && !registerForm.get('firstName')?.errors?.['serverError']
-                                && registerForm.get('firstName')?.errors?.['minLength']" class="text-danger">
-              Legalább 2 karakter hosszúnak kell lennie
+                                && registerForm.get('firstName')?.errors?.['pattern']" class="text-danger">
+              2 és 50 betűből álló tulajdonnév
             </small>
 
             <!-- ServerError BE-ről -->
@@ -63,20 +69,17 @@
               formControlName="userName"
               [ngClass]="{'is-invalid': registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched} || registerForm.get('userName')?.errors?.['serverError']">
 
-            <small *ngIf="registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched
+            <small *ngIf="registerForm.get('userName')?.dirty
                                 && !registerForm.get('userName')?.errors?.['serverError']
                                 && registerForm.get('userName')?.errors?.['pattern']" class="text-danger">
-              Ne használjon ékezetet
-            </small>
-
-            <small *ngIf="registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched
-                                && !registerForm.get('userName')?.errors?.['serverError']
-                                && registerForm.get('userName')?.errors?.['minLength']" class="text-danger">
-              Legalább 2 karakter hosszúnak kell lennie
+              2 és 30 ékezet nélküli betűből és számból állhat
             </small>
 
             <small
-              *ngIf="registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched && !registerForm.get('userName')?.errors?.['serverError']"
+              *ngIf="registerForm.get('userName')?.invalid 
+              && registerForm.get('userName')?.touched 
+              && !registerForm.get('userName')?.errors?.['pattern'] 
+              && !registerForm.get('userName')?.errors?.['serverError']"
               class="text-danger">
               Adja meg a felhasználónevét
             </small>
@@ -93,16 +96,19 @@
             <input type="text" class="form-control form-control-sm" placeholder="Email" formControlName="email"
               [ngClass]="{'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched} || registerForm.get('email')?.errors?.['serverError']">
 
-            <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched
+            <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.dirty
                                 && !registerForm.get('email')?.errors?.['serverError']
                                 && registerForm.get('email')?.errors?.['pattern']" class="text-danger">
-              Szabályos email címet adjon meg
+              Valós email-címet adjon meg
             </small>
 
             <small
-              *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched && !registerForm.get('email')?.errors?.['serverError']"
+              *ngIf="registerForm.get('email')?.invalid 
+              && registerForm.get('email')?.touched 
+              && !registerForm.get('email')?.errors?.['pattern']
+              && !registerForm.get('email')?.errors?.['serverError']"
               class="text-danger">
-              Adja meg az email címét
+              Adja meg az email-címét
             </small>
 
             <!-- ServerError BE-ről -->
@@ -119,12 +125,15 @@
 
 
             <small
-              *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched && !registerForm.get('password')?.errors?.['serverError']"
+              *ngIf="registerForm.get('password')?.invalid 
+              && registerForm.get('password')?.touched 
+              && !registerForm.get('password')?.errors?.['pattern'] 
+              && !registerForm.get('password')?.errors?.['serverError']"
               class="text-danger">
               Adja meg a kívánt jelszót
             </small>
 
-            <small *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched
+            <small *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.dirty
                                 && !registerForm.get('password')?.errors?.['serverError']
                                 && registerForm.get('password')?.errors?.['pattern']" class="text-danger">
               Legalább 6 karakter hosszúnak kell lennie és tartalmazzon egy számot
