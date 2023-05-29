@@ -40,6 +40,10 @@ import { ReservationForUserComponent } from './components/reservation-for-user/r
 import { OperatorComponent } from './components/operator/operator.component';
 import { PostManagerComponent } from './components/post-manager/post-manager.component';
 import { EquipmentManagerComponent } from './components/equipment-manager/equipment-manager.component';
+import { CreateEquipmentComponent } from './components/create-equipment/create-equipment.component';
+import { DeleteEquipmentComponent } from './components/delete-equipment/delete-equipment.component';
+import { AddEquipmentToRoomComponent } from './components/add-equipment-to-room/add-equipment-to-room.component';
+import { RemoveEquipmentFromRoomComponent } from './components/remove-equipment-from-room/remove-equipment-from-room.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +78,11 @@ import { EquipmentManagerComponent } from './components/equipment-manager/equipm
     ReservationForUserComponent,
     OperatorComponent,
     PostManagerComponent,
-    EquipmentManagerComponent
+    EquipmentManagerComponent,
+    CreateEquipmentComponent,
+    DeleteEquipmentComponent,
+    AddEquipmentToRoomComponent,
+    RemoveEquipmentFromRoomComponent
   ],
   imports: [
     BrowserModule,

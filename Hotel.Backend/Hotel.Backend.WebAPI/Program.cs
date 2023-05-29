@@ -23,8 +23,9 @@ builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+builder.Services.AddScoped<IEquipmentService, EquipmentService>();
 builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-
 
 builder.Services.AddCorsRules();
 builder.Services.AddAuth(builder.Configuration);

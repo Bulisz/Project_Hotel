@@ -2,8 +2,8 @@
   <div class="container-sm shadow inner">
     <div class="header">
       <h3 class="text-left title">Felszereltség</h3>
-      <button type="button" class="btn-header">Törlés</button>
-      <button type="button" class="btn-header">Létrehozás</button>
+      <button type="button" class="btn-header" (click)="deleteEquipment()">Törlés</button>
+      <button type="button" class="btn-header" (click)="createEquipment()">Létrehozás</button>
     </div>
 
     <table class="table">
@@ -21,8 +21,8 @@
           <td class="details-content">{{room.equipmentNames}}</td>
           <td>
             <div class="btn-container">
-              <button type="button" class="btn">Hozzáadás</button>
-              <button type="button" class="btn">Törlés</button>
+              <button type="button" class="btn" (click)="addEquipmentToRoom(room.id)">Hozzáadás</button>
+              <button type="button" class="btn" (click)="removeEquipmentFromRoom(room.id)">Törlés</button>
             </div>
           </td>
         </tr>

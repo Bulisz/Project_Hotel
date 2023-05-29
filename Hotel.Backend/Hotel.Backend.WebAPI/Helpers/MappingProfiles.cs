@@ -36,5 +36,6 @@ public class MappingProfiles : Profile
         CreateMap<CreateRoomDTO, Room>()
             .ForMember(dest => dest.Price, op => op.MapFrom(src => Convert.ToDecimal(src.Price)));
         CreateMap<RoomDetailsDTO, Room>();
+        CreateMap<CreateEquipmentDTO, Equipment>();
     }
 }

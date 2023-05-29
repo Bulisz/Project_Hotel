@@ -24,7 +24,7 @@ export class EquipmentService {
   }
 
   async createEquipment(equipment: CreateEquipmentModel): Promise<EquipmentModel> {
-    return firstValueFrom(this.http.post<EquipmentModel>(`${environment.apiUrl}/${this.BASE_URL}/CreatedEquipment`,equipment));
+    return firstValueFrom(this.http.post<EquipmentModel>(`${environment.apiUrl}/${this.BASE_URL}/CreateEquipment`,equipment));
   }
 
   async deleteEquipment(id: number): Promise<any> {
