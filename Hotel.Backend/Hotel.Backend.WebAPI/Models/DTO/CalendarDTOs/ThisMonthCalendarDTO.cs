@@ -9,6 +9,6 @@
         
      
 
-        public List<DailyReservationDTO> RoomStatus { get; set; }
+        public List<DailyReservationDTO> RoomStatus { get; set; } = new List<DailyReservationDTO>();
     }
 }

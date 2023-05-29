@@ -22,7 +22,7 @@ namespace Hotel.Backend.WebAPI.Services
             List<ThisMonthCalendarDTO> allDays = new List<ThisMonthCalendarDTO>();
 
             //DateTime today = DateTime.Now;
-            DateTime today = new DateTime(2023, 9, 6);
+            DateTime today = new DateTime(2023, 7, 6);
 
             for (int i = 1; i <= DateTime.DaysInMonth(today.Year, today.Month); i++)
             {
@@ -39,10 +39,11 @@ namespace Hotel.Backend.WebAPI.Services
 
                 foreach (var reservation in reservations)
                 {
-                    TimeSpan duration = reservation.BookingFrom - reservation.BookingTo;
-                    int daysSpentInHotel = duration.Days;
+                    TimeSpan duration = reservation.BookingTo - reservation.BookingFrom;
+                    int daysSpentInHotel = (int)duration.TotalDays;
                     List<DateTime> bookedDays = new();
                     bookedDays.Add(reservation.BookingFrom);
+                   
                     for (int j = 1; j <= daysSpentInHotel; j++)
                     {
                         bookedDays.Add(reservation.BookingFrom.AddDays(j));
@@ -68,7 +69,7 @@ namespace Hotel.Backend.WebAPI.Services
                             };
                             day.RoomStatus.Add(res);
                         }
-                        else 
+                        else if (bookedDay == day.Day)
                         {
                             DailyReservationDTO res = new DailyReservationDTO
                             {
