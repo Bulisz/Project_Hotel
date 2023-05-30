@@ -119,7 +119,7 @@
             </small>
         </div>
   
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label for="role" class="form-label">Szerep:</label>
           <input type="text" class="form-control" id="role" formControlName="role"
           [ngClass]="{'is-invalid': updateUser.get('role')?.invalid && updateUser.get('role')?.touched} || updateUser.get('role')?.errors?.['serverError']">
@@ -139,10 +139,19 @@
               Admin, Operator vagy Guest lehet
             </small>
 
-            <!-- ServerError BE-ről -->
-            <small *ngIf="updateUser.get('role')?.errors?.['serverError']" class="text-danger">
+             ServerError BE-ről -->
+            <!-- <small *ngIf="updateUser.get('role')?.errors?.['serverError']" class="text-danger">
               {{updateUser.get('role')?.getError('serverError')}}
             </small>
+
+        </div> --> 
+        <div class="mb-3">
+          <label for="role" class="form-label">Szerep:</label>
+          <select class="form-select form-control" name="role" id="role" formControlName="role">
+            <option value="Admin">Adminisztrátor</option>
+            <option value="Operator">Operátor</option>
+            <option value="Guest">Vendég</option>
+          </select>
 
         </div>
   
