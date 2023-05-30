@@ -1,6 +1,13 @@
+* {
+  max-height: none;
+ padding: 0;
+ margin: 0;
+
+}
+
 .outer{
     border-radius: 2rem;
-    width: 400px;
+    width: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,6 +34,8 @@
     margin-bottom: 0.5rem;
   }
   
+
+
 .calendar{
     font-family: 'Caveat';
     
@@ -42,27 +51,14 @@
 
 }
 
-.roomColor {
-  background-color: #800020;
+.bookingBox {
+  width: 100%;
+  margin: 0;
+  border: 2px solid;
+  padding: 0 0.1rem 0 0.1rem;
+  
 }
 
-.background1{
-    background-repeat: no-repeat;
-  background-size: cover;
-   background-color: #800020;
-}
-
-.background2{
-    background-repeat: no-repeat;
-  background-size: cover;
-    background-image: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1685041127/Hotel/Post-it/postit-piros_j2gaqi.jpg");
-}
-
-.background3{
-    background-repeat: no-repeat;
-  background-size: cover;
-    background-image: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1685043105/Hotel/Post-it/postit-kek_ezmpri.jpg");
-}
 
   .form-control {
     border:#800020 solid 2px;
@@ -87,5 +83,10 @@
   
   :host {
     position:fixed;
-  
+    width: auto;
+    height: auto;
+  }
+
+  .table {
+    padding: 0;
   }

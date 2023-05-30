@@ -7,7 +7,7 @@
       </div>
       <table class="table calendar">
         <thead >
-            <tr>
+            <tr >
                 <th>Hétfő</th>
                 <th>Kedd</th>
                 <th>Szerda</th>
@@ -19,18 +19,25 @@
         </thead>
         <tbody>
           
-            <tr *ngFor="let row of calendar">
-                <td *ngFor="let item of row">
-                  <div class="dateNumber" *ngIf = "item.dateNumber">
+            <tr *ngFor="let row of calendar" >
+                <td *ngFor="let item of row" >
+                  <div class="dateNumber"  *ngIf = "item.dateNumber">
+                  
                           {{item.dateNumber}}
                       
                        
-                        <tr *ngFor = "let room of item.roomStatus" [style.background-color]="room.roomNumber === 3 ? 'red' : 'blue'">
-                          rooooom
-                        </tr>
+                      </div>    
+                        <div class="bookingBox" *ngFor = "let room of item.roomStatus" 
+                        [ngStyle]="{'background-color':getColor(room.roomNumber), 
+                                    'color':getColor(room.roomNumber),
+                                    'border':getColor(room.roomNumber),
+                                    'border-radius': room.reservationStatus === 'first' ? '35% 0% 0% 35%' : (room.reservationStatus === 'last' ? '0% 35% 35% 0%' : '0%')}">
+                                                                    
+                          .................
+                    </div>
                      
                         
-                      </div>
+                      
                 </td>
               
              

@@ -143,6 +143,29 @@ export class RoomCalendarComponent implements OnInit {
       
     }
 
+
+
+  getColor(roomNumber: number) {
+    switch (roomNumber) { 
+      case 2:
+      return '#AF9E66';
+      case 3:
+      return '#6B3923';
+      case 4:
+      return '#9A7294';
+      case 5:
+      return '#C7A086';
+      case 6:
+      return '#55171E';
+      case 7:
+      return '#915934';
+      case 9:
+      return '#A4255C';
+      default:
+      return '#3F221B';
+    }
+  }
+
   closeCalendar() {
     this.dialogRef.close('ok')
   }
