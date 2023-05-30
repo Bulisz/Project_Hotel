@@ -27,16 +27,24 @@
                       
                        
                   </div>  
-
-                  <div class="bookingBox" *ngFor = "let room of item.roomStatus" 
+                  
+                  <div *ngFor = "let hotelRoom of rooms" class="roomDivs">
+                    <div *ngFor = "let room of item.roomStatus">
+                     
+                      <div class="bookingBox"  *ngIf = "hotelRoom.id === room.roomNumber" 
                         [ngStyle]="{'background-color':getColor(room.roomNumber), 
                                     'color':getColor(room.roomNumber),
                                     'border':getColor(room.roomNumber),
                                     'border-radius': room.reservationStatus === 'first' ? '35% 0% 0% 35%' : (room.reservationStatus === 'last' ? '0% 35% 35% 0%' : '0%')}">
                                                                     
-                          ------------
-                  </div>
+                          <div> ------------</div>
+                       </div>
                       
+                    </div>
+
+                    
+                </div>
+              
                 </td>
               
             </tr>
