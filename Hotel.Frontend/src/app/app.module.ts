@@ -89,9 +89,8 @@ import { LoadingDialogComponent } from './components/loading-dialog/loading-dial
     RemoveEquipmentFromRoomComponent,
     UserManagerComponent,
     UpdateUserAsAdmin,
-    
     RoomCalendarComponent,
-          LoadingDialogComponent
+    LoadingDialogComponent
   ],
   imports: [
     BrowserModule,
