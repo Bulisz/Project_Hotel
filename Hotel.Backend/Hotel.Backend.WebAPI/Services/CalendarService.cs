@@ -44,14 +44,24 @@ namespace Hotel.Backend.WebAPI.Services
                     List<DateTime> bookedDays = new();
                     bookedDays.Add(reservation.BookingFrom);
                    
-                    for (int j = 1; j <= daysSpentInHotel; j++)
+                    for (int j = 1; j <= daysSpentInHotel-1; j++)
                     {
                         bookedDays.Add(reservation.BookingFrom.AddDays(j));
                     }
 
                     foreach (var bookedDay in bookedDays)
                     {
-                        if (bookedDay == day.Day && bookedDay == reservation.BookingFrom)
+                        if (bookedDay == day.Day && bookedDays.Count == 1)
+                        {
+                            DailyReservationDTO res = new DailyReservationDTO
+                            {
+                                RoomNumber = reservation.Room.Id,
+                                ReservationStatus = "oneDay"
+                            };
+                            day.RoomStatus.Add(res);
+                        }
+                        else
+                       if (bookedDay == day.Day && bookedDay == reservation.BookingFrom)
                         {
                             DailyReservationDTO res = new DailyReservationDTO
                             {
@@ -60,7 +70,7 @@ namespace Hotel.Backend.WebAPI.Services
                             };
                             day.RoomStatus.Add(res);
                         }
-                        else if (bookedDay == day.Day && bookedDay == reservation.BookingTo)
+                        else if (bookedDay == day.Day && bookedDay == reservation.BookingTo.AddDays(-1))
                         {
                             DailyReservationDTO res = new DailyReservationDTO
                             {

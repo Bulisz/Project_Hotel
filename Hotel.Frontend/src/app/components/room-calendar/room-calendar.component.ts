@@ -56,10 +56,10 @@ export class RoomCalendarComponent implements OnInit {
     async ngOnInit() {
 
       this.dateToday = new Date(2023, 6, 6);
-      // this.dateToday = new Date(Date.now());
+       //this.dateToday = new Date(Date.now());
       this.monthToday = this.dateToday.getMonth();
       this.yearNow = this.dateToday.getFullYear();
-      this.thisMonth = this.monthNames[this.monthToday - 1];
+      this.thisMonth = this.monthNames[this.monthToday-1];
       this.firstDayOfMonth = new Date(this.yearNow, this.monthToday, 1);
       this.lastOfMonth = new Date(this.yearNow, this.monthToday+1, 0);
       

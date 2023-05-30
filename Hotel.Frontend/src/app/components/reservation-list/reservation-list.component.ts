@@ -69,11 +69,11 @@ export class ReservationListComponent implements OnInit {
 
   showRoomCalendar(){
     let dialogBoxSettings = {
-      width: '1000px',
+      width: '830px',
       margin: '0 auto',
       disableClose: true,
       hasBackdrop: true,
-      position: {top: '3%'}
+      position: {top: '1.2%'}
     };
 
     let dialogref = this.dialog.open(RoomCalendarComponent,dialogBoxSettings)

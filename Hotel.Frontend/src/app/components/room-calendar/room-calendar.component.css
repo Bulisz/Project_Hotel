@@ -26,7 +26,8 @@
   
   .title {
     font-family: 'Caveat';
-    font-size: 3.5rem;
+    font-size: 3rem;
+    line-height: 2.5rem;
     color: #800020;
     margin: 0;
     padding: 0;
@@ -39,8 +40,8 @@
 .calendar{
     font-family: 'Caveat';
     
-    font-size: 2rem;
-    line-height: 2rem;
+    font-size: 1.8rem;
+    line-height: 1.3rem;
     color: black;
     text-align: center;
 }
