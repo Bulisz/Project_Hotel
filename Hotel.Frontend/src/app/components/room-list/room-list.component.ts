@@ -102,7 +102,9 @@ export class RoomListComponent implements OnInit{
   }
 
   changeMe(){
-    this.roomSelector.get('bookingFrom')?.setErrors(null)
-    this.roomSelector.get('bookingTo')?.setErrors(null)
+    if(this.roomSelector.get('bookingFrom')?.value  && this.roomSelector.get('bookingTo')?.value){
+      this.roomSelector.get('bookingFrom')?.setErrors(null)
+      this.roomSelector.get('bookingTo')?.setErrors(null)
+    }
   }
 }

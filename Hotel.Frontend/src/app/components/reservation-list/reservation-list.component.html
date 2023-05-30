@@ -22,7 +22,7 @@
         <tbody class="table-group-divider" *ngIf="reservationList">
           <tr *ngFor="let reservation of reservationList">
             <td class="details-content">{{reservation.roomName}}</td>
-            <td class="details-content"  *ngIf="user?.role === 'Admin' || user?.role === 'Operator'">{{reservation.userName}}</td>
+            <td class="details-content"  *ngIf="user?.role === 'Admin' || user?.role === 'Operator'">{{reservation.fullName}}</td>
             <td class="details-content">{{reservation.bookingFrom | date: 'YYYY-MM-dd'}}</td>
             <td class="details-content">{{reservation.bookingTo | date: 'YYYY-MM-dd'}}</td>
             <td>

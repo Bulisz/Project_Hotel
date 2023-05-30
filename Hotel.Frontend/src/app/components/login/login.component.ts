@@ -20,6 +20,11 @@ export class LoginComponent {
     })
   }
 
+  formChange(){
+    this.loginForm.get('userName')?.setErrors(null)
+    this.loginForm.get('password')?.setErrors(null)
+  }
+
   async onSubmit(){
     await this.as.login(this.loginForm.value)
       .then(() =>{
