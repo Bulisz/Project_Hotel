@@ -1,5 +1,5 @@
 <div class="container-sm mt-3 outer">
-    <div class="container-sm shadow inner">
+    <div class="container-sm shadow inner" style="padding: 0.75rem;">
   
       <div class="modal-header">
         <h3 class="text-center title">{{thisMonth}}</h3>
@@ -20,7 +20,7 @@
         <tbody>
           
             <tr *ngFor="let row of calendar" >
-                <td *ngFor="let item of row" >
+                <td *ngFor="let item of row" style="padding: 0;">
                   <div class="dateNumber"  *ngIf = "item.dateNumber">
                   
                           {{item.dateNumber}}
