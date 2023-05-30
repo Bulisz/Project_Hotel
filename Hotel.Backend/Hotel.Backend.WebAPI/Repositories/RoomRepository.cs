@@ -52,13 +52,6 @@ public class RoomRepository : IRoomRepository
         return result;
     }
 
-    public async Task<IEnumerable<Equipment>> GetNonStandardEquipmentAsync()
-    { 
-        return await _context.Equipments
-            .Where(equipment => equipment.IsStandard == false)
-            .ToListAsync();
-    }
-
     public async Task SaveOneImageAsync(Image image)
     {
         _context.Images.Add(image);

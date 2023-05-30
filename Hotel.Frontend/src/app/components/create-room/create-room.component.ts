@@ -53,7 +53,7 @@ export class CreateRoomComponent implements OnInit {
     if(this.data){
       let formData = this.createRoomForm.getRawValue()
       let parsedFormData = {...formData, id: this.data.id, available: true}
-
+      
       await this.rs.updateRoom(parsedFormData)
       .then(res => {
         this.dialogRef.close('changed')

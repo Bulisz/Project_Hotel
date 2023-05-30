@@ -1,0 +1,34 @@
+<div class="container-sm outer">
+  <div class="container-sm shadow inner">
+    <div class="header">
+      <h3 class="text-left title">Felszereltség</h3>
+      <button type="button" class="btn-header" (click)="deleteEquipment()">Törlés</button>
+      <button type="button" class="btn-header" (click)="createEquipment()">Létrehozás</button>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="details" scope="col">Név</th>
+          <th class="details" scope="col">Felszereltség</th>
+          <th class="details" scope="col">Műveletek</th>
+        </tr>
+      </thead>
+
+      <tbody class="table-group-divider">
+        <tr *ngFor="let room of rooms">
+          <td class="details-content">{{room.name}}</td>
+          <td class="details-content">{{room.equipmentNames}}</td>
+          <td>
+            <div class="btn-container">
+              <button type="button" class="btn" (click)="addEquipmentToRoom(room.id)">Hozzáadás</button>
+              <button type="button" class="btn" (click)="removeEquipmentFromRoom(room.id)">Levétel</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+</div>

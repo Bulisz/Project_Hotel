@@ -46,7 +46,7 @@
         <div class="mb-3">
           <label for="bookingFrom" class="form-label"
          >Érkezés:</label>
-          <input type="date" class="form-control" id="bookingFrom" formControlName="bookingFrom" (input)="changeMe()">
+          <input type="date" class="form-control" id="bookingFrom" formControlName="bookingFrom" (change)="changeMe()">
           <small *ngIf="bookingFrom?.invalid && bookingFrom?.touched" class="text-danger">
             <span *ngIf="bookingFrom?.errors?.['required']">Add meg az érkezés dátumát!</span>
           </small>
@@ -58,12 +58,12 @@
         <div class="mb-3">
           <label for="bookingTo" class="form-label"
          >Távozás:</label>
-          <input type="date" class="form-control" id="bookingTo" formControlName="bookingTo" (input)="changeMe()">
+          <input type="date" class="form-control" id="bookingTo" formControlName="bookingTo" (change)="changeMe()">
           <small *ngIf="bookingTo?.invalid && bookingTo?.touched" class="text-danger">
             <span *ngIf="bookingTo?.errors?.['required']">Add meg a távozás dátumát!</span>
           </small>
-          <small *ngIf="roomSelector.get('bookingFrom')?.errors?.['serverError']" class="text-danger">
-            {{roomSelector.get('bookingFrom')?.getError('serverError')}}
+          <small *ngIf="roomSelector.get('bookingTo')?.errors?.['serverError']" class="text-danger">
+            {{roomSelector.get('bookingTo')?.getError('serverError')}}
           </small>
         </div>
 

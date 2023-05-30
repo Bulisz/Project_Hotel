@@ -86,7 +86,8 @@ public class ReservationService : IReservationService
             BookingTo = reservation.BookingTo,
             UserId = reservation.ApplicationUser.Id,
             UserName = reservation.ApplicationUser.UserName,
-            RoomName = reservation.Room.Name
+            RoomName = reservation.Room.Name,
+            FullName = reservation.ApplicationUser.LastName + " " + reservation.ApplicationUser.FirstName,
 
         }).ToList();
 

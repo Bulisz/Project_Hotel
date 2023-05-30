@@ -1,0 +1,35 @@
+<div class="container-sm outer">
+    <div class="container-sm shadow inner">
+      <div class="header">
+        <h3 class="text-left title">Felhasználók szerkesztése</h3>
+      </div>
+  
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="details" scope="col">Név</th>
+            <th class="details" scope="col">Felhasználónév</th>
+            <th class="details" scope="col">Szerep</th>
+            <th class="details" scope="col">Műveletek</th>
+          </tr>
+        </thead>
+  
+        <tbody class="table-group-divider">
+          <tr *ngFor="let user of userList">
+            <td class="details-content">{{user.lastName}} {{user.firstName}}</td>
+            <td class="details-content">{{user.username}}</td>
+            <td class="details-content">{{user.role}}</td>
+            <td>
+              <div class="btn-container">
+                <button type="button" class="btn" (click)="updateUser(user.id)">Módosítás</button>
+                <button type="button" class="btn" (click)="deleteProfile(user.id)">Törlés</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+  
+      </table>
+  
+    </div>
+  </div>
+  

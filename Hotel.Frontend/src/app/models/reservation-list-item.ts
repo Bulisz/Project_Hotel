@@ -5,4 +5,5 @@ export interface ReservationListItem {
     roomName: string,
     userId: string,
     userName: string,
+    fullName: string,
 }

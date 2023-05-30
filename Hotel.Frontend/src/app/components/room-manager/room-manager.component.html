@@ -11,7 +11,6 @@
           <th class="details" scope="col">Id</th>
           <th class="details" scope="col">Név</th>
           <th class="details" scope="col">Képek</th>
-          <th class="details" scope="col">Felszereltség</th>
           <th class="details" scope="col">Műveletek</th>
         </tr>
       </thead>
@@ -21,7 +20,6 @@
           <td class="details-content">{{room.id}}</td>
           <td class="details-content">{{room.name}}</td>
           <td class="details-content">{{room.imageURLs.length}}</td>
-          <td class="details-content">{{room.equipmentNames.length}}</td>
           <td>
             <div class="btn-container">
               <button type="button" class="btn" (click)="modifyRoom(room.id)">Módosítás</button>

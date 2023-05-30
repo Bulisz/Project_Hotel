@@ -114,7 +114,7 @@ public class UserRepository : IUserRepository
 
     public async Task<List<UserListItem>> GetAllUsersAsync()
     {
-        List<ApplicationUser> users = await _userManager.Users.ToListAsync();
+        List<ApplicationUser> users = await _userManager.Users.OrderBy(user => user.LastName).ToListAsync();
 
         List<UserListItem> listedUsers = users.Select(user => new UserListItem
         {
@@ -136,4 +136,36 @@ public class UserRepository : IUserRepository
         return listedUsers;
     }
 
+    public async Task<UserDetailsDTO> UpdateUserAsAdminAsync(UserDetailsForAdmin request)
+    {
+        ApplicationUser user = await _userManager.FindByIdAsync(request.Id);
+        
+            await ChangeRoleAsync(request.Role, user);
+            user.FirstName = request.FirstName;
+            user.LastName = request.LastName;
+            user.Email = request.Email;
+            user.EmailConfirmed = Convert.ToBoolean(request.EmailConfirmed);
+            user.UserName = request.Username;
+
+            await _userManager.UpdateAsync(user);
+        
+
+        UserDetailsDTO userDetails = new UserDetailsDTO();
+        userDetails.User = user;
+        userDetails.Roles = await _userManager.GetRolesAsync(user);
+
+        return userDetails;
+    }
+
+    private async Task ChangeRoleAsync(string newRole, ApplicationUser user)
+    {
+        var usersRoles = await _userManager.GetRolesAsync(user);
+        string oldRole = usersRoles[0];
+
+        if (oldRole != newRole)
+        {
+            await _userManager.RemoveFromRoleAsync(user, oldRole);
+            await _userManager.AddToRoleAsync(user, newRole);
+        }
+    }
 }

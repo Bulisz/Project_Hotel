@@ -38,7 +38,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { SplitPipe } from '../utils/split.pipe';
 import { ReservationForUserComponent } from './components/reservation-for-user/reservation-for-user.component';
 import { OperatorComponent } from './components/operator/operator.component';
+import { UserManagerComponent } from './components/user-manager/user-manager.component';
+import { UpdateUserAsAdmin } from './components/update-user-as-admin/update-user-as-admin.component';
 import { PostManagerComponent } from './components/post-manager/post-manager.component';
+import { EquipmentManagerComponent } from './components/equipment-manager/equipment-manager.component';
+import { CreateEquipmentComponent } from './components/create-equipment/create-equipment.component';
+import { DeleteEquipmentComponent } from './components/delete-equipment/delete-equipment.component';
+import { AddEquipmentToRoomComponent } from './components/add-equipment-to-room/add-equipment-to-room.component';
+import { RemoveEquipmentFromRoomComponent } from './components/remove-equipment-from-room/remove-equipment-from-room.component';
 import { RoomCalendarComponent } from './components/room-calendar/room-calendar.component';
 
 @NgModule({
@@ -73,6 +80,14 @@ import { RoomCalendarComponent } from './components/room-calendar/room-calendar.
     SplitPipe,
     ReservationForUserComponent,
     OperatorComponent,
+    PostManagerComponent,
+    EquipmentManagerComponent,
+    CreateEquipmentComponent,
+    DeleteEquipmentComponent,
+    AddEquipmentToRoomComponent,
+    RemoveEquipmentFromRoomComponent,
+    UserManagerComponent,
+    UpdateUserAsAdmin,
     PostManagerComponent,
     RoomCalendarComponent
   ],
