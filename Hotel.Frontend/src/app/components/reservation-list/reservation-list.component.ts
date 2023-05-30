@@ -23,13 +23,13 @@ export class ReservationListComponent implements OnInit {
 
   constructor(private reservationService: ReservationService, private dialog: MatDialog, private as: AccountService, private dialogService: DialogService){}
 
-  ngOnInit(): void {}
-
-  isDeletable(bookingFrom: Date){
+  ngOnInit(): void {
     this.as.user.subscribe({
       next: res => this.user = res
     })
+  }
 
+  isDeletable(bookingFrom: Date){
     const currentDate = new Date(Date.now());
     currentDate.setDate(currentDate.getDate() + 10);
 

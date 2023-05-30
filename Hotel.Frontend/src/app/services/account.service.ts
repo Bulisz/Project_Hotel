@@ -16,6 +16,7 @@ import { UserListModel } from '../models/user-list-model';
 })
 export class AccountService {
 
+  adminPageSelector = new BehaviorSubject<string>('');
   BASE_URL = 'users'
   user = new BehaviorSubject<UserModel | null>(null)
 
