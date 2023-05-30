@@ -29,16 +29,20 @@ public static class AuthenticationExtension
                         });
         services.AddIdentityCore<ApplicationUser>(options =>
         {
-            options.SignIn.RequireConfirmedAccount = false;
             options.User.RequireUniqueEmail = true;
             options.Password.RequireDigit = true;
             options.Password.RequiredLength = 6;
             options.Password.RequireNonAlphanumeric = false;
             options.Password.RequireUppercase = false;
             options.Password.RequireLowercase = false;
+            options.SignIn.RequireConfirmedEmail = true;
         })
                   .AddRoles<IdentityRole>()
-                  .AddEntityFrameworkStores<HotelDbContext>();
+                  .AddEntityFrameworkStores<HotelDbContext>()
+                  .AddDefaultTokenProviders();
+
+        services.Configure<DataProtectionTokenProviderOptions>(options =>
+            options.TokenLifespan = TimeSpan.FromMinutes(15));
         return services;
     }
 

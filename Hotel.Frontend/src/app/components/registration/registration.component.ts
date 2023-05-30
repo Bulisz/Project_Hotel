@@ -32,8 +32,9 @@ export class RegistrationComponent implements OnInit {
     if(this.registerForm.valid) {
       const newAccount = this.registerForm.value;
       await this.accountService.registerNewAccout(newAccount)
-      .then(() => { this.router.navigate([''])
-                this.dialogRef.close('ok')
+      .then(() => { this.dialogRef.close('ok');
+        this.router.navigate(['patient']);
+                
     })
       .catch((err) => validationHandler (err, this.registerForm))
     }

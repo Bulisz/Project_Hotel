@@ -11,6 +11,8 @@ import { EventListComponent } from './components/event-list/event-list.component
 import { PersonalComponent } from './components/personal/personal.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { OperatorComponent } from './components/operator/operator.component';
+import { EmailConfirmationComponent } from './components/email-confirmation/email-confirmation.component';
+import { PatientComponent } from './components/patient/patient.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,6 +24,8 @@ const routes: Routes = [
   { path: 'operator', component: OperatorComponent},
   { path: 'registration', component: RegistrationComponent},
   { path: 'login', component: LoginComponent},
+  { path: 'patient', component: PatientComponent},
+  { path: 'confirmEmail', component: EmailConfirmationComponent},
   { path: 'personal', component: PersonalComponent},
   { path: '**', component: ErrorComponent }
 ];

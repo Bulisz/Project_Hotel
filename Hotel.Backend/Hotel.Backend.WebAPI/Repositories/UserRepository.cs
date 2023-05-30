@@ -1,20 +1,25 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Repositories;
+using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using System.Text;
 
 namespace Hotel.Backend.WebAPI.Repositories;
 
 public class UserRepository : IUserRepository
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IEmailService _emailService;
 
-    public UserRepository(UserManager<ApplicationUser> userManager)
+    public UserRepository(UserManager<ApplicationUser> userManager, IEmailService emailService)
     {
         _userManager = userManager;
+        _emailService = emailService;
     }
 
     public async Task<UserDetailsDTO> InsertUserAsync(ApplicationUser user, string password)
@@ -27,6 +32,23 @@ public class UserRepository : IUserRepository
                 err.Description.Substring(0, err.Description.IndexOf(" ")) == "Passwords" ? "Password" : err.Description.Substring(0, err.Description.IndexOf(" ")), err.Description)).ToList();
             throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
         }
+
+        //Creating and sending verification email TODO: refactor
+        var emailVerificationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        var encodedVerificationToken = Encoding.UTF8.GetBytes(emailVerificationToken);
+        var validEmailToken = WebEncoders.Base64UrlEncode(encodedVerificationToken);
+        string url = $"http://localhost:4200/#/confirmEmail/?email={user.Email}&token={validEmailToken}";
+
+        EmailDTO email = new EmailDTO
+        {
+            To = user.Email,
+            Subject = "Regisztráció megerősítése",
+            Body = $"Kedves {user.LastName} {user.FirstName}! \n" +
+            $" Erre a linkre kattintva megerősítheted honlapunkon a regisztrációt: {url} \n" +
+            "15 percig lesz érvényes a link."
+        };
+
+        await _emailService.SendEmailAsync(email);
             
 
         IdentityResult identityResult = await _userManager.AddToRoleAsync(user, Role.Guest.ToString());
@@ -41,6 +63,23 @@ public class UserRepository : IUserRepository
         userDetails.Roles = await _userManager.GetRolesAsync(user);
 
         return userDetails;
+    }
+
+    public async Task<bool> VerifyEmailAsync(EmailVerificationDTO emailVerification)
+    {
+        ApplicationUser user = await _userManager.FindByEmailAsync(emailVerification.Email);
+        if(user != null)
+        {
+            var decodedToken = WebEncoders.Base64UrlDecode(emailVerification.Token);
+            string token = Encoding.UTF8.GetString(decodedToken);
+
+            IdentityResult result = await _userManager.ConfirmEmailAsync(user, token);
+            if(result.Succeeded)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public async Task<UserDetailsDTO?> GetUserByNameAsync(string name)
@@ -71,6 +110,14 @@ public class UserRepository : IUserRepository
             List<HotelFieldError> errors = new() { new HotelFieldError("UserName", "A felhasználónév vagy a jelszó érvénytelen"), new HotelFieldError("Password", "A felhasználónév vagy a jelszó érvénytelen") };
             throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
         };
+
+        var isEmailValid = await _userManager.IsEmailConfirmedAsync(user);
+        if(!isEmailValid)
+        {
+            List<HotelFieldError> errors = new() { new HotelFieldError("Password", "Az email-cím nincs megerősítve") };
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occured.");
+        }
+
         bool isPasswordValid = await _userManager.CheckPasswordAsync(user, request.Password);
         if (!isPasswordValid)
         {

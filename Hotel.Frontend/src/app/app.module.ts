@@ -46,6 +46,8 @@ import { CreateEquipmentComponent } from './components/create-equipment/create-e
 import { DeleteEquipmentComponent } from './components/delete-equipment/delete-equipment.component';
 import { AddEquipmentToRoomComponent } from './components/add-equipment-to-room/add-equipment-to-room.component';
 import { RemoveEquipmentFromRoomComponent } from './components/remove-equipment-from-room/remove-equipment-from-room.component';
+import { EmailConfirmationComponent } from './components/email-confirmation/email-confirmation.component';
+import { PatientComponent } from './components/patient/patient.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +89,8 @@ import { RemoveEquipmentFromRoomComponent } from './components/remove-equipment-
     RemoveEquipmentFromRoomComponent,
     UserManagerComponent,
     UpdateUserAsAdmin,
+    EmailConfirmationComponent,
+    PatientComponent,
   ],
   imports: [
     BrowserModule,

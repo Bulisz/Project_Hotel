@@ -8,6 +8,7 @@ import { UserModel } from '../models/user-model';
 import { environment } from '../../environments/environment';
 import { UpdateUserModel } from '../models/update-user-model';
 import { UserListModel } from '../models/user-list-model';
+import { EmailVerificationModel } from '../models/email-verification-model';
 
 
 
@@ -66,6 +67,10 @@ export class AccountService {
 
   async updateUserAsAdmin(updateUser: UserListModel): Promise<UserListModel> {
     return await firstValueFrom(this.http.put<UserListModel>(`${environment.apiUrl}/${this.BASE_URL}/UpdateUserAsAdmin`, updateUser))
+  }
+
+  async confirmEmail(emailVerification: EmailVerificationModel): Promise<boolean> {
+    return await firstValueFrom(this.http.post<boolean>(`${environment.apiUrl}/${this.BASE_URL}/VerifyEmail`, emailVerification))
   }
 
 }
