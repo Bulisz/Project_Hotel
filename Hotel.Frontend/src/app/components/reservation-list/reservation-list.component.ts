@@ -73,7 +73,7 @@ export class ReservationListComponent implements OnInit {
       margin: '0 auto',
       disableClose: true,
       hasBackdrop: true,
-      position: {top: '5%'}
+      position: {top: '3%'}
     };
 
     let dialogref = this.dialog.open(RoomCalendarComponent,dialogBoxSettings)
