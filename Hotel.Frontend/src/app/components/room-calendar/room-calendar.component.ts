@@ -67,10 +67,10 @@ export class RoomCalendarComponent implements OnInit {
         .then(res => this.users = res)
         .catch(err => console.log(err))
   
-      this.rs.getAllRooms().subscribe({
-        next: res => this.rooms = res,
-        error: err => console.log(err)
-      })
+      this.rs.getAllRooms()
+        .then( res => this.rooms = res)
+        .catch(err => console.log(err))
+      
 
       this.calendarService.getAllDaysOfMonth().subscribe({
         next: res => {

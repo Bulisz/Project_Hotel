@@ -88,7 +88,7 @@ import { RoomCalendarComponent } from './components/room-calendar/room-calendar.
     RemoveEquipmentFromRoomComponent,
     UserManagerComponent,
     UpdateUserAsAdmin,
-    PostManagerComponent,
+    
     RoomCalendarComponent
   ],
   imports: [
