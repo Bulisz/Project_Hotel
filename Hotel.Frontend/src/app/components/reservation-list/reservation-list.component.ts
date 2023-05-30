@@ -8,6 +8,7 @@ import { UserModel } from 'src/app/models/user-model';
 import { AccountService } from 'src/app/services/account.service';
 import { ReservationForUserComponent } from '../reservation-for-user/reservation-for-user.component';
 import { DialogService } from 'src/app/services/dialog.service';
+import { RoomCalendarComponent } from '../room-calendar/room-calendar.component';
 
 @Component({
   selector: 'app-reservation-list',
@@ -65,4 +66,24 @@ export class ReservationListComponent implements OnInit {
     })
   }
 
+
+  showRoomCalendar(){
+    let dialogBoxSettings = {
+      width: '600px',
+      margin: '0 auto',
+      disableClose: true,
+      hasBackdrop: true,
+      position: {top: '10%'}
+    };
+
+    let dialogref = this.dialog.open(RoomCalendarComponent,dialogBoxSettings)
+
+    dialogref.afterClosed().subscribe({
+      next: res => {
+        if(res === 'agree'){
+          this.reservationDeleted.emit('reservationDeleted')
+        }
+      }
+    })
+  }
 }

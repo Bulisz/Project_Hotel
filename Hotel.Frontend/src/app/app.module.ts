@@ -46,6 +46,7 @@ import { CreateEquipmentComponent } from './components/create-equipment/create-e
 import { DeleteEquipmentComponent } from './components/delete-equipment/delete-equipment.component';
 import { AddEquipmentToRoomComponent } from './components/add-equipment-to-room/add-equipment-to-room.component';
 import { RemoveEquipmentFromRoomComponent } from './components/remove-equipment-from-room/remove-equipment-from-room.component';
+import { RoomCalendarComponent } from './components/room-calendar/room-calendar.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,8 @@ import { RemoveEquipmentFromRoomComponent } from './components/remove-equipment-
     RemoveEquipmentFromRoomComponent,
     UserManagerComponent,
     UpdateUserAsAdmin,
+    
+    RoomCalendarComponent
   ],
   imports: [
     BrowserModule,
