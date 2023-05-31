@@ -6,6 +6,7 @@ using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Repositories;
 using Hotel.Backend.WebAPI.Services;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,13 @@ builder.Services.AddScoped<IEquipmentService, EquipmentService>();
 builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ICalendarService, CalendarService>();
+
+//builder.Services.AddHostedService<UserCleanupService>(options =>
+//{
+//    var confirmationExpiration = TimeSpan.FromMinutes(7);
+//    var date
+//    return new UserCleanupService(options, confirmationExpiration,);
+//});
 
 
 builder.Services.AddCorsRules();

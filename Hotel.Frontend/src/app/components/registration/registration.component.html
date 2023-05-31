@@ -136,12 +136,40 @@
             <small *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.dirty
                                 && !registerForm.get('password')?.errors?.['serverError']
                                 && registerForm.get('password')?.errors?.['pattern']" class="text-danger">
-              Legalább 6 karakter hosszúnak kell lennie és tartalmazzon egy számot
+              Legalább 6, legfeljebb 250 karakter hosszúnak kell lennie és tartalmazzon egy számot
             </small>
 
             <!-- ServerError BE-ről -->
             <small *ngIf="registerForm.get('password')?.errors?.['serverError']" class="text-danger">
               {{registerForm.get('password')?.getError('serverError')}}
+            </small>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="mb-2">
+            <input type="password" class="form-control form-control-sm" placeholder="Jelszó megint" formControlName="confirmPassword"
+              [ngClass]="{'is-invalid': registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched} || registerForm.get('confirmPassword')?.errors?.['serverError']">
+
+
+            <small
+              *ngIf="registerForm.get('confirmPassword')?.invalid 
+              && registerForm.get('confirmPassword')?.touched 
+              && !registerForm.get('confirmPassword')?.errors?.['pattern'] 
+              && !registerForm.get('confirmPassword')?.errors?.['serverError']"
+              class="text-danger">
+              Ismételje meg a kívánt jelszót
+            </small>
+
+            <small *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.dirty
+                                && !registerForm.get('confirmPassword')?.errors?.['serverError']
+                                && registerForm.get('confirmPassword')?.errors?.['pattern']" class="text-danger">
+              Legalább 6, legfeljebb 250 karakter hosszúnak kell lennie és tartalmazzon egy számot
+            </small>
+
+            <!-- ServerError BE-ről -->
+            <small *ngIf="registerForm.get('confirmPassword')?.errors?.['serverError']" class="text-danger">
+              {{registerForm.get('confirmPassword')?.getError('serverError')}}
             </small>
           </div>
         </div>

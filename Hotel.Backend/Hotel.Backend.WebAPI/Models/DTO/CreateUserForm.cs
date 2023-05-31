@@ -9,8 +9,13 @@ public record CreateUserForm
     public string UserName { get; set; } = string.Empty;
 
     [Required]
-    [RegularExpression("^(?=.*\\d)(?!.*\\s).{6,}$", ErrorMessage = "Legalább 6 karakter hosszúnak kell lennie és tartalmazzon egy számot")]
+    [RegularExpression("^(?=.*\\d)(?!.*\\s).{6,250}$", ErrorMessage = "Legalább 6, legfeljebb 250 karakter hosszúnak kell lennie és tartalmazzon egy számot")]
     public string Password { get; set; } = string.Empty;
+
+    [Required]
+    [RegularExpression("^(?=.*\\d)(?!.*\\s).{6,250}$", ErrorMessage = "Legalább 6, legfeljebb 250 karakter hosszúnak kell lennie és tartalmazzon egy számot")]
+    [Compare("Password", ErrorMessage = "Azonos jelszót kell megadni.")]
+    public string ConfirmPassword { get; set; } = string.Empty;
 
     [Required]
     [RegularExpression("^[a-z0-9.]{2,}[@][a-z0-9]{2,}[.][a-z]{2,}$", ErrorMessage = "Valós email-címet adjon meg")]
