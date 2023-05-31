@@ -10,10 +10,12 @@ namespace Hotel.Backend.WebAPI.Services;
 public class EmailService : IEmailService
 {
     private readonly IConfiguration _config;
+    private readonly ILogger<EmailService> _logger;
 
-    public EmailService(IConfiguration config)
+    public EmailService(IConfiguration config,ILogger<EmailService> logger)
     {
         _config = config;
+        _logger = logger;
     }
 
     public EmailDTO CreatingVerificationEmail(string emailAddress, string lastName, string firstName, string url)
@@ -61,7 +63,8 @@ public class EmailService : IEmailService
         }
         catch (Exception ex)
         {
-            throw new Exception("Küldés sikertelen");
+            _logger.LogError(ex, "nincs email");
+            throw new Exception("Küldés sikertelen",ex);
         }
         finally
         {
