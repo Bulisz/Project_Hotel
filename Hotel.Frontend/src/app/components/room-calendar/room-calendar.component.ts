@@ -135,8 +135,8 @@ export class RoomCalendarComponent implements OnInit {
         this.rows = Math.ceil((this.daysOfthisMonth.length + (this.daysOfthisMonth[0].weekDayNumber-1)) /7);
           this.firstMondayNumber = 7 - this.daysOfthisMonth[0].weekDayNumber + 1
              
-
-        for (let i = 0; i <= this.rows; i++) {
+          this.calendar = [];
+        for (let i = 0; i < this.rows; i++) {
           this.calendar[i] = [];
           for (let j = 0; j < 7; j++) {
             this.calendar[i][j] =  {
