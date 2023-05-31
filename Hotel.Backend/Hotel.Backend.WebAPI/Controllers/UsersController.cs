@@ -1,9 +1,7 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helper;
 using Hotel.Backend.WebAPI.Helpers;
-using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
-using Hotel.Backend.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.Backend.WebAPI.Controllers;
@@ -75,7 +73,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpPost("Register")]
+    [HttpPost(nameof(Register))]
     public async Task<ActionResult<UserDetails>> Register(CreateUserForm userDTOpost)
     {
         try
@@ -90,7 +88,18 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpPost("Login")]
+    [HttpPost(nameof(VerifyEmail))]
+    public async Task<ActionResult<bool>> VerifyEmail(EmailVerificationDTO request)
+    {
+        bool isSucceed = await _userService.VerifyEmailAsync(request);
+        if (isSucceed)
+        {
+            return Ok(isSucceed);
+        }
+        return BadRequest(isSucceed);
+    }
+
+    [HttpPost(nameof(Login))]
     public async Task<ActionResult<LoginResponse>> Login(LoginRequest request)
     {
         try

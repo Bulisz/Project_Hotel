@@ -11,6 +11,8 @@ import { EventListComponent } from './components/event-list/event-list.component
 import { PersonalComponent } from './components/personal/personal.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { OperatorComponent } from './components/operator/operator.component';
+import { EmailConfirmationComponent } from './components/email-confirmation/email-confirmation.component';
+import { PatientComponent } from './components/patient/patient.component';
 import { AdminGuardService } from './services/admin-guard.service';
 import { OperatorGuardService } from './services/operator-guard.service';
 import { UserGuardService } from './services/user-guard.service';
@@ -25,6 +27,8 @@ const routes: Routes = [
   { path: 'operator', component: OperatorComponent, canActivate: [OperatorGuardService]},
   { path: 'registration', component: RegistrationComponent},
   { path: 'login', component: LoginComponent},
+  { path: 'patient', component: PatientComponent},
+  { path: 'confirmEmail', component: EmailConfirmationComponent},
   { path: 'personal', component: PersonalComponent, canActivate: [UserGuardService]},
   { path: '**', component: ErrorComponent }
 ];

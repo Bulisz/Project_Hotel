@@ -12,4 +12,5 @@ public interface IUserService
     Task<UserDetailsDTO> UpdateUserAsync(UserUpdateDTO updateUser);
     Task<List<UserListItem>> GetAllUsersAsync();
     Task<UserDetailsDTO> UpdateUserAsAdminAsync(UserDetailsForAdmin updateUser);
+    Task<bool> VerifyEmailAsync(EmailVerificationDTO request);
 }

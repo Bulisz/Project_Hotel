@@ -46,6 +46,8 @@ import { CreateEquipmentComponent } from './components/create-equipment/create-e
 import { DeleteEquipmentComponent } from './components/delete-equipment/delete-equipment.component';
 import { AddEquipmentToRoomComponent } from './components/add-equipment-to-room/add-equipment-to-room.component';
 import { RemoveEquipmentFromRoomComponent } from './components/remove-equipment-from-room/remove-equipment-from-room.component';
+import { EmailConfirmationComponent } from './components/email-confirmation/email-confirmation.component';
+import { PatientComponent } from './components/patient/patient.component';
 import { RoomCalendarComponent } from './components/room-calendar/room-calendar.component';
 import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
 
@@ -89,6 +91,8 @@ import { LoadingDialogComponent } from './components/loading-dialog/loading-dial
     RemoveEquipmentFromRoomComponent,
     UserManagerComponent,
     UpdateUserAsAdmin,
+    EmailConfirmationComponent,
+    PatientComponent,
     RoomCalendarComponent,
     LoadingDialogComponent
   ],

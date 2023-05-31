@@ -66,4 +66,10 @@ public class UserService : IUserService
         UserDetailsDTO newUser = await _userRepository.UpdateUserAsAdminAsync(updateUser);
         return newUser;
     }
+
+    public async Task<bool> VerifyEmailAsync(EmailVerificationDTO request)
+    {
+        bool isSucceeded = await _userRepository.VerifyEmailAsync(request);
+        return isSucceeded;
+    }
 }
