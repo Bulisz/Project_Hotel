@@ -57,6 +57,7 @@ public class EmailService : IEmailService
 
         try
         {
+            smtp.CheckCertificateRevocation = false;
             smtp.ServerCertificateValidationCallback = MySslCertificateValidationCallback;
             await smtp.ConnectAsync(_config.GetValue<string>("EmailConfig:Host"), 465, true);
             smtp.AuthenticationMechanisms.Remove("XOAUTH2");
