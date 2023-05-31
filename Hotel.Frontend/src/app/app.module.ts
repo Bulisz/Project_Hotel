@@ -50,6 +50,7 @@ import { EmailConfirmationComponent } from './components/email-confirmation/emai
 import { PatientComponent } from './components/patient/patient.component';
 import { RoomCalendarComponent } from './components/room-calendar/room-calendar.component';
 import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { LoadingDialogComponent } from './components/loading-dialog/loading-dial
     EmailConfirmationComponent,
     PatientComponent,
     RoomCalendarComponent,
-    LoadingDialogComponent
+    LoadingDialogComponent,
+    AboutUsComponent
   ],
   imports: [
     BrowserModule,

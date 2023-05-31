@@ -33,17 +33,6 @@ public class UserRepository : IUserRepository
             throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
         }
 
-        var emailVerificationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        var encodedVerificationToken = Encoding.UTF8.GetBytes(emailVerificationToken);
-        var validEmailToken = WebEncoders.Base64UrlEncode(encodedVerificationToken);
-        string url = $"http://bulisz-001-site1.dtempurl.com//#/confirmEmail/?email={user.Email}&token={validEmailToken}";
-
-
-        EmailDTO email = _emailService.CreatingVerificationEmail(user.Email, user.LastName, user.FirstName, url);
-
-        await _emailService.SendEmailAsync(email);
-            
-
         IdentityResult identityResult = await _userManager.AddToRoleAsync(user, Role.Guest.ToString());
         if (!identityResult.Succeeded)
         {
@@ -54,6 +43,16 @@ public class UserRepository : IUserRepository
         UserDetailsDTO userDetails = new UserDetailsDTO();
         userDetails.User = user;
         userDetails.Roles = await _userManager.GetRolesAsync(user);
+
+        var emailVerificationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        var encodedVerificationToken = Encoding.UTF8.GetBytes(emailVerificationToken);
+        var validEmailToken = WebEncoders.Base64UrlEncode(encodedVerificationToken);
+        string url = $"http://bulisz-001-site1.dtempurl.com/#/confirmEmail/?email={user.Email}&token={validEmailToken}";
+
+
+        EmailDTO email = _emailService.CreatingVerificationEmail(user.Email, user.LastName, user.FirstName, url);
+
+        await _emailService.SendEmailAsync(email);
 
         return userDetails;
     }

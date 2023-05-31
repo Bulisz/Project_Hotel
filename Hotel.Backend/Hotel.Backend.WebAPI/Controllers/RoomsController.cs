@@ -2,6 +2,7 @@
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Hotel.Backend.WebAPI.Controllers;
 
@@ -10,18 +11,28 @@ namespace Hotel.Backend.WebAPI.Controllers;
 public class RoomsController : ControllerBase
 {
     private readonly IRoomService _roomService;
+    private readonly ILogger<RoomsController> _logger;
 
-    public RoomsController(IRoomService roomService)
+    public RoomsController(IRoomService roomService, ILogger<RoomsController> logger)
     {
         _roomService = roomService;
+        _logger = logger;
     }
 
 
     [HttpGet(nameof(GetListOfRooms))]
     public async Task<ActionResult<IEnumerable<RoomListDTO>>> GetListOfRooms()
     {
-        var listedRooms = await _roomService.GetListOfRoomsAsync();
-        return Ok(listedRooms);
+        try
+        {
+            var listedRooms = await _roomService.GetListOfRoomsAsync();
+            return Ok(listedRooms);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     [HttpGet("GetRoomById/{id}")]
@@ -34,8 +45,14 @@ public class RoomsController : ControllerBase
         }
         catch (HotelException ex)
         {
+            _logger.LogError(ex, ex.Message);
             var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
             return StatusCode((int)ex.Status, error);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
         }
     }
 
@@ -47,52 +64,106 @@ public class RoomsController : ControllerBase
             var listedRooms = await _roomService.GetAvailableRoomsAsync(query);
             return Ok(listedRooms);
         }
-        catch (HotelException hotelException)
+        catch (HotelException ex)
         {
-            var error = (new { type = "hotelError", message = hotelException.Message, errors = hotelException.HotelErrors });
-            return StatusCode((int)hotelException.Status, error);
+            _logger.LogError(ex, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
         }
     }
 
     [HttpPost(nameof(CreateRoom))]
     public async Task<ActionResult<RoomDetailsDTO>> CreateRoom(CreateRoomDTO createRoomDTO)
     {
-        RoomDetailsDTO roomDetailsDTO = await _roomService.CreateRoomAsync(createRoomDTO);
-        return Ok(roomDetailsDTO);
+        try
+        {
+            RoomDetailsDTO roomDetailsDTO = await _roomService.CreateRoomAsync(createRoomDTO);
+            return Ok(roomDetailsDTO);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     [HttpPost("SaveOneImage")]
     public async Task<ActionResult> SaveOneImage([FromForm] SaveOneImageDTO saveOneImage)
     {
-        await _roomService.SaveOneImageAsync(saveOneImage);
-        return Ok();
+        try
+        {
+            await _roomService.SaveOneImageAsync(saveOneImage);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     [HttpPost("SaveMoreImage")]
     public async Task<ActionResult> SaveMoreImage([FromForm] SaveMoreImageDTO saveMoreImage)
     {
-        await _roomService.SaveMoreImageAsync(saveMoreImage);
-        return Ok();
+        try
+        {
+            await _roomService.SaveMoreImageAsync(saveMoreImage);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     [HttpDelete(nameof(DeleteImageOfRoom))]
     public async Task<ActionResult> DeleteImageOfRoom(DeleteImageDTO image)
     {
-        await _roomService.DeleteImageOfRoomAsync(image.imageUrl);
-        return Ok();
+        try
+        {
+            await _roomService.DeleteImageOfRoomAsync(image.imageUrl);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     [HttpDelete("DeleteRoom/{id}")]
     public async Task<ActionResult> DeleteRoom(int id)
     {
-        await _roomService.DeleteRoomAsync(id);
-        return Ok();
+        try
+        {
+            await _roomService.DeleteRoomAsync(id);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     [HttpPut(nameof(ModifyRoom))]
     public async Task<ActionResult<RoomDetailsDTO>> ModifyRoom(RoomDetailsDTO roomDetailsDTO)
     {
-        RoomDetailsDTO modifiedRoom = await _roomService.ModifyRoomAsync(roomDetailsDTO);
-        return Ok(modifiedRoom);
+        try
+        {
+            RoomDetailsDTO modifiedRoom = await _roomService.ModifyRoomAsync(roomDetailsDTO);
+            return Ok(modifiedRoom);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 }
