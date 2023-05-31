@@ -33,7 +33,7 @@ builder.Services.AddScoped<ICalendarService, CalendarService>();
 //builder.Services.AddHostedService<UserCleanupService>(options =>
 //{
 //    var confirmationExpiration = TimeSpan.FromMinutes(7);
-//    var date
+//    var dateTimeProvider = options.GetRequiredService<IDateTimeProvider>();
 //    return new UserCleanupService(options, confirmationExpiration,);
 //});
 
