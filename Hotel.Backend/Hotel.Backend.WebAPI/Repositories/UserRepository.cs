@@ -36,7 +36,7 @@ public class UserRepository : IUserRepository
         var emailVerificationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
         var encodedVerificationToken = Encoding.UTF8.GetBytes(emailVerificationToken);
         var validEmailToken = WebEncoders.Base64UrlEncode(encodedVerificationToken);
-        string url = $"http://bulisz-001-site1.dtempurl.com//#/confirmEmail/?email={user.Email}&token={validEmailToken}";
+        string url = $"http://bulisz-001-site1.dtempurl.com/#/confirmEmail/?email={user.Email}&token={validEmailToken}";
 
 
         EmailDTO email = _emailService.CreatingVerificationEmail(user.Email, user.LastName, user.FirstName, url);
