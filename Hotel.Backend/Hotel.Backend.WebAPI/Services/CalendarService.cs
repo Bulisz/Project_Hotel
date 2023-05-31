@@ -15,14 +15,15 @@ namespace Hotel.Backend.WebAPI.Services
             _reservationRepository = reservationRepository;
         }
 
-        public async Task<List<ThisMonthCalendarDTO>> GetAllDaysOfMonthAsync()
+        public async Task<List<ThisMonthCalendarDTO>> GetAllDaysOfMonthAsync(int year, int month)
         {
             List<Reservation> reservations = await _reservationRepository.GetAllReservationsAsync();
 
             List<ThisMonthCalendarDTO> allDays = new List<ThisMonthCalendarDTO>();
 
             //DateTime today = DateTime.Now;
-            DateTime today = new DateTime(2023, 6, 6);
+
+            DateTime today = new DateTime(year, month, 1);
 
             for (int i = 1; i <= DateTime.DaysInMonth(today.Year, today.Month); i++)
             {

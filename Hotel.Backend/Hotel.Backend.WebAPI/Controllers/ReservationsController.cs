@@ -56,10 +56,10 @@ public class ReservationsController : ControllerBase
         return NoContent();
     }
 
-    [HttpGet(nameof(GetThisMonthCalendar))]
-    public async Task<ActionResult<List<ThisMonthCalendarDTO>>> GetThisMonthCalendar()
+    [HttpGet("GetThisMonthCalendar/{year}/{month}")]
+    public async Task<ActionResult<List<ThisMonthCalendarDTO>>> GetThisMonthCalendar(int year, int month)
     {
-        List<ThisMonthCalendarDTO> calendar = await _calendarService.GetAllDaysOfMonthAsync();
+        List<ThisMonthCalendarDTO> calendar = await _calendarService.GetAllDaysOfMonthAsync(year, month);
         return Ok(calendar);
     }
 }

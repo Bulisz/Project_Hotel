@@ -20,6 +20,7 @@ export class ReservationListComponent implements OnInit {
   @Input() reservationList!: Array<ReservationListItem>;
   @Output() reservationDeleted = new EventEmitter<string>;
   user: UserModel | null = null;
+  today: Date = new Date();
 
 
   constructor(private reservationService: ReservationService, private dialog: MatDialog, private as: AccountService, private dialogService: DialogService){}
@@ -73,7 +74,8 @@ export class ReservationListComponent implements OnInit {
       margin: '0 auto',
       disableClose: true,
       hasBackdrop: true,
-      position: {top: '1.2%'}
+      position: {top: '1.2%'},
+      data: {monthRequested: this.today}
     };
 
     let dialogref = this.dialog.open(RoomCalendarComponent,dialogBoxSettings)
