@@ -35,6 +35,7 @@ public class UserCleanupService : BackgroundService
                 {
                     if(expiredTime > user.CreatedAt)
                     {
+                        _logger.LogInformation(user.LastName, user.FirstName, user.Email, "Felhasználó törölve érvénytelen email-cím miatt");
                         userManager.DeleteAsync(user);
                     }
                 }

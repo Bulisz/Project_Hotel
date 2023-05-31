@@ -10,16 +10,19 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
+    private readonly IDateTimeProvider _dateTimeProvider;
 
-    public UserService(IUserRepository userRepository, IMapper mapper)
+    public UserService(IUserRepository userRepository, IMapper mapper, IDateTimeProvider dateTimeProvider)
     {
         _userRepository = userRepository;
         _mapper = mapper;
+        _dateTimeProvider = dateTimeProvider;
     }
 
     public async Task<UserDetails> RegisterAsync(CreateUserForm userDTOpost)
     {
         ApplicationUser userToRegister = _mapper.Map<ApplicationUser>(userDTOpost);
+        userToRegister.CreatedAt = _dateTimeProvider.Now;
 
         UserDetailsDTO createdUser = await _userRepository.InsertUserAsync(userToRegister, userDTOpost.Password);
 
