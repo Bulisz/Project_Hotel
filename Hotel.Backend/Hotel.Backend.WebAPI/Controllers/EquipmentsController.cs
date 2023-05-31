@@ -1,6 +1,7 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Hotel.Backend.WebAPI.Controllers;
 
@@ -9,52 +10,103 @@ namespace Hotel.Backend.WebAPI.Controllers;
 public class EquipmentsController : ControllerBase
 {
     private readonly IEquipmentService _equipmentService;
+    private readonly ILogger<EquipmentsController> _logger;
 
-    public EquipmentsController(IEquipmentService equipmentService)
+    public EquipmentsController(IEquipmentService equipmentService, ILogger<EquipmentsController> logger)
     {
         _equipmentService = equipmentService;
+        _logger = logger;
     }
 
     [HttpPost(nameof(CreateEquipment))]
     public async Task<ActionResult<EquipmentDTO>> CreateEquipment(CreateEquipmentDTO createEquipmentDTO)
     {
-        EquipmentDTO createdEquipment = await _equipmentService.CreateEquipmentAsync(createEquipmentDTO);
-        return Ok(createdEquipment);
+        try
+        {
+            EquipmentDTO createdEquipment = await _equipmentService.CreateEquipmentAsync(createEquipmentDTO);
+            return Ok(createdEquipment);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
+
     }
 
     [HttpDelete("DeleteEquipment/{id}")]
     public async Task<IActionResult> DeleteEquipment(int id)
     {
-        await _equipmentService.DeleteEquipmentAsync(id);
-        return Ok();
+        try
+        {
+            await _equipmentService.DeleteEquipmentAsync(id);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     [HttpPut(nameof(AddEquipmentToRoom))]
     public async Task<IActionResult> AddEquipmentToRoom(EquipmentAndRoomDTO equipmentAndRoomDTO)
     {
-        await _equipmentService.AddEquipmentToRoomAsync(equipmentAndRoomDTO);
-        return Ok();
+        try
+        {
+            await _equipmentService.AddEquipmentToRoomAsync(equipmentAndRoomDTO);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     [HttpPut(nameof(RemoveEquipmentFromRoom))]
     public async Task<IActionResult> RemoveEquipmentFromRoom(EquipmentAndRoomDTO equipmentAndRoomDTO)
     {
-        await _equipmentService.RemoveEquipmentFromRoomAsync(equipmentAndRoomDTO);
-        return Ok();
+        try
+        {
+            await _equipmentService.RemoveEquipmentFromRoomAsync(equipmentAndRoomDTO);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     [HttpGet(nameof(GetStandardEquipments))]
     public async Task<ActionResult<IEnumerable<EquipmentDTO>>> GetStandardEquipments()
     {
-        IEnumerable<EquipmentDTO> standardEquipments = await _equipmentService.GetStandardEquipmentsAsync();
-        return Ok(standardEquipments);
+        try
+        {
+            IEnumerable<EquipmentDTO> standardEquipments = await _equipmentService.GetStandardEquipmentsAsync();
+            return Ok(standardEquipments);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
 
     [HttpGet(nameof(GetNonStandardEquipments))]
     public async Task<ActionResult<IEnumerable<EquipmentDTO>>> GetNonStandardEquipments()
     {
-        IEnumerable<EquipmentDTO> nonStandardEquipments = await _equipmentService.GetNonStandardEquipmentsAsync();
-        return Ok(nonStandardEquipments);
+        try
+        {
+            IEnumerable<EquipmentDTO> nonStandardEquipments = await _equipmentService.GetNonStandardEquipmentsAsync();
+            return Ok(nonStandardEquipments);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 }

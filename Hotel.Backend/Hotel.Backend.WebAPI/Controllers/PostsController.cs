@@ -1,6 +1,7 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Hotel.Backend.WebAPI.Controllers;
 
@@ -9,44 +10,86 @@ namespace Hotel.Backend.WebAPI.Controllers;
 public class PostsController : ControllerBase
 {
     private readonly IPostService _postService;
+    private readonly ILogger<PostsController> _logger;
 
-    public PostsController(IPostService postService)
+    public PostsController(IPostService postService, ILogger<PostsController> logger)
     {
         _postService = postService;
+        _logger = logger;
     }
 
     [HttpPost(nameof(CreatePost))]
     public async Task<ActionResult<PostDetailsDTO>> CreatePost(PostCreateDTO post)
     {
-        PostDetailsDTO createdPost = await _postService.CreatePostAsync(post);
-        return Ok(createdPost);
+        try
+        {
+            PostDetailsDTO createdPost = await _postService.CreatePostAsync(post);
+            return Ok(createdPost);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     [HttpGet(nameof(GetConfirmedPosts))]
     public async Task<ActionResult<IEnumerable<PostDetailsDTO>>> GetConfirmedPosts()
     {
-        IEnumerable<PostDetailsDTO> confirmedPosts = await _postService.GetConfirmedPostsAsync();
-        return Ok(confirmedPosts);
+        try
+        {
+            IEnumerable<PostDetailsDTO> confirmedPosts = await _postService.GetConfirmedPostsAsync();
+            return Ok(confirmedPosts);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     [HttpGet(nameof(GetNonConfirmedPosts))]
     public async Task<ActionResult<IEnumerable<PostDetailsDTO>>> GetNonConfirmedPosts()
     {
-        IEnumerable<PostDetailsDTO> nonConfirmedPosts = await _postService.GetNonConfirmedPostsAsync();
-        return Ok(nonConfirmedPosts);
+        try
+        {
+            IEnumerable<PostDetailsDTO> nonConfirmedPosts = await _postService.GetNonConfirmedPostsAsync();
+            return Ok(nonConfirmedPosts);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     [HttpPut(nameof(ConfirmPost))]
     public async Task<IActionResult> ConfirmPost(ConfirmPostDTO confirmPostDTO)
     {
-        await _postService.ConfirmPostAsync(confirmPostDTO.Id);
-        return Ok();
+        try
+        {
+            await _postService.ConfirmPostAsync(confirmPostDTO.Id);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     [HttpDelete("DeletePost/{id}")]
     public async Task<IActionResult> DeletePost(int id)
     {
-        await _postService.DeletePostAsync(id);
-        return Ok();
+        try
+        {
+            await _postService.DeletePostAsync(id);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 }

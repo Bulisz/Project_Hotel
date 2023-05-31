@@ -3,6 +3,7 @@ using Hotel.Backend.WebAPI.Helper;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Hotel.Backend.WebAPI.Controllers;
 
@@ -12,11 +13,13 @@ public class UsersController : ControllerBase
 {
     private readonly IJwtService _jwtService;
     private readonly IUserService _userService;
+    private readonly ILogger<UsersController> _logger;
 
-    public UsersController(IJwtService jwtService, IUserService userService)
+    public UsersController(IJwtService jwtService, IUserService userService, ILogger<UsersController> logger)
     {
         _jwtService = jwtService;
         _userService = userService;
+        _logger = logger;
     }
 
 
@@ -34,8 +37,14 @@ public class UsersController : ControllerBase
         }
         catch (HotelException ex)
         {
+            _logger.LogError(ex, ex.Message);
             var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
             return StatusCode((int)ex.Status, error);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
         }
     }
 
@@ -53,8 +62,14 @@ public class UsersController : ControllerBase
         }
         catch (HotelException ex)
         {
+            _logger.LogError(ex, ex.Message);
             var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
             return StatusCode((int)ex.Status, error);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
         }
     }
 
@@ -67,8 +82,9 @@ public class UsersController : ControllerBase
             string currentUserId = User.GetCurrentUserId();
             return (await _userService.GetUserByIdAsync(currentUserId))!;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            _logger.LogError(ex, ex.Message);
             return NoContent();
         }
     }
@@ -83,20 +99,34 @@ public class UsersController : ControllerBase
         }
         catch (HotelException ex)
         {
+            _logger.LogError(ex, ex.Message);
             var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
             return StatusCode((int)ex.Status, error);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
         }
     }
 
     [HttpPost(nameof(VerifyEmail))]
     public async Task<ActionResult<bool>> VerifyEmail(EmailVerificationDTO request)
     {
-        bool isSucceed = await _userService.VerifyEmailAsync(request);
-        if (isSucceed)
+        try
         {
-            return Ok(isSucceed);
+            bool isSucceed = await _userService.VerifyEmailAsync(request);
+            if (isSucceed)
+            {
+                return Ok(isSucceed);
+            }
+            return BadRequest(isSucceed);
         }
-        return BadRequest(isSucceed);
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     [HttpPost(nameof(Login))]
@@ -116,8 +146,14 @@ public class UsersController : ControllerBase
         }
         catch (HotelException ex)
         {
-            var error = (new {type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
-            return StatusCode((int)ex.Status,error);
+            _logger.LogError(ex, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
         }
     }
 
@@ -125,31 +161,63 @@ public class UsersController : ControllerBase
     [HttpDelete("{userId}")]
     public async Task<ActionResult> DeleteUser(string userId)
     {
-        await _userService.DeleteUserAsync(userId);
-        return NoContent();
+        try
+        {
+            await _userService.DeleteUserAsync(userId);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     //[Authorize]
     [HttpPut(nameof(UpdateUser))]
     public async Task<ActionResult<UserDetailsDTO>> UpdateUser(UserUpdateDTO updateUser)
     {
-        UserDetailsDTO userDetails = await _userService.UpdateUserAsync(updateUser);
-        return userDetails;
+        try
+        {
+            UserDetailsDTO userDetails = await _userService.UpdateUserAsync(updateUser);
+            return userDetails;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     //[Authorize(Roles = "Admin")]
     [HttpGet(nameof(GetUsers))]
     public async Task<ActionResult<List<UserListItem>>> GetUsers()
     {
-        List<UserListItem> users = await _userService.GetAllUsersAsync();
-        return Ok(users);
+        try
+        {
+            List<UserListItem> users = await _userService.GetAllUsersAsync();
+            return Ok(users);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 
     //[Authorize(Roles = "Admin")]
     [HttpPut(nameof(UpdateUserAsAdmin))]
     public async Task<ActionResult<UserDetailsDTO>> UpdateUserAsAdmin(UserDetailsForAdmin updateUser)
     {
-        UserDetailsDTO newUser = await _userService.UpdateUserAsAdminAsync(updateUser);
-        return Ok(newUser);
+        try
+        {
+            UserDetailsDTO newUser = await _userService.UpdateUserAsAdminAsync(updateUser);
+            return Ok(newUser);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
     }
 }
