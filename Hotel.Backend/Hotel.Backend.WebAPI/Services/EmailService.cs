@@ -15,6 +15,21 @@ public class EmailService : IEmailService
     {
         _config = config;
     }
+
+    public EmailDTO CreatingVerificationEmail(string emailAddress, string lastName, string firstName, string url)
+    {
+        EmailDTO email = new EmailDTO
+        {
+            To = emailAddress,
+            Subject = "Regisztráció megerősítése",
+            Body = $"Kedves {lastName} {firstName}! \n" +
+            $" Erre a linkre kattintva megerősítheted honlapunkon a regisztrációt: <a href=\"{url}\"> aktiváló link</a> \n" +
+            "A link 15 percig lesz érvényes."
+        };
+
+        return email;
+    }
+
     public async Task SendEmailAsync(EmailDTO message)
     {
         MimeMessage email = CreateEmailMessage(message);

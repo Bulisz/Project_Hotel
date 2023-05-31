@@ -33,20 +33,13 @@ public class UserRepository : IUserRepository
             throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
         }
 
-        //Creating and sending verification email TODO: refactor
         var emailVerificationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
         var encodedVerificationToken = Encoding.UTF8.GetBytes(emailVerificationToken);
         var validEmailToken = WebEncoders.Base64UrlEncode(encodedVerificationToken);
         string url = $"http://localhost:4200/#/confirmEmail/?email={user.Email}&token={validEmailToken}";
 
-        EmailDTO email = new EmailDTO
-        {
-            To = user.Email,
-            Subject = "Regisztráció megerősítése",
-            Body = $"Kedves {user.LastName} {user.FirstName}! \n" +
-            $" Erre a linkre kattintva megerősítheted honlapunkon a regisztrációt: {url} \n" +
-            "15 percig lesz érvényes a link."
-        };
+
+        EmailDTO email = _emailService.CreatingVerificationEmail(user.Email, user.LastName, user.FirstName, url);
 
         await _emailService.SendEmailAsync(email);
             
