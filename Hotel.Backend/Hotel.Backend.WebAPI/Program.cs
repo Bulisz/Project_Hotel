@@ -27,6 +27,8 @@ builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
 builder.Services.AddScoped<IEquipmentService, EquipmentService>();
 builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<ICalendarService, CalendarService>();
+
 
 builder.Services.AddCorsRules();
 builder.Services.AddAuth(builder.Configuration);

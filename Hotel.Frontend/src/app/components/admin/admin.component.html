@@ -1,7 +1,7 @@
 <div class="main">
-  <app-room-manager></app-room-manager>
-  <app-reservation-list [reservationList]="reservations" (reservationDeleted)="loadReservations($event)"></app-reservation-list>
-  <app-post-manager></app-post-manager>
-  <app-equipment-manager></app-equipment-manager>
-  <app-user-manager [userList]="users" (userModified)="refreshUsers($event)"></app-user-manager>
+  <app-room-manager *ngIf="pageSelector==='rooms'"></app-room-manager>
+  <app-reservation-list *ngIf="pageSelector==='reservations'" [reservationList]="reservations" (reservationDeleted)="loadReservations($event)"></app-reservation-list>
+  <app-post-manager *ngIf="pageSelector==='posts'"></app-post-manager>
+  <app-equipment-manager *ngIf="pageSelector==='equipments'"></app-equipment-manager>
+  <app-user-manager *ngIf="pageSelector==='users'" [userList]="users" (userModified)="refreshUsers($event)"></app-user-manager>
 </div>

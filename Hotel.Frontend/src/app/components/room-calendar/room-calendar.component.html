@@ -1,0 +1,58 @@
+<div class="container-sm mt-3 outer">
+    <div class="container-sm shadow inner" style="padding: 0.75rem;">
+  
+      <div class="modal-header">
+        <h3 class="text-center title">{{thisMonth}}</h3>
+        <button class="btn-close btn-close" type="button" (click)="closeCalendar()"></button>
+      </div>
+      <table class="table calendar">
+        <thead >
+            <tr >
+                <th>Hétfő</th>
+                <th>Kedd</th>
+                <th>Szerda</th>
+                <th>Csütörtök</th>
+                <th>Péntek</th>
+                <th>Szombat</th>
+                <th>Vasárnap</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+            <tr *ngFor="let row of calendar" >
+                <td *ngFor="let item of row" style="padding: 0;">
+                  <div class="dateNumber"  *ngIf = "item.dateNumber">
+                  
+                          {{item.dateNumber}}
+                      
+                       
+                  </div>  
+                  
+                  <div *ngFor = "let hotelRoom of rooms" class="roomDivs">
+                    <div *ngFor = "let room of item.roomStatus">
+                     
+                      <div class="bookingBox"  *ngIf = "hotelRoom.id === room.roomNumber" 
+                        [ngStyle]="{'background-color':getColor(room.roomNumber), 
+                                    'color':getColor(room.roomNumber),
+                                    'border':getColor(room.roomNumber),
+                                    'border-radius': room.reservationStatus === 'first' ? '35% 0% 0% 35%' : (room.reservationStatus === 'last' ? '0% 35% 35% 0%' : (room.reservationStatus === 'oneDay' ? '35% 35% 35% 35%' : '0%'))}">
+                                                                    
+                          <div> ------------</div>
+                       </div>
+                      
+                    </div>
+
+                    
+                </div>
+              
+                </td>
+              
+            </tr>
+         
+        </tbody>
+      </table>
+      
+    </div>
+  </div>
+  
+

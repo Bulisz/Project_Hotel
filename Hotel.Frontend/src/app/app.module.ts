@@ -48,6 +48,8 @@ import { AddEquipmentToRoomComponent } from './components/add-equipment-to-room/
 import { RemoveEquipmentFromRoomComponent } from './components/remove-equipment-from-room/remove-equipment-from-room.component';
 import { EmailConfirmationComponent } from './components/email-confirmation/email-confirmation.component';
 import { PatientComponent } from './components/patient/patient.component';
+import { RoomCalendarComponent } from './components/room-calendar/room-calendar.component';
+import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +93,8 @@ import { PatientComponent } from './components/patient/patient.component';
     UpdateUserAsAdmin,
     EmailConfirmationComponent,
     PatientComponent,
+    RoomCalendarComponent,
+    LoadingDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import { UserModel } from 'src/app/models/user-model';
 import { AccountService } from 'src/app/services/account.service';
 import { ReservationForUserComponent } from '../reservation-for-user/reservation-for-user.component';
 import { DialogService } from 'src/app/services/dialog.service';
+import { RoomCalendarComponent } from '../room-calendar/room-calendar.component';
 
 @Component({
   selector: 'app-reservation-list',
@@ -23,13 +24,13 @@ export class ReservationListComponent implements OnInit {
 
   constructor(private reservationService: ReservationService, private dialog: MatDialog, private as: AccountService, private dialogService: DialogService){}
 
-  ngOnInit(): void {}
-
-  isDeletable(bookingFrom: Date){
+  ngOnInit(): void {
     this.as.user.subscribe({
       next: res => this.user = res
     })
+  }
 
+  isDeletable(bookingFrom: Date){
     const currentDate = new Date(Date.now());
     currentDate.setDate(currentDate.getDate() + 10);
 
@@ -65,4 +66,24 @@ export class ReservationListComponent implements OnInit {
     })
   }
 
+
+  showRoomCalendar(){
+    let dialogBoxSettings = {
+      width: '830px',
+      margin: '0 auto',
+      disableClose: true,
+      hasBackdrop: true,
+      position: {top: '1.2%'}
+    };
+
+    let dialogref = this.dialog.open(RoomCalendarComponent,dialogBoxSettings)
+
+    dialogref.afterClosed().subscribe({
+      next: res => {
+        if(res === 'agree'){
+          this.reservationDeleted.emit('reservationDeleted')
+        }
+      }
+    })
+  }
 }

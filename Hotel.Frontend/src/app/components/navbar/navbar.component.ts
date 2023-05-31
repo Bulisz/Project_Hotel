@@ -29,6 +29,10 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  adminPageSelector(page: string){
+    this.as.adminPageSelector.next(page)
+  }
+
   loginPopup(){
     let dialogBoxSettings = {
       width: '400px',

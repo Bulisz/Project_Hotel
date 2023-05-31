@@ -1,6 +1,7 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
+using Hotel.Backend.WebAPI.Models.DTO.CalendarDTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.Backend.WebAPI.Controllers;
@@ -10,10 +11,13 @@ namespace Hotel.Backend.WebAPI.Controllers;
 public class ReservationsController : ControllerBase
 {
     private readonly IReservationService _reservationService;
+    private readonly ICalendarService _calendarService;
 
-    public ReservationsController(IReservationService reservationService)
+    public ReservationsController(IReservationService reservationService, ICalendarService calendarService)
     {
         _reservationService = reservationService;
+        _calendarService = calendarService;
+
     }
 
     [HttpPost(nameof(CreateReservationForRoom))]
@@ -50,5 +54,12 @@ public class ReservationsController : ControllerBase
     {
         await _reservationService.DeleteReservationAsync(reservationId);
         return NoContent();
+    }
+
+    [HttpGet(nameof(GetThisMonthCalendar))]
+    public async Task<ActionResult<List<ThisMonthCalendarDTO>>> GetThisMonthCalendar()
+    {
+        List<ThisMonthCalendarDTO> calendar = await _calendarService.GetAllDaysOfMonthAsync();
+        return Ok(calendar);
     }
 }
