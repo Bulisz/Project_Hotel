@@ -16,6 +16,7 @@ import { PatientComponent } from './components/patient/patient.component';
 import { AdminGuardService } from './services/admin-guard.service';
 import { OperatorGuardService } from './services/operator-guard.service';
 import { UserGuardService } from './services/user-guard.service';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,7 +31,9 @@ const routes: Routes = [
   { path: 'patient', component: PatientComponent},
   { path: 'confirmEmail', component: EmailConfirmationComponent},
   { path: 'personal', component: PersonalComponent, canActivate: [UserGuardService]},
+  { path: 'about-us', component: AboutUsComponent},
   { path: '**', component: ErrorComponent }
+  
 ];
 
 @NgModule({
