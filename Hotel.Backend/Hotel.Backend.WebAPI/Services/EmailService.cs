@@ -22,8 +22,8 @@ public class EmailService : IEmailService
         {
             To = emailAddress,
             Subject = "Regisztráció megerősítése",
-            Body = $"Kedves {lastName} {firstName}! \n" +
-            $" Erre a linkre kattintva megerősítheted honlapunkon a regisztrációt: <a href=\"{url}\"> aktiváló link</a> \n" +
+            Body = $"Kedves {lastName} {firstName}! <br>" +
+            $" Erre a linkre kattintva megerősítheted honlapunkon a regisztrációt: <a href=\"{url}\"> aktiváló link</a>. <br>" +
             "A link 15 percig lesz érvényes."
         };
 

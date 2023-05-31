@@ -24,15 +24,19 @@ export class EmailConfirmationComponent implements OnInit {
     const verificationRequest: EmailVerificationModel = {
       email: this.email,
       token: this.token
-    }
+    };
 
-    let isEmailValid = false; 
+    
     this.accountService.confirmEmail(verificationRequest)
-      .then((res) => isEmailValid = res)
-    if(isEmailValid){
-      this.accountService.confirmEmail(verificationRequest)
-        .then((res) => this.router.navigate(['']))
-    }
+      .then((isEmailValid) => {
+        if(isEmailValid) {
+          this.navigateToHome();
+        }
+      });
+  }
+
+  navigateToHome(){
+    setTimeout(() => this.router.navigate(['']), 3000)
   }
 
 
