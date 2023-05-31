@@ -13,7 +13,7 @@ export class CalendarService {
 
   constructor(private http: HttpClient) { }
 
-  getAllDaysOfMonth(): Observable<Array<DayOfMonthModel>> {
-    return this.http.get<Array<DayOfMonthModel>>(`${environment.apiUrl}/${this.BASE_URL}/GetThisMonthCalendar`);
+  getAllDaysOfMonth(year: number, month: number): Observable<Array<DayOfMonthModel>> {
+    return this.http.get<Array<DayOfMonthModel>>(`${environment.apiUrl}/${this.BASE_URL}/GetThisMonthCalendar/${year}/${month}`);
   }
 }
