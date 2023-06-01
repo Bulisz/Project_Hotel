@@ -41,12 +41,7 @@ try
 	builder.Services.AddScoped<IEmailService, EmailService>();
 	builder.Services.AddScoped<ICalendarService, CalendarService>();
 
-//builder.Services.AddHostedService<UserCleanupService>(options =>
-//{
-//    var confirmationExpiration = TimeSpan.FromMinutes(7);
-//    var dateTimeProvider = options.GetRequiredService<IDateTimeProvider>();
-//    return new UserCleanupService(options, confirmationExpiration,);
-//});
+	builder.Services.AddHostedService<UserCleanupService>();
 
 
 	builder.Services.AddCorsRules();

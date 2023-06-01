@@ -7,15 +7,11 @@ namespace Hotel.Backend.WebAPI.Services;
 public class UserCleanupService : BackgroundService
 {
     private readonly IServiceProvider _serviceProvider;
-    private readonly TimeSpan _confirmationExpiration;
-    private readonly IDateTimeProvider _dateTimeProvider;
     private readonly ILogger<UserCleanupService> _logger;
 
-    public UserCleanupService(IServiceProvider serviceProvider, TimeSpan confirmationExpiration, IDateTimeProvider dateTimeProvider, ILogger<UserCleanupService> logger)
+    public UserCleanupService(IServiceProvider serviceProvider, ILogger<UserCleanupService> logger)
     {
         _serviceProvider = serviceProvider;
-        _confirmationExpiration = confirmationExpiration;
-        _dateTimeProvider = dateTimeProvider;
         _logger = logger;
     }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -26,22 +22,29 @@ public class UserCleanupService : BackgroundService
             {
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-                var currentTime = DateTime.UtcNow;
-                var expiredTime = currentTime.Subtract(_confirmationExpiration);
+                var currentTime = DateTime.Now;
+                var expiredTime = currentTime.Subtract(TimeSpan.FromMinutes(15));
 
-                List<ApplicationUser> unconfirmedUsers = userManager.Users.Where(user => user.EmailConfirmed == false).ToList();
+                List<ApplicationUser> unconfirmedUsers = new List<ApplicationUser>();
+                unconfirmedUsers = userManager.Users
+                    .Where(user => user.EmailConfirmed == false)
+                    .ToList();
+
 
                 foreach(var user in unconfirmedUsers)
                 {
-                    if(expiredTime > user.CreatedAt)
-                    {
-                        _logger.LogInformation(user.LastName, user.FirstName, user.Email, "Felhasználó törölve érvénytelen email-cím miatt");
-                        userManager.DeleteAsync(user);
-                    }
+                    
+                    
+                        if(expiredTime > user.CreatedAt)
+                        {
+                            _logger.LogInformation(user.LastName, user.FirstName, user.Email, "Felhasználó törölve érvénytelen email-cím miatt");
+                            userManager.DeleteAsync(user);
+                        }
+                    
                 }
             }
 
-            await Task.Delay(TimeSpan.FromMinutes(15), stoppingToken);
+            await Task.Delay(TimeSpan.FromMinutes(7), stoppingToken);
         }
         
     }
