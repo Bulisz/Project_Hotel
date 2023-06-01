@@ -6,7 +6,7 @@
   background-size: cover;
   background-attachment: fixed;
   background-position: center center;
-
+  margin-top: 60px;
 }
 
 .outer{
@@ -101,6 +101,7 @@ img {
 
     .body {
       padding: 1rem;
+      margin-top: 0;
     }
 
     .details-body {

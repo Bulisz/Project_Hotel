@@ -5,6 +5,7 @@
     background-size: cover;
     background-attachment: fixed;
     background-position: center center;
+    margin-top: 60px;
   }
 
 
@@ -162,5 +163,9 @@
       .btn {
         font-size: 1rem;
         width: 100px;
+      }
+
+      .main{
+        margin-top: 0;
       }
     }

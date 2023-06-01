@@ -13,7 +13,7 @@
         <thead>
           <tr>
             <th class="details" scope="col">Szoba</th>
-            <th class="details" scope="col" *ngIf="user?.role === 'Admin' || user?.role === 'Operator'">Vendég</th>
+            <th class="details" scope="col" *ngIf="(user?.role === 'Admin' || user?.role === 'Operator') && isAdminPage">Vendég</th>
             <th class="details" scope="col">Érkezés</th>
             <th class="details" scope="col">Távozás</th>
             <th class="details" scope="col">Műveletek</th>
@@ -23,7 +23,7 @@
         <tbody class="table-group-divider" *ngIf="reservationList">
           <tr *ngFor="let reservation of reservationList">
             <td class="details-content">{{reservation.roomName}}</td>
-            <td class="details-content"  *ngIf="user?.role === 'Admin' || user?.role === 'Operator'">{{reservation.fullName}}</td>
+            <td class="details-content"  *ngIf="(user?.role === 'Admin' || user?.role === 'Operator') && isAdminPage">{{reservation.fullName}}</td>
             <td class="details-content">{{reservation.bookingFrom | date: 'YYYY-MM-dd'}}</td>
             <td class="details-content">{{reservation.bookingTo | date: 'YYYY-MM-dd'}}</td>
             <td>
