@@ -2,6 +2,7 @@
 using Hotel.Backend.WebAPI.Controllers;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace HotelBackend.UnitTests.Controllers;
@@ -11,12 +12,14 @@ public class PostsControllerTests
 {
     private PostsController _controller;
     private Mock<IPostService> _postServiceMock;
+    private Mock<ILogger<PostsController>> _loggerMock;
 
     [TestInitialize]
     public void Setup()
     {
         _postServiceMock = new Mock<IPostService>();
-        _controller = new PostsController(_postServiceMock.Object);
+        _loggerMock = new Mock<ILogger<PostsController>>();
+        _controller = new PostsController(_postServiceMock.Object, _loggerMock.Object);
     }
 
     [TestMethod]
