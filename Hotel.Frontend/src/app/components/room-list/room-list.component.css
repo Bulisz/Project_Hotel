@@ -5,6 +5,7 @@
   background-attachment: fixed;
   background-position: center center;
   padding: 1rem;
+  margin-top:60px
 }
 
 .outer{
@@ -39,7 +40,7 @@
   padding: 0;
   text-align: center;
   line-height: 4.5rem;
-  
+
 }
 
 .inner{
@@ -158,4 +159,7 @@ img {
       width: 150px;
     }
 
+    .allitem {
+      margin-top: 0;
+    }
   }
