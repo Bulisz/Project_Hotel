@@ -3,6 +3,7 @@ using Hotel.Backend.WebAPI.Controllers;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System.Net;
 
@@ -14,12 +15,16 @@ public class ReservationsControllerTests
 
     private ReservationsController _controller;
     private Mock<IReservationService> _reservationServiceMock;
+    private Mock<ILogger<ReservationsController>> _loggerMock;
+    private Mock<ICalendarService> _calendarServiceMock;
 
     [TestInitialize]
     public void Setup()
     {
+        _loggerMock = new Mock<ILogger<ReservationsController>>();
+        _calendarServiceMock = new Mock<ICalendarService>();
         _reservationServiceMock = new Mock<IReservationService>();
-        _controller = new ReservationsController(_reservationServiceMock.Object);
+        _controller = new ReservationsController(_reservationServiceMock.Object, _calendarServiceMock.Object, _loggerMock.Object);
     }
 
     [TestMethod]
