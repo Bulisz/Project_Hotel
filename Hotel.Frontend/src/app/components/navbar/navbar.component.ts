@@ -57,10 +57,10 @@ export class NavbarComponent implements OnInit {
     this.dialog.open(RegistrationComponent, dialogBoxSettings)
   }
 
-
-
   logout(){
     this.as.logout();
-    this.router.navigate([''])
+    if(this.router.url==='/admin' || this.router.url==='/operator' || this.router.url==='/personal'){
+      this.router.navigate([''])
+    }
   }
 }

@@ -83,10 +83,6 @@
     width:100%;
   }
 
-  .image-container:hover {
-    cursor: pointer;
-  }
-
   .btn-container {
     display: flex;
     flex-direction: row;

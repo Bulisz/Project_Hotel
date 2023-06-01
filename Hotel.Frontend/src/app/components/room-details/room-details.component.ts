@@ -57,7 +57,7 @@ export class RoomDetailsComponent implements OnInit {
       width: '1000px',
       margin: '0 auto',
       hasBackdrop: true,
-      position: {top: '0%'},
+      position: {top: '2%', left: '15%'},
       data: { images: this.roomDetails.imageURLs }
     };
 

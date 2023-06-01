@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReservationListItem } from 'src/app/models/reservation-list-item';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
@@ -21,14 +21,22 @@ export class ReservationListComponent implements OnInit {
   @Output() reservationDeleted = new EventEmitter<string>;
   user: UserModel | null = null;
   today: Date = new Date();
+  isAdminPage = false;
 
 
-  constructor(private reservationService: ReservationService, private dialog: MatDialog, private as: AccountService, private dialogService: DialogService){}
+  constructor(
+    private reservationService: ReservationService,
+    private dialog: MatDialog, private as: AccountService,
+    private dialogService: DialogService,
+    private router: Router){}
 
   ngOnInit(): void {
     this.as.user.subscribe({
       next: res => this.user = res
     })
+    if(this.router.url !== '/personal'){
+      this.isAdminPage = true
+    }
   }
 
   isDeletable(bookingFrom: Date){
