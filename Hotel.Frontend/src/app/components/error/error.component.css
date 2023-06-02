@@ -7,6 +7,7 @@
     background-size: cover;
     background-attachment: fixed;
     background-position: center center;
+    margin-top: 60px;
   }
 
   .outer {
@@ -17,7 +18,7 @@
     padding: 0.5rem;
     background-color: whitesmoke;
   }
-  
+
   .inner {
     border-radius: 1.5rem;
     border: 3px solid #800020;
@@ -41,28 +42,28 @@
     color: #800020;
     margin: 2rem;
   }
-  
+
  @media screen and (max-width: 768px) {
     .body {
       padding: 8rem;
     }
-  
+
     .inner {
       border-radius: 1.2rem;
     }
-  
+
     .title {
       font-size: 3rem;
     }
-  
+
     .details {
       font-size: 1.8rem;
     }
-  
+
     .details-content {
       font-size: 1.2rem;
     }
-  
+
     img {
       width: 100%;
     }
@@ -72,29 +73,32 @@
     .body {
       padding: 5rem;
     }
-  
+
     .inner {
       border-radius: 0.8rem;
       border-width: 2px;
     }
-  
+
     .title {
       font-size: 2rem;
     }
-  
+
     .details {
       font-size: 1.5rem;
       margin-left: 0.5rem;
     }
-  
+
     .details-content {
       font-size: 1rem;
       margin: 1rem;
     }
-  
+
     .left-side,
     .right-side {
       width: 100%;
     }
+
+    .body{
+      margin-top: 0;
+    }
   }
-  
