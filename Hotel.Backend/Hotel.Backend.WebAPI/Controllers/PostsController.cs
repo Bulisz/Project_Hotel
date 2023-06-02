@@ -1,5 +1,6 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -18,6 +19,7 @@ public class PostsController : ControllerBase
         _logger = logger;
     }
 
+    [Authorize]
     [HttpPost(nameof(CreatePost))]
     public async Task<ActionResult<PostDetailsDTO>> CreatePost(PostCreateDTO post)
     {
@@ -48,6 +50,7 @@ public class PostsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet(nameof(GetNonConfirmedPosts))]
     public async Task<ActionResult<IEnumerable<PostDetailsDTO>>> GetNonConfirmedPosts()
     {
@@ -63,6 +66,7 @@ public class PostsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut(nameof(ConfirmPost))]
     public async Task<IActionResult> ConfirmPost(ConfirmPostDTO confirmPostDTO)
     {
@@ -78,6 +82,7 @@ public class PostsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("DeletePost/{id}")]
     public async Task<IActionResult> DeletePost(int id)
     {

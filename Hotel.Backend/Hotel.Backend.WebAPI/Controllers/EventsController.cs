@@ -1,6 +1,8 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
+using Hotel.Backend.WebAPI.Migrations;
 using Hotel.Backend.WebAPI.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -19,6 +21,7 @@ public class EventsController : ControllerBase
         _logger = logger;
     }
 
+    [Authorize(Roles = "Admin,Operator")]
     [HttpPost("CreateEvent")]
     public async Task<ActionResult<EventDetailsDTO>> CreateEvent([FromForm] CreateEventDTO createEvent)
     {
@@ -55,6 +58,7 @@ public class EventsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin,Operator")]
     [HttpPut(nameof(ModifyEvent))]
     public async Task<ActionResult<EventDetailsDTO>> ModifyEvent([FromForm] EventModifyDTO modifyEvent)
     {
@@ -77,6 +81,7 @@ public class EventsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin,Operator")]
     [HttpDelete("DeleteEvent/{id}")]
     public async Task<IActionResult> DeleteEvent(int id)
     {

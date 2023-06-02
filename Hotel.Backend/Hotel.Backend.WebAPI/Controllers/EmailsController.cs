@@ -3,6 +3,7 @@ using Hotel.Backend.WebAPI.Models.DTO;
 using Hotel.Backend.WebAPI.Services;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
@@ -24,6 +25,7 @@ public class EmailsController : ControllerBase
         _logger = logger;
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult> SendEmail(EmailDTO message)
     {
@@ -37,8 +39,5 @@ public class EmailsController : ControllerBase
             _logger.LogError(ex,ex.Message);
             return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
         }
-
     }
-
-
 }
