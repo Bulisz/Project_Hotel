@@ -12,32 +12,7 @@
          
           
           <div class="left-side">
-            <p class="title-small">Havi bontásban</p>
-            <div>  
-                <form  [formGroup]="roomsForDiagram" (ngSubmit)="onSubmit()">
-                    <div class="roomSelector">
-                    <div class="mb-3 left">
-                       
-                      <label for="months" class="form-label">Hónap kiválasztása:</label>
-                      <mat-select class="form-control"  id="months"  formControlName="months">
-                        <mat-option *ngFor="let month of monthNumber" value="{{month}}">
-                          {{monthString[month-1]}}
-                        </mat-option>
-                      </mat-select>
-                    </div>
-              
-                    <div class="text-center right">
-                      <button type="submit" class="btn" >Kiválaszt</button>
-                    </div>
-                </div>
-                  </form>
-              </div>
-            <div class="image-container">
-              <app-stat-month-bar></app-stat-month-bar>
-            </div>
-            <div class="btn-container">
-             
-            </div>
+            <app-stat-month-bar></app-stat-month-bar>
           </div>
   
           <div class="right-side">

@@ -52,31 +52,8 @@ export class StatisticsComponent implements OnInit {
 
   onSubmit(){
     this.dateToday = new Date(Date.now());
-        console.log(this.dateToday.getMonth())
-    this.calendarService.getAllDaysOfMonth(this.dateToday.getFullYear(), this.dateToday.getMonth() + 1).subscribe({
-      next: res => {
-        this.daysOfthisMonth = res;
-
-        for (let h = 0; h < this.rooms.length; h++) {
-          let counter = 0;
-          for (let i = 0; i < this.daysOfthisMonth.length; i++) {
-             for (let j = 0; j < this.daysOfthisMonth[i].roomStatus.length; j++) {
-               if (this.daysOfthisMonth[i].roomStatus[j].roomNumber == this.rooms[h].id) {
-                  counter++;
-               }
-             }
-          }
-          
-          // this.data.push(new RoomResMonthModel{
-          //   id : this.rooms[h].id,
-          //   name: this.rooms[h].name,
-          //   percentage: counter
-          // });
-
-        }
-      },
-      error: err => console.log(err)
-    })
+        
+    
   }
 
  

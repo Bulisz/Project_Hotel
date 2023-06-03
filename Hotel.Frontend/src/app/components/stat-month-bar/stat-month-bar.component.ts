@@ -1,4 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -10,6 +11,10 @@ import {
   ApexXAxis,
   ApexFill
 } from "ng-apexcharts";
+import { RoomListModel } from "src/app/models/room-list.model";
+import { RoomResMonthModel } from "src/app/models/room-res-month-model";
+import { RoomService } from "src/app/services/room.service";
+import { StatisticsService } from "src/app/services/statistics.service";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -31,7 +36,26 @@ export class StatMonthBarComponent {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: ChartOptions;
 
-  constructor() {
+  monthNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  monthString: Array<string> = ["Január", "Február", "Március", "Április", "Május", "Június",
+  "Július", "Augusztrus", "Szeptember", "Október", "November", "December"];
+
+  rooms!: Array<RoomListModel>
+  roomsForDiagram: FormGroup;
+  dateToday: Date | undefined;
+  yearToday: number = 2023;
+  data: Array<RoomResMonthModel> = [];
+
+  constructor(private rs: RoomService, 
+              private formBuilder: FormBuilder,
+              private statisticsService: StatisticsService) {
+
+    this.roomsForDiagram = this.formBuilder.group({
+      rooms: [''],
+      months: [''],
+      
+    })
+
     this.chartOptions = {
       series: [
         {
@@ -138,5 +162,29 @@ export class StatMonthBarComponent {
         }
       }
     };
+  }
+
+
+  async ngOnInit() {
+    await this.loadRooms()
+  }
+
+  async loadRooms(){
+    await this.rs.getAllRooms()
+      .then(res => this.rooms = res)
+      .catch(err =>  console.log(err))
+  }
+
+  onSubmit(){
+    this.statisticsService.getRoomMonthStat(this.yearToday, this.roomsForDiagram.value).subscribe({
+      next: res => {
+        this.data = res;
+        console.log(this.roomsForDiagram.value)
+      },
+      
+      error: err => console.log(err)
+  });
+        
+    
   }
 }

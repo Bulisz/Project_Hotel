@@ -131,7 +131,7 @@ export class RoomCalendarComponent implements OnInit {
       this.calendarService.getAllDaysOfMonth(this.yearNow, this.monthToday).subscribe({
         next: res => {
           this.daysOfthisMonth = res;
-        console.log(this.daysOfthisMonth);
+       
         this.rows = Math.ceil((this.daysOfthisMonth.length + (this.daysOfthisMonth[0].weekDayNumber-1)) /7);
           this.firstMondayNumber = 7 - this.daysOfthisMonth[0].weekDayNumber + 1
              
