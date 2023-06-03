@@ -5,7 +5,6 @@ import { ReservationListItem } from 'src/app/models/reservation-list-item';
 import { UserModel } from 'src/app/models/user-model';
 import { AccountService } from 'src/app/services/account.service';
 import { ReservationService } from 'src/app/services/reservation.service';
-import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { UpdateUserComponent } from '../update-user/update-user.component';
 import { DialogService } from 'src/app/services/dialog.service';
 
@@ -16,7 +15,7 @@ import { DialogService } from 'src/app/services/dialog.service';
 })
 export class PersonalComponent implements OnInit {
 
-  currentUser: UserModel | null = null;
+  currentUser: any;
   myReservations!: Array<ReservationListItem>;
   titulus = '';
 
@@ -68,7 +67,7 @@ export class PersonalComponent implements OnInit {
       disableClose: true,
       hasBackdrop: true,
       position: { top: '10%' },
-      data: { userName: this.currentUser?.userName, email: this.currentUser?.email, firstName: this.currentUser?.firstName, lastName: this.currentUser?.lastName, id: this.currentUser?.id }
+      data: { userName: this.currentUser?.username, email: this.currentUser?.email, firstName: this.currentUser?.firstName, lastName: this.currentUser?.lastName, id: this.currentUser?.id }
     };
 
     let dialogRef = this.dialog.open(UpdateUserComponent, dialogBoxSettings)
