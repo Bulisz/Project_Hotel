@@ -1,4 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
+import { FormGroup } from "@angular/forms";
 
 import {
   ChartComponent,
@@ -7,6 +8,7 @@ import {
   ApexXAxis,
   ApexTitleSubtitle
 } from "ng-apexcharts";
+import { RoomListModel } from "src/app/models/room-list.model";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -21,6 +23,17 @@ export type ChartOptions = {
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent  {
+  monthNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  monthString: Array<string> = ["Január", "Február", "Március", "Április", "Május", "Június",
+  "Július", "Augusztrus", "Szeptember", "Október", "November", "December"];
+
+  rooms!: Array<RoomListModel>
+  roomsForDiagram: FormGroup;
+
+
+
+
+
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: ChartOptions;
 
