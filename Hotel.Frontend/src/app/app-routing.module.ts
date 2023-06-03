@@ -17,6 +17,7 @@ import { AdminGuardService } from './services/admin-guard.service';
 import { OperatorGuardService } from './services/operator-guard.service';
 import { UserGuardService } from './services/user-guard.service';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'confirmEmail', component: EmailConfirmationComponent},
   { path: 'personal', component: PersonalComponent, canActivate: [UserGuardService]},
   { path: 'about-us', component: AboutUsComponent},
+  { path: 'statistics', component: StatisticsComponent},
   { path: '**', component: ErrorComponent }
   
 ];
