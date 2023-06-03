@@ -74,7 +74,6 @@ public class UsersController : ControllerBase
         }
     }
 
-    [Authorize]
     [HttpGet("GetCurrentUser")]
     public async Task<ActionResult<UserDetails>> GetCurrentUser()
     {
