@@ -44,23 +44,23 @@ export class StatMonthBarComponent {
   roomsForDiagram: FormGroup;
   dateToday: Date | undefined;
   yearToday: number = 2023;
+  monthToday: number = 0;
   data: Array<RoomResMonthModel> = [];
+  dataValues: Array<number> = [];
 
   constructor(private rs: RoomService, 
               private formBuilder: FormBuilder,
               private statisticsService: StatisticsService) {
 
     this.roomsForDiagram = this.formBuilder.group({
-      rooms: [''],
       months: [''],
-      
     })
 
     this.chartOptions = {
       series: [
         {
-          name: "Inflation",
-          data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2],
+          name: "Szobakihasználtság",
+          data: [0, 0, 0, 0, 0, 0, 0],
           color: "#800020"
         }
       ],
@@ -71,7 +71,7 @@ export class StatMonthBarComponent {
       plotOptions: {
         bar: {
           dataLabels: {
-            position: "top" // top, center, bottom
+            position: "bottom" // top, center, bottom
           }
         }
       },
@@ -89,13 +89,13 @@ export class StatMonthBarComponent {
 
       xaxis: {
         categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
+          "Bodri",
+          "Buksi",
+          "Morzsa",
+          "Kántor",
+          "Néro",
+          "Votán",
+          "Odin",
           
         ],
         position: "top",
@@ -153,7 +153,7 @@ export class StatMonthBarComponent {
         }
       },
       title: {
-        text: "Szobák kihasználtsága Januárban",
+        text: "Szobák kihasználtsága Júniusban",
         floating: false,
         offsetY: 320,
         align: "center",
@@ -176,15 +176,133 @@ export class StatMonthBarComponent {
   }
 
   onSubmit(){
-    this.statisticsService.getRoomMonthStat(this.yearToday, this.roomsForDiagram.value).subscribe({
+    this.monthToday = Number(this.roomsForDiagram.controls['months'].value);
+   
+    this.statisticsService.getRoomMonthStat(this.yearToday, this.monthToday).subscribe({
       next: res => {
         this.data = res;
-        console.log(this.roomsForDiagram.value)
+        
+        for (let i = 0; i < this.data.length; i++) {
+          this.dataValues[i] = this.data[i].percentage
+        }
+
+        this.generateDate();
+
       },
-      
       error: err => console.log(err)
   });
         
     
   }
+
+  generateDate() {
+    this.chartOptions = {
+      series: [
+        {
+          name: "Inflation",
+          data: this.dataValues,
+          color: "#800020"
+        }
+      ],
+      chart: {
+        height: 350,
+        type: "bar"
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            position: "top" // top, center, bottom
+          }
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function(val) {
+          return val + "%";
+        },
+        offsetY: -20,
+        style: {
+          fontSize: "12px",
+          colors: ["#304758"]
+        }
+      },
+
+      xaxis: {
+        categories: [
+          "Bodri",
+          "Buksi",
+          "Morzsa",
+          "Kántor",
+          "Néro",
+          "Votán",
+          "Odin",
+          
+        ],
+        position: "top",
+        labels: {
+          offsetY: -18
+        },
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
+        crosshairs: {
+          fill: {
+            type: "gradient",
+            gradient: {
+              colorFrom: "#D8E3F0",
+              colorTo: "#BED1E6",
+              stops: [0, 100],
+              opacityFrom: 0.4,
+              opacityTo: 0.5
+            }
+          }
+        },
+        tooltip: {
+          enabled: true,
+          offsetY: -35
+        }
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shade: "light",
+          type: "horizontal",
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: true,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [50, 0, 100, 100]
+        }
+      },
+      yaxis: {
+        axisBorder: {
+          show: true
+        },
+        axisTicks: {
+          show: true
+        },
+        labels: {
+          show: true,
+          formatter: function(val) {
+            return val + "%";
+          }
+        }
+      },
+      title: {
+        text: "Szobák kihasználtsága Júniusban",
+        floating: false,
+        offsetY: 320,
+        align: "center",
+        style: {
+          color: "#444"
+        }
+      }
+    };
+
+  }
+
 }

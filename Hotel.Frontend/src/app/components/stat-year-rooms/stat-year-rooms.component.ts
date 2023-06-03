@@ -55,18 +55,18 @@ export class StatYearRoomsComponent  {
     this.chartOptions = {
       series: [
         {
-          name: "series1",
-          data: [31, 40, 28, 51, 42, 109, 100],
+          name: "Bodri",
+          data: [31, 40, 28, 51, 42, 78, 36, 12, 27, 60, 48, 52],
           color: "#AF9E66"
         },
         {
-          name: "series2",
-          data: [11, 32, 45, 32, 34, 52, 41],
+          name: "Buksi",
+          data: [11, 32, 45, 32, 34, 52, 41, 40, 28, 51, 42, 78],
           color: "#55171E"
         },
         {
-          name: "series2",
-          data: [70, 62, 32, 12, 27, 60, 48],
+          name: "Morzsa",
+          data: [70, 62, 32, 12, 27, 60, 48, 52, 41, 40, 28, 51],
           color: "#A4255C"
         }
       ],
@@ -81,16 +81,8 @@ export class StatYearRoomsComponent  {
         curve: "smooth"
       },
       xaxis: {
-        type: "datetime",
-        categories: [
-          "2018-09-19T00:00:00.000Z",
-          "2018-09-19T01:30:00.000Z",
-          "2018-09-19T02:30:00.000Z",
-          "2018-09-19T03:30:00.000Z",
-          "2018-09-19T04:30:00.000Z",
-          "2018-09-19T05:30:00.000Z",
-          "2018-09-19T06:30:00.000Z"
-        ]
+        type: "category",
+        categories: this.monthString
       },
       tooltip: {
         x: {

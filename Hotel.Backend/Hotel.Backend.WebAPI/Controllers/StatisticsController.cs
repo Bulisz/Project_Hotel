@@ -20,7 +20,7 @@ namespace Hotel.Backend.WebAPI.Controllers
             _logger = logger;
         }
 
-        [HttpGet(nameof(GetRoomMonthStat))]
+        [HttpGet("GetRoomMonthStat/{year}/{month}")]
         public async Task<ActionResult<IEnumerable<RoomReservationPerMonthDTO>>> GetRoomMonthStat(int year, int month)
         {
             try
