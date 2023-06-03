@@ -1,20 +1,26 @@
 import { Component, ViewChild } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 import {
   ChartComponent,
   ApexAxisChartSeries,
   ApexChart,
   ApexXAxis,
-  ApexTitleSubtitle
+  ApexDataLabels,
+  ApexTooltip,
+  ApexStroke
 } from "ng-apexcharts";
+
 import { RoomListModel } from "src/app/models/room-list.model";
+import { RoomService } from "src/app/services/room.service";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
-  title: ApexTitleSubtitle;
+  stroke: ApexStroke;
+  tooltip: ApexTooltip;
+  dataLabels: ApexDataLabels;
 };
 
 @Component({
@@ -37,24 +43,75 @@ export class StatisticsComponent  {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: ChartOptions;
 
-  constructor() {
+  constructor(private rs: RoomService, private formBuilder: FormBuilder) {
+
+    this.roomsForDiagram = this.formBuilder.group({
+      rooms: [''],
+      months: [''],
+      
+    })
+
+
     this.chartOptions = {
       series: [
         {
-          name: "My-series",
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+          name: "series1",
+          data: [31, 40, 28, 51, 42, 109, 100],
+          color: "#AF9E66"
+        },
+        {
+          name: "series2",
+          data: [11, 32, 45, 32, 34, 52, 41],
+          color: "#55171E"
+        },
+        {
+          name: "series2",
+          data: [70, 62, 32, 12, 27, 60, 48],
+          color: "#A4255C"
         }
       ],
       chart: {
         height: 350,
-        type: "bar"
+        type: "area"
       },
-      title: {
-        text: "My First Angular Chart"
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: "smooth"
       },
       xaxis: {
-        categories: ["Jan", "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug", "Sep"]
+        type: "datetime",
+        categories: [
+          "2018-09-19T00:00:00.000Z",
+          "2018-09-19T01:30:00.000Z",
+          "2018-09-19T02:30:00.000Z",
+          "2018-09-19T03:30:00.000Z",
+          "2018-09-19T04:30:00.000Z",
+          "2018-09-19T05:30:00.000Z",
+          "2018-09-19T06:30:00.000Z"
+        ]
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm"
+        }
       }
+      
     };
   }
+
+  async ngOnInit() {
+    await this.loadRooms()
+  }
+
+  async loadRooms(){
+    await this.rs.getAllRooms()
+      .then(res => this.rooms = res)
+      .catch(err =>  console.log(err))
+  }
+
+  onSubmit(){}
+
+ 
 }
