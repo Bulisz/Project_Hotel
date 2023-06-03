@@ -51,6 +51,10 @@ import { PatientComponent } from './components/patient/patient.component';
 import { RoomCalendarComponent } from './components/room-calendar/room-calendar.component';
 import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { StatMonthBarComponent } from './components/stat-month-bar/stat-month-bar.component';
+import { StatRoomPieComponent } from './components/stat-room-pie/stat-room-pie.component';
+import { StatYearRoomsComponent } from './components/stat-year-rooms/stat-year-rooms.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +100,11 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
     PatientComponent,
     RoomCalendarComponent,
     LoadingDialogComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    StatisticsComponent,
+    StatMonthBarComponent,
+    StatRoomPieComponent,
+    StatYearRoomsComponent
   ],
   imports: [
     BrowserModule,
