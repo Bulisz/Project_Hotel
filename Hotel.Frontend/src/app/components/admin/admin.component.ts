@@ -13,12 +13,16 @@ export class AdminComponent implements OnInit{
 
   users: Array<UserListModel> = [];
   reservations: Array<ReservationListItem> = [];
-  pageSelector: string = '';
+  pageSelector: string | null = null;
 
   constructor(private rs: ReservationService, private accountService: AccountService){}
 
   async ngOnInit() {
     this.accountService.adminPageSelector.subscribe({next: res => this.pageSelector = res});
+    if(localStorage.getItem('adminPageSelector')){
+      this.accountService.adminPageSelector.next(localStorage.getItem('adminPageSelector'))
+    }
+
     await this.loadReservations('reservationDeleted');
     await this.loadUsers();
   }
