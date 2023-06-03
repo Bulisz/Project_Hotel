@@ -40,8 +40,9 @@ try
 	builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 	builder.Services.AddScoped<IEmailService, EmailService>();
 	builder.Services.AddScoped<ICalendarService, CalendarService>();
+    builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 
-	builder.Services.AddHostedService<UserCleanupService>();
+    builder.Services.AddHostedService<UserCleanupService>();
 
 
 	builder.Services.AddCorsRules();
