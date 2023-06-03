@@ -7,31 +7,31 @@
       <div class="container-sm shadow inner">
   
         <p class="title">Szobák kihasználtsága</p>
-        <p class="title-small">Havi bontásban</p>
-        <div>  
-            <form  [formGroup]="roomsForDiagram" (ngSubmit)="onSubmit()">
-                <div class="roomSelector">
-                <div class="mb-3 left">
-                   
-                  <label for="months" class="form-label">Hónap kiválasztása:</label>
-                  <mat-select class="form-control"  id="months"  formControlName="months">
-                    <mat-option *ngFor="let month of monthNumber" value="{{month}}">
-                      {{monthString[month-1]}}
-                    </mat-option>
-                  </mat-select>
-                </div>
-          
-                <div class="text-center right">
-                  <button type="submit" class="btn" >Kiválaszt</button>
-                </div>
-            </div>
-              </form>
-          </div>
+     
         <div class="details-body">
          
           
           <div class="left-side">
-             
+            <p class="title-small">Havi bontásban</p>
+            <div>  
+                <form  [formGroup]="roomsForDiagram" (ngSubmit)="onSubmit()">
+                    <div class="roomSelector">
+                    <div class="mb-3 left">
+                       
+                      <label for="months" class="form-label">Hónap kiválasztása:</label>
+                      <mat-select class="form-control"  id="months"  formControlName="months">
+                        <mat-option *ngFor="let month of monthNumber" value="{{month}}">
+                          {{monthString[month-1]}}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+              
+                    <div class="text-center right">
+                      <button type="submit" class="btn" >Kiválaszt</button>
+                    </div>
+                </div>
+                  </form>
+              </div>
             <div class="image-container">
               <app-stat-month-bar></app-stat-month-bar>
             </div>
@@ -41,9 +41,28 @@
           </div>
   
           <div class="right-side">
-             
+            <p  class="title-small">Éves bontásban</p>
+            <div> 
+                <form  [formGroup]="roomsForDiagram" (ngSubmit)="onSubmit()">
+                    <div class="roomSelector">
+                    <div class="mb-3 left">
+                       
+                      <label for="rooms" class="form-label">Szobák kiválasztása:</label>
+                      <mat-select multiple class="form-control"  id="rooms"  formControlName="rooms">
+                        <mat-option *ngFor="let room of rooms" value="{{room.id}}">
+                          {{room.name}}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+              
+                    <div class="text-center right">
+                      <button type="submit" class="btn" >Kiválaszt</button>
+                    </div>
+                </div>
+                  </form>
+            </div>
             <div class="image-container">
-              <app-stat-room-pie></app-stat-room-pie>
+              <app-stat-year-rooms></app-stat-year-rooms>
             </div>
             <div class="btn-container">
              
@@ -53,26 +72,7 @@
         </div>
   
 
-        <p  class="title-small">Éves bontásban</p>
-        <div> 
-            <form  [formGroup]="roomsForDiagram" (ngSubmit)="onSubmit()">
-                <div class="roomSelector">
-                <div class="mb-3 left">
-                   
-                  <label for="rooms" class="form-label">Szobák kiválasztása:</label>
-                  <mat-select multiple class="form-control"  id="rooms"  formControlName="rooms">
-                    <mat-option *ngFor="let room of rooms" value="{{room.id}}">
-                      {{room.name}}
-                    </mat-option>
-                  </mat-select>
-                </div>
-          
-                <div class="text-center right">
-                  <button type="submit" class="btn" >Kiválaszt</button>
-                </div>
-            </div>
-              </form>
-        </div>
+        
       </div>
     </div>
   </div>
