@@ -1,0 +1,148 @@
+.body {
+    margin: 0;
+    padding: 5rem;
+    background-image: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1683705423/Hotel/Logos/background_j8kb3g.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    margin-top: 60px;
+  }
+  
+  .outer{
+    border-radius: 2rem;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: whitesmoke;
+  }
+  
+  .inner{
+    border-radius: 1.5rem;
+    border: 3px solid #800020;
+    height: 100%;
+    position: inherit;
+    background-color: whitesmoke;
+  }
+  
+  .title {
+    font-family: caveat;
+    font-size: 4rem;
+    color: #800020;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .details-body {
+    display: flex;
+    flex-direction:row;
+  }
+  
+  .details {
+    font-family: caveat;
+    font-size: 2.5rem;
+    color: #800020;
+    margin-left: 1rem;
+  }
+  
+  .details-content {
+    font-family: 'Roboto';
+    font-size: 1.4rem;
+    color: #800020;
+  }
+  
+  .left-side {
+    width: 50%;
+    line-height: 1.5rem;
+  }
+  
+  img {
+    position: inherit;
+    width: 100%
+  }
+  
+  .right-side{
+    width: 50%;
+    margin-right: 0.5rem;
+  }
+  
+  .image-container {
+    border: #800020 2px solid;
+    padding: 0.5rem;
+    width:100%;
+  }
+  
+
+  
+  .btn-container {
+    display: flex;
+    flex-direction: column;
+    float: right;
+    margin: 2rem
+  }
+  
+  .btn {
+      background-color: #800020;
+      border-radius: 3rem;
+      color: whitesmoke;
+      font-family: 'Caveat';
+      font-size: 2.5rem;
+      width: 200px;
+  }
+  
+  @media only screen
+    and (min-device-width: 360px)
+    and (max-device-width: 1080px) {
+  
+      .body {
+        padding: 1rem;
+        margin-top: 0;
+      }
+  
+      .details-body {
+        flex-direction:column;
+      }
+  
+      .title {
+        font-size: 3rem;
+      }
+  
+      .details {
+        font-family: caveat;
+        font-size: 2rem;
+        margin-left: 0.3rem;
+      }
+  
+      .details-content {
+        font-size: 1.2rem;
+      }
+  
+      .left-side {
+        width: 100%;
+        line-height: 1.5rem;
+      }
+  
+      .right-side{
+        width: 100%;
+        margin-right: 0.5rem;
+      }
+  
+      .btn-container {
+        display: flex;
+        flex-direction: row;
+        float: right;
+        margin: 1rem
+      }
+  
+      .btn {
+          border-radius: 3rem;
+          font-size: 1.8rem;
+          width: 150px;
+      }
+  
+    }
+  
+  

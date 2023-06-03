@@ -55,6 +55,7 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { StatMonthBarComponent } from './components/stat-month-bar/stat-month-bar.component';
 import { StatRoomPieComponent } from './components/stat-room-pie/stat-room-pie.component';
 import { StatYearRoomsComponent } from './components/stat-year-rooms/stat-year-rooms.component';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { StatYearRoomsComponent } from './components/stat-year-rooms/stat-year-r
     MatDialogModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
-    MatSelectModule
+    MatSelectModule,
+    NgApexchartsModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
