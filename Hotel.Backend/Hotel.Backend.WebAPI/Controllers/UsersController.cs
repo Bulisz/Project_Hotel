@@ -221,4 +221,40 @@ public class UsersController : ControllerBase
             return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
         }
     }
+
+    [HttpPost(nameof(ForgotPassword))]
+    public async Task<ActionResult> ForgotPassword(ForgotPasswordDTO request)
+    {
+        try
+        {
+            await _userService.ForgotPasswordAsync(request);
+            return Ok();
+        }
+        catch (HotelException ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
+    }
+
+    [HttpPost(nameof(ResetPassword))]
+    public async Task<ActionResult<bool>> ResetPassword(ResetPasswordDTO request)
+    {
+        try
+        {
+            bool isSucceed = await _userService.ResetPasswordAsync(request);
+            return Ok(isSucceed);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
+    }
 }

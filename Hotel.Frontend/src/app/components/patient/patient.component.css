@@ -1,12 +1,13 @@
 
 .body {
     margin: 0;
-    padding: 3rem;
+    padding: 5rem;
     background-image: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1683705423/Hotel/Logos/background_j8kb3g.webp");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: center center;
+    margin-top: 60px;
   }
 
   .outer {
@@ -44,7 +45,8 @@
   
  @media screen and (max-width: 768px) {
     .body {
-      padding: 8rem;
+      padding: 0rem;
+      margin: 0;
     }
   
     .inner {

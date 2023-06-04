@@ -17,6 +17,9 @@ import { AdminGuardService } from './services/admin-guard.service';
 import { OperatorGuardService } from './services/operator-guard.service';
 import { UserGuardService } from './services/user-guard.service';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { NewPasswordComponent } from './components/new-password/new-password.component';
+import { SuccessfulResetComponent } from './components/successful-reset/successful-reset.component';
+import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,11 +30,14 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [AdminGuardService]},
   { path: 'operator', component: OperatorComponent, canActivate: [OperatorGuardService]},
   { path: 'registration', component: RegistrationComponent},
+  { path: 'forgotPassword', component: ForgottenPasswordComponent },
   { path: 'login', component: LoginComponent},
   { path: 'patient', component: PatientComponent},
   { path: 'confirmEmail', component: EmailConfirmationComponent},
+  { path: 'newPassword', component: NewPasswordComponent },
   { path: 'personal', component: PersonalComponent, canActivate: [UserGuardService]},
   { path: 'about-us', component: AboutUsComponent},
+  { path: 'successfulReset', component: SuccessfulResetComponent},
   { path: '**', component: ErrorComponent }
   
 ];

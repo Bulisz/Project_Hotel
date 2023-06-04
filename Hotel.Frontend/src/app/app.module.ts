@@ -51,6 +51,9 @@ import { PatientComponent } from './components/patient/patient.component';
 import { RoomCalendarComponent } from './components/room-calendar/room-calendar.component';
 import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { NewPasswordComponent } from './components/new-password/new-password.component';
+import { SuccessfulResetComponent } from './components/successful-reset/successful-reset.component';
+import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +99,10 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
     PatientComponent,
     RoomCalendarComponent,
     LoadingDialogComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    NewPasswordComponent,
+    SuccessfulResetComponent,
+    ForgottenPasswordComponent
   ],
   imports: [
     BrowserModule,

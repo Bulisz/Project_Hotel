@@ -34,6 +34,20 @@ public class EmailService : IEmailService
         return email;
     }
 
+    public EmailDTO CreatingForgottenPasswordEmail(string emailAddress, string lastName, string firstName, string url)
+    {
+        EmailDTO email = new EmailDTO
+        {
+            To = emailAddress,
+            Subject = "Elfelejtett jelszó pótlása",
+            Body = $"Kedves {lastName} {firstName}! <br>" +
+            $" Erre a linkre kattintva új jelszót adhatsz meg a regisztrált fiókodhoz: <a href=\"{url}\"> link</a>. <br>" +
+            "A link 15 percig lesz érvényes."
+        };
+
+        return email;
+    }
+
     public async Task SendEmailAsync(EmailDTO message)
     {
         MimeMessage email = CreateEmailMessage(message);
