@@ -190,7 +190,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Operator")]
     [HttpGet(nameof(GetUsers))]
     public async Task<ActionResult<List<UserListItem>>> GetUsers()
     {
