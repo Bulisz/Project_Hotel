@@ -1,8 +1,10 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Repositories;
 using Hotel.Backend.WebAPI.Database;
+using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace Hotel.Backend.WebAPI.Repositories;
 
@@ -17,6 +19,13 @@ public class EquipmentRepository : IEquipmentRepository
 
     public async Task<Equipment> CreateEquipmentAsync(Equipment equipment)
     {
+        Equipment? equipmentToCheck = await _context.Equipments.FirstOrDefaultAsync(x => x.Name.ToLower() == equipment.Name.ToLower());
+        if (equipmentToCheck is not null)
+        {
+            List<HotelFieldError> errors = new() { new HotelFieldError("name", "Ilyen néven már létezik felszereltség") };
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+        }
+
         _context.Equipments.Add(equipment);
         await _context.SaveChangesAsync();
         return equipment;

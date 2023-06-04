@@ -10,37 +10,111 @@
 
       <div class="mb-3">
         <label for="name" class="form-label">Név:</label>
-        <input type="text" class="form-control" id="name" formControlName="name">
+        <input type="text" class="form-control" id="name" formControlName="name"
+          [ngClass]="{'is-invalid': createRoomForm.get('name')?.invalid && createRoomForm.get('name')?.touched} || createRoomForm.get('name')?.errors?.['serverError']">
+
+        <small *ngIf="createRoomForm.get('name')?.invalid && createRoomForm.get('name')?.dirty
+                                && !createRoomForm.get('name')?.errors?.['serverError']
+                                && createRoomForm.get('name')?.errors?.['pattern']" class="text-danger">
+          Szobanév például: Foltos2
+        </small>
+
+        <small *ngIf="createRoomForm.get('name')?.errors?.['serverError']" class="text-danger">
+          {{createRoomForm.get('name')?.getError('serverError')}}
+        </small>
       </div>
 
       <div class="mb-3">
         <label for="price" class="form-label">Ár:</label>
-        <input type="number" class="form-control" id="price" formControlName="price">
+        <input type="number" class="form-control" id="price" formControlName="price"
+          [ngClass]="{'is-invalid': createRoomForm.get('price')?.invalid && createRoomForm.get('price')?.touched} || createRoomForm.get('price')?.errors?.['serverError']">
+
+        <small *ngIf="createRoomForm.get('price')?.invalid && createRoomForm.get('price')?.dirty
+                                && !createRoomForm.get('price')?.errors?.['serverError']
+                                && createRoomForm.get('price')?.errors?.['pattern']" class="text-danger">
+          1_000 és 100_000 közötti érték
+        </small>
+
+        <small *ngIf="createRoomForm.get('price')?.errors?.['serverError']" class="text-danger">
+          {{createRoomForm.get('price')?.getError('serverError')}}
+        </small>
       </div>
 
       <div class="mb-3">
         <label for="numberOfBeds" class="form-label">Ágyak száma:</label>
-        <input type="number" class="form-control" id="numberOfBeds" formControlName="numberOfBeds">
+        <input type="number" class="form-control" id="numberOfBeds" formControlName="numberOfBeds"
+          [ngClass]="{'is-invalid': createRoomForm.get('numberOfBeds')?.invalid && createRoomForm.get('numberOfBeds')?.touched} || createRoomForm.get('numberOfBeds')?.errors?.['serverError']">
+
+        <small *ngIf="createRoomForm.get('numberOfBeds')?.invalid && createRoomForm.get('numberOfBeds')?.dirty
+                                && !createRoomForm.get('numberOfBeds')?.errors?.['serverError']
+                                && createRoomForm.get('numberOfBeds')?.errors?.['pattern']" class="text-danger">
+          1 és 10 közötti érték
+        </small>
+
+        <small *ngIf="createRoomForm.get('numberOfBeds')?.errors?.['serverError']" class="text-danger">
+          {{createRoomForm.get('numberOfBeds')?.getError('serverError')}}
+        </small>
       </div>
 
       <div class="mb-3">
         <label for="description" class="form-label">Rövid leírás:</label>
-        <textarea type="text" class="form-control" id="description" formControlName="description"></textarea>
+        <textarea type="text" class="form-control" id="description" formControlName="description"
+        [ngClass]="{'is-invalid': createRoomForm.get('description')?.invalid && createRoomForm.get('description')?.touched} || createRoomForm.get('description')?.errors?.['serverError']"></textarea>
+
+        <small *ngIf="createRoomForm.get('description')?.invalid && createRoomForm.get('description')?.dirty
+              && !createRoomForm.get('description')?.errors?.['serverError']" class="text-danger">
+              10 és 250 karakter között
+        </small>
+
+        <small *ngIf="createRoomForm.get('description')?.errors?.['serverError']" class="text-danger">
+          {{createRoomForm.get('description')?.getError('serverError')}}
+        </small>
       </div>
 
       <div class="mb-3">
-        <label for="size" class="form-label">Méret:</label>
-        <input type="text" class="form-control" id="size" formControlName="size">
+        <label for="size" class="form-label">Szöveges méret:</label>
+        <input type="text" class="form-control" id="size" formControlName="size"
+        [ngClass]="{'is-invalid': createRoomForm.get('size')?.invalid && createRoomForm.get('size')?.touched} || createRoomForm.get('size')?.errors?.['serverError']">
+
+      <small *ngIf="createRoomForm.get('size')?.invalid && createRoomForm.get('size')?.dirty
+                              && !createRoomForm.get('size')?.errors?.['serverError']" class="text-danger">
+        Például: 3 ágyas kertes szoba, 5-től 50 karakterig
+      </small>
+
+      <small *ngIf="createRoomForm.get('size')?.errors?.['serverError']" class="text-danger">
+        {{createRoomForm.get('size')?.getError('serverError')}}
+      </small>
       </div>
 
       <div class="mb-3">
         <label for="longDescription" class="form-label">Hosszú leírás:</label>
-        <textarea type="text" class="form-control" id="longDescription" formControlName="longDescription"></textarea>
+        <textarea type="text" class="form-control" id="longDescription" formControlName="longDescription"
+        [ngClass]="{'is-invalid': createRoomForm.get('longDescription')?.invalid && createRoomForm.get('longDescription')?.touched} || createRoomForm.get('longDescription')?.errors?.['serverError']"></textarea>
+
+        <small *ngIf="createRoomForm.get('longDescription')?.invalid && createRoomForm.get('longDescription')?.dirty
+              && !createRoomForm.get('longDescription')?.errors?.['serverError']" class="text-danger">
+              100 és 4000 karakter között
+        </small>
+
+        <small *ngIf="createRoomForm.get('longDescription')?.errors?.['serverError']" class="text-danger">
+          {{createRoomForm.get('longDescription')?.getError('serverError')}}
+        </small>
       </div>
 
       <div class="mb-3">
         <label for="maxNumberOfDogs" class="form-label">Kutyaszám:</label>
-        <input type="number" class="form-control" id="maxNumberOfDogs" formControlName="maxNumberOfDogs">
+        <input type="number" class="form-control" id="maxNumberOfDogs" formControlName="maxNumberOfDogs"
+        [ngClass]="{'is-invalid': createRoomForm.get('maxNumberOfDogs')?.invalid && createRoomForm.get('maxNumberOfDogs')?.touched} || createRoomForm.get('maxNumberOfDogs')?.errors?.['serverError']">
+
+      <small *ngIf="createRoomForm.get('maxNumberOfDogs')?.invalid && createRoomForm.get('maxNumberOfDogs')?.dirty
+                              && !createRoomForm.get('maxNumberOfDogs')?.errors?.['serverError']
+                              && createRoomForm.get('maxNumberOfDogs')?.errors?.['pattern']" class="text-danger">
+        1 és 10 közötti érték
+      </small>
+
+      <small *ngIf="createRoomForm.get('maxNumberOfDogs')?.errors?.['serverError']" class="text-danger">
+        {{createRoomForm.get('maxNumberOfDogs')?.getError('serverError')}}
+      </small>
       </div>
 
       <div class="text-center">

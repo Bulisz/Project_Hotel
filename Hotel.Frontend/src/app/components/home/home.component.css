@@ -1,3 +1,7 @@
+.main{
+  margin-top: 68px;
+}
+
 .outer{
   border-radius: 2rem;
   width: 100%px;
@@ -74,6 +78,9 @@ img{
     .post-loop .intro-text {
       font-size: 1.1rem;
       margin-bottom: 5rem;
+    }
+    .main{
+      margin-top: 0;
     }
   }
 

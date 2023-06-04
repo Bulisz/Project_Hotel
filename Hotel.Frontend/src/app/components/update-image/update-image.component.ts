@@ -22,7 +22,7 @@ export class UpdateImageComponent {
     @Inject(MAT_DIALOG_DATA) public data: {roomId: number}
     ){
     this.updateImageForm  = new FormBuilder().group({
-      description: new FormControl('', Validators.required),
+      description: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
       images: new FormControl(null, Validators.required)
     })
   }

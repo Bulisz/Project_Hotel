@@ -2,6 +2,7 @@
 using Hotel.Backend.WebAPI.Helper;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -23,7 +24,7 @@ public class UsersController : ControllerBase
     }
 
 
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpGet("GetUserByName/{username}")]
     public async Task<ActionResult<UserDetails>> GetUserByName(string username)
     {
@@ -48,7 +49,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    //[Authorize(Roles = "Admin")]
+    [Authorize]
     [HttpGet("GetUserById/{id}")]
     public async Task<ActionResult<UserDetails>> GetUserById(string id)
     {
@@ -73,7 +74,6 @@ public class UsersController : ControllerBase
         }
     }
 
-    //[Authorize]
     [HttpGet("GetCurrentUser")]
     public async Task<ActionResult<UserDetails>> GetCurrentUser()
     {
@@ -109,6 +109,7 @@ public class UsersController : ControllerBase
             return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
         }
     }
+
 
     [HttpPost(nameof(VerifyEmail))]
     public async Task<ActionResult<bool>> VerifyEmail(EmailVerificationDTO request)
@@ -157,7 +158,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    //[Authorize]
+    [Authorize]
     [HttpDelete("{userId}")]
     public async Task<ActionResult> DeleteUser(string userId)
     {
@@ -173,7 +174,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    //[Authorize]
+    [Authorize]
     [HttpPut(nameof(UpdateUser))]
     public async Task<ActionResult<UserDetailsDTO>> UpdateUser(UserUpdateDTO updateUser)
     {
@@ -189,7 +190,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpGet(nameof(GetUsers))]
     public async Task<ActionResult<List<UserListItem>>> GetUsers()
     {
@@ -205,7 +206,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpPut(nameof(UpdateUserAsAdmin))]
     public async Task<ActionResult<UserDetailsDTO>> UpdateUserAsAdmin(UserDetailsForAdmin updateUser)
     {

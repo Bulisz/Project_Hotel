@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateRoomComponent } from '../create-room/create-room.component';
 import { RoomService } from 'src/app/services/room.service';
 import { RoomListModel } from 'src/app/models/room-list.model';
-import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { UpdateImageComponent } from '../update-image/update-image.component';
 import { DeleteImageComponent } from '../delete-image/delete-image.component';
 import { DialogService } from 'src/app/services/dialog.service';

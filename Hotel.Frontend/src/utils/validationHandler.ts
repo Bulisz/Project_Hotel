@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { FormGroup } from "@angular/forms";
-import { Router } from "@angular/router";
 
 export function validationHandler(error: Error, form: FormGroup) {
   if (error instanceof HttpErrorResponse && error.status === 400) {

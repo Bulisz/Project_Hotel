@@ -17,7 +17,7 @@ import { EmailVerificationModel } from '../models/email-verification-model';
 })
 export class AccountService {
 
-  adminPageSelector = new BehaviorSubject<string>('');
+  adminPageSelector = new BehaviorSubject<string | null>(null);
   BASE_URL = 'users'
   user = new BehaviorSubject<UserModel | null>(null)
 
@@ -37,10 +37,11 @@ export class AccountService {
       })
   }
 
-  async getCurrentUser(): Promise<void> {
+  async getCurrentUser(): Promise<UserModel> {
     return await firstValueFrom(this.http.get<UserModel>(`${environment.apiUrl}/${this.BASE_URL}/getcurrentuser`))
       .then((res) => {
         this.user.next(res)
+        return res
       })
   }
 

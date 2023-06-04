@@ -1,6 +1,8 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
+using Hotel.Backend.WebAPI.Migrations;
 using Hotel.Backend.WebAPI.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -77,6 +79,7 @@ public class RoomsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost(nameof(CreateRoom))]
     public async Task<ActionResult<RoomDetailsDTO>> CreateRoom(CreateRoomDTO createRoomDTO)
     {
@@ -92,6 +95,7 @@ public class RoomsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost("SaveOneImage")]
     public async Task<ActionResult> SaveOneImage([FromForm] SaveOneImageDTO saveOneImage)
     {
@@ -100,6 +104,12 @@ public class RoomsController : ControllerBase
             await _roomService.SaveOneImageAsync(saveOneImage);
             return Ok();
         }
+        catch (HotelException ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, ex.Message);
@@ -107,6 +117,7 @@ public class RoomsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost("SaveMoreImage")]
     public async Task<ActionResult> SaveMoreImage([FromForm] SaveMoreImageDTO saveMoreImage)
     {
@@ -115,6 +126,12 @@ public class RoomsController : ControllerBase
             await _roomService.SaveMoreImageAsync(saveMoreImage);
             return Ok();
         }
+        catch (HotelException ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, ex.Message);
@@ -122,6 +139,7 @@ public class RoomsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete(nameof(DeleteImageOfRoom))]
     public async Task<ActionResult> DeleteImageOfRoom(DeleteImageDTO image)
     {
@@ -137,6 +155,7 @@ public class RoomsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("DeleteRoom/{id}")]
     public async Task<ActionResult> DeleteRoom(int id)
     {
@@ -152,6 +171,7 @@ public class RoomsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut(nameof(ModifyRoom))]
     public async Task<ActionResult<RoomDetailsDTO>> ModifyRoom(RoomDetailsDTO roomDetailsDTO)
     {

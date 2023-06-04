@@ -1,5 +1,8 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Services;
+using Hotel.Backend.WebAPI.Helpers;
+using Hotel.Backend.WebAPI.Migrations;
 using Hotel.Backend.WebAPI.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -18,6 +21,7 @@ public class EquipmentsController : ControllerBase
         _logger = logger;
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost(nameof(CreateEquipment))]
     public async Task<ActionResult<EquipmentDTO>> CreateEquipment(CreateEquipmentDTO createEquipmentDTO)
     {
@@ -25,6 +29,12 @@ public class EquipmentsController : ControllerBase
         {
             EquipmentDTO createdEquipment = await _equipmentService.CreateEquipmentAsync(createEquipmentDTO);
             return Ok(createdEquipment);
+        }
+        catch (HotelException ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
         }
         catch (Exception ex)
         {
@@ -34,6 +44,7 @@ public class EquipmentsController : ControllerBase
 
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("DeleteEquipment/{id}")]
     public async Task<IActionResult> DeleteEquipment(int id)
     {
@@ -49,6 +60,7 @@ public class EquipmentsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut(nameof(AddEquipmentToRoom))]
     public async Task<IActionResult> AddEquipmentToRoom(EquipmentAndRoomDTO equipmentAndRoomDTO)
     {
@@ -64,6 +76,7 @@ public class EquipmentsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut(nameof(RemoveEquipmentFromRoom))]
     public async Task<IActionResult> RemoveEquipmentFromRoom(EquipmentAndRoomDTO equipmentAndRoomDTO)
     {
@@ -93,7 +106,6 @@ public class EquipmentsController : ControllerBase
             return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
         }
     }
-
 
     [HttpGet(nameof(GetNonStandardEquipments))]
     public async Task<ActionResult<IEnumerable<EquipmentDTO>>> GetNonStandardEquipments()

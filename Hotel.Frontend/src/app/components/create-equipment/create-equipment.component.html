@@ -10,7 +10,17 @@
 
       <div class="mb-3">
         <label for="name" class="form-label">Felszereltség neve:</label>
-        <input type="text" class="form-control" id="name" formControlName="name">
+        <input type="text" class="form-control" id="name" formControlName="name"
+        [ngClass]="{'is-invalid': createEquipmentForm.get('name')?.invalid && createEquipmentForm.get('name')?.touched} || createEquipmentForm.get('name')?.errors?.['serverError']">
+
+      <small *ngIf="createEquipmentForm.get('name')?.invalid && createEquipmentForm.get('name')?.dirty
+                              && !createEquipmentForm.get('name')?.errors?.['serverError']" class="text-danger">
+        2 és 50 karakter között
+      </small>
+
+      <small *ngIf="createEquipmentForm.get('name')?.errors?.['serverError']" class="text-danger">
+        {{createEquipmentForm.get('name')?.getError('serverError')}}
+      </small>
       </div>
 
       <div class="mb-3">

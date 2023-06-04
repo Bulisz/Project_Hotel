@@ -2,6 +2,7 @@
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Hotel.Backend.WebAPI.Models.DTO.CalendarDTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -22,6 +23,7 @@ public class ReservationsController : ControllerBase
         _logger = logger;
     }
 
+    [Authorize]
     [HttpPost(nameof(CreateReservationForRoom))]
     public async Task<ActionResult<ReservationDetailsDTO>> CreateReservationForRoom(ReservationRequestDTO request)
     {
@@ -42,6 +44,7 @@ public class ReservationsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin,Operator")]
     [HttpGet(nameof(GetAllReservations))]
     public async Task<ActionResult<IEnumerable<ReservationListItemDTO>>> GetAllReservations()
     {
@@ -57,6 +60,7 @@ public class ReservationsController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpGet("{userId}")]
     public async Task<ActionResult<IEnumerable<ReservationListItemDTO>>> GetMyOwnReservations(string userId)
     {
@@ -72,6 +76,7 @@ public class ReservationsController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpDelete("{reservationId}")]
     public async Task<ActionResult> DeleteReservation(int reservationId)
     {
@@ -87,6 +92,7 @@ public class ReservationsController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin,Operator")]
     [HttpGet("GetThisMonthCalendar/{year}/{month}")]
     public async Task<ActionResult<List<ThisMonthCalendarDTO>>> GetThisMonthCalendar(int year, int month)
     {

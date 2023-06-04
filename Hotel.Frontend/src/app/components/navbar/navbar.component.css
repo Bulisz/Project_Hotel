@@ -37,3 +37,19 @@ img {
   cursor: pointer;
 }
 
+.navbar-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+@media only screen
+  and (min-device-width: 360px)
+  and (max-device-width: 1080px) {
+    .navbar-container {
+      position: static;
+      top: 0;
+      width: 100%;
+    }
+  }
+

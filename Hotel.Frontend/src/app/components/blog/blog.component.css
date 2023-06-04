@@ -5,6 +5,7 @@
   background-size: cover;
   background-attachment: fixed;
   background-position: center center;
+  margin-top: 60px;
 }
 
 .outer{
@@ -95,5 +96,10 @@
       right: 2%;
       font-size: 1.8rem;
       width: 150px;
+    }
+
+    .main {
+      padding: 1rem;
+      margin-top: 0;
     }
   }

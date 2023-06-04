@@ -1,8 +1,8 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { NavigationExtras, Router } from "@angular/router";
-import { Observable, map, tap } from "rxjs";
+import { Observable, tap } from "rxjs";
 import { LoadingDialogComponent } from "src/app/components/loading-dialog/loading-dialog.component";
 
 @Injectable({
@@ -25,35 +25,40 @@ export class AuthInterceptor implements HttpInterceptor {
       const newRequest = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${localStorage.getItem('accessToken')}`)
       })
-      return next.handle(newRequest).pipe(tap(async (event: HttpEvent<any>) => {
+      return next.handle(newRequest).pipe(
+        tap((event: HttpEvent<any>) => {
+          if (event instanceof HttpResponse) {
+            dialogref.close()
+          }
+        },
+          (err: any) => {
+            dialogref.close()
+            this.navigateToErrorPage(err)
+          }
+        )
+      );
+    }
+
+    return next.handle(req).pipe(
+      tap((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
           dialogref.close()
         }
       },
         (err: any) => {
-          if(err.status !== 400) {
-            const navigationExtras: NavigationExtras = {
-              state: {message: err.error, status: err.status,  statusText: err.statusText},
-            };
-            this.router.navigate(['error'], navigationExtras)
-          }
           dialogref.close()
-        }));
-    }
-
-    return next.handle(req).pipe(tap(async (event: HttpEvent<any>) => {
-      if (event instanceof HttpResponse) {
-        dialogref.close()
-      }
-    },
-      (err: any) => {
-        if(err.status !== 400) {
-          const navigationExtras: NavigationExtras = {
-            state: {message: err.error, status: err.status, statusText: err.statusText},
-          };
-          this.router.navigate(['error'], navigationExtras)
+          this.navigateToErrorPage(err)
         }
-        dialogref.close()
-      }));
+      )
+    );
+  }
+
+  navigateToErrorPage(err: any) {
+    if (err.status !== 400) {
+      const navigationExtras: NavigationExtras = {
+        state: { message: err.error, status: err.status, statusText: err.statusText },
+      };
+      this.router.navigate(['error'], navigationExtras)
+    }
   }
 }
