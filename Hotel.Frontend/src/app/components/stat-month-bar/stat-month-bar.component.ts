@@ -241,7 +241,7 @@ export class StatMonthBarComponent {
     this.chartOptions = {
       series: [
         {
-          name: "Inflation",
+          name: "Foglaltság",
           data: this.dataValues,
           color: "#800020"
         }
@@ -271,9 +271,9 @@ export class StatMonthBarComponent {
 
       xaxis: {
         categories: this.dataRoomStrings,
-        position: "top",
+        position: "bottom",
         labels: {
-          offsetY: -18
+          offsetY: -5
         },
         axisBorder: {
           show: false
@@ -323,16 +323,18 @@ export class StatMonthBarComponent {
           formatter: function(val) {
             return val + "%";
           }
-        }
+        },
+        max: 100
       },
       title: {
         text: this.title,
         floating: false,
-        offsetY: 320,
+        offsetY: 330,
         align: "center",
         style: {
           color: "#444"
-        }
+        },
+        
       }
     };
 
