@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { RegisterModel } from '../models/register-model';
 import { LoginrequestModel } from '../models/loginrequest-model';
-import { LoginresponseModel } from '../models/loginresponse-model';
+import { TokensModel } from '../models/tokens-model';
 import { UserModel } from '../models/user-model';
 import { environment } from '../../environments/environment';
 import { UpdateUserModel } from '../models/update-user-model';
@@ -27,26 +27,45 @@ export class AccountService {
     return await firstValueFrom(this.http.post(`${environment.apiUrl}/${this.BASE_URL}/register`, newAccount));
   }
 
-  async login(loginData: LoginrequestModel): Promise<void> {
-    return await firstValueFrom(this.http.post<LoginresponseModel>(`${environment.apiUrl}/${this.BASE_URL}/login`, loginData))
-      .then((res) => {
-        if(res.token){
-          localStorage.setItem('accessToken', res.token);
-          this.user.next(res)
-        }
-      })
+  async login(loginData: LoginrequestModel): Promise<TokensModel> {
+    return await firstValueFrom(this.http.post<TokensModel>(`${environment.apiUrl}/${this.BASE_URL}/login`, loginData))
+    .then(async lrm => {
+      if(lrm.accessToken){
+        localStorage.setItem('accessToken', lrm.accessToken.value);
+        localStorage.setItem('refreshToken', lrm.refreshToken.value);
+        await this.getCurrentUser()
+      }
+      return lrm
+    })
   }
 
   async getCurrentUser(): Promise<UserModel> {
     return await firstValueFrom(this.http.get<UserModel>(`${environment.apiUrl}/${this.BASE_URL}/getcurrentuser`))
-      .then((res) => {
-        this.user.next(res)
-        return res
+    .then(um => {
+      this.user.next(um)
+      return um
+    })
+  }
+
+  async refresh(): Promise<TokensModel>{
+    let refreshToken= localStorage.getItem('refreshToken') ? localStorage.getItem('refreshToken') : '';
+    return await firstValueFrom(this.http.post<TokensModel>(`${environment.apiUrl}/${this.BASE_URL}/Refresh`, {refreshToken}))
+      .then(async td =>{
+        if(td.accessToken && td.refreshToken){
+          localStorage.setItem('accessToken', td.accessToken.value);
+          localStorage.setItem('refreshToken', td.refreshToken.value);
+          await this.getCurrentUser()
+        }
+        return td
       })
   }
 
-  logout(){
+  async logout(){
+    let refreshToken= localStorage.getItem('refreshToken') ? localStorage.getItem('refreshToken') : '';
+    await firstValueFrom(this.http.post(`${environment.apiUrl}/${this.BASE_URL}/Logout`, {refreshToken}))
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('adminPageSelector');
     this.user.next(null)
   }
 

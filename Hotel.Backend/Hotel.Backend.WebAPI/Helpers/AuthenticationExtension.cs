@@ -13,20 +13,7 @@ public static class AuthenticationExtension
 {
     public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                        .AddJwtBearer(options =>
-                        {
-                            options.TokenValidationParameters = new TokenValidationParameters()
-                            {
-                                ValidateIssuer = true,
-                                ValidateAudience = true,
-                                ValidateLifetime = true,
-                                ValidateIssuerSigningKey = true,
-                                ValidAudience = configuration["Jwt:Audience"],
-                                ValidIssuer = configuration["Jwt:Issuer"],
-                                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"] ?? string.Empty))
-                            };
-                        });
+
         services.AddIdentityCore<ApplicationUser>(options =>
         {
             options.User.RequireUniqueEmail = true;
@@ -41,8 +28,27 @@ public static class AuthenticationExtension
                   .AddEntityFrameworkStores<HotelDbContext>()
                   .AddDefaultTokenProviders();
 
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                 .AddJwtBearer(options =>
+                 {
+                     options.TokenValidationParameters = new TokenValidationParameters()
+                     {
+                         ValidateIssuer = true,
+                         ValidateAudience = true,
+                         ValidateLifetime = true,
+                         ValidateIssuerSigningKey = true,
+                         ValidAudience = configuration["JwtTokensOptions:AccessTokenOptions:Audience"],
+                         ValidIssuer = configuration["JwtTokensOptions:AccessTokenOptions:Issuer"],
+                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                                configuration["JwtTokensOptions:AccessTokenOptions:Key"]
+                                 ?? throw new InvalidOperationException("Access token key is missing."))
+                         )
+                     };
+                 });
+
         services.Configure<DataProtectionTokenProviderOptions>(options =>
             options.TokenLifespan = TimeSpan.FromMinutes(15));
+
         return services;
     }
 
