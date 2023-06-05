@@ -1,6 +1,6 @@
 export interface YearStatModel {
-    roomId: number;
-    roomName: string;
-    percentage: Array<number>;
+    
+    name: string;
+    data: Array<number>;
     color: string;
 }

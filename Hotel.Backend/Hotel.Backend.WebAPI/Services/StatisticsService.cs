@@ -82,9 +82,9 @@ namespace Hotel.Backend.WebAPI.Services
                 
                 StatisticsPerYearDTO myRoom = new StatisticsPerYearDTO
                 {
-                    RoomId = room.Id,
-                    RoomName = room.Name,
-                    Percentage = new List<double>()
+                   
+                    Name = room.Name,
+                    Data = new List<double>()
                 };
 
                 for (int month = 1; month <= 12; month++)
@@ -111,7 +111,7 @@ namespace Hotel.Backend.WebAPI.Services
 
                     }
                     
-                    myRoom.Percentage.Add(Math.Round(bookedDays));
+                    myRoom.Data.Add(Math.Round(bookedDays));
                 }
 
                 result.Add(myRoom);

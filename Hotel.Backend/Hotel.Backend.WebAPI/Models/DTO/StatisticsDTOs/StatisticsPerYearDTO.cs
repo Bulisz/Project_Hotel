@@ -2,9 +2,9 @@
 {
     public class StatisticsPerYearDTO
     {
-        public int RoomId { get; set; }
-        public string RoomName { get; set; }
-        public List<double> Percentage { get; set; } = new List<double>();
+       
+        public string Name { get; set; }
+        public List<double> Data { get; set; } = new List<double>();
         public string Color { get; set; } = string.Empty;
     }
 }

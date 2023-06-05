@@ -47,6 +47,7 @@ export class StatYearRoomsComponent  {
   preSelectedRooms: Array<string> = ['Bodri', 'Buksi', 'Morzsa'];
   roomNames: Array<string> = [];
   data: Array<YearStatModel> =[];
+  dogHotelColors: Array<string> = ['#AF9E66', '#6B3923', '#9A7294', '#C7A086', '#55171E', '#915934', '#A4255C', '#3F221B'];
 
 
 
@@ -67,23 +68,7 @@ export class StatYearRoomsComponent  {
 
     this.chartOptions = {
       
-      series: [
-        {
-          name: "Bodri",
-          data: [31, 40, 28, 51, 42, 78, 36, 12, 27, 60, 48, 52],
-          color: "#AF9E66"
-        },
-        {
-          name: "Buksi",
-          data: [11, 32, 45, 32, 34, 52, 41, 40, 28, 51, 42, 78],
-          color: "#55171E"
-        },
-        {
-          name: "Morzsa",
-          data: [70, 62, 32, 12, 27, 60, 48, 52, 41, 40, 28, 51],
-          color: "#A4255C"
-        }
-      ],
+      series: this.data,
       chart: {
         height: 350,
         type: "area"
@@ -117,6 +102,19 @@ export class StatYearRoomsComponent  {
     for (let i = 0; i <= yearsOfDogHotel; i++) {
       this.yearsForStat[i] = this.foundationYear + i;
     }
+
+    this.statisticsService.getYearStatistics(this.roomsForDiagram.value).subscribe({
+      next: res => {
+        this.data = res
+        for (let i = 0; i < this.data.length; i++) {
+          this.data[i].color = this.dogHotelColors[i];
+        }
+        this.generateDate();
+      },
+      error: err => console.log(err)
+      });
+
+
   }
 
   async loadRooms() {
@@ -133,17 +131,45 @@ export class StatYearRoomsComponent  {
   }
 
   onSubmit(){
-    console.log(this.roomsForDiagram.value)
+    
     this.statisticsService.getYearStatistics(this.roomsForDiagram.value).subscribe({
       next: res => {
         this.data = res
-        console.log(res);
+        for (let i = 0; i < this.data.length; i++) {
+          this.data[i].color = this.dogHotelColors[i];
+        }
+        this.generateDate();
       },
       error: err => console.log(err)
       });
       
   }
 
- 
+  generateDate() {
+    this.chartOptions = {
+      
+      series: this.data,
+      chart: {
+        height: 350,
+        type: "area"
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: "smooth"
+      },
+      xaxis: {
+        type: "category",
+        categories: this.monthString
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm"
+        }
+      }
+      
+    };
+  }
 }
 
