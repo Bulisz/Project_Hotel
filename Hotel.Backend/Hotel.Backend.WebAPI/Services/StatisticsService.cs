@@ -4,6 +4,7 @@ using Hotel.Backend.WebAPI.Models.DTO;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Repositories;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Hotel.Backend.WebAPI.Models.DTO.StatisticsDTOs;
 
 namespace Hotel.Backend.WebAPI.Services
 {
@@ -36,7 +37,7 @@ namespace Hotel.Backend.WebAPI.Services
                     int daysSpentInHotel = (int)duration.TotalDays + 1;
                     List<DateTime> bookedDaysList = new();
                     
-                    for (int j = 0; j <= daysSpentInHotel; j++)
+                    for (int j = 0; j <= daysSpentInHotel-1; j++)
                     {
                         if (reservation.BookingFrom.AddDays(j).Month == month && reservation.BookingFrom.AddDays(j).Year == year) 
                         { 
@@ -67,6 +68,57 @@ namespace Hotel.Backend.WebAPI.Services
             
             return result;
         }
+
+
+
+        public async Task<IEnumerable<StatisticsPerYearDTO>> GetYearStatAsync(YearStatQueryDTO query) 
+        {
+            List<StatisticsPerYearDTO> result = new List<StatisticsPerYearDTO>();
+            List<Room> choosedRooms = await _roomRepository.GetRoomsByIdsAsync(query.ChoosedRooms);
+
+            foreach (var room in choosedRooms)
+            {
+                
+                StatisticsPerYearDTO myRoom = new StatisticsPerYearDTO
+                {
+                    RoomId = room.Id,
+                    RoomName = room.Name,
+                    Percentage = new List<double>()
+                };
+
+                for (int month = 1; month <= 12; month++)
+                {
+                    double bookedDays = 0;
+                    foreach (var reservation in room.Reservations)
+                    {
+                        TimeSpan duration = reservation.BookingTo - reservation.BookingFrom;
+                        int daysSpentInHotel = (int)duration.TotalDays + 1;
+                        List<DateTime> bookedDaysList = new();
+
+                        for (int j = 0; j <= daysSpentInHotel-1; j++)
+                        {
+                            if (reservation.BookingFrom.AddDays(j).Month == month && reservation.BookingFrom.AddDays(j).Year == query.Year)
+                            {
+                                bookedDaysList.Add(reservation.BookingFrom.AddDays(j));
+                            }
+                        }
+
+                        foreach (var item in bookedDaysList)
+                        {
+                            bookedDays++;
+                        }
+
+                    }
+                    
+                    myRoom.Percentage.Add(Math.Round(bookedDays));
+                }
+
+                result.Add(myRoom);
+
+            }
+            return result;
+        }
+
 
     }
 }
