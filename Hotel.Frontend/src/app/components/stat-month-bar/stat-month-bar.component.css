@@ -28,9 +28,17 @@
   }
 
   .left {
-    width: 75%;
+    width: 20%;
+    margin-right: 0.7rem;
   }
+
+  .middle {
+    width: 60%;
+    margin-right: 0.7rem;
+  }
+
   .right {
-    width: 25%;
-    float: right;
+    width: 20%;
+    margin-top: 1.95rem;
+    
   }

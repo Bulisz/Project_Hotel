@@ -16,30 +16,7 @@
           </div>
   
           <div class="right-side">
-            <p  class="title-small">Éves bontásban</p>
-            <div> 
-                <form  [formGroup]="roomsForDiagram" (ngSubmit)="onSubmit()">
-                    <div class="roomSelector">
-                    <div class="mb-3 left">
-                       
-                      <label for="rooms" class="form-label">Szobák kiválasztása:</label>
-                      <mat-select multiple class="form-control"  id="rooms"  formControlName="rooms">
-                        <mat-option *ngFor="let room of rooms" value="{{room.id}}">
-                          {{room.name}}
-                        </mat-option>
-                      </mat-select>
-                    </div>
-              
-                    <div class="text-center right">
-                      <button type="submit" class="btn" >Kiválaszt</button>
-                    </div>
-                </div>
-                  </form>
-            </div>
-            <div class="image-container">
-              <app-stat-year-rooms></app-stat-year-rooms>
-            </div>
-            <div class="btn-container">
+            <app-stat-year-rooms></app-stat-year-rooms>
              
             </div>
           </div>

@@ -35,7 +35,14 @@ export class StatYearRoomsComponent  {
 
   rooms!: Array<RoomListModel>
   roomsForDiagram: FormGroup;
-
+  yearsForStat: Array<number> = [];
+  dateToday: Date | undefined;
+  foundationYear: number = 2022;
+  yearToday: number = new Date().getFullYear();
+  nextYear: number = new Date().getFullYear() + 1;
+  monthToday: number = new Date().getMonth()+1;
+  preSelectedRooms: Array<string> = ['Bodri', 'Buksi', 'Morzsa'];
+  roomNames: Array<string> = [];
 
 
 
@@ -46,8 +53,8 @@ export class StatYearRoomsComponent  {
   constructor(private rs: RoomService, private formBuilder: FormBuilder) {
 
     this.roomsForDiagram = this.formBuilder.group({
-      rooms: [''],
-      months: [''],
+      rooms: [this.preSelectedRooms],
+      year: [this.yearToday],
       
     })
 
@@ -95,12 +102,27 @@ export class StatYearRoomsComponent  {
 
   async ngOnInit() {
     await this.loadRooms()
+
+    this.dateToday = new Date(Date.now());
+    this.yearToday = this.dateToday.getFullYear();
+    this.monthToday = this.dateToday.getMonth()+1;
+    let yearsOfDogHotel = this.nextYear - this.foundationYear;
+    for (let i = 0; i <= yearsOfDogHotel; i++) {
+      this.yearsForStat[i] = this.foundationYear + i;
+    }
   }
 
-  async loadRooms(){
-    await this.rs.getAllRooms()
-      .then(res => this.rooms = res)
-      .catch(err =>  console.log(err))
+  async loadRooms() {
+    try {
+      const res = await this.rs.getAllRooms();
+      this.rooms = res;
+  
+      for (let i = 0; i < this.rooms.length; i++) {
+        this.roomNames[i] = this.rooms[i].name;
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   onSubmit(){}

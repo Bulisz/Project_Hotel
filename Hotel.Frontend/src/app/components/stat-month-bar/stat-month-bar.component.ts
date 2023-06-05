@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -43,18 +43,26 @@ export class StatMonthBarComponent {
   rooms!: Array<RoomListModel>
   roomsForDiagram: FormGroup;
   dateToday: Date | undefined;
-  yearToday: number = 2023;
-  monthToday: number = 0;
+  foundationYear: number = 2022;
+  yearToday: number = new Date().getFullYear();
+  nextYear: number = new Date().getFullYear() + 1;
+  monthToday: number = new Date().getMonth()+1;
   data: Array<RoomResMonthModel> = [];
   dataValues: Array<number> = [];
-
+  dataRoomNumbers: Array<number> = [];
+  dataRoomStrings: Array<string> = [];
+  yearsForStat: Array<number> = [];
+  title: string = '';
+  
   constructor(private rs: RoomService, 
               private formBuilder: FormBuilder,
               private statisticsService: StatisticsService) {
-
+                
     this.roomsForDiagram = this.formBuilder.group({
-      months: [''],
-    })
+      months: [this.monthString[this.monthToday-1]],         
+      year: [this.yearToday],
+                  
+    })  
 
     this.chartOptions = {
       series: [
@@ -88,16 +96,7 @@ export class StatMonthBarComponent {
       },
 
       xaxis: {
-        categories: [
-          "Bodri",
-          "Buksi",
-          "Morzsa",
-          "Kántor",
-          "Néro",
-          "Votán",
-          "Odin",
-          
-        ],
+        categories: this.dataRoomStrings,
         position: "top",
         labels: {
           offsetY: -18
@@ -153,7 +152,7 @@ export class StatMonthBarComponent {
         }
       },
       title: {
-        text: "Szobák kihasználtsága Júniusban",
+        text: this.title,
         floating: false,
         offsetY: 320,
         align: "center",
@@ -166,31 +165,74 @@ export class StatMonthBarComponent {
 
 
   async ngOnInit() {
-    await this.loadRooms()
+    
+    this.dateToday = new Date(Date.now());
+    this.yearToday = this.dateToday.getFullYear();
+    this.monthToday = this.dateToday.getMonth()+1;
+    let yearsOfDogHotel = this.nextYear - this.foundationYear;
+    for (let i = 0; i <= yearsOfDogHotel; i++) {
+      this.yearsForStat[i] = this.foundationYear + i;
+    }
+
+    
+
+
+    this.statisticsService.getRoomMonthStat(this.yearToday, this.monthToday).subscribe({
+      next: res => {
+        this.data = res;
+        
+        for (let i = 0; i < this.data.length; i++) {
+          this.dataValues[i] = this.data[i].percentage;
+          this.dataRoomNumbers[i] = this.data[i].id;
+          this.dataRoomStrings[i] = this.data[i].name;
+        }
+
+        if (this.monthToday <= 8) {
+        this.title = 'Szobák kihasználtsága ' + this.yearToday + ' ' + this.monthString[this.monthToday-1] + 'ban';
+        }else{
+          this.title = 'Szobák kihasználtsága ' + this.yearToday + ' ' + this.monthString[this.monthToday-1] + 'ben';
+        }
+        this.generateDate();
+
+      },
+      error: err => console.log(err)
+    });
+    
   }
 
-  async loadRooms(){
-    await this.rs.getAllRooms()
-      .then(res => this.rooms = res)
-      .catch(err =>  console.log(err))
-  }
+  
 
   onSubmit(){
-    this.monthToday = Number(this.roomsForDiagram.controls['months'].value);
+   
+    for (let i = 0; i < this.monthString.length-1; i++) {
+      if (this.monthString[i] == this.roomsForDiagram.controls['months'].value) {
+        this.monthToday = i+1;
+      }
+    }
+
+   
+    this.yearToday = Number(this.roomsForDiagram.controls['year'].value);
    
     this.statisticsService.getRoomMonthStat(this.yearToday, this.monthToday).subscribe({
       next: res => {
         this.data = res;
         
         for (let i = 0; i < this.data.length; i++) {
-          this.dataValues[i] = this.data[i].percentage
+          this.dataValues[i] = this.data[i].percentage;
+          this.dataRoomNumbers[i] = this.data[i].id;
+          this.dataRoomStrings[i] = this.data[i].name;
         }
 
+        if (this.monthToday <= 8) {
+          this.title = 'Szobák kihasználtsága ' + this.yearToday + ' ' + this.monthString[this.monthToday-1] + 'ban';
+          }else{
+            this.title = 'Szobák kihasználtsága ' + this.yearToday + ' ' + this.monthString[this.monthToday-1] + 'ben';
+          }
         this.generateDate();
 
       },
       error: err => console.log(err)
-  });
+    });
         
     
   }
@@ -228,16 +270,7 @@ export class StatMonthBarComponent {
       },
 
       xaxis: {
-        categories: [
-          "Bodri",
-          "Buksi",
-          "Morzsa",
-          "Kántor",
-          "Néro",
-          "Votán",
-          "Odin",
-          
-        ],
+        categories: this.dataRoomStrings,
         position: "top",
         labels: {
           offsetY: -18
@@ -293,7 +326,7 @@ export class StatMonthBarComponent {
         }
       },
       title: {
-        text: "Szobák kihasználtsága Júniusban",
+        text: this.title,
         floating: false,
         offsetY: 320,
         align: "center",

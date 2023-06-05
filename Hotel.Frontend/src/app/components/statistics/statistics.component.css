@@ -17,6 +17,7 @@
     align-items: center;
     padding: 0.5rem;
     background-color: whitesmoke;
+    
   }
   
   .inner{
@@ -25,6 +26,7 @@
     height: 100%;
     position: inherit;
     background-color: whitesmoke;
+    min-height: 700px;
   }
   
   .title {

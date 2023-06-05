@@ -4,9 +4,17 @@
                     <div class="roomSelector">
                     <div class="mb-3 left">
                        
-                      <label for="months" class="form-label">Hónap kiválasztása:</label>
+                        <label for="year" class="form-label">Év:</label>
+                      <mat-select class="form-control" type="number" id="year"  formControlName="year" >
+                      <mat-option *ngFor="let year of yearsForStat" [value]="year">
+                        {{year}}
+                      </mat-option>
+                    </mat-select>
+                </div>
+                    <div class="mb-3 middle">
+                      <label for="months" class="form-label">Hónap:</label>
                       <mat-select class="form-control"  id="months"  formControlName="months">
-                        <mat-option *ngFor="let month of monthNumber" value="{{month}}">
+                        <mat-option *ngFor="let month of monthNumber" [value]="monthString[month-1]" >
                           {{monthString[month-1]}}
                         </mat-option>
                       </mat-select>

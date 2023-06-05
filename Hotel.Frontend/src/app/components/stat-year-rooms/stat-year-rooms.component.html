@@ -1,9 +1,51 @@
-<apx-chart
-[series]="chartOptions.series"
+<p  class="title-small">Éves bontásban</p>
+<div> 
+    <form  [formGroup]="roomsForDiagram" (ngSubmit)="onSubmit()">
+        <div class="roomSelector">
+
+            <div class="mb-3 left">
+                       
+                <label for="year" class="form-label">Év:</label>
+              <mat-select class="form-control" type="number" id="year"  formControlName="year" >
+              <mat-option *ngFor="let year of yearsForStat" [value]="year">
+                {{year}}
+              </mat-option>
+            </mat-select>
+        </div>
+
+        <div class="mb-3 middle">
+           
+          <label for="rooms" class="form-label">Szobák:</label>
+          <mat-select multiple class="form-control"  id="rooms"  formControlName="rooms">
+            <mat-option *ngFor="let room of roomNames" [value]="room">
+              {{room}}
+            </mat-option>
+          </mat-select>
+        </div>
+  
+        <div class="text-center right">
+          <button type="submit" class="btn" >Kiválaszt</button>
+        </div>
+    </div>
+      </form>
+
+
+            <div class="image-container">
+                <apx-chart
+                [series]="chartOptions.series"
 [chart]="chartOptions.chart"
 [dataLabels]="chartOptions.dataLabels"
 [stroke]="chartOptions.stroke"
 [xaxis]="chartOptions.xaxis"
 [tooltip]="chartOptions.tooltip"
+                ></apx-chart>
+            </div>
+            
 
-></apx-chart>
+
+
+
+
+
+
+

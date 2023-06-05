@@ -35,15 +35,10 @@ namespace Hotel.Backend.WebAPI.Services
                     TimeSpan duration = reservation.BookingTo - reservation.BookingFrom;
                     int daysSpentInHotel = (int)duration.TotalDays + 1;
                     List<DateTime> bookedDaysList = new();
-                    if (reservation.BookingFrom.Month == month)
+                    
+                    for (int j = 0; j <= daysSpentInHotel; j++)
                     {
-                        bookedDaysList.Add(reservation.BookingFrom);
-                    }
-
-
-                    for (int j = 1; j <= daysSpentInHotel; j++)
-                    {
-                        if (reservation.BookingFrom.AddDays(j).Month == month) 
+                        if (reservation.BookingFrom.AddDays(j).Month == month && reservation.BookingFrom.AddDays(j).Year == year) 
                         { 
                         bookedDaysList.Add(reservation.BookingFrom.AddDays(j));
                         }
