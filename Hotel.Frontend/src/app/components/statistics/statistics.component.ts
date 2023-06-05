@@ -18,8 +18,8 @@ import { RoomService } from "src/app/services/room.service";
 })
 export class StatisticsComponent implements OnInit {
   monthNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  monthString: Array<string> = ["Január", "Február", "Március", "Április", "Május", "Június",
-  "Július", "Augusztrus", "Szeptember", "Október", "November", "December"];
+  monthString: Array<string> = ["január", "február", "március", "április", "május", "június",
+  "július", "augusztrus", "szeptember", "október", "november", "december"];
 
   rooms!: Array<RoomListModel>
   roomsForDiagram: FormGroup;

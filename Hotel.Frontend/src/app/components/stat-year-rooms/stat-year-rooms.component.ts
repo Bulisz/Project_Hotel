@@ -8,11 +8,14 @@ import {
   ApexXAxis,
   ApexDataLabels,
   ApexTooltip,
-  ApexStroke
+  ApexStroke,
+  
 } from "ng-apexcharts";
 
 import { RoomListModel } from "src/app/models/room-list.model";
+import { YearStatModel } from "src/app/models/year-stat-model";
 import { RoomService } from "src/app/services/room.service";
+import { StatisticsService } from "src/app/services/statistics.service";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -30,8 +33,8 @@ export type ChartOptions = {
 })
 export class StatYearRoomsComponent  {
   monthNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  monthString: Array<string> = ["Január", "Február", "Március", "Április", "Május", "Június",
-  "Július", "Augusztrus", "Szeptember", "Október", "November", "December"];
+  monthString: Array<string> = ["január", "február", "március", "április", "május", "június",
+  "július", "augusztrus", "szeptember", "október", "november", "december"];
 
   rooms!: Array<RoomListModel>
   roomsForDiagram: FormGroup;
@@ -43,14 +46,17 @@ export class StatYearRoomsComponent  {
   monthToday: number = new Date().getMonth()+1;
   preSelectedRooms: Array<string> = ['Bodri', 'Buksi', 'Morzsa'];
   roomNames: Array<string> = [];
-
+  data: Array<YearStatModel> =[];
 
 
 
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: ChartOptions;
+  
 
-  constructor(private rs: RoomService, private formBuilder: FormBuilder) {
+  constructor(private rs: RoomService, 
+              private statisticsService: StatisticsService,
+              private formBuilder: FormBuilder) {
 
     this.roomsForDiagram = this.formBuilder.group({
       rooms: [this.preSelectedRooms],
@@ -60,6 +66,7 @@ export class StatYearRoomsComponent  {
 
 
     this.chartOptions = {
+      
       series: [
         {
           name: "Bodri",
@@ -125,7 +132,17 @@ export class StatYearRoomsComponent  {
     }
   }
 
-  onSubmit(){}
+  onSubmit(){
+    console.log(this.roomsForDiagram.value)
+    this.statisticsService.getYearStatistics(this.roomsForDiagram.value).subscribe({
+      next: res => {
+        this.data = res
+        console.log(res);
+      },
+      error: err => console.log(err)
+      });
+      
+  }
 
  
 }

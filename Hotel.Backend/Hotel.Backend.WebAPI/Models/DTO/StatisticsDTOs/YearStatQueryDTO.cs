@@ -3,6 +3,6 @@
     public class YearStatQueryDTO
     {
         public int Year { get; set; }
-        public List<int>? ChoosedRooms { get; set; } = new List<int>();
+        public List<string>? ChoosedRooms { get; set; } = new List<string>();
     }
 }

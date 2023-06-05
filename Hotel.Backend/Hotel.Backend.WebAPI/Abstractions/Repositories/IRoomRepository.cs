@@ -14,5 +14,5 @@ public interface IRoomRepository
     Task DeleteRoomAsync(int id);
     Task<Room> ModifyRoomAsync(Room room);
     Task DeleteImageOfRoomAsync(string url);
-    Task<List<Room>> GetRoomsByIdsAsync(List<int> idList);
+    Task<List<Room>> GetRoomsByNamesAsync(List<string> roomNameList);
 }

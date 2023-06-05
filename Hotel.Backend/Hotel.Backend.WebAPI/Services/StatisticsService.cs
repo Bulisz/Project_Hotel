@@ -37,7 +37,7 @@ namespace Hotel.Backend.WebAPI.Services
                     int daysSpentInHotel = (int)duration.TotalDays + 1;
                     List<DateTime> bookedDaysList = new();
                     
-                    for (int j = 0; j <= daysSpentInHotel-1; j++)
+                    for (int j = 0; j <= daysSpentInHotel-2; j++)
                     {
                         if (reservation.BookingFrom.AddDays(j).Month == month && reservation.BookingFrom.AddDays(j).Year == year) 
                         { 
@@ -74,7 +74,8 @@ namespace Hotel.Backend.WebAPI.Services
         public async Task<IEnumerable<StatisticsPerYearDTO>> GetYearStatAsync(YearStatQueryDTO query) 
         {
             List<StatisticsPerYearDTO> result = new List<StatisticsPerYearDTO>();
-            List<Room> choosedRooms = await _roomRepository.GetRoomsByIdsAsync(query.ChoosedRooms);
+
+            List<Room> choosedRooms = await _roomRepository.GetRoomsByNamesAsync(query.ChoosedRooms);
 
             foreach (var room in choosedRooms)
             {
@@ -95,7 +96,7 @@ namespace Hotel.Backend.WebAPI.Services
                         int daysSpentInHotel = (int)duration.TotalDays + 1;
                         List<DateTime> bookedDaysList = new();
 
-                        for (int j = 0; j <= daysSpentInHotel-1; j++)
+                        for (int j = 0; j <= daysSpentInHotel-2; j++)
                         {
                             if (reservation.BookingFrom.AddDays(j).Month == month && reservation.BookingFrom.AddDays(j).Year == query.Year)
                             {

@@ -34,11 +34,11 @@ public class RoomRepository : IRoomRepository
             .FirstOrDefaultAsync(room => room.Id == id);
     }
 
-    public async Task<List<Room>> GetRoomsByIdsAsync(List<int> idList)
+    public async Task<List<Room>> GetRoomsByNamesAsync(List<string> roomNameList)
     {
         var rooms = await _context.Rooms
             .Include(room => room.Reservations)
-            .Where(room => idList.Contains(room.Id))
+            .Where(room => roomNameList.Contains(room.Name))
             .ToListAsync();
 
         return rooms;
