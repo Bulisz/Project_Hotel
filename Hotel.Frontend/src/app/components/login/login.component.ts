@@ -33,7 +33,10 @@ export class LoginComponent {
       .catch((err) => validationHandler(err,this.loginForm))
   }
 
+  googleLogin(){
+  }
+
   closeLogin() {
-    this.dialogRef.close('ok')
+    this.dialogRef.close()
   }
 }

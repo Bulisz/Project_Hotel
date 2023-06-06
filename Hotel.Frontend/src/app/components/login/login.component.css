@@ -51,3 +51,24 @@
   position:fixed;
 }
 
+.google{
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.google-button{
+  width: 250px;
+}
+
+.google-button:hover{
+  cursor: pointer;
+  content: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1686035204/Hotel/Logos/btn_google_signin_light_focus_web_pzrplb.png");
+}
+
+.google-button:active{
+  content: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1686035204/Hotel/Logos/btn_google_signin_light_pressed_web_tqgn9e.png");
+}
+
+.google-button:disabled{
+  content: url("https://res.cloudinary.com/ddaprhl4e/image/upload/v1686035204/Hotel/Logos/btn_google_signin_light_disabled_web_psaz5t.png");
+}
