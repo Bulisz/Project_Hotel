@@ -104,6 +104,12 @@ public class RoomsController : ControllerBase
             await _roomService.SaveOneImageAsync(saveOneImage);
             return Ok();
         }
+        catch (HotelException ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, ex.Message);
@@ -119,6 +125,12 @@ public class RoomsController : ControllerBase
         {
             await _roomService.SaveMoreImageAsync(saveMoreImage);
             return Ok();
+        }
+        catch (HotelException ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
         }
         catch (Exception ex)
         {

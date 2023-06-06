@@ -3,6 +3,7 @@ using Hotel.Backend.WebAPI.Abstractions.Repositories;
 using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Helpers;
+using Hotel.Backend.WebAPI.Models.DTO.OptionDTOs;
 using Hotel.Backend.WebAPI.Repositories;
 using Hotel.Backend.WebAPI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,11 @@ try
     // NLog: Setup NLog for Dependency injection
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
+
+    builder.Services
+    .AddOptions<JwtTokensOptions>()
+    .BindConfiguration(nameof(JwtTokensOptions))
+    .ValidateDataAnnotations();
 
     string connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("No connectionString");
 	builder.Services.AddDbContext<HotelDbContext>(options => options.UseSqlServer(connectionString));
@@ -46,7 +52,8 @@ try
 
 
 	builder.Services.AddCorsRules();
-	builder.Services.AddAuth(builder.Configuration);
+    builder.Services.AddMemoryCache();
+    builder.Services.AddAuth(builder.Configuration);
 
 	builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 	builder.Services.AddSingleton(s =>

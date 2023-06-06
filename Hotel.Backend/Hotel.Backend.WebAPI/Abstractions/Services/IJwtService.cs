@@ -1,10 +1,13 @@
-﻿using Hotel.Backend.WebAPI.Models.DTO;
+﻿using Hotel.Backend.WebAPI.Models;
+using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Identity;
 
 namespace Hotel.Backend.WebAPI.Abstractions.Services;
 
 public interface IJwtService
 {
-    LoginResponse CreateToken(IdentityUser user, IList<string> roles);
+    void ClearRefreshToken(string refreshToken);
+    Task<TokensDTO> CreateTokensAsync(ApplicationUser user);
+    Task<TokensDTO> RenewTokensAsync(string refreshToken);
 
 }

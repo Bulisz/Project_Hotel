@@ -10,12 +10,27 @@
 
       <div class="mb-3">
         <label for="description" class="form-label">Megjegyzés:</label>
-        <input type="text" class="form-control" id="description" formControlName="description">
+        <input type="text" class="form-control" id="description" formControlName="description"
+          [ngClass]="{'is-invalid': updateImageForm.get('description')?.invalid && updateImageForm.get('description')?.touched} || updateImageForm.get('description')?.errors?.['serverError']">
+
+        <small *ngIf="updateImageForm.get('description')?.invalid && updateImageForm.get('description')?.dirty
+                              && !updateImageForm.get('description')?.errors?.['serverError']" class="text-danger">
+          2 és 50 karakter között
+        </small>
+
+        <small *ngIf="updateImageForm.get('description')?.errors?.['serverError']" class="text-danger">
+          {{updateImageForm.get('description')?.getError('serverError')}}
+        </small>
       </div>
 
       <div class="mb-3">
         <label for="images" class="form-label">Név:</label>
-        <input type="file" class="form-control" id="images"  (change)="onImageUpload($event)" formControlName="images" multiple>
+        <input type="file" class="form-control" id="images" (change)="onImageUpload($event)" formControlName="images"
+          multiple>
+
+          <small *ngIf="updateImageForm.get('images')?.errors?.['serverError']" class="text-danger">
+            {{updateImageForm.get('images')?.getError('serverError')}}
+          </small>
       </div>
 
       <div class="text-center">

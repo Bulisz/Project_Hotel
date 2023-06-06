@@ -104,6 +104,20 @@ public class RoomService : IRoomService
     {
         Room room = await _roomRepository.GetRoomByIdAsync(int.Parse(saveOneImage.RoomId));
 
+        string[] supportedImageTypes = { "apng", "avif", "gif", "jpg", "jpeg", "jfif", "pjpeg", "pjp", "png", "svg", "webp" };
+        string actualType = saveOneImage.Image.FileName.Split('.')[1].ToLower();
+        if (!supportedImageTypes.Contains(actualType))
+        {
+            List<HotelFieldError> errors = new() { new HotelFieldError("Images", "Nem támogatott kép formátum") };
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotelError occured");
+        }
+
+        if (saveOneImage.Image.Length > 2_500_000)
+        {
+            List<HotelFieldError> errors = new() { new HotelFieldError("Images", "A file méret max 2,5MByte") };
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotelError occured");
+        };
+
         var uploadParams = new ImageUploadParams
         {
             File = new FileDescription(saveOneImage.Image?.Name, saveOneImage.Image?.OpenReadStream()),
@@ -128,8 +142,26 @@ public class RoomService : IRoomService
         Room room = await _roomRepository.GetRoomByIdAsync(int.Parse(saveMoreImage.RoomId));
         List<Image> images = new();
 
+        string[] supportedImageTypes = { "apng", "avif", "gif", "jpg", "jpeg", "jfif", "pjpeg", "pjp", "png", "svg", "webp" };
         foreach (var actualImage in saveMoreImage.Images)
         {
+            string actualType = actualImage.FileName.Split('.')[1].ToLower();
+            if (!supportedImageTypes.Contains(actualType))
+            {
+                List<HotelFieldError> errors = new() { new HotelFieldError("Images", "Nem támogatott kép formátum") };
+                throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotelError occured");
+            }
+
+            if (actualImage.Length > 2_500_000)
+            {
+                List<HotelFieldError> errors = new() { new HotelFieldError("Images", "A file méret max 2,5MByte") };
+                throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotelError occured");
+            };
+        }
+
+        foreach (var actualImage in saveMoreImage.Images)
+        {
+
             var uploadParams = new ImageUploadParams
             {
                 File = new FileDescription(actualImage?.Name, actualImage?.OpenReadStream()),

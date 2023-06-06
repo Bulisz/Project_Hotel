@@ -80,7 +80,7 @@ public class UsersController : ControllerBase
         try
         {
             string currentUserId = User.GetCurrentUserId();
-            return (await _userService.GetUserByIdAsync(currentUserId))!;
+            return Ok(await _userService.GetUserByIdAsync(currentUserId))!;
         }
         catch (Exception ex)
         {
@@ -131,19 +131,13 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost(nameof(Login))]
-    public async Task<ActionResult<LoginResponse>> Login(LoginRequest request)
+    public async Task<ActionResult<TokensDTO>> Login(LoginRequest request)
     {
         try
         {
             UserDetailsDTO userDTOlogin = await _userService.LoginAsync(request);
-            LoginResponse response = _jwtService.CreateToken(userDTOlogin.User!, userDTOlogin.Roles);
-            response.UserName = userDTOlogin.User.UserName;
-            response.Id = userDTOlogin.User.Id;
-            response.Role = userDTOlogin.Roles[0].ToString();
-            response.Email = userDTOlogin.User.Email;
-            response.FirstName = userDTOlogin.User.FirstName;
-            response.LastName = userDTOlogin.User.LastName;
-            return Ok(response);
+            TokensDTO loginResponse = await _jwtService.CreateTokensAsync(userDTOlogin.User);
+            return Ok(loginResponse);
         }
         catch (HotelException ex)
         {
@@ -190,7 +184,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Operator")]
     [HttpGet(nameof(GetUsers))]
     public async Task<ActionResult<List<UserListItem>>> GetUsers()
     {
@@ -219,6 +213,29 @@ public class UsersController : ControllerBase
         {
             _logger.LogError(ex, ex.Message);
             return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpPost(nameof(Logout))]
+    public ActionResult Logout(LogoutRefreshRequest logoutRequest)
+    {
+        _jwtService.ClearRefreshToken(logoutRequest.RefreshToken);
+        return Ok();
+    }
+
+    [Authorize]
+    [HttpPost(nameof(Refresh))]
+    public async Task<ActionResult<TokensDTO>> Refresh(LogoutRefreshRequest refreshRequest)
+    {
+        try
+        {
+            TokensDTO authenticationResponse = await _jwtService.RenewTokensAsync(refreshRequest.RefreshToken);
+            return Ok(authenticationResponse);
+        }
+        catch (JwtException)
+        {
+            return Forbid();
         }
     }
 }

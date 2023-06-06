@@ -24,12 +24,12 @@ export class NavbarComponent implements OnInit {
 
     if(localStorage.getItem('accessToken')){
       await this.as.getCurrentUser()
-        .then(res => {})
-        .catch(err => {localStorage.removeItem('accessToken');})
+        .catch(err => localStorage.removeItem('accessToken'))
     }
   }
 
   adminPageSelector(page: string){
+    localStorage.setItem('adminPageSelector',page)
     this.as.adminPageSelector.next(page)
   }
 

@@ -1,4 +1,5 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Services;
+using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Migrations;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
@@ -28,6 +29,12 @@ public class EquipmentsController : ControllerBase
         {
             EquipmentDTO createdEquipment = await _equipmentService.CreateEquipmentAsync(createEquipmentDTO);
             return Ok(createdEquipment);
+        }
+        catch (HotelException ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            return StatusCode((int)ex.Status, error);
         }
         catch (Exception ex)
         {
