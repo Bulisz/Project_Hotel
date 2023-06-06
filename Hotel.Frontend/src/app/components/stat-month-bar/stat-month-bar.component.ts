@@ -79,7 +79,7 @@ export class StatMonthBarComponent {
       plotOptions: {
         bar: {
           dataLabels: {
-            position: "bottom" // top, center, bottom
+            position: "bottom" 
           }
         }
       },

@@ -23,7 +23,7 @@ namespace Hotel.Backend.WebAPI.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = "Admin,Operator")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetRoomMonthStat/{year}/{month}")]
         public async Task<ActionResult<IEnumerable<RoomReservationPerMonthDTO>>> GetRoomMonthStat(int year, int month)
         {
@@ -39,6 +39,7 @@ namespace Hotel.Backend.WebAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetYearStat")]
         public async Task<ActionResult<IEnumerable<StatisticsPerYearDTO>>> GetYearStat([FromQuery] YearStatQueryDTO query)
         {

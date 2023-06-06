@@ -11,7 +11,7 @@
       <li><a class="nav-link px-2" routerLink="event-list">Programok</a></li>
       <li><a class="nav-link px-2" routerLink="blog">Blog</a></li>
       <li><a class="nav-link px-2" routerLink="about-us">Rólunk</a></li>
-      <li><a class="nav-link px-2" routerLink="statistics">Statisztika</a></li>
+      <!-- <li><a class="nav-link px-2" routerLink="statistics">Statisztika</a></li> -->
       <li class="nav-item dropdown" *ngIf="user?.role==='Admin'">
         <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #8997a4">
           Admin
@@ -19,6 +19,7 @@
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" routerLink="admin" (click)="adminPageSelector('rooms')">Szobák</a></li>
           <li><a class="dropdown-item" routerLink="admin" (click)="adminPageSelector('reservations')">Foglalások</a></li>
+          <li><a class="dropdown-item" routerLink="admin" (click)="adminPageSelector('statistics')">Statisztika</a></li>
           <li><a class="dropdown-item" routerLink="admin" (click)="adminPageSelector('posts')">Hozzászólások</a></li>
           <li><a class="dropdown-item" routerLink="admin" (click)="adminPageSelector('equipments')">Felszereltség</a></li>
           <li><a class="dropdown-item" routerLink="admin" (click)="adminPageSelector('users')">Felhasználók</a></li>
