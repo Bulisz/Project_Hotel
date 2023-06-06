@@ -54,6 +54,7 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
 import { SuccessfulResetComponent } from './components/successful-reset/successful-reset.component';
 import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
+import { SuccessfulEmailSendComponent } from './components/successful-email-send/successful-email-send.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { ForgottenPasswordComponent } from './components/forgotten-password/forg
     AboutUsComponent,
     NewPasswordComponent,
     SuccessfulResetComponent,
-    ForgottenPasswordComponent
+    ForgottenPasswordComponent,
+    SuccessfulEmailSendComponent
   ],
   imports: [
     BrowserModule,

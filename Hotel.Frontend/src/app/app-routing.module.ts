@@ -20,6 +20,7 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
 import { SuccessfulResetComponent } from './components/successful-reset/successful-reset.component';
 import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
+import { SuccessfulEmailSendComponent } from './components/successful-email-send/successful-email-send.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'personal', component: PersonalComponent, canActivate: [UserGuardService]},
   { path: 'about-us', component: AboutUsComponent},
   { path: 'successfulReset', component: SuccessfulResetComponent},
+  { path: 'successfulEmailSend', component: SuccessfulEmailSendComponent},
   { path: '**', component: ErrorComponent }
   
 ];

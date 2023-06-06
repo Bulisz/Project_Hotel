@@ -26,8 +26,10 @@ export class ForgottenPasswordComponent implements OnInit{
     if(this.emailForm.valid){
       const emailAddress = this.emailForm.getRawValue();
       await this.accountService.forgotPassword(emailAddress)
-      .then(() => 
-        this.dialogRef.close('ok')
+      .then(() => {
+        this.dialogRef.close('ok');
+        this.router.navigate(['successfulEmailSend'])
+      }
       )
       .catch((err) => validationHandler (err, this.emailForm))
     }

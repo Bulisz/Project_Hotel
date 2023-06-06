@@ -37,6 +37,15 @@
   font-family: 'Roboto';
 }
 
+.mockanchor {
+  color: blue;
+  text-decoration: underline;
+}
+
+.mockanchor:hover {
+  cursor: pointer;
+}
+
 .btn {
   background-color: #800020;
   border-radius: 2rem;
