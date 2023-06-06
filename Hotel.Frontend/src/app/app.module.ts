@@ -51,6 +51,11 @@ import { PatientComponent } from './components/patient/patient.component';
 import { RoomCalendarComponent } from './components/room-calendar/room-calendar.component';
 import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { StatMonthBarComponent } from './components/stat-month-bar/stat-month-bar.component';
+import { StatRoomPieComponent } from './components/stat-room-pie/stat-room-pie.component';
+import { StatYearRoomsComponent } from './components/stat-year-rooms/stat-year-rooms.component';
+import { NgApexchartsModule } from "ng-apexcharts";
 import { NewPasswordComponent } from './components/new-password/new-password.component';
 import { SuccessfulResetComponent } from './components/successful-reset/successful-reset.component';
 import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
@@ -100,11 +105,15 @@ import { SuccessfulEmailSendComponent } from './components/successful-email-send
     PatientComponent,
     RoomCalendarComponent,
     LoadingDialogComponent,
-    AboutUsComponent,
     NewPasswordComponent,
     SuccessfulResetComponent,
     ForgottenPasswordComponent,
     SuccessfulEmailSendComponent
+    AboutUsComponent,
+    StatisticsComponent,
+    StatMonthBarComponent,
+    StatRoomPieComponent,
+    StatYearRoomsComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +123,8 @@ import { SuccessfulEmailSendComponent } from './components/successful-email-send
     MatDialogModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
-    MatSelectModule
+    MatSelectModule,
+    NgApexchartsModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},

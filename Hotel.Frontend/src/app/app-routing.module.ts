@@ -17,6 +17,7 @@ import { AdminGuardService } from './services/admin-guard.service';
 import { OperatorGuardService } from './services/operator-guard.service';
 import { UserGuardService } from './services/user-guard.service';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
 import { SuccessfulResetComponent } from './components/successful-reset/successful-reset.component';
 import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'newPassword', component: NewPasswordComponent },
   { path: 'personal', component: PersonalComponent, canActivate: [UserGuardService]},
   { path: 'about-us', component: AboutUsComponent},
+  { path: 'statistics', component: StatisticsComponent},
   { path: 'successfulReset', component: SuccessfulResetComponent},
   { path: 'successfulEmailSend', component: SuccessfulEmailSendComponent},
   { path: '**', component: ErrorComponent }

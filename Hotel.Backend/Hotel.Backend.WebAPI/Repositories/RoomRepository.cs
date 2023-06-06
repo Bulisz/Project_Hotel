@@ -34,6 +34,17 @@ public class RoomRepository : IRoomRepository
             .FirstOrDefaultAsync(room => room.Id == id);
     }
 
+    public async Task<List<Room>> GetRoomsByNamesAsync(List<string> roomNameList)
+    {
+        var rooms = await _context.Rooms
+            .Include(room => room.Reservations)
+            .Where(room => roomNameList.Contains(room.Name))
+            .ToListAsync();
+
+        return rooms;
+    }
+
+
     public async Task<List<Room>> GetBigEnoughRoomsAsync(int guestNumber, int dogNumber, 
         List<int> choosedEquipments, DateTime bookingFrom, DateTime bookingTo)
     {
