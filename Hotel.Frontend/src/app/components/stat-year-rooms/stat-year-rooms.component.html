@@ -16,7 +16,7 @@
         <div class="mb-3 middle">
            
           <label for="rooms" class="form-label">Szobák:</label>
-          <mat-select multiple class="form-control"  id="rooms"  formControlName="rooms">
+          <mat-select multiple class="form-control room-width"  id="rooms"  formControlName="rooms">
             <mat-option *ngFor="let room of roomNames" [value]="room">
               {{room}}
             </mat-option>

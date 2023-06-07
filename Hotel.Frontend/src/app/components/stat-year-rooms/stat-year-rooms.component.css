@@ -44,3 +44,7 @@
     margin-top: 1.95rem;
     
   }
+
+  .room-width {
+    max-width: 345px;
+  }

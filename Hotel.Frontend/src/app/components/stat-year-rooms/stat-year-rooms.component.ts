@@ -47,7 +47,7 @@ export class StatYearRoomsComponent  {
   preSelectedRooms: Array<string> = ['Bodri', 'Buksi', 'Morzsa'];
   roomNames: Array<string> = [];
   data: Array<YearStatModel> =[];
-  dogHotelColors: Array<string> = ['#AF9E66', '#6B3923', '#9A7294', '#C7A086', '#55171E', '#915934', '#A4255C', '#3F221B'];
+  dogHotelColors: Array<string> = ['#AF9E66', '#6B3923', '#9A7294', '#C7A086', '#55171E', '#915934', '#A4255C', '#3F221B', '#800020'];
 
 
 
@@ -107,7 +107,9 @@ export class StatYearRoomsComponent  {
       next: res => {
         this.data = res
         for (let i = 0; i < this.data.length; i++) {
-          this.data[i].color = this.dogHotelColors[i];
+          let j = i % 8;
+          this.data[i].color = this.dogHotelColors[j];
+          
         }
         this.generateDate();
       },
