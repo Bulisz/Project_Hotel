@@ -6,7 +6,7 @@ namespace Hotel.Backend.WebAPI.Abstractions.Services
     {
         EmailDTO CreatingVerificationEmail(string? email, string lastName, string firstName, string url);
         Task SendEmailAsync(EmailDTO message);
-        EmailDTO CreatingForgottenPasswordEmail(string emailAddress, string lastName, string firstName, string url);
+        EmailDTO CreatingForgottenPasswordEmail(string emailAddress, string username, string url);
     }
 
 }

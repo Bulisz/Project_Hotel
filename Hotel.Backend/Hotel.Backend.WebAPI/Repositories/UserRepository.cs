@@ -221,7 +221,7 @@ public class UserRepository : IUserRepository
         var validPasswordToken = WebEncoders.Base64UrlEncode(encodedForgotPasswordToken);
         string url = $"http://localhost:4200/#/newPassword/?email={user.Email}&token={validPasswordToken}";
 
-        EmailDTO email = _emailService.CreatingForgottenPasswordEmail(user.Email, user.LastName, user.FirstName, url);
+        EmailDTO email = _emailService.CreatingForgottenPasswordEmail(user.Email, user.UserName, url);
 
         await _emailService.SendEmailAsync(email);
     }
