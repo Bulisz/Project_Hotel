@@ -11,6 +11,7 @@ import { AccountService } from 'src/app/services/account.service';
 import { CalendarService } from 'src/app/services/calendar.service';
 import { RoomService } from 'src/app/services/room.service';
 
+
 @Component({
   selector: 'app-room-calendar',
   templateUrl: './room-calendar.component.html',
@@ -42,7 +43,6 @@ export class RoomCalendarComponent implements OnInit {
     day: new Date(),
     dateNumber: 0,
     weekDayNumber: 0,
-    
   }
   firstMondayNumber: number = 0;
   nextMonthName: string | undefined;
@@ -57,8 +57,6 @@ export class RoomCalendarComponent implements OnInit {
     private as: AccountService,
     @Inject(MAT_DIALOG_DATA) public data: {monthRequested: Date}){}
     
-
-
     async ngOnInit() {
 
       await this.as.getUsers()
@@ -69,17 +67,10 @@ export class RoomCalendarComponent implements OnInit {
          .then( res => this.rooms = res)
          .catch(err => console.log(err))
 
-         //this.dateToday = this.data.monthRequested;
          this.dateToday = new Date(Date.now());
         
-      
-         
-        
       this.showCalendar(this.dateToday);
-      
     }
-
-
 
     getColor(roomNumber: number) {
       switch (roomNumber) { 
@@ -106,12 +97,8 @@ export class RoomCalendarComponent implements OnInit {
     this.dialogRef.close('ok')
   }
 
-
   showCalendar(dateToday: Date) {
 
-       
-       
-        
        this.monthToday = dateToday.getMonth()+1;
        console.log(this.monthToday)
        console.log(this.dateToday)
@@ -125,13 +112,10 @@ export class RoomCalendarComponent implements OnInit {
         this.previousMonthName = this.monthNames[(this.monthToday-2 + 12)];
       }
       
-      
-
-
       this.calendarService.getAllDaysOfMonth(this.yearNow, this.monthToday).subscribe({
         next: res => {
           this.daysOfthisMonth = res;
-       
+       console.log(this.daysOfthisMonth)
         this.rows = Math.ceil((this.daysOfthisMonth.length + (this.daysOfthisMonth[0].weekDayNumber-1)) /7);
           this.firstMondayNumber = 7 - this.daysOfthisMonth[0].weekDayNumber + 1
              

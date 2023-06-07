@@ -35,7 +35,7 @@ export class AuthInterceptor implements HttpInterceptor {
         async err => {
           if (err.status === 401) {
             dialogref.close()
-            return await this.handleRefresh(newRequest, next)
+            // return await this.handleRefresh(newRequest, next)
           } else {
             dialogref.close()
             this.navigateToErrorPage(err)

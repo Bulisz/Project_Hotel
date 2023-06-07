@@ -41,7 +41,15 @@
                                     'border':getColor(room.roomNumber),
                                     'border-radius': room.reservationStatus === 'first' ? '35% 0% 0% 35%' : (room.reservationStatus === 'last' ? '0% 35% 35% 0%' : (room.reservationStatus === 'oneDay' ? '35% 35% 35% 35%' : '0%'))}">
                                                                     
-                          <div> ------------</div>
+                          <div class="calendar-info"> ------------ 
+                            <span class="tooltiptext">szoba: {{hotelRoom.name}}  
+                                                      <br>vendég: {{room.lastName}} {{room.firstName}}
+                                                      <br>foglalás: {{room.bookingFrom}} - {{room.bookingTo}}
+                                                      <br>{{room.userName}}
+                                                      
+                                                      
+                                                    </span>
+                          </div>
                        </div>
                       
                     </div>

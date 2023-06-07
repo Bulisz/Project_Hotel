@@ -57,7 +57,12 @@ namespace Hotel.Backend.WebAPI.Services
                             DailyReservationDTO res = new DailyReservationDTO
                             {
                                 RoomNumber = reservation.Room.Id,
-                                ReservationStatus = "oneDay"
+                                ReservationStatus = "oneDay",
+                                BookingFrom = reservation.BookingFrom.Date.ToString("yyyy-MM-dd"),
+                                BookingTo = reservation.BookingTo.Date.ToString("yyyy-MM-dd"),
+                                Username = reservation.ApplicationUser.UserName,
+                                FirstName = reservation.ApplicationUser.FirstName,
+                                LastName = reservation.ApplicationUser.LastName
                             };
                             day.RoomStatus.Add(res);
                         }
@@ -67,7 +72,12 @@ namespace Hotel.Backend.WebAPI.Services
                             DailyReservationDTO res = new DailyReservationDTO
                             {
                                 RoomNumber = reservation.Room.Id,
-                                ReservationStatus = "first"
+                                ReservationStatus = "first",
+                                BookingFrom = reservation.BookingFrom.Date.ToString("yyyy-MM-dd"),
+                                BookingTo = reservation.BookingTo.Date.ToString("yyyy-MM-dd"),
+                                Username = reservation.ApplicationUser.UserName,
+                                FirstName = reservation.ApplicationUser.FirstName,
+                                LastName = reservation.ApplicationUser.LastName
                             };
                             day.RoomStatus.Add(res);
                         }
@@ -76,7 +86,12 @@ namespace Hotel.Backend.WebAPI.Services
                             DailyReservationDTO res = new DailyReservationDTO
                             {
                                 RoomNumber = reservation.Room.Id,
-                                ReservationStatus = "last"
+                                ReservationStatus = "last",
+                                BookingFrom = reservation.BookingFrom.Date.ToString("yyyy-MM-dd"),
+                                BookingTo = reservation.BookingTo.Date.ToString("yyyy-MM-dd"),
+                                Username = reservation.ApplicationUser.UserName,
+                                FirstName = reservation.ApplicationUser.FirstName,
+                                LastName = reservation.ApplicationUser.LastName
                             };
                             day.RoomStatus.Add(res);
                         }
@@ -85,7 +100,12 @@ namespace Hotel.Backend.WebAPI.Services
                             DailyReservationDTO res = new DailyReservationDTO
                             {
                                 RoomNumber = reservation.Room.Id,
-                                ReservationStatus = "middle"
+                                ReservationStatus = "middle",
+                                BookingFrom = reservation.BookingFrom.Date.ToString("yyyy-MM-dd"),
+                                BookingTo = reservation.BookingTo.Date.ToString("yyyy-MM-dd"),
+                                Username = reservation.ApplicationUser.UserName,
+                                FirstName = reservation.ApplicationUser.FirstName,
+                                LastName = reservation.ApplicationUser.LastName
                             };
                             day.RoomStatus.Add(res);
                         }
