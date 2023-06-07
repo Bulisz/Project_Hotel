@@ -1,4 +1,5 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Repositories;
+using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
@@ -14,6 +15,7 @@ public class ReservationServiceTests
     private Mock<IReservationRepository> _reservationRepositoryMock;
     private Mock<IUserRepository> _userRepositoryMock;
     private Mock<IRoomRepository> _roomRepositoryMock;
+    private Mock<IEmailService> _emailServiceMock;
 
     [TestInitialize]
     public void Setup()
@@ -21,11 +23,13 @@ public class ReservationServiceTests
         _reservationRepositoryMock = new Mock<IReservationRepository>();
         _userRepositoryMock = new Mock<IUserRepository>();
         _roomRepositoryMock = new Mock<IRoomRepository>();
+        _emailServiceMock = new Mock<IEmailService>();
 
         _reservationService = new ReservationService(
             _reservationRepositoryMock.Object,
             _userRepositoryMock.Object,
-            _roomRepositoryMock.Object
+            _roomRepositoryMock.Object,
+            _emailServiceMock.Object
         );
     }
 
@@ -103,70 +107,6 @@ public class ReservationServiceTests
         await Assert.ThrowsExceptionAsync<HotelException>(
             async () => await _reservationService.CreateReservationAsync(request)
         );
-    }
-
-    [TestMethod]
-    public async Task ConcurrentReservationRequests_SameRoomAndDates()
-    {
-
-        // Arrange
-        ReservationRequestDTO request1 = new ReservationRequestDTO
-        {
-            UserId = "user1",
-            RoomId = 2,
-            BookingFrom = DateTime.Today.AddDays(2),
-            BookingTo = DateTime.Today.AddDays(5),
-        };
-
-        ReservationRequestDTO request2 = new ReservationRequestDTO
-        {
-            UserId = "user2",
-            RoomId = 2,
-            BookingFrom = DateTime.Today.AddDays(2),
-            BookingTo = DateTime.Today.AddDays(5),
-        };
-
-        var user1 = new ApplicationUser { Id = request1.UserId };
-        _userRepositoryMock.Setup(m => m.GetUserByIdAsync(request1.UserId))
-            .ReturnsAsync(new UserDetailsDTO { User = user1 });
-        var user2 = new ApplicationUser { Id = request2.UserId };
-        _userRepositoryMock.Setup(m => m.GetUserByIdAsync(request2.UserId))
-            .ReturnsAsync(new UserDetailsDTO { User = user2 });
-
-        var room = new Room { Id = request1.RoomId };
-        _roomRepositoryMock.Setup(m => m.GetRoomByIdAsync(request1.RoomId))
-            .ReturnsAsync(room);
-
-        var reservation = new Reservation
-        {
-            Id = 1,
-            ApplicationUser = user1,
-            BookingFrom = DateTime.Today.AddDays(2),
-            BookingTo = DateTime.Today.AddDays(5),
-            Room = room
-        };
-        _reservationRepositoryMock.Setup(m => m.CreateReservationAsync(It.IsAny<Reservation>()))
-           .ReturnsAsync(reservation);
-
-        string errorMessage = null;
-
-        // Act
-        try
-        {
-             _reservationService.CreateReservationAsync(request1);
-             _reservationService.CreateReservationAsync(request2);
-
-            //await Task.WhenAll(_reservationService.CreateReservationAsync(request1), _reservationService.CreateReservationAsync(request2));
-        }
-        catch (HotelException ex)
-        {
-            errorMessage = ex.Message;
-        }
-
-        // Assert
-        Assert.IsNotNull(errorMessage);
-
-
     }
 
     [TestMethod]

@@ -22,12 +22,16 @@ public class ReservationRepository : IReservationRepository
         return newReservation;
     }
 
-    public async Task DeleteReservationAsync(int reservationId)
+    public async Task<Reservation> DeleteReservationAsync(int reservationId)
     {
-        Reservation reservation = await _context.Reservations.Where(reservation => reservation.Id == reservationId).FirstOrDefaultAsync()
+        Reservation reservation = await _context.Reservations.Where(reservation => reservation.Id == reservationId)
+                                                             .Include(reservation => reservation.ApplicationUser)
+                                                             .Include(reservation => reservation.Room)
+                                                             .FirstOrDefaultAsync()
             ?? throw new ArgumentException("Nincs ilyen foglalás");
         _context.Reservations.Remove(reservation);
         _context.SaveChanges();
+        return reservation;
     }
 
     public async Task<List<Reservation>> GetAllReservationsAsync()
