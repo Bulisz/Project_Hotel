@@ -12,7 +12,6 @@ import { EmailVerificationModel } from '../models/email-verification-model';
 import { ResetPasswordModel } from '../models/reset-password-model';
 
 
-
 @Injectable({
   providedIn: 'root'
 })
