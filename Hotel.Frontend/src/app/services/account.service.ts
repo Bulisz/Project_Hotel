@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, firstValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { RegisterModel } from '../models/register-model';
 import { LoginrequestModel } from '../models/loginrequest-model';
 import { TokensModel } from '../models/tokens-model';
@@ -66,6 +66,7 @@ export class AccountService {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('adminPageSelector');
+    localStorage.removeItem("token");
     this.user.next(null)
   }
 
@@ -92,6 +93,13 @@ export class AccountService {
 
   async confirmEmail(emailVerification: EmailVerificationModel): Promise<boolean> {
     return await firstValueFrom(this.http.post<boolean>(`${environment.apiUrl}/${this.BASE_URL}/VerifyEmail`, emailVerification))
+  }
+
+  LoginWithGoogle(credentials: string): Observable<any> {
+    const header = new HttpHeaders().set('Content-type', 'application/json');
+    console.log(header)
+    console.log(credentials)
+    return this.http.post(`${environment.apiUrl}/${this.BASE_URL}/LoginWithGoogle`, JSON.stringify(credentials), { headers: header });
   }
 
 }

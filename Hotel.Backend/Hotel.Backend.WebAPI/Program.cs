@@ -57,9 +57,9 @@ try
 	builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 	builder.Services.AddSingleton(s =>
 		new Cloudinary(new Account(
-			builder.Configuration.GetValue<string>("CloudinaryConfig:Cloud"),
-			builder.Configuration.GetValue<string>("CloudinaryConfig:ApiKey"),
-			builder.Configuration.GetValue<string>("CloudinaryConfig:ApiSecret"))));
+			builder.Configuration["CloudinaryConfig:Cloud"],
+			builder.Configuration["CloudinaryConfig:ApiKey"],
+			builder.Configuration["CloudinaryConfig:ApiSecret"])));
 
 	builder.Services.AddControllers();
 	builder.Services.AddEndpointsApiExplorer();

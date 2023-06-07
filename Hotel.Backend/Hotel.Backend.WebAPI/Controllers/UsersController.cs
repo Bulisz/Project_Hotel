@@ -1,10 +1,14 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helper;
 using Hotel.Backend.WebAPI.Helpers;
+using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Security.Claims;
 
 namespace Hotel.Backend.WebAPI.Controllers;
 
@@ -15,12 +19,14 @@ public class UsersController : ControllerBase
     private readonly IJwtService _jwtService;
     private readonly IUserService _userService;
     private readonly ILogger<UsersController> _logger;
+    private readonly SignInManager<ApplicationUser> _signInManager;
 
-    public UsersController(IJwtService jwtService, IUserService userService, ILogger<UsersController> logger)
+    public UsersController(IJwtService jwtService, IUserService userService, ILogger<UsersController> logger, SignInManager<ApplicationUser> signInManager)
     {
         _jwtService = jwtService;
         _userService = userService;
         _logger = logger;
+        _signInManager = signInManager;
     }
 
 
@@ -237,5 +243,31 @@ public class UsersController : ControllerBase
         {
             return Forbid();
         }
+    }
+
+    [HttpPost(nameof(LoginWithGoogle))]
+    public async Task<IActionResult> LoginWithGoogle([FromBody] LoginRequest loginModel)
+    {
+        var result = await _signInManager.PasswordSignInAsync(loginModel.UserName, loginModel.Password, false, false);
+
+        if (result.Succeeded)
+        {
+            var user = await _userService.GetUserByNameAsync(loginModel.UserName);
+            var claims = new[]
+            {
+                //new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email)
+                // Add additional claims as needed
+            };
+
+            var identity = new ClaimsIdentity(claims, "Bearer");
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync("Google", principal); // Use the appropriate authentication scheme
+
+            return Ok();
+        }
+
+        return Unauthorized();
     }
 }
