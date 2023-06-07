@@ -70,10 +70,15 @@ export class AuthInterceptor implements HttpInterceptor {
 
   navigateToErrorPage(err: any) {
     if (err.status !== 400) {
-      const navigationExtras: NavigationExtras = {
-        state: { message: err.error, status: err.status, statusText: err.statusText },
-      };
-      this.router.navigate(['error'], navigationExtras)
+      if(err.status === 403){
+        this.as.user.next(null)
+        this.router.navigate([''])
+      } else {
+        const navigationExtras: NavigationExtras = {
+          state: { message: err.error, status: err.status, statusText: err.statusText },
+        };
+        this.router.navigate(['error'], navigationExtras)
+      }
     }
   }
 }

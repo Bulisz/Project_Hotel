@@ -27,6 +27,15 @@
         <button type="submit" class="btn" [disabled]="!loginForm.valid">Elküld</button>
       </div>
     </form>
+
+    <div class="text-center mt-3">
+      <p  (click)="forgotPassword()">
+        <span class="mockanchor">Elfelejtette a jelszavát?</span>
+      </p>
+    </div>
+
+
+
     <mat-card class="cardStyle">
       <div id="buttonDiv"></div>
     </mat-card>

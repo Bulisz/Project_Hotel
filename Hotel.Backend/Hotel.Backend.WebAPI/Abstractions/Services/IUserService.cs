@@ -14,6 +14,8 @@ public interface IUserService
     Task<List<UserListItem>> GetAllUsersAsync();
     Task<UserDetailsDTO> UpdateUserAsAdminAsync(UserDetailsForAdmin updateUser);
     Task<bool> VerifyEmailAsync(EmailVerificationDTO request);
+    Task ForgotPasswordAsync(ForgotPasswordDTO request);
+    Task<bool> ResetPasswordAsync(ResetPasswordDTO request);
     Task<ApplicationUser?> FindByEmailAsync(string email);
     Task<UserDetailsDTO> RegisterGoogleUserAsync(CreateUserForm userToCreate);
 }

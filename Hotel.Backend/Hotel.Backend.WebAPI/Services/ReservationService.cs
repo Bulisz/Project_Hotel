@@ -13,27 +13,47 @@ public class ReservationService : IReservationService
     private readonly IReservationRepository _reservationRepository;
     private readonly IUserRepository _userRepository;
     private readonly IRoomRepository _roomRepository;
+    private readonly IEmailService _emailService;
+    static SemaphoreSlim _semaphoreSlim;
 
     public ReservationService(IReservationRepository reservationRepository,
                               IUserRepository userRepository,
-                              IRoomRepository roomRepository)
+                              IRoomRepository roomRepository,
+                              IEmailService emailService)
     {
         _reservationRepository = reservationRepository;
         _userRepository = userRepository;
         _roomRepository = roomRepository;
+        _emailService = emailService;
+
+        _semaphoreSlim = new SemaphoreSlim(1,1);
     }
 
     public async Task<ReservationDetailsDTO> CreateReservationAsync(ReservationRequestDTO request)
     {
+        
+
         if (request.BookingFrom < request.BookingTo)
         {
             UserDetailsDTO? userDTO = await _userRepository.GetUserByIdAsync(request.UserId);
             ApplicationUser? user = userDTO!.User;
 
-            Room? room = await _roomRepository.GetRoomByIdAsync(request.RoomId);
 
-            bool isRoomAvailable = room!.Reservations.All(reservation =>
-            request.BookingFrom >= reservation.BookingTo || request.BookingTo <= reservation.BookingFrom);
+            Room? room;
+            bool isRoomAvailable;
+            await _semaphoreSlim.WaitAsync();
+            try
+            {
+                room = await _roomRepository.GetRoomByIdAsync(request.RoomId);
+
+                isRoomAvailable = room!.Reservations.All(reservation =>
+                request.BookingFrom >= reservation.BookingTo || request.BookingTo <= reservation.BookingFrom);
+            }
+            finally
+            {
+                _semaphoreSlim.Release();
+            }
+            
 
             if (isRoomAvailable)
             {
@@ -54,8 +74,9 @@ public class ReservationService : IReservationService
                     BookingFrom = request.BookingFrom,
                     BookingTo = request.BookingTo,
                 };
+                await ReservationNotifications(user, reservation);
 
-                return response; 
+                return response;
             }
             else
             {
@@ -70,9 +91,24 @@ public class ReservationService : IReservationService
         }
     }
 
+    private async Task ReservationNotifications(ApplicationUser? user, Reservation reservation)
+    {
+        EmailDTO confirmationEmail = _emailService.CreatingReservationConfirmationEmail(user, reservation);
+        EmailDTO notification = _emailService.CreatingNotificationOfReservation(user, reservation);
+
+        await _emailService.SendEmailAsync(confirmationEmail);
+        await _emailService.SendEmailAsync(notification);
+    }
+
     public async Task DeleteReservationAsync(int reservationId)
     {
-        await _reservationRepository.DeleteReservationAsync(reservationId);
+        Reservation reservation = await _reservationRepository.DeleteReservationAsync(reservationId);
+
+        EmailDTO confirmationEmail = _emailService.CreatingCancelReservationEmail(reservation);
+        await _emailService.SendEmailAsync(confirmationEmail);
+
+        EmailDTO notification = _emailService.CreatingNotificationOfCancelation(reservation);
+        await _emailService.SendEmailAsync(notification);
     }
 
     public async Task<List<ReservationListItemDTO>> GetAllReservationsAsync()

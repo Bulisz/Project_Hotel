@@ -76,6 +76,17 @@ public class UserService : IUserService
         return isSucceeded;
     }
 
+    public async Task ForgotPasswordAsync(ForgotPasswordDTO request)
+    {
+        await _userRepository.ForgotPasswordAsync(request);
+    }
+
+    public async Task<bool> ResetPasswordAsync(ResetPasswordDTO request)
+    {
+        bool isSucceed = await _userRepository.ResetPasswordAsync(request);
+        return isSucceed;
+    }
+
     public async Task<ApplicationUser?> FindByEmailAsync(string email)
     {
         return await _userRepository.FindByEmailAsync(email);

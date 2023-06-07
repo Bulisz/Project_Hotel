@@ -6,6 +6,7 @@ using MailKit.Net.Smtp;
 using Hotel.Backend.WebAPI.Abstractions.Services;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using Hotel.Backend.WebAPI.Models;
 
 namespace Hotel.Backend.WebAPI.Services;
 
@@ -32,6 +33,86 @@ public class EmailService : IEmailService
         };
 
         return email;
+    }
+
+    public EmailDTO CreatingForgottenPasswordEmail(string emailAddress, string username, string url)
+    {
+        EmailDTO email = new EmailDTO
+        {
+            To = emailAddress,
+            Subject = "Elfelejtett jelszó pótlása",
+            Body = $"Kedves {username}! <br>" +
+            $" Erre a linkre kattintva új jelszót adhatsz meg a regisztrált fiókodhoz: <a href=\"{url}\"> link</a>. <br>" +
+            "A link 15 percig lesz érvényes."
+        };
+
+        return email;
+    }
+
+    public EmailDTO CreatingReservationConfirmationEmail(ApplicationUser user, Reservation reservation)
+    {
+        EmailDTO email = new EmailDTO
+        {
+            To = user.Email,
+            Subject = "Sikeres foglalás",
+            Body = $"Kedves {user.LastName} {user.FirstName}! <br>" +
+            $"A foglalásodhoz tartozó adatok: <br>" +
+            $"Időpont: {reservation.BookingFrom.ToString("yyyy. MM. dd.")} – {reservation.BookingTo.ToString("yyyy. MM. dd.")} <br>" +
+            $"Szoba: {reservation.Room.Name} <br>" +
+            $"A szobák az érkezés napján 14 órától átvehetők és a távozás napján 11 óráig kell elhagynotok a szállást. <br>" +
+            $"Köszönjük, hogy minket választottatok, már nagyon várunk Titeket! <br>" +
+            $"A DogHotel csapata",
+        };
+
+        return email;
+    }
+
+    public EmailDTO CreatingCancelReservationEmail(Reservation reservation)
+    {
+        EmailDTO email = new EmailDTO
+        {
+            To = reservation.ApplicationUser.Email,
+            Subject = "Foglalás törlése",
+            Body = $"Kedves {reservation.ApplicationUser.LastName} {reservation.ApplicationUser.FirstName}! <br>" +
+            $"Sajnálattal fogadtuk, hogy lemondtad a {reservation.BookingFrom.ToString("yyyy. MM. dd.")}-tól " +
+            $" {reservation.BookingTo.ToString("yyyy. MM. dd.")}-ig szóló foglalásodat. <br>" +
+            $"Reméljük, még találkozunk a jövőben! <br>" +
+            $"A DogHotel csapata"
+        };
+
+        return email;
+    }
+
+    public EmailDTO CreatingNotificationOfReservation(ApplicationUser user, Reservation reservation)
+    {
+        EmailDTO notification = new EmailDTO
+        {
+            To = _config.GetValue<string>("EmailConfig:Username"),
+            Subject = "ÉRTESÍTÉS: új foglalás",
+            Body = "Új foglalás történt <br>" +
+            "Adatok: <br>" +
+            $"Időpont: {reservation.BookingFrom.ToString("yyyy. MM. dd.")} – {reservation.BookingTo.ToString("yyyy. MM. dd.")} <br>" +
+            $"Szoba: {reservation.Room.Name} <br>" +
+            $"Vendég: {user.LastName} {user.FirstName}, email: {user.Email}"
+        };
+
+        return notification;
+    }
+
+    public EmailDTO CreatingNotificationOfCancelation(Reservation reservation)
+    {
+        EmailDTO notification = new EmailDTO
+        {
+            To = _config.GetValue<string>("EmailConfig:Username"),
+            Subject = "ÉRTESÍTÉS: foglalás törlése",
+            Body = "Foglalás törlésre került <br>" +
+            "Adatok: <br>" +
+            $"Időpont: {reservation.BookingFrom.ToString("yyyy. MM. dd.")} – {reservation.BookingTo.ToString("yyyy. MM. dd.")} <br>" +
+            $"Szoba: {reservation.Room.Name} <br>" +
+            $"Vendég: {reservation.ApplicationUser.LastName} {reservation.ApplicationUser.FirstName}, email: {reservation.ApplicationUser.Email}"
+        };
+
+        return notification;
     }
 
     public async Task SendEmailAsync(EmailDTO message)
@@ -126,4 +207,5 @@ public class EmailService : IEmailService
 
         return false;
     }
+
 }

@@ -1,0 +1,44 @@
+.title-small {
+    font-family: caveat;
+    font-size: 2.5rem;
+    color: #800020;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  .btn {
+    background-color: #800020;
+    border-radius: 3rem;
+    color: whitesmoke;
+    font-family: 'Caveat';
+    font-size: 1rem;
+    width: 90px;
+}
+
+.image-container {
+    border: #800020 2px solid;
+    padding: 0.5rem;
+    width:100%;
+  }
+
+  .roomSelector {
+    display: flex;
+    flex-direction:row;
+  }
+
+  .left {
+    width: 20%;
+    margin-right: 0.7rem;
+  }
+
+  .middle {
+    width: 60%;
+    margin-right: 0.7rem;
+  }
+
+  .right {
+    width: 20%;
+    margin-top: 1.95rem;
+    
+  }

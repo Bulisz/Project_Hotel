@@ -62,11 +62,10 @@ public class UserRepository : IUserRepository
         ApplicationUser user = await _userManager.FindByEmailAsync(emailVerification.Email);
         if(user != null)
         {
-            var decodedToken = WebEncoders.Base64UrlDecode(emailVerification.Token);
-            string token = Encoding.UTF8.GetString(decodedToken);
+            string token = DecodingToken(emailVerification.Token);
 
             IdentityResult result = await _userManager.ConfirmEmailAsync(user, token);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 return true;
             }
@@ -206,6 +205,53 @@ public class UserRepository : IUserRepository
             await _userManager.RemoveFromRoleAsync(user, oldRole);
             await _userManager.AddToRoleAsync(user, newRole);
         }
+    }
+
+    public async Task ForgotPasswordAsync(ForgotPasswordDTO request)
+    {
+        ApplicationUser user = await _userManager.FindByEmailAsync(request.Email);
+        if(user == null)
+        {
+            List<HotelFieldError> errors = new() {new HotelFieldError("Email", "Nincs regisztrálva ez az email-cím")};
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+        }
+
+        var forgotPasswordToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+        var encodedForgotPasswordToken = Encoding.UTF8.GetBytes(forgotPasswordToken);
+        var validPasswordToken = WebEncoders.Base64UrlEncode(encodedForgotPasswordToken);
+        string url = $"http://bulisz-001-site1.dtempurl.com//#/newPassword/?email={user.Email}&token={validPasswordToken}";
+
+        EmailDTO email = _emailService.CreatingForgottenPasswordEmail(user.Email, user.UserName, url);
+
+        await _emailService.SendEmailAsync(email);
+    }
+
+    public async Task<bool> ResetPasswordAsync(ResetPasswordDTO request)
+    {
+        ApplicationUser user = await _userManager.FindByEmailAsync(request.Email);
+        if(user == null)
+        {
+            throw new Exception("Valami nem sikerült. Próbálja újra!");
+        }
+
+        string token = DecodingToken(request.Token);
+
+        var resetPasswordResult = await _userManager.ResetPasswordAsync(user, token, request.NewPassword);
+        if(resetPasswordResult.Succeeded)
+        {
+            return true;
+        }
+        else
+        {
+            throw new Exception("Valami nem sikerült. Próbálja újra!");
+        }
+    }
+
+    private static string DecodingToken(string requestToken)
+    {
+        var decodedToken = WebEncoders.Base64UrlDecode(requestToken);
+        string token = Encoding.UTF8.GetString(decodedToken);
+        return token;
     }
 
     public async Task<ApplicationUser?> FindByEmailAsync(string email)

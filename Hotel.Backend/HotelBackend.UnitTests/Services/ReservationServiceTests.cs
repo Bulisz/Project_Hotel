@@ -1,4 +1,5 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Repositories;
+using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
@@ -14,6 +15,7 @@ public class ReservationServiceTests
     private Mock<IReservationRepository> _reservationRepositoryMock;
     private Mock<IUserRepository> _userRepositoryMock;
     private Mock<IRoomRepository> _roomRepositoryMock;
+    private Mock<IEmailService> _emailServiceMock;
 
     [TestInitialize]
     public void Setup()
@@ -21,11 +23,13 @@ public class ReservationServiceTests
         _reservationRepositoryMock = new Mock<IReservationRepository>();
         _userRepositoryMock = new Mock<IUserRepository>();
         _roomRepositoryMock = new Mock<IRoomRepository>();
+        _emailServiceMock = new Mock<IEmailService>();
 
         _reservationService = new ReservationService(
             _reservationRepositoryMock.Object,
             _userRepositoryMock.Object,
-            _roomRepositoryMock.Object
+            _roomRepositoryMock.Object,
+            _emailServiceMock.Object
         );
     }
 
@@ -205,5 +209,7 @@ public class ReservationServiceTests
         Assert.AreEqual(reservations.Count, result.Count);
         Assert.AreEqual(reservations[0].ApplicationUser.Id, userId);
     }
+
+    
 }
 
