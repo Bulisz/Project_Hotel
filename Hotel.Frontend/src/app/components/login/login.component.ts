@@ -18,7 +18,12 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor (private as: AccountService, public dialogRef: MatDialogRef<LoginComponent>, public dialog: MatDialog) {
+  constructor (private as: AccountService,
+    public dialogRef: MatDialogRef<LoginComponent>,
+    public dialog: MatDialog,
+    private _renderer2: Renderer2,
+    @Inject(DOCUMENT) private _document: Document
+    ) {
     this.loginForm = new FormBuilder().group({
       userName: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
