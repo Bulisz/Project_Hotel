@@ -3,7 +3,7 @@ export interface DailyReservationModel {
     reservationStatus: string;
     bookingFrom: string;
     bookingTo: string;
-    username: string;
+    userName: string;
     firstName: string;
     lastName: string;
 }

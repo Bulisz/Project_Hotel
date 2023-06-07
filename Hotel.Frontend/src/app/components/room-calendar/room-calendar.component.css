@@ -116,19 +116,28 @@
     padding: 0;
   }
 
+  .details-content {
+    font-family: 'Roboto';
+    font-size: 1.1rem;
+    line-height: 1.7rem;
+    color: black;
+  }
   
   
-  .tooltiptext {
+  .tooltiptext2 {
     visibility: hidden;
     width: 300px;
-    background-color: #800020;
-    color: #fff;
+    background-color: whitesmoke;
+    color: #800020;
     text-align: center;
     border-radius: 2rem;
+    border: 2px;
+    border-color: #800020;
+    border-style: solid;
     padding: 5px 0;
    
-    font-size: 1.3rem;
-    line-height: 1.5rem;
+    font-size: 1.5rem;
+    line-height: 1.7rem;
     
   
     /* Position the tooltip */
@@ -136,7 +145,7 @@
     z-index: 1;
   }
   
-  .calendar-info:hover .tooltiptext {
+  .calendar-info:hover .tooltiptext2 {
     visibility: visible;
     
   }

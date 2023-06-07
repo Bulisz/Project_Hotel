@@ -60,7 +60,7 @@ namespace Hotel.Backend.WebAPI.Services
                                 ReservationStatus = "oneDay",
                                 BookingFrom = reservation.BookingFrom.Date.ToString("yyyy-MM-dd"),
                                 BookingTo = reservation.BookingTo.Date.ToString("yyyy-MM-dd"),
-                                Username = reservation.ApplicationUser.UserName,
+                                UserName = reservation.ApplicationUser.UserName,
                                 FirstName = reservation.ApplicationUser.FirstName,
                                 LastName = reservation.ApplicationUser.LastName
                             };
@@ -75,7 +75,7 @@ namespace Hotel.Backend.WebAPI.Services
                                 ReservationStatus = "first",
                                 BookingFrom = reservation.BookingFrom.Date.ToString("yyyy-MM-dd"),
                                 BookingTo = reservation.BookingTo.Date.ToString("yyyy-MM-dd"),
-                                Username = reservation.ApplicationUser.UserName,
+                                UserName = reservation.ApplicationUser.UserName,
                                 FirstName = reservation.ApplicationUser.FirstName,
                                 LastName = reservation.ApplicationUser.LastName
                             };
@@ -89,7 +89,7 @@ namespace Hotel.Backend.WebAPI.Services
                                 ReservationStatus = "last",
                                 BookingFrom = reservation.BookingFrom.Date.ToString("yyyy-MM-dd"),
                                 BookingTo = reservation.BookingTo.Date.ToString("yyyy-MM-dd"),
-                                Username = reservation.ApplicationUser.UserName,
+                                UserName = reservation.ApplicationUser.UserName,
                                 FirstName = reservation.ApplicationUser.FirstName,
                                 LastName = reservation.ApplicationUser.LastName
                             };
@@ -103,7 +103,7 @@ namespace Hotel.Backend.WebAPI.Services
                                 ReservationStatus = "middle",
                                 BookingFrom = reservation.BookingFrom.Date.ToString("yyyy-MM-dd"),
                                 BookingTo = reservation.BookingTo.Date.ToString("yyyy-MM-dd"),
-                                Username = reservation.ApplicationUser.UserName,
+                                UserName = reservation.ApplicationUser.UserName,
                                 FirstName = reservation.ApplicationUser.FirstName,
                                 LastName = reservation.ApplicationUser.LastName
                             };
