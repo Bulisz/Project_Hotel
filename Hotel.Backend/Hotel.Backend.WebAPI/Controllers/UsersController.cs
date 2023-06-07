@@ -74,6 +74,7 @@ public class UsersController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpGet("GetCurrentUser")]
     public async Task<ActionResult<UserDetails>> GetCurrentUser()
     {
@@ -224,7 +225,6 @@ public class UsersController : ControllerBase
         return Ok();
     }
 
-    [Authorize]
     [HttpPost(nameof(Refresh))]
     public async Task<ActionResult<TokensDTO>> Refresh(LogoutRefreshRequest refreshRequest)
     {
