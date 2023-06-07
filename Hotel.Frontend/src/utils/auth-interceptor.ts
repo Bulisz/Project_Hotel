@@ -35,7 +35,7 @@ export class AuthInterceptor implements HttpInterceptor {
         async err => {
           if (err.status === 401) {
             dialogref.close()
-            // return await this.handleRefresh(newRequest, next)
+            return await this.handleRefresh(newRequest, next)
           } else {
             dialogref.close()
             this.navigateToErrorPage(err)
@@ -61,7 +61,6 @@ export class AuthInterceptor implements HttpInterceptor {
   async handleRefresh(req: HttpRequest<any>, next: HttpHandler): Promise<any> {
     return await this.as.refresh()
       .then(td => {
-        console.log(td.accessToken.value)
         const newRequest = req.clone({
           headers: req.headers.set('Authorization', `Bearer ${td.accessToken.value}`)
         })
