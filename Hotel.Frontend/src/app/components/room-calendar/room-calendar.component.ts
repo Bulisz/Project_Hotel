@@ -22,9 +22,8 @@ export class RoomCalendarComponent implements OnInit {
   @Input() reservationList!: Array<ReservationListItem>;
 
   numberOfDaysPerWeek = 7;
+  numberOfMonthsPerYear = 12;
   public dateToday: Date | undefined;
-  dateTodayString: string = "";
-  timeStampToday: number = 0;
   thisYear: number = 0;
   monthToday: number = 0;
   public thisMonth: string | undefined;
@@ -48,50 +47,25 @@ export class RoomCalendarComponent implements OnInit {
   nextMonthName: string | undefined;
   previousMonthName: string | undefined;
 
-
-  constructor(private accountService: AccountService,
-    private calendarService: CalendarService,
-    private router: Router,
+  constructor(private calendarService: CalendarService,
     public dialogRef: MatDialogRef<RoomCalendarComponent>,
     private rs: RoomService,
-    private as: AccountService,
-    @Inject(MAT_DIALOG_DATA) public data: {monthRequested: Date}){}
+    private as: AccountService){}
     
-    async ngOnInit() {
+  async ngOnInit() {
 
-      await this.as.getUsers()
-         .then(res => this.users = res)
-         .catch(err => console.log(err))
+    await this.as.getUsers()
+      .then(res => this.users = res)
+      .catch(err => console.log(err))
 
-      await this.rs.getAllRooms()
-         .then( res => this.rooms = res)
-         .catch(err => console.log(err))
+    await this.rs.getAllRooms()
+      .then( res => this.rooms = res)
+      .catch(err => console.log(err))
 
-         this.dateToday = new Date(Date.now());
+    this.dateToday = new Date(Date.now());
         
-      this.showCalendar(this.dateToday);
-    }
-
-    getColor(roomNumber: number) {
-      switch (roomNumber) { 
-        case 2:
-        return '#AF9E66';
-        case 3:
-        return '#6B3923';
-        case 4:
-        return '#9A7294';
-        case 5:
-        return '#C7A086';
-        case 6:
-        return '#55171E';
-        case 7:
-        return '#915934';
-        case 9:
-        return '#A4255C';
-        default:
-        return '#3F221B';
-      }
-    }
+    this.showCalendar(this.dateToday);
+  }
 
   closeCalendar() {
     this.dialogRef.close('ok')
@@ -99,17 +73,15 @@ export class RoomCalendarComponent implements OnInit {
 
   showCalendar(dateToday: Date) {
 
-       this.monthToday = dateToday.getMonth()+1;
-       console.log(this.monthToday)
-       console.log(this.dateToday)
+      this.monthToday = dateToday.getMonth()+1;
       this.thisMonth = this.monthNames[this.monthToday-1];
       this.yearNow = dateToday.getFullYear();
-      this.nextMonthName = this.monthNames[this.monthToday % 12];
+      this.nextMonthName = this.monthNames[this.monthToday % this.numberOfMonthsPerYear];
 
       if (this.monthToday-2 >= 0) {
         this.previousMonthName = this.monthNames[(this.monthToday-2)];
       }else{
-        this.previousMonthName = this.monthNames[(this.monthToday-2 + 12)];
+        this.previousMonthName = this.monthNames[(this.monthToday-2 + this.numberOfMonthsPerYear)];
       }
       
       this.calendarService.getAllDaysOfMonth(this.yearNow, this.monthToday).subscribe({
@@ -117,12 +89,12 @@ export class RoomCalendarComponent implements OnInit {
           this.daysOfthisMonth = res;
        console.log(this.daysOfthisMonth)
         this.rows = Math.ceil((this.daysOfthisMonth.length + (this.daysOfthisMonth[0].weekDayNumber-1)) /7);
-          this.firstMondayNumber = 7 - this.daysOfthisMonth[0].weekDayNumber + 1
+          this.firstMondayNumber = this.numberOfDaysPerWeek - this.daysOfthisMonth[0].weekDayNumber + 1
              
           this.calendar = [];
         for (let i = 0; i < this.rows; i++) {
           this.calendar[i] = [];
-          for (let j = 0; j < 7; j++) {
+          for (let j = 0; j < this.numberOfDaysPerWeek; j++) {
             this.calendar[i][j] =  {
               day: new Date(),
               dateNumber: 0,
@@ -131,24 +103,44 @@ export class RoomCalendarComponent implements OnInit {
         }
       }
         
-          for (let i = 0; i < this.firstMondayNumber; i++) {
-            this.calendar[0][this.daysOfthisMonth[i].weekDayNumber -1] = this.daysOfthisMonth[i];
-          }
-          for (let r = 1; r < this.rows - 1; r++){
-            for (let i = (this.firstMondayNumber) + (r-1)*7, k = 0; k < 7; i++, k++) {
-              this.calendar[r][k] = this.daysOfthisMonth[i];
-            }
-          }
-          let column = 0;
-          for (let i = this.firstMondayNumber + (this.rows - 2)*7; i < this.daysOfthisMonth.length; i++) {
-            this.calendar[this.rows - 1][column] = this.daysOfthisMonth[i];
-            column++;
-          }
-          console.log(this.calendar)
+      for (let i = 0; i < this.firstMondayNumber; i++) {
+        this.calendar[0][this.daysOfthisMonth[i].weekDayNumber -1] = this.daysOfthisMonth[i];
+      }
+      for (let r = 1; r < this.rows - 1; r++){
+        for (let i = (this.firstMondayNumber) + (r-1)*this.numberOfDaysPerWeek, k = 0; k < this.numberOfDaysPerWeek; i++, k++) {
+          this.calendar[r][k] = this.daysOfthisMonth[i];
+        }
+      }
+      let column = 0;
+      for (let i = this.firstMondayNumber + (this.rows - 2)*this.numberOfDaysPerWeek; i < this.daysOfthisMonth.length; i++) {
+        this.calendar[this.rows - 1][column] = this.daysOfthisMonth[i];
+        column++;
+      }
       },
         error: err => console.log(err)
       })
         
+  }
+
+  getColor(roomNumber: number) {
+    switch (roomNumber) { 
+      case 2:
+      return '#AF9E66';
+      case 3:
+      return '#6B3923';
+      case 4:
+      return '#9A7294';
+      case 5:
+      return '#C7A086';
+      case 6:
+      return '#55171E';
+      case 7:
+      return '#915934';
+      case 9:
+      return '#A4255C';
+      default:
+      return '#3F221B';
+    }
   }
 
   nextMonth(direction: number) {
