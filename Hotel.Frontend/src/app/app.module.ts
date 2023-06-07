@@ -113,7 +113,7 @@ import { SuccessfulEmailSendComponent } from './components/successful-email-send
     StatisticsComponent,
     StatMonthBarComponent,
     StatRoomPieComponent,
-    StatYearRoomsComponent
+    StatYearRoomsComponent,
   ],
   imports: [
     BrowserModule,

@@ -35,7 +35,7 @@ export class AuthInterceptor implements HttpInterceptor {
         async err => {
           if (err.status === 401) {
             dialogref.close()
-            return await this.handleRefresh(newRequest, next)
+            // return await this.handleRefresh(newRequest, next)
           } else {
             dialogref.close()
             this.navigateToErrorPage(err)
@@ -61,6 +61,7 @@ export class AuthInterceptor implements HttpInterceptor {
   async handleRefresh(req: HttpRequest<any>, next: HttpHandler): Promise<any> {
     return await this.as.refresh()
       .then(td => {
+        console.log(td.accessToken.value)
         const newRequest = req.clone({
           headers: req.headers.set('Authorization', `Bearer ${td.accessToken.value}`)
         })
@@ -70,10 +71,15 @@ export class AuthInterceptor implements HttpInterceptor {
 
   navigateToErrorPage(err: any) {
     if (err.status !== 400) {
-      const navigationExtras: NavigationExtras = {
-        state: { message: err.error, status: err.status, statusText: err.statusText },
-      };
-      this.router.navigate(['error'], navigationExtras)
+      if(err.status === 403){
+        this.as.user.next(null)
+        this.router.navigate([''])
+      } else {
+        const navigationExtras: NavigationExtras = {
+          state: { message: err.error, status: err.status, statusText: err.statusText },
+        };
+        this.router.navigate(['error'], navigationExtras)
+      }
     }
   }
 }
