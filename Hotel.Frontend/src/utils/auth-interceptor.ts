@@ -61,7 +61,6 @@ export class AuthInterceptor implements HttpInterceptor {
   async handleRefresh(req: HttpRequest<any>, next: HttpHandler): Promise<any> {
     return await this.as.refresh()
       .then(td => {
-        console.log(td.accessToken.value)
         const newRequest = req.clone({
           headers: req.headers.set('Authorization', `Bearer ${td.accessToken.value}`)
         })
