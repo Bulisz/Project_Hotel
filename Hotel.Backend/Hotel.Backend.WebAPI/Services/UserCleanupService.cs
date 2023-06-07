@@ -30,17 +30,14 @@ public class UserCleanupService : BackgroundService
                     .Where(user => user.EmailConfirmed == false)
                     .ToList();
 
-
                 foreach(var user in unconfirmedUsers)
                 {
                     
-                    
                         if(expiredTime > user.CreatedAt)
                         {
-                            _logger.LogInformation(user.LastName, user.FirstName, user.Email, "Felhasználó törölve érvénytelen email-cím miatt");
-                            userManager.DeleteAsync(user);
+                            _logger.LogInformation(user.UserName, user.Email, "Felhasználó törölve érvénytelen email-cím miatt");
+                            await userManager.DeleteAsync(user);
                         }
-                    
                 }
             }
 

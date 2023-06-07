@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 import { UpdateUserModel } from '../models/update-user-model';
 import { UserListModel } from '../models/user-list-model';
 import { EmailVerificationModel } from '../models/email-verification-model';
+import { ResetPasswordModel } from '../models/reset-password-model';
 
 
 
@@ -92,6 +93,14 @@ export class AccountService {
 
   async confirmEmail(emailVerification: EmailVerificationModel): Promise<boolean> {
     return await firstValueFrom(this.http.post<boolean>(`${environment.apiUrl}/${this.BASE_URL}/VerifyEmail`, emailVerification))
+  }
+
+  async resetPassword(resetPassword: ResetPasswordModel): Promise<boolean> {
+    return await firstValueFrom(this.http.post<boolean>(`${environment.apiUrl}/${this.BASE_URL}/ResetPassword`, resetPassword))
+  }
+
+  async forgotPassword(emailAddress: string): Promise<any> {
+    return await firstValueFrom(this.http.post<any>(`${environment.apiUrl}/${this.BASE_URL}/ForgotPassword`, emailAddress))
   }
 
 }

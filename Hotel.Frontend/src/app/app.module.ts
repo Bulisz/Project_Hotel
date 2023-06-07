@@ -56,6 +56,10 @@ import { StatMonthBarComponent } from './components/stat-month-bar/stat-month-ba
 import { StatRoomPieComponent } from './components/stat-room-pie/stat-room-pie.component';
 import { StatYearRoomsComponent } from './components/stat-year-rooms/stat-year-rooms.component';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { NewPasswordComponent } from './components/new-password/new-password.component';
+import { SuccessfulResetComponent } from './components/successful-reset/successful-reset.component';
+import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
+import { SuccessfulEmailSendComponent } from './components/successful-email-send/successful-email-send.component';
 
 @NgModule({
   declarations: [
@@ -101,11 +105,15 @@ import { NgApexchartsModule } from "ng-apexcharts";
     PatientComponent,
     RoomCalendarComponent,
     LoadingDialogComponent,
+    NewPasswordComponent,
+    SuccessfulResetComponent,
+    ForgottenPasswordComponent,
+    SuccessfulEmailSendComponent,
     AboutUsComponent,
     StatisticsComponent,
     StatMonthBarComponent,
     StatRoomPieComponent,
-    StatYearRoomsComponent
+    StatYearRoomsComponent,
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,10 @@ import { OperatorGuardService } from './services/operator-guard.service';
 import { UserGuardService } from './services/user-guard.service';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
+import { NewPasswordComponent } from './components/new-password/new-password.component';
+import { SuccessfulResetComponent } from './components/successful-reset/successful-reset.component';
+import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
+import { SuccessfulEmailSendComponent } from './components/successful-email-send/successful-email-send.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,12 +32,16 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [AdminGuardService]},
   { path: 'operator', component: OperatorComponent, canActivate: [OperatorGuardService]},
   { path: 'registration', component: RegistrationComponent},
+  { path: 'forgotPassword', component: ForgottenPasswordComponent },
   { path: 'login', component: LoginComponent},
   { path: 'patient', component: PatientComponent},
   { path: 'confirmEmail', component: EmailConfirmationComponent},
+  { path: 'newPassword', component: NewPasswordComponent },
   { path: 'personal', component: PersonalComponent, canActivate: [UserGuardService]},
   { path: 'about-us', component: AboutUsComponent},
   { path: 'statistics', component: StatisticsComponent},
+  { path: 'successfulReset', component: SuccessfulResetComponent},
+  { path: 'successfulEmailSend', component: SuccessfulEmailSendComponent},
   { path: '**', component: ErrorComponent }
   
 ];

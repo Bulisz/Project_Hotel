@@ -13,6 +13,7 @@ public class ReservationService : IReservationService
     private readonly IReservationRepository _reservationRepository;
     private readonly IUserRepository _userRepository;
     private readonly IRoomRepository _roomRepository;
+    static SemaphoreSlim _semaphoreSlim;
 
     public ReservationService(IReservationRepository reservationRepository,
                               IUserRepository userRepository,
@@ -21,19 +22,34 @@ public class ReservationService : IReservationService
         _reservationRepository = reservationRepository;
         _userRepository = userRepository;
         _roomRepository = roomRepository;
+        _semaphoreSlim = new SemaphoreSlim(1,1);
     }
 
     public async Task<ReservationDetailsDTO> CreateReservationAsync(ReservationRequestDTO request)
     {
+        
+
         if (request.BookingFrom < request.BookingTo)
         {
             UserDetailsDTO? userDTO = await _userRepository.GetUserByIdAsync(request.UserId);
             ApplicationUser? user = userDTO!.User;
 
-            Room? room = await _roomRepository.GetRoomByIdAsync(request.RoomId);
 
-            bool isRoomAvailable = room!.Reservations.All(reservation =>
-            request.BookingFrom >= reservation.BookingTo || request.BookingTo <= reservation.BookingFrom);
+            Room? room;
+            bool isRoomAvailable;
+            await _semaphoreSlim.WaitAsync();
+            try
+            {
+                room = await _roomRepository.GetRoomByIdAsync(request.RoomId);
+
+                isRoomAvailable = room!.Reservations.All(reservation =>
+                request.BookingFrom >= reservation.BookingTo || request.BookingTo <= reservation.BookingFrom);
+            }
+            finally
+            {
+                _semaphoreSlim.Release();
+            }
+            
 
             if (isRoomAvailable)
             {

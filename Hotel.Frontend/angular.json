@@ -32,15 +32,18 @@
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/apexcharts/dist/apexcharts.min.js"
-            ]
+            ],
+            "allowedCommonJsDependencies": [
+              "lodash"
+           ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1.2mb",
-                  "maximumError": "2mb"
+                  "maximumWarning": "2.2mb",
+                  "maximumError": "3mb"
                 },
                 {
                   "type": "anyComponentStyle",
