@@ -107,7 +107,7 @@ export class StatYearRoomsComponent  {
       next: res => {
         this.data = res
         for (let i = 0; i < this.data.length; i++) {
-          let j = i % 8;
+          let j = i % this.dogHotelColors.length;
           this.data[i].color = this.dogHotelColors[j];
           
         }
