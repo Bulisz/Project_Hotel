@@ -14,4 +14,6 @@ public interface IUserRepository
     Task<List<UserListItem>> GetAllUsersAsync();
     Task<UserDetailsDTO> UpdateUserAsAdminAsync(UserDetailsForAdmin request);
     Task<bool> VerifyEmailAsync(EmailVerificationDTO emailVerification);
+    Task<ApplicationUser?> FindByEmailAsync(string email);
+    Task<UserDetailsDTO> InsertGoogleUserAsync(ApplicationUser userToRegister);
 }

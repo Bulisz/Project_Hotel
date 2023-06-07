@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 import { UpdateUserModel } from '../models/update-user-model';
 import { UserListModel } from '../models/user-list-model';
 import { EmailVerificationModel } from '../models/email-verification-model';
+import { GoogleLoginModel } from '../models/google-login-model';
 
 
 
@@ -66,7 +67,6 @@ export class AccountService {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('adminPageSelector');
-    localStorage.removeItem("token");
     this.user.next(null)
   }
 
@@ -95,11 +95,16 @@ export class AccountService {
     return await firstValueFrom(this.http.post<boolean>(`${environment.apiUrl}/${this.BASE_URL}/VerifyEmail`, emailVerification))
   }
 
-  LoginWithGoogle(credentials: string): Observable<any> {
-    const header = new HttpHeaders().set('Content-type', 'application/json');
-    console.log(header)
-    console.log(credentials)
-    return this.http.post(`${environment.apiUrl}/${this.BASE_URL}/LoginWithGoogle`, JSON.stringify(credentials), { headers: header });
+  async LoginWithGoogle(credentials: GoogleLoginModel): Promise<TokensModel> {
+    return await firstValueFrom(this.http.post<TokensModel>(`${environment.apiUrl}/${this.BASE_URL}/LoginWithGoogle`, credentials))
+    .then(async lrm => {
+      if(lrm.accessToken){
+        localStorage.setItem('accessToken', lrm.accessToken.value);
+        localStorage.setItem('refreshToken', lrm.refreshToken.value);
+        await this.getCurrentUser()
+      }
+      return lrm
+    })
   }
 
 }

@@ -28,13 +28,6 @@ public static class AuthenticationExtension
                   .AddEntityFrameworkStores<HotelDbContext>()
                   .AddDefaultTokenProviders();
 
-        services.AddAuthentication()
-            .AddGoogle(opts =>
-            {
-                opts.ClientId = configuration["GoogleAuth:client_id"];
-                opts.ClientSecret = configuration["GoogleAuth:client_secret"];
-            });
-
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                  .AddJwtBearer(options =>
                  {

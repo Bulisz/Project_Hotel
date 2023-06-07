@@ -75,4 +75,20 @@ public class UserService : IUserService
         bool isSucceeded = await _userRepository.VerifyEmailAsync(request);
         return isSucceeded;
     }
+
+    public async Task<ApplicationUser?> FindByEmailAsync(string email)
+    {
+        return await _userRepository.FindByEmailAsync(email);
+        
+    }
+
+    public async Task<UserDetailsDTO> RegisterGoogleUserAsync(CreateUserForm userToCreate)
+    {
+        ApplicationUser userToRegister = _mapper.Map<ApplicationUser>(userToCreate);
+        userToRegister.CreatedAt = _dateTimeProvider.Now;
+
+        UserDetailsDTO createdUser = await _userRepository.InsertGoogleUserAsync(userToRegister);
+
+        return _mapper.Map<UserDetailsDTO>(createdUser);
+    }
 }

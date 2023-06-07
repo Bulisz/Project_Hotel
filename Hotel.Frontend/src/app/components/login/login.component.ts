@@ -5,6 +5,8 @@ import { AccountService } from 'src/app/services/account.service';
 import { validationHandler } from 'src/utils/validationHandler';
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { DOCUMENT } from '@angular/common';
+import { LoginrequestModel } from 'src/app/models/loginrequest-model';
+import { GoogleLoginModel } from 'src/app/models/google-login-model';
 
 @Component({
   selector: 'app-login',
@@ -53,14 +55,10 @@ export class LoginComponent implements OnInit {
   }
 
   async handleCredentialResponse(response: CredentialResponse) {
-    await this.as.LoginWithGoogle(response.credential).subscribe(
-      (x:any) => {
-        this._ngZone.run(() => {
-        })},
-      (error:any) => {
-          console.log(error);
-        }
-      );
+    let credential: GoogleLoginModel = {credential:response.credential}
+    await this.as.LoginWithGoogle(credential)
+      .then(() => this.dialogRef.close('ok'))
+      .catch(err => validationHandler(err, this.loginForm))
 }
 
   formChange(){
