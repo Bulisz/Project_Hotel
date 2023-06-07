@@ -108,12 +108,12 @@ import { SuccessfulEmailSendComponent } from './components/successful-email-send
     NewPasswordComponent,
     SuccessfulResetComponent,
     ForgottenPasswordComponent,
-    SuccessfulEmailSendComponent
+    SuccessfulEmailSendComponent,
     AboutUsComponent,
     StatisticsComponent,
     StatMonthBarComponent,
     StatRoomPieComponent,
-    StatYearRoomsComponent
+    StatYearRoomsComponent,
   ],
   imports: [
     BrowserModule,
