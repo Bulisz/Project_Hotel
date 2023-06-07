@@ -219,7 +219,7 @@ public class UserRepository : IUserRepository
         var forgotPasswordToken = await _userManager.GeneratePasswordResetTokenAsync(user);
         var encodedForgotPasswordToken = Encoding.UTF8.GetBytes(forgotPasswordToken);
         var validPasswordToken = WebEncoders.Base64UrlEncode(encodedForgotPasswordToken);
-        string url = $"http://localhost:4200/#/newPassword/?email={user.Email}&token={validPasswordToken}";
+        string url = $"http://bulisz-001-site1.dtempurl.com//#/newPassword/?email={user.Email}&token={validPasswordToken}";
 
         EmailDTO email = _emailService.CreatingForgottenPasswordEmail(user.Email, user.UserName, url);
 
