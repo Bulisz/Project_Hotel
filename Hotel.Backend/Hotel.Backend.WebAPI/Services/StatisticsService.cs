@@ -112,9 +112,6 @@ namespace Hotel.Backend.WebAPI.Services
 
                     }
                     double percentage = bookedDays / dayNumberInThisMonth * 100;
-                    Console.Write(month.ToString() + ' ');
-                    Console.Write(bookedDays.ToString() + ' ');
-                    Console.WriteLine(dayNumberInThisMonth.ToString());
                     myRoom.Data.Add(Math.Round(percentage));
                 }
 
