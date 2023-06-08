@@ -1,4 +1,4 @@
-import { Component, Inject, NgZone, OnInit, Renderer2 } from '@angular/core';
+import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AccountService } from 'src/app/services/account.service';
@@ -6,8 +6,8 @@ import { validationHandler } from 'src/utils/validationHandler';
 import { ForgottenPasswordComponent } from '../forgotten-password/forgotten-password.component';
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { DOCUMENT } from '@angular/common';
-import { LoginrequestModel } from 'src/app/models/loginrequest-model';
 import { GoogleLoginModel } from 'src/app/models/google-login-model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +17,7 @@ import { GoogleLoginModel } from 'src/app/models/google-login-model';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  private clientId = environment.clientId
 
   constructor (private as: AccountService,
     public dialogRef: MatDialogRef<LoginComponent>,
@@ -36,19 +37,18 @@ export class LoginComponent implements OnInit {
     window.onGoogleLibraryLoad = () => {
       // @ts-ignore
       google.accounts.id.initialize({
-        client_id: '395659035574-820j3194u2k30g9t6h24q9s98evdunlq.apps.googleusercontent.com',
+        client_id: this.clientId,
         callback: this.handleCredentialResponse.bind(this),
         auto_select: false,
-        cancel_on_tap_outside: true
+        cancel_on_tap_outside: false,
+
       });
       // @ts-ignore
       google.accounts.id.renderButton(
       // @ts-ignore
       document.getElementById("buttonDiv"),
-        { theme: "outline", size: "large", width: "100%" }
+        { theme: "outline", size: "large", width: "100%", shape: "pill" }
       );
-      // @ts-ignore
-      google.accounts.id.prompt((notification: PromptMomentNotification) => {});
     };
   }
 
@@ -63,7 +63,10 @@ export class LoginComponent implements OnInit {
   async handleCredentialResponse(response: CredentialResponse) {
     let credential: GoogleLoginModel = {credential:response.credential}
     await this.as.LoginWithGoogle(credential)
-      .then(() => this.dialogRef.close('ok'))
+      .then(() => {
+        this.dialogRef.close('ok')
+        window.location.reload()
+      })
       .catch(err => validationHandler(err, this.loginForm))
 }
 

@@ -6,6 +6,7 @@ using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Net;
 
 namespace Hotel.Backend.WebAPI.Controllers;
@@ -14,12 +15,14 @@ namespace Hotel.Backend.WebAPI.Controllers;
 [ApiController]
 public class UsersController : ControllerBase
 {
+    private readonly AppSettings _applicationSettings;
     private readonly IJwtService _jwtService;
     private readonly IUserService _userService;
     private readonly ILogger<UsersController> _logger;
 
-    public UsersController(IJwtService jwtService, IUserService userService, ILogger<UsersController> logger)
+    public UsersController(IOptions<AppSettings> applicationSettings, IJwtService jwtService, IUserService userService, ILogger<UsersController> logger)
     {
+        _applicationSettings = applicationSettings.Value;
         _jwtService = jwtService;
         _userService = userService;
         _logger = logger;
@@ -282,7 +285,7 @@ public class UsersController : ControllerBase
     {
         var settings = new GoogleJsonWebSignature.ValidationSettings()
         {
-            Audience = new List<string> { "395659035574-820j3194u2k30g9t6h24q9s98evdunlq.apps.googleusercontent.com" }
+            Audience = new List<string> { _applicationSettings.client_id }
         };
 
         var payload = await GoogleJsonWebSignature.ValidateAsync(login.Credential, settings);

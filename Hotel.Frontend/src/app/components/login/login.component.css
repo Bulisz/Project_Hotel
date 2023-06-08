@@ -60,8 +60,10 @@
   position:fixed;
 }
 
-mat-card {
-  max-width: 240px;
+.cardStyle {
   margin: 1em auto;
   text-align: center;
+  border:#800020 solid 2px;
+  border-radius: 2rem;
+  width: min-content;
 }
