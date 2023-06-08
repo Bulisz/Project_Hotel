@@ -60,6 +60,7 @@ import { NewPasswordComponent } from './components/new-password/new-password.com
 import { SuccessfulResetComponent } from './components/successful-reset/successful-reset.component';
 import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
 import { SuccessfulEmailSendComponent } from './components/successful-email-send/successful-email-send.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -123,8 +124,9 @@ import { SuccessfulEmailSendComponent } from './components/successful-email-send
     MatDialogModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
-    MatSelectModule,
     NgApexchartsModule,
+    MatSelectModule,
+    MatCardModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},

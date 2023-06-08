@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, firstValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { RegisterModel } from '../models/register-model';
 import { LoginrequestModel } from '../models/loginrequest-model';
 import { TokensModel } from '../models/tokens-model';
@@ -10,6 +10,7 @@ import { UpdateUserModel } from '../models/update-user-model';
 import { UserListModel } from '../models/user-list-model';
 import { EmailVerificationModel } from '../models/email-verification-model';
 import { ResetPasswordModel } from '../models/reset-password-model';
+import { GoogleLoginModel } from '../models/google-login-model';
 
 
 @Injectable({
@@ -100,6 +101,18 @@ export class AccountService {
 
   async forgotPassword(emailAddress: string): Promise<any> {
     return await firstValueFrom(this.http.post<any>(`${environment.apiUrl}/${this.BASE_URL}/ForgotPassword`, emailAddress))
+  }
+
+  async LoginWithGoogle(credentials: GoogleLoginModel): Promise<TokensModel> {
+    return await firstValueFrom(this.http.post<TokensModel>(`${environment.apiUrl}/${this.BASE_URL}/LoginWithGoogle`, credentials))
+    .then(async lrm => {
+      if(lrm.accessToken){
+        localStorage.setItem('accessToken', lrm.accessToken.value);
+        localStorage.setItem('refreshToken', lrm.refreshToken.value);
+        await this.getCurrentUser()
+      }
+      return lrm
+    })
   }
 
 }

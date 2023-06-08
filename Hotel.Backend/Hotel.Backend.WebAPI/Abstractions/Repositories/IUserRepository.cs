@@ -16,4 +16,6 @@ public interface IUserRepository
     Task<bool> VerifyEmailAsync(EmailVerificationDTO emailVerification);
     Task ForgotPasswordAsync(ForgotPasswordDTO request);
     Task<bool> ResetPasswordAsync(ResetPasswordDTO request);
+    Task<ApplicationUser?> FindByEmailAsync(string email);
+    Task<UserDetailsDTO> InsertGoogleUserAsync(ApplicationUser userToRegister);
 }

@@ -1,4 +1,5 @@
-﻿using Hotel.Backend.WebAPI.Models.DTO;
+﻿using Hotel.Backend.WebAPI.Models;
+using Hotel.Backend.WebAPI.Models.DTO;
 
 namespace Hotel.Backend.WebAPI.Abstractions.Services;
 
@@ -15,4 +16,6 @@ public interface IUserService
     Task<bool> VerifyEmailAsync(EmailVerificationDTO request);
     Task ForgotPasswordAsync(ForgotPasswordDTO request);
     Task<bool> ResetPasswordAsync(ResetPasswordDTO request);
+    Task<ApplicationUser?> FindByEmailAsync(string email);
+    Task<UserDetailsDTO> RegisterGoogleUserAsync(CreateUserForm userToCreate);
 }

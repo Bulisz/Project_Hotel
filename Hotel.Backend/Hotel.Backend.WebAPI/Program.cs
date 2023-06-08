@@ -3,6 +3,7 @@ using Hotel.Backend.WebAPI.Abstractions.Repositories;
 using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Helpers;
+using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO.OptionDTOs;
 using Hotel.Backend.WebAPI.Repositories;
 using Hotel.Backend.WebAPI.Services;
@@ -58,11 +59,13 @@ try
 	builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 	builder.Services.AddSingleton(s =>
 		new Cloudinary(new Account(
-			builder.Configuration.GetValue<string>("CloudinaryConfig:Cloud"),
-			builder.Configuration.GetValue<string>("CloudinaryConfig:ApiKey"),
-			builder.Configuration.GetValue<string>("CloudinaryConfig:ApiSecret"))));
+			builder.Configuration["CloudinaryConfig:Cloud"],
+			builder.Configuration["CloudinaryConfig:ApiKey"],
+			builder.Configuration["CloudinaryConfig:ApiSecret"])));
 
-	builder.Services.AddControllers();
+    builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("GoogleAuth"));
+
+    builder.Services.AddControllers();
 	builder.Services.AddEndpointsApiExplorer();
 	builder.Services.AddSwaggerGen();
 

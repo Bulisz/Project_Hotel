@@ -1,9 +1,12 @@
-﻿using Hotel.Backend.WebAPI.Abstractions.Services;
+﻿using Google.Apis.Auth;
+using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helper;
 using Hotel.Backend.WebAPI.Helpers;
+using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Net;
 
 namespace Hotel.Backend.WebAPI.Controllers;
@@ -12,12 +15,14 @@ namespace Hotel.Backend.WebAPI.Controllers;
 [ApiController]
 public class UsersController : ControllerBase
 {
+    private readonly AppSettings _applicationSettings;
     private readonly IJwtService _jwtService;
     private readonly IUserService _userService;
     private readonly ILogger<UsersController> _logger;
 
-    public UsersController(IJwtService jwtService, IUserService userService, ILogger<UsersController> logger)
+    public UsersController(IOptions<AppSettings> applicationSettings, IJwtService jwtService, IUserService userService, ILogger<UsersController> logger)
     {
+        _applicationSettings = applicationSettings.Value;
         _jwtService = jwtService;
         _userService = userService;
         _logger = logger;
@@ -274,4 +279,41 @@ public class UsersController : ControllerBase
             return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
         }
     }
+
+    [HttpPost(nameof(LoginWithGoogle))]
+    public async Task<ActionResult<TokensDTO>> LoginWithGoogle(GoogleLoginDTO login)
+    {
+        var settings = new GoogleJsonWebSignature.ValidationSettings()
+        {
+            Audience = new List<string> { _applicationSettings.client_id }
+        };
+
+        var payload = await GoogleJsonWebSignature.ValidateAsync(login.Credential, settings);
+
+        ApplicationUser? user = await _userService.FindByEmailAsync(payload.Email);
+
+        if (user != null)
+        {
+            TokensDTO tokens = await _jwtService.CreateTokensAsync(user);
+
+            return Ok(tokens);
+        }
+        else
+        {
+            CreateUserForm userToCreate = new()
+            {
+                UserName = string.Concat(payload.Email.Split('@')[0].Split(".")),
+                Email = payload.Email,
+                FirstName = payload.GivenName,
+                LastName = payload.FamilyName,
+            };
+
+            UserDetailsDTO createdUser = await _userService.RegisterGoogleUserAsync(userToCreate);
+            TokensDTO tokens = await _jwtService.CreateTokensAsync(createdUser.User);
+
+            return Ok(tokens);
+        }
+
+    }
+
 }

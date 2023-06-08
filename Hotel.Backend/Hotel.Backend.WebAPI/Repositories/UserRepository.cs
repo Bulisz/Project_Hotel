@@ -253,4 +253,36 @@ public class UserRepository : IUserRepository
         string token = Encoding.UTF8.GetString(decodedToken);
         return token;
     }
+
+    public async Task<ApplicationUser?> FindByEmailAsync(string email)
+    {
+        return await _userManager.FindByEmailAsync(email);
+    }
+
+    public async Task<UserDetailsDTO> InsertGoogleUserAsync(ApplicationUser userToRegister)
+    {
+        userToRegister.EmailConfirmed = true;
+        IdentityResult createResult = await _userManager.CreateAsync(userToRegister);
+
+        if (!createResult.Succeeded)
+        {
+            List<HotelFieldError> errors = createResult.Errors.Select(err =>
+                new HotelFieldError(err.Description.Substring(0, err.Description.IndexOf(" ")) == "Username" ? "UserName" :
+                err.Description.Substring(0, err.Description.IndexOf(" ")) == "Passwords" ? "Password" : err.Description.Substring(0, err.Description.IndexOf(" ")), err.Description)).ToList();
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+        }
+
+        IdentityResult identityResult = await _userManager.AddToRoleAsync(userToRegister, Role.Guest.ToString());
+        if (!identityResult.Succeeded)
+        {
+            List<HotelFieldError> errors = identityResult.Errors.Select(err => new HotelFieldError(err.Description.Substring(0, err.Description.IndexOf(" ")), err.Description)).ToList();
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+        }
+
+        UserDetailsDTO userDetails = new UserDetailsDTO();
+        userDetails.User = userToRegister;
+        userDetails.Roles = await _userManager.GetRolesAsync(userToRegister);
+
+        return userDetails;
+    }
 }
