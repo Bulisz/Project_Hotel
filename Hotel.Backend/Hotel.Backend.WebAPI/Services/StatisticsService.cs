@@ -89,6 +89,7 @@ namespace Hotel.Backend.WebAPI.Services
 
                 for (int month = 1; month <= 12; month++)
                 {
+                    double dayNumberInThisMonth = (double)DateTime.DaysInMonth(query.Year, month);
                     double bookedDays = 0;
                     foreach (var reservation in room.Reservations)
                     {
@@ -110,8 +111,8 @@ namespace Hotel.Backend.WebAPI.Services
                         }
 
                     }
-                    
-                    myRoom.Data.Add(Math.Round(bookedDays));
+                    double percentage = bookedDays / dayNumberInThisMonth * 100;
+                    myRoom.Data.Add(Math.Round(percentage));
                 }
 
                 result.Add(myRoom);
