@@ -47,7 +47,7 @@ public class UserRepository : IUserRepository
         var emailVerificationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
         var encodedVerificationToken = Encoding.UTF8.GetBytes(emailVerificationToken);
         var validEmailToken = WebEncoders.Base64UrlEncode(encodedVerificationToken);
-        string url = $"http://bulisz-001-site1.dtempurl.com/#/confirmEmail/?email={user.Email}&token={validEmailToken}";
+        string url = $"https://bulisz-001-site1.dtempurl.com/#/confirmEmail/?email={user.Email}&token={validEmailToken}";
 
 
         EmailDTO email = _emailService.CreatingVerificationEmail(user.Email, user.LastName, user.FirstName, url);
@@ -219,7 +219,7 @@ public class UserRepository : IUserRepository
         var forgotPasswordToken = await _userManager.GeneratePasswordResetTokenAsync(user);
         var encodedForgotPasswordToken = Encoding.UTF8.GetBytes(forgotPasswordToken);
         var validPasswordToken = WebEncoders.Base64UrlEncode(encodedForgotPasswordToken);
-        string url = $"http://bulisz-001-site1.dtempurl.com//#/newPassword/?email={user.Email}&token={validPasswordToken}";
+        string url = $"https://bulisz-001-site1.dtempurl.com//#/newPassword/?email={user.Email}&token={validPasswordToken}";
 
         EmailDTO email = _emailService.CreatingForgottenPasswordEmail(user.Email, user.UserName, url);
 
