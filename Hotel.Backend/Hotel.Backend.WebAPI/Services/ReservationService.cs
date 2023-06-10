@@ -26,37 +26,33 @@ public class ReservationService : IReservationService
         _roomRepository = roomRepository;
         _emailService = emailService;
 
-        _semaphoreSlim = new SemaphoreSlim(1,1);
+        _semaphoreSlim = new SemaphoreSlim(1, 1);
     }
 
     public async Task<ReservationDetailsDTO> CreateReservationAsync(ReservationRequestDTO request)
     {
-        
+        if (request.BookingFrom > request.BookingTo)
+        {
+            List<HotelFieldError> errors = new() { new HotelFieldError("BookingTo", "A távozásnak később kell lennie, mint az érkezésnek"), new HotelFieldError("BookingFrom", "A távozásnak később kell lennie, mint az érkezésnek") };
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+        }
 
-        if (request.BookingFrom < request.BookingTo)
+        ReservationDetailsDTO response = new ReservationDetailsDTO();
+
+        await _semaphoreSlim.WaitAsync();
+        try
         {
             UserDetailsDTO? userDTO = await _userRepository.GetUserByIdAsync(request.UserId);
             ApplicationUser? user = userDTO!.User;
 
+            Room? room = await _roomRepository.GetRoomByIdAsync(request.RoomId);
 
-            Room? room;
-            bool isRoomAvailable;
-            await _semaphoreSlim.WaitAsync();
-            try
-            {
-                room = await _roomRepository.GetRoomByIdAsync(request.RoomId);
-
-                isRoomAvailable = room!.Reservations.All(reservation =>
-                request.BookingFrom >= reservation.BookingTo || request.BookingTo <= reservation.BookingFrom);
-            }
-            finally
-            {
-                _semaphoreSlim.Release();
-            }
-            
+            bool isRoomAvailable = room!.Reservations.All(reservation =>
+            request.BookingFrom >= reservation.BookingTo || request.BookingTo <= reservation.BookingFrom);
 
             if (isRoomAvailable)
             {
+
                 Reservation newReservation = new Reservation
                 {
                     ApplicationUser = user!,
@@ -66,7 +62,7 @@ public class ReservationService : IReservationService
                 };
 
                 Reservation reservation = await _reservationRepository.CreateReservationAsync(newReservation);
-                ReservationDetailsDTO response = new ReservationDetailsDTO
+                response = new ReservationDetailsDTO
                 {
                     Id = reservation.Id,
                     RoomId = reservation.Room.Id,
@@ -74,9 +70,7 @@ public class ReservationService : IReservationService
                     BookingFrom = request.BookingFrom,
                     BookingTo = request.BookingTo,
                 };
-                await ReservationNotifications(user, reservation);
-
-                return response;
+            await ReservationNotifications(user, reservation);
             }
             else
             {
@@ -84,11 +78,12 @@ public class ReservationService : IReservationService
                 throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
             }
         }
-        else
+        finally
         {
-            List<HotelFieldError> errors = new() { new HotelFieldError("BookingTo", "A távozásnak később kell lennie, mint az érkezésnek"), new HotelFieldError("BookingFrom", "A távozásnak később kell lennie, mint az érkezésnek") };
-            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+            _semaphoreSlim.Release();
         }
+
+        return response;
     }
 
     private async Task ReservationNotifications(ApplicationUser? user, Reservation reservation)
