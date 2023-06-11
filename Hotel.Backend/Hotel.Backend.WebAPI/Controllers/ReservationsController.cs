@@ -23,7 +23,7 @@ public class ReservationsController : ControllerBase
         _logger = logger;
     }
 
-    //[Authorize]
+    [Authorize]
     [HttpPost(nameof(CreateReservationForRoom))]
     public async Task<ActionResult<ReservationDetailsDTO>> CreateReservationForRoom(ReservationRequestDTO request)
     {
