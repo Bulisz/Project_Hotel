@@ -91,9 +91,10 @@ try
 	app.UseAuthorization();
 
 	app.MapControllers();
-    app.MapFallbackToFile("index.html");
 
     await app.UseAuthAsync();
+
+    app.MapFallbackToFile("index.html");
 
 	app.Run();
 
