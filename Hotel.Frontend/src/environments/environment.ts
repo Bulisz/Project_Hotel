@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://bulisz-001-site1.dtempurl.com/hotel',
-  clientId: '395659035574-820j3194u2k30g9t6h24q9s98evdunlq.apps.googleusercontent.com'
+  apiUrl: 'https://doghotel-001-site1.dtempurl.com/hotel',
+  clientId: '989750752981-icearlf5bjoa5b7n8bi91t1lb91pq533.apps.googleusercontent.com'
 };
