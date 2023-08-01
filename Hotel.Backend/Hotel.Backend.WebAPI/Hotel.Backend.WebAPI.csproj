@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="WWWRoot\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

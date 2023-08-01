@@ -17,7 +17,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CopyrightComponent } from './components/copyright/copyright.component';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ErrorComponent } from './components/error/error.component';
 import { ReservationForRoomComponent } from './components/reservation-for-room/reservation-for-room.component';
 import { BlogComponent } from './components/blog/blog.component';
@@ -130,8 +129,7 @@ import { MatCardModule } from '@angular/material/card';
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
   bootstrap: [AppComponent]
 })
