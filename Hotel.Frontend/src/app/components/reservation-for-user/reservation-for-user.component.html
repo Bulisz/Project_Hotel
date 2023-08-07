@@ -13,7 +13,7 @@
         <label for="userId" class="form-label">Felhasználók:</label>
         <mat-select class="form-control"  id="userId" formControlName="userId">
           <mat-option *ngFor="let user of users" value="{{user.id}}">
-            {{user.username}}
+            {{user.userName}}
           </mat-option>
         </mat-select>
       </div>

@@ -1,9 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AccountService } from 'src/app/services/account.service';
 import { PostService } from 'src/app/services/post.service';
-import { ReservationService } from 'src/app/services/reservation.service';
 import { validationHandler } from 'src/utils/validationHandler';
 
 @Component({

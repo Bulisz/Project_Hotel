@@ -101,7 +101,7 @@ public class UsersController : ControllerBase
         try
         {
             UserDetails userDTOget = await _userService.RegisterAsync(userDTOpost);
-            return CreatedAtAction(nameof(GetUserByName), new { userName = userDTOget.Username }, userDTOget);
+            return CreatedAtAction(nameof(GetUserByName), new { userName = userDTOget.UserName }, userDTOget);
         }
         catch (HotelException ex)
         {
