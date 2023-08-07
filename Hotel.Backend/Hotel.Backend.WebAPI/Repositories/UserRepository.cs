@@ -157,7 +157,7 @@ public class UserRepository : IUserRepository
         List<UserListItem> listedUsers = users.Select(user => new UserListItem
         {
             Id = user.Id,
-            Username = user.UserName!,
+            UserName = user.UserName!,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Email = user.Email!,

@@ -41,7 +41,7 @@ export class UserManagerComponent implements OnInit {
         id: user?.id,
         lastName: user?.lastName,
         firstName: user?.firstName,
-        username: user?.userName,
+        userName: user?.userName,
         email: user?.email,
         emailConfirmed: user?.emailConfirmed,
         role: user.role}

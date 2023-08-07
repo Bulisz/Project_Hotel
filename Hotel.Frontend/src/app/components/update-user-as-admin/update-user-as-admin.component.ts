@@ -19,14 +19,14 @@ export class UpdateUserAsAdmin implements OnInit {
                 id: string,
                 firstName: string,
                 lastName: string,
-                username: string,
+                userName: string,
                 email: string,
                 emailConfirmed: string,
                 role: string}){
                   this.updateUser = new FormBuilder().group({
                     firstName: new FormControl({value: '' , disabled: true}, [Validators.required, Validators.pattern('^[A-Z](?!.*  )[a-zA-ZÀ-ÖØ-öø-ÿ ]{1,49}$')]),
                     lastName: new FormControl({value: '' , disabled: true}, [Validators.required, Validators.pattern('^[A-Z](?!.*  )[a-zA-ZÀ-ÖØ-öø-ÿ ]{1,49}$')]),
-                    username: new FormControl({value: '' , disabled: true}, [Validators.required, Validators.pattern('^(?!.*(?:admin|Admin|operator|Operator))[a-zA-Z0-9]{2,30}$')]),
+                    userName: new FormControl({value: '' , disabled: true}, [Validators.required, Validators.pattern('^(?!.*(?:admin|Admin|operator|Operator))[a-zA-Z0-9]{2,30}$')]),
                     email: new FormControl({value: '' , disabled: true}, [Validators.required, Validators.pattern('^[a-z0-9.]{2,}[@][a-z0-9]{2,}[.][a-z]{2,}$')]),
                     emailConfirmed: new FormControl({value: '' , disabled: true}, [Validators.required, Validators.pattern('^(True|False)$')]),
                     role: new FormControl('', [Validators.required, Validators.pattern('^(Admin|Operator|Guest)$')]),
@@ -37,7 +37,7 @@ export class UpdateUserAsAdmin implements OnInit {
     if(this.data){
       this.updateUser.get('firstName')?.setValue(this.data.firstName)
       this.updateUser.get('lastName')?.setValue(this.data.lastName)
-      this.updateUser.get('username')?.setValue(this.data.username)
+      this.updateUser.get('userName')?.setValue(this.data.userName)
       this.updateUser.get('email')?.setValue(this.data.email)
       this.updateUser.get('emailConfirmed')?.setValue(this.data.emailConfirmed)
       this.updateUser.get('role')?.setValue(this.data.role)
