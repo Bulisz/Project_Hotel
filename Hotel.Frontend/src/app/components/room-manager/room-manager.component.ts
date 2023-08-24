@@ -53,6 +53,7 @@ export class RoomManagerComponent implements OnInit{
     let dialogBoxSettings = {
       width: '400px',
       margin: '0 auto',
+      
       disableClose: true,
       hasBackdrop: true,
       position: {top: '3%'},
