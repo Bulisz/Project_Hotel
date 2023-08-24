@@ -22,8 +22,8 @@
               <p *ngIf="!(role === 'Admin' || role === 'Operator')"> A FOGLALKOZÁS MINDEN KEDVES VENDÉG RÉSZÉRE
                 ELÉRHETŐ!</p>
               <div *ngIf="role === 'Admin' || role === 'Operator'">
-                <button type="button" class="btn btn-admin" (click)="modifyEvent(sport.id)">Módosítás</button>
-                <button type="button" class="btn btn-admin" (click)="deleteEvent(sport.id)">Törlés</button>
+                <button type="button" class="btn btn-secondary btn-admin" (click)="modifyEvent(sport.id)">Módosítás</button>
+                <button type="button" class="btn btn-secondary btn-admin" (click)="deleteEvent(sport.id)">Törlés</button>
               </div>
             </div>
 
@@ -36,5 +36,5 @@
     </div>
 
   </div>
-  <div class="floating-button" *ngIf="role === 'Admin' || role === 'Operator'" (click)="addNewPost()">Új program</div>
+  <button class="floating-button btn-secondary" *ngIf="role === 'Admin' || role === 'Operator'" (click)="addNewPost()">Új program</button>
 </div>

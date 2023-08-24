@@ -43,4 +43,11 @@ export class ReservationForRoomComponent {
     this.dialogRef.close('ok')
   }
 
+  changeMe(){
+    if(this.reservationForm.get('bookingFrom')?.value  && this.reservationForm.get('bookingTo')?.value){
+      this.reservationForm.get('bookingFrom')?.setErrors(null)
+      this.reservationForm.get('bookingTo')?.setErrors(null)
+    }
+  }
+
 }
