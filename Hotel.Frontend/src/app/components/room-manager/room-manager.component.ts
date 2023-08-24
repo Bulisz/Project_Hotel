@@ -6,6 +6,7 @@ import { RoomListModel } from 'src/app/models/room-list.model';
 import { UpdateImageComponent } from '../update-image/update-image.component';
 import { DeleteImageComponent } from '../delete-image/delete-image.component';
 import { DialogService } from 'src/app/services/dialog.service';
+import { ScrollStrategyOptions } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-room-manager',
@@ -53,7 +54,6 @@ export class RoomManagerComponent implements OnInit{
     let dialogBoxSettings = {
       width: '400px',
       margin: '0 auto',
-      
       disableClose: true,
       hasBackdrop: true,
       position: {top: '3%'},
