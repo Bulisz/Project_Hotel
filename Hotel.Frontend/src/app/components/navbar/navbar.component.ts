@@ -28,6 +28,10 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  getActiveRootPath(): string{
+    return this.router.url.substring(1)
+  }
+
   adminPageSelector(page: string){
     localStorage.setItem('adminPageSelector',page)
     this.as.adminPageSelector.next(page)
