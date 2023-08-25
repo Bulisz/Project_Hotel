@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AccountService } from './account.service';
-import { CanActivate } from '@angular/router';
+
 import { UserModel } from '../models/user-model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserGuardService implements CanActivate {
+export class UserGuardService  {
 
   currentUser: UserModel | null = null;
 
