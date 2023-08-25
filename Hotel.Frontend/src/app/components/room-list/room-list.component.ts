@@ -7,6 +7,7 @@ import { RoomService } from 'src/app/services/room.service';
 import { BehaviorSubject } from 'rxjs';
 import { validationHandler } from 'src/utils/validationHandler';
 import { EquipmentService } from 'src/app/services/equipment.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-room-list',
@@ -21,7 +22,11 @@ export class RoomListComponent implements OnInit{
   roomSelector: FormGroup;
   equipmentsControllers: FormArray | undefined;
 
-  constructor (private formBuilder: FormBuilder, private roomService: RoomService, private router: Router, private equipmentService: EquipmentService) {
+  constructor (private formBuilder: FormBuilder,
+              private roomService: RoomService,
+              private router: Router,
+              private equipmentService: EquipmentService,
+              private cookieService: CookieService) {
     this.roomSelector = this.formBuilder.group({
       numberOfBeds: ['', [Validators.required,  Validators.min(1), Validators.max(20)]],
       maxNumberOfDogs:  ['', [Validators.required,  Validators.min(1), Validators.max(10)]],
@@ -39,17 +44,34 @@ export class RoomListComponent implements OnInit{
     await this.equipmentService.getNonStandardEquipments()
       .then(res => {
         this.nonStandardEquipments = res;
+        let nonStandardEquipmentsCookieContent: number[] = []
+        if(this.cookieService.check('nonStandardEquipments')){
+            nonStandardEquipmentsCookieContent = this.cookieService.get('nonStandardEquipments').split(',').map(x=>+x)
+        }
         this.nonStandardEquipments.forEach(e => {
-          this.equipmentFormArray.push(
-            new FormControl(false)
-          )
+          if(nonStandardEquipmentsCookieContent.includes(e.id)){
+            this.equipmentFormArray.push(
+              new FormControl(true)
+            )
+          } else {
+            this.equipmentFormArray.push(
+              new FormControl(false)
+            )
+          }
         })
         this.equipmentsControllers = this.roomSelector.controls['nonStandardEquipments'] as FormArray;
       })
 
-    await this.loadRooms();
+    if(this.cookieService.check('numberOfBeds')){
+      this.roomSelector.get('numberOfBeds')?.setValue(this.cookieService.get('numberOfBeds'))
+      this.roomSelector.get('maxNumberOfDogs')?.setValue(this.cookieService.get('maxNumberOfDogs'))
+      this.roomSelector.get('bookingFrom')?.setValue(this.cookieService.get('bookingFrom'))
+      this.roomSelector.get('bookingTo')?.setValue(this.cookieService.get('bookingTo'))
+      this.onSubmit()
+    } else {
+      await this.loadRooms();
+    }
   }
-
 
   get equipmentFormArray () {
     return this.roomSelector.controls['nonStandardEquipments'] as FormArray
@@ -74,6 +96,12 @@ export class RoomListComponent implements OnInit{
       }
     });
 
+    this.cookieService.set('numberOfBeds', this.numberOfBeds?.value)
+    this.cookieService.set('maxNumberOfDogs', this.maxNumberOfDogs?.value)
+    this.cookieService.set('bookingFrom', this.bookingFrom?.value)
+    this.cookieService.set('bookingTo', this.bookingTo?.value)
+    this.cookieService.set('nonStandardEquipments', selectedList.join(','))
+
     const formValue = this.roomSelector.getRawValue()
     const parsoltFormValue = {...formValue, nonStandardEquipments: selectedList};
 
@@ -82,7 +110,6 @@ export class RoomListComponent implements OnInit{
         },
         error: (error) => validationHandler(error, this.roomSelector),
       });
-
   }
 
   get numberOfBeds(): AbstractControl | null {

@@ -5,6 +5,7 @@ import { AccountService } from 'src/app/services/account.service';
 import { RegistrationComponent } from '../registration/registration.component';
 import { UserModel } from 'src/app/models/user-model';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,7 @@ export class NavbarComponent implements OnInit {
 
   user?: UserModel | null;
 
-  constructor(public dialog: MatDialog, private as: AccountService, private router: Router){  }
+  constructor(public dialog: MatDialog, private as: AccountService, private router: Router, private cookieService: CookieService){  }
 
   async ngOnInit(): Promise<void> {
     this.as.user.subscribe({
@@ -26,6 +27,12 @@ export class NavbarComponent implements OnInit {
       await this.as.getCurrentUser()
         .catch(err => localStorage.removeItem('accessToken'))
     }
+
+    this.cookieService.delete('numberOfBeds')
+    this.cookieService.delete('maxNumberOfDogs')
+    this.cookieService.delete('bookingFrom')
+    this.cookieService.delete('bookingTo')
+    this.cookieService.delete('nonStandardEquipments')
   }
 
   getActiveRootPath(): string{
