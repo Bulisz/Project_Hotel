@@ -23,7 +23,6 @@ export class BlogComponent implements OnInit{
   }
 
   async ngOnInit() {
-
     this.as.user.subscribe({
       next: res => this.currentUser = res
     })
@@ -46,6 +45,7 @@ export class BlogComponent implements OnInit{
       position: {top: '10%'},
       data: { userName: this.currentUser?.userName, role: this.currentUser?.role }
     };
+    console.log(this.currentUser)
     let dialog = this.dialog.open(CreatePostComponent,dialogBoxSettings);
 
     dialog.afterClosed().subscribe({

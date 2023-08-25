@@ -24,8 +24,8 @@ export class RegistrationComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*\\d)(?!.*\\s).{6,250}$')]),
       confirmPassword: new FormControl('', [Validators.required, Validators.pattern('^(?=.*\\d)(?!.*\\s).{6,}$')]),
       email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9.]{2,}[@][a-z0-9]{2,}[.][a-z]{2,}$')]),
-      firstName: new FormControl('', [Validators.required, Validators.pattern('^[A-ZÀ-ÖÜŐÚŰ](?!.*  )[a-zA-ZÀ-ÖØ-öø-ÿűő ]{1,49}$')]),
-      lastName: new FormControl('', [Validators.required, Validators.pattern('^^[A-ZÀ-ÖÜŐÚŰ](?!.*  )[a-zA-ZÀ-ÖØ-öø-ÿűő ]{1,49}$')]),
+      firstName: new FormControl('', [Validators.required, Validators.pattern("^[A-ZÀ-ÖÜŐÚŰ](?!.*  )[a-zA-ZÀ-ÖØ-öø-ÿűő '-]{1,49}$")]),
+      lastName: new FormControl('', [Validators.required, Validators.pattern("^^[A-ZÀ-ÖÜŐÚŰ](?!.*  )[a-zA-ZÀ-ÖØ-öø-ÿűő '-]{1,49}$")]),
     });
   }
 

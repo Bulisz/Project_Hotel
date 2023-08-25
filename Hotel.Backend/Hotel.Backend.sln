@@ -5,11 +5,9 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotel.Backend.WebAPI", "Hotel.Backend.WebAPI\Hotel.Backend.WebAPI.csproj", "{86780585-0C34-46AA-8AE6-CDD24B2075F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelDatabaseTest", "HotelDatabaseTest\HotelDatabaseTest.csproj", "{DFD5C598-3FE5-49E3-B74E-BA640A355DCB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelBackend.UnitTests", "HotelBackend.UnitTests\HotelBackend.UnitTests.csproj", "{F3F102DC-DD9C-436C-B322-A199AE25163D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBackend.IntegrationTests", "HotelBackend.IntegrationTests\HotelBackend.IntegrationTests.csproj", "{8139A865-9A24-4953-A0CB-CDD57B694CD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelBackend.IntegrationTests", "HotelBackend.IntegrationTests\HotelBackend.IntegrationTests.csproj", "{8139A865-9A24-4953-A0CB-CDD57B694CD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		{86780585-0C34-46AA-8AE6-CDD24B2075F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86780585-0C34-46AA-8AE6-CDD24B2075F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86780585-0C34-46AA-8AE6-CDD24B2075F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DFD5C598-3FE5-49E3-B74E-BA640A355DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DFD5C598-3FE5-49E3-B74E-BA640A355DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DFD5C598-3FE5-49E3-B74E-BA640A355DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DFD5C598-3FE5-49E3-B74E-BA640A355DCB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F3F102DC-DD9C-436C-B322-A199AE25163D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F3F102DC-DD9C-436C-B322-A199AE25163D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3F102DC-DD9C-436C-B322-A199AE25163D}.Release|Any CPU.ActiveCfg = Release|Any CPU

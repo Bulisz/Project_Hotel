@@ -157,7 +157,7 @@ public class UserRepository : IUserRepository
         List<UserListItem> listedUsers = users.Select(user => new UserListItem
         {
             Id = user.Id,
-            Username = user.UserName!,
+            UserName = user.UserName!,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Email = user.Email!,
@@ -219,7 +219,7 @@ public class UserRepository : IUserRepository
         var forgotPasswordToken = await _userManager.GeneratePasswordResetTokenAsync(user);
         var encodedForgotPasswordToken = Encoding.UTF8.GetBytes(forgotPasswordToken);
         var validPasswordToken = WebEncoders.Base64UrlEncode(encodedForgotPasswordToken);
-        string url = $"https://bulisz-001-site1.dtempurl.com//#/newPassword/?email={user.Email}&token={validPasswordToken}";
+        string url = $"https://doghotel-001-site1.dtempurl.com/newPassword/?email={user.Email}&token={validPasswordToken}";
 
         EmailDTO email = _emailService.CreatingForgottenPasswordEmail(user.Email, user.UserName, url);
 

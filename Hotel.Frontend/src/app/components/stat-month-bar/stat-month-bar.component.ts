@@ -38,7 +38,7 @@ export class StatMonthBarComponent {
 
   monthNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   monthString: Array<string> = ["január", "február", "március", "április", "május", "június",
-  "július", "augusztrus", "szeptember", "október", "november", "december"];
+  "július", "augusztus", "szeptember", "október", "november", "december"];
 
   rooms!: Array<RoomListModel>
   roomsForDiagram: FormGroup;
@@ -53,16 +53,16 @@ export class StatMonthBarComponent {
   dataRoomStrings: Array<string> = [];
   yearsForStat: Array<number> = [];
   title: string = '';
-  
-  constructor(private rs: RoomService, 
+
+  constructor(private rs: RoomService,
               private formBuilder: FormBuilder,
               private statisticsService: StatisticsService) {
-                
+
     this.roomsForDiagram = this.formBuilder.group({
-      months: [this.monthString[this.monthToday-1]],         
+      months: [this.monthString[this.monthToday-1]],
       year: [this.yearToday],
-                  
-    })  
+
+    })
 
     this.chartOptions = {
       series: [
@@ -79,7 +79,7 @@ export class StatMonthBarComponent {
       plotOptions: {
         bar: {
           dataLabels: {
-            position: "bottom" 
+            position: "bottom"
           }
         }
       },
@@ -165,7 +165,7 @@ export class StatMonthBarComponent {
 
 
   async ngOnInit() {
-    
+
     this.dateToday = new Date(Date.now());
     this.yearToday = this.dateToday.getFullYear();
     this.monthToday = this.dateToday.getMonth()+1;
@@ -174,13 +174,13 @@ export class StatMonthBarComponent {
       this.yearsForStat[i] = this.foundationYear + i;
     }
 
-    
+
 
 
     this.statisticsService.getRoomMonthStat(this.yearToday, this.monthToday).subscribe({
       next: res => {
         this.data = res;
-        
+
         for (let i = 0; i < this.data.length; i++) {
           this.dataValues[i] = this.data[i].percentage;
           this.dataRoomNumbers[i] = this.data[i].id;
@@ -197,26 +197,26 @@ export class StatMonthBarComponent {
       },
       error: err => console.log(err)
     });
-    
+
   }
 
-  
+
 
   onSubmit(){
-   
+
     for (let i = 0; i < this.monthString.length-1; i++) {
       if (this.monthString[i] == this.roomsForDiagram.controls['months'].value) {
         this.monthToday = i+1;
       }
     }
 
-   
+
     this.yearToday = Number(this.roomsForDiagram.controls['year'].value);
-   
+
     this.statisticsService.getRoomMonthStat(this.yearToday, this.monthToday).subscribe({
       next: res => {
         this.data = res;
-        
+
         for (let i = 0; i < this.data.length; i++) {
           this.dataValues[i] = this.data[i].percentage;
           this.dataRoomNumbers[i] = this.data[i].id;
@@ -233,8 +233,8 @@ export class StatMonthBarComponent {
       },
       error: err => console.log(err)
     });
-        
-    
+
+
   }
 
   generateDate() {
@@ -334,7 +334,7 @@ export class StatMonthBarComponent {
         style: {
           color: "#444"
         },
-        
+
       }
     };
 

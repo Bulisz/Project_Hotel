@@ -6,7 +6,7 @@
       <div class="header">
         <h3 class="text-left title">Foglalások</h3>
         <button type="button" class="btn-header" (click)="showRoomCalendar()" *ngIf="(user?.role === 'Admin' || user?.role === 'Operator') && isAdminPage">Naptárnézet</button>
-        <button type="button" class="btn-header" (click)="reservationForUser()" *ngIf="(user?.role === 'Admin' || user?.role === 'Operator') && isAdminPage">Foglalás rögzítés</button>
+        <button type="button" class="btn-header" (click)="reservationForUser()" *ngIf="(user?.role === 'Admin' || user?.role === 'Operator') && isAdminPage">Foglalás rögzítése</button>
       </div>
 
       <table class="table">
@@ -28,7 +28,7 @@
             <td class="details-content">{{reservation.bookingTo | date: 'YYYY-MM-dd'}}</td>
             <td>
               <div class="btn-container" *ngIf="isDeletable(reservation.bookingFrom) || user?.role === 'Admin' || user?.role === 'Operator'">
-                <button type="button" class="btn" (click)="deleteReservation(reservation.id)">Törlés</button>
+                <button type="button" class="btn btn-secondary" (click)="deleteReservation(reservation.id)">Törlés</button>
               </div>
             </td>
           </tr>

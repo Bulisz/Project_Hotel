@@ -8,7 +8,7 @@
         <div class="details-body">
           <div>
             <p class="details"><span> Felhasználónév: <span
-                  class="details-content">{{currentUser.username}}</span></span><br>
+                  class="details-content">{{currentUser.userName}}</span></span><br>
               <span> Email: <span class="details-content">{{currentUser.email}}</span></span><br>
               <span> Titulus: <span class="details-content">{{titulus}}</span></span>
             </p>
@@ -22,8 +22,8 @@
         </div>
 
         <div class="btn-container">
-          <button class="btn" (click)="modifyProfile(currentUser.id)">Módosítás</button>
-          <button class="btn" (click)="deleteProfile(currentUser.id)">Törlés</button>
+          <button class="btn btn-secondary" (click)="modifyProfile(currentUser.id)">Módosítás</button>
+          <button class="btn btn-secondary" (click)="deleteProfile(currentUser.id)">Törlés</button>
         </div>
 
       </div>

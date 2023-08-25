@@ -10,14 +10,14 @@
     <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <label for="bookingFrom" class="form-label">Érkezés</label>
-        <input type="date" class="form-control" id="bookingFrom" formControlName="bookingFrom">
+        <input type="date" class="form-control" id="bookingFrom" formControlName="bookingFrom" (change)="changeMe()">
         <small *ngIf="reservationForm.get('bookingFrom')?.errors?.['serverError']" class="text-danger">
           {{reservationForm.get('bookingFrom')?.getError('serverError')}}
         </small>
       </div>
       <div class="mb-3">
         <label for="bookingTo" class="form-label">Távozás</label>
-        <input type="date" class="form-control" id="bookingTo" formControlName="bookingTo">
+        <input type="date" class="form-control" id="bookingTo" formControlName="bookingTo" (change)="changeMe()">
         <small *ngIf="reservationForm.get('bookingTo')?.errors?.['serverError']" class="text-danger">
           {{reservationForm.get('bookingTo')?.getError('serverError')}}
         </small>

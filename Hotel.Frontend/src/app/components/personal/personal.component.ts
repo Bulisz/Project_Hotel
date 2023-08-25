@@ -15,7 +15,7 @@ import { DialogService } from 'src/app/services/dialog.service';
 })
 export class PersonalComponent implements OnInit {
 
-  currentUser: any;
+  currentUser!: UserModel | null;
   myReservations!: Array<ReservationListItem>;
   titulus = '';
 
@@ -67,7 +67,7 @@ export class PersonalComponent implements OnInit {
       disableClose: true,
       hasBackdrop: true,
       position: { top: '10%' },
-      data: { userName: this.currentUser?.username, email: this.currentUser?.email, firstName: this.currentUser?.firstName, lastName: this.currentUser?.lastName, id: this.currentUser?.id }
+      data: { userName: this.currentUser?.userName, email: this.currentUser?.email, firstName: this.currentUser?.firstName, lastName: this.currentUser?.lastName, id: this.currentUser?.id }
     };
 
     let dialogRef = this.dialog.open(UpdateUserComponent, dialogBoxSettings)
