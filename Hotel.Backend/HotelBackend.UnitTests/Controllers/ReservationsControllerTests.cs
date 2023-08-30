@@ -204,7 +204,7 @@ public class ReservationsControllerTests
     }
 
     [TestMethod]
-    public async Task GetThisMonthCalendarTests()
+    public async Task GetThisMonthCalendarTests_ValidInput()
     {
         // Arrange
         List<ThisMonthCalendarDTO> expectedResult = new List<ThisMonthCalendarDTO>
@@ -250,4 +250,21 @@ public class ReservationsControllerTests
         Assert.AreEqual(expectedResult, result);
     }
 
+    [TestMethod]
+    public async Task GetThisMonthCalendarTests_Error()
+    {
+        // Arrange
+        var error = new ArgumentException("Hiba történt");
+        _calendarServiceMock.Setup(m => m.GetAllDaysOfMonthAsync(2023, 1)).Throws(error);
+
+        // Act
+        var result = await _controller.GetThisMonthCalendar(2023, 1);
+
+        // Assert
+        Assert.IsInstanceOfType(result.Result, typeof(ObjectResult));
+
+        var objectResult = (ObjectResult)result.Result;
+        Assert.AreEqual((int)HttpStatusCode.InternalServerError, objectResult.StatusCode);
+        Assert.AreEqual("Hiba történt", objectResult.Value);
+    }
 }
