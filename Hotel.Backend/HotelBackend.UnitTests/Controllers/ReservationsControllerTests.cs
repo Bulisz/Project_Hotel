@@ -2,6 +2,7 @@ using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Controllers;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
+using Hotel.Backend.WebAPI.Models.DTO.CalendarDTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -201,4 +202,52 @@ public class ReservationsControllerTests
         Assert.AreEqual((int)HttpStatusCode.InternalServerError, objectResult.StatusCode);
         Assert.AreEqual("Nincs ilyen foglalás", objectResult.Value);
     }
+
+    [TestMethod]
+    public async Task GetThisMonthCalendarTests()
+    {
+        // Arrange
+        List<ThisMonthCalendarDTO> expectedResult = new List<ThisMonthCalendarDTO>
+        {
+            new ThisMonthCalendarDTO
+            {
+                DateNumber = 1,
+                WeekDayNumber = 2,
+                RoomStatus = new List<DailyReservationDTO>
+                {
+                    new DailyReservationDTO 
+                    {
+                        RoomNumber = 1,
+                    }
+                }
+            },
+            new ThisMonthCalendarDTO
+            {
+                DateNumber = 2,
+                WeekDayNumber = 3,
+                RoomStatus = new List<DailyReservationDTO>
+                {
+                    new DailyReservationDTO
+                    {
+                        RoomNumber = 2,
+                    }
+                }
+            }
+        };
+
+        _calendarServiceMock.Setup(m => m.GetAllDaysOfMonthAsync(2023, 1)).ReturnsAsync(expectedResult);
+
+        // Act
+        var actualThisMonthCalendarDTO = await _controller.GetThisMonthCalendar(2023, 1);
+
+        // Assert
+        Assert.IsInstanceOfType(actualThisMonthCalendarDTO.Result, typeof(OkObjectResult));
+        var okResult = (OkObjectResult)actualThisMonthCalendarDTO.Result!;
+        var result = (IEnumerable<ThisMonthCalendarDTO>)okResult.Value!;
+
+        CollectionAssert.AreEqual(expectedResult, result.ToList());
+
+        Assert.AreEqual(expectedResult, result);
+    }
+
 }
