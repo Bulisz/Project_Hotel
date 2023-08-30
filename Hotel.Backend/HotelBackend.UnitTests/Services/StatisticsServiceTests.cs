@@ -150,7 +150,6 @@ namespace HotelBackend.UnitTests.Services
             Assert.AreEqual(0, result[0].Data[0]);
             Assert.AreEqual(50, result[0].Data[3]);
             Assert.AreEqual(10, result[0].Data[5]);
-
             Assert.AreEqual(0, result[1].Data[0]);
             Assert.AreEqual(10, result[1].Data[3]);
             Assert.AreEqual(50, result[1].Data[5]);
