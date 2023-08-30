@@ -28,7 +28,7 @@ export class RoomCalendarComponent implements OnInit {
   monthToday: number = 0;
   public thisMonth: string | undefined;
   public monthNames = ["Január", "Február", "Március", "Április", "Május", "Június",
-  "Július", "Augusztrus", "Szeptember", "Október", "November", "December"];
+  "Július", "Augusztus", "Szeptember", "Október", "November", "December"];
   public weekDays = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"]
   public firstDayOfMonth: Date | undefined;
   public yearNow: number =0;
