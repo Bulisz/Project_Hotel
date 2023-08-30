@@ -56,6 +56,39 @@ public class ReservationRepositoryTests
     }
 
     [TestMethod]
+    public async Task DeleteReservationAsync_Exist()
+    {
+        // Arrange
+        var reservation = new Reservation
+        {
+            BookingFrom = DateTime.Now.AddDays(2),
+            BookingTo = DateTime.Now.AddDays(5),
+            ApplicationUser = new ApplicationUser { Id = "UserId" },
+            Room = new Room { Name = "Bodri" }
+        };
+        _dbContext.Reservations.Add(reservation);
+        await _dbContext.SaveChangesAsync();
+
+        // Act
+        await _reservationRepository.DeleteReservationAsync(1);
+        int reservationAmount = _dbContext.Reservations.Count();
+
+        // Assert
+        Assert.AreEqual(0, reservationAmount);
+    }
+
+    [TestMethod]
+    public async Task DeleteReservationAsync_NotExist()
+    {
+        // Arrange
+
+        // Act & Assert
+        await Assert.ThrowsExceptionAsync<ArgumentException>(
+            async () => await _reservationRepository.DeleteReservationAsync(1)
+        );
+    }
+
+    [TestMethod]
     public async Task GetAllReservationsAsync_ReturnsAllReservationsFromDatabase()
     {
         // Arrange
@@ -85,8 +118,73 @@ public class ReservationRepositoryTests
 
         // Assert
         CollectionAssert.AreEqual(reservations, result);
-        Assert.AreEqual(2, result.Count());
-        Assert.AreEqual("UserId2", result.ElementAt(1).ApplicationUser.Id);
+    }
 
+    [TestMethod]
+    public async Task GetMyReservationsAsync_WithExistingUser()
+    {
+        // Arrange
+        var user = new ApplicationUser { Id = "UserId1" };
+
+        var reservations = new List<Reservation>
+        {
+            new Reservation
+            {
+                BookingFrom = DateTime.Now.AddDays(2),
+                BookingTo = DateTime.Now.AddDays(5),
+                ApplicationUser = user,
+                Room = new Room { Name = "Room1" }
+            },
+            new Reservation
+            {
+                BookingFrom = DateTime.Now.AddDays(5),
+                BookingTo = DateTime.Now.AddDays(8),
+                ApplicationUser = user,
+                Room = new Room { Name = "Room2" }
+            }
+        };
+
+        await _dbContext.Reservations.AddRangeAsync(reservations);
+        await _dbContext.SaveChangesAsync();
+
+        // Act
+        var result = await _reservationRepository.GetMyReservationsAsync("UserId1");
+
+        // Assert
+        CollectionAssert.AreEqual(reservations, result);
+    }
+
+    [TestMethod]
+    public async Task GetMyReservationsAsync_WithNonExistingUser()
+    {
+        // Arrange
+        var user = new ApplicationUser { Id = "UserId1" };
+
+        var reservations = new List<Reservation>
+        {
+            new Reservation
+            {
+                BookingFrom = DateTime.Now.AddDays(2),
+                BookingTo = DateTime.Now.AddDays(5),
+                ApplicationUser = user,
+                Room = new Room { Name = "Room1" }
+            },
+            new Reservation
+            {
+                BookingFrom = DateTime.Now.AddDays(5),
+                BookingTo = DateTime.Now.AddDays(8),
+                ApplicationUser = user,
+                Room = new Room { Name = "Room2" }
+            }
+        };
+
+        await _dbContext.Reservations.AddRangeAsync(reservations);
+        await _dbContext.SaveChangesAsync();
+
+        // Act
+        var result = await _reservationRepository.GetMyReservationsAsync("UserId2");
+
+        // Assert
+        CollectionAssert.AreEqual(new List<Reservation>(), result);
     }
 }

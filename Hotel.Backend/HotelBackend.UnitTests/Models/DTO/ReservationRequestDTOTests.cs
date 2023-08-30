@@ -90,6 +90,6 @@ public class ReservationRequestDTOTests
         Assert.IsFalse(isValid);
         Assert.AreEqual(1, validationResults.Count);
         Assert.AreEqual("Csak a jövőbeni dátumokra lehetséges foglalni", validationResults[0].ErrorMessage);
-        Assert.AreEqual(1, validationResults[0].MemberNames.Count());
+        Assert.AreEqual("BookingTo", validationResults[0].MemberNames.First());
     }
 }
