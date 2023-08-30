@@ -21,8 +21,6 @@ namespace Hotel.Backend.WebAPI.Services
 
             List<ThisMonthCalendarDTO> allDays = new List<ThisMonthCalendarDTO>();
 
-            //DateTime today = DateTime.Now;
-
             DateTime today = new DateTime(year, month, 1);
 
             for (int i = 1; i <= DateTime.DaysInMonth(today.Year, today.Month); i++)

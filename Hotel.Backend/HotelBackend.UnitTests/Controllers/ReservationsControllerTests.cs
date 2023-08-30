@@ -2,6 +2,7 @@ using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Controllers;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models.DTO;
+using Hotel.Backend.WebAPI.Models.DTO.CalendarDTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -170,5 +171,100 @@ public class ReservationsControllerTests
         var okResult = actionResult.Result as OkObjectResult;
         var result = okResult.Value;
         Assert.AreEqual(reservations, result);
+    }
+
+    [TestMethod]
+    public async Task DeleteReservationForRoom_ReturnNoContent()
+    {
+        // Arrange
+        _reservationServiceMock.Setup(m => m.DeleteReservationAsync(1));
+
+        // Act
+        var result = await _controller.DeleteReservation(1);
+
+        // Assert
+        Assert.IsInstanceOfType(result, typeof(NoContentResult));
+    }
+
+    [TestMethod]
+    public async Task DeleteReservationForRoom_WithNoReservation()
+    {
+        // Arrange
+        var error = new ArgumentException("Nincs ilyen foglalás");
+        _reservationServiceMock.Setup(m => m.DeleteReservationAsync(1)).Throws(error);
+
+        // Act
+        var result = await _controller.DeleteReservation(1);
+
+        // Assert
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        var objectResult = (ObjectResult)result;
+        Assert.AreEqual((int)HttpStatusCode.InternalServerError, objectResult.StatusCode);
+        Assert.AreEqual("Nincs ilyen foglalás", objectResult.Value);
+    }
+
+    [TestMethod]
+    public async Task GetThisMonthCalendarTests_ValidInput()
+    {
+        // Arrange
+        List<ThisMonthCalendarDTO> expectedResult = new List<ThisMonthCalendarDTO>
+        {
+            new ThisMonthCalendarDTO
+            {
+                DateNumber = 1,
+                WeekDayNumber = 2,
+                RoomStatus = new List<DailyReservationDTO>
+                {
+                    new DailyReservationDTO 
+                    {
+                        RoomNumber = 1,
+                    }
+                }
+            },
+            new ThisMonthCalendarDTO
+            {
+                DateNumber = 2,
+                WeekDayNumber = 3,
+                RoomStatus = new List<DailyReservationDTO>
+                {
+                    new DailyReservationDTO
+                    {
+                        RoomNumber = 2,
+                    }
+                }
+            }
+        };
+
+        _calendarServiceMock.Setup(m => m.GetAllDaysOfMonthAsync(2023, 1)).ReturnsAsync(expectedResult);
+
+        // Act
+        var actualThisMonthCalendarDTO = await _controller.GetThisMonthCalendar(2023, 1);
+
+        // Assert
+        Assert.IsInstanceOfType(actualThisMonthCalendarDTO.Result, typeof(OkObjectResult));
+        var okResult = (OkObjectResult)actualThisMonthCalendarDTO.Result!;
+        var result = (IEnumerable<ThisMonthCalendarDTO>)okResult.Value!;
+
+        CollectionAssert.AreEqual(expectedResult, result.ToList());
+
+        Assert.AreEqual(expectedResult, result);
+    }
+
+    [TestMethod]
+    public async Task GetThisMonthCalendarTests_Error()
+    {
+        // Arrange
+        var error = new ArgumentException("Hiba történt");
+        _calendarServiceMock.Setup(m => m.GetAllDaysOfMonthAsync(2023, 1)).Throws(error);
+
+        // Act
+        var result = await _controller.GetThisMonthCalendar(2023, 1);
+
+        // Assert
+        Assert.IsInstanceOfType(result.Result, typeof(ObjectResult));
+
+        var objectResult = (ObjectResult)result.Result;
+        Assert.AreEqual((int)HttpStatusCode.InternalServerError, objectResult.StatusCode);
+        Assert.AreEqual("Hiba történt", objectResult.Value);
     }
 }
