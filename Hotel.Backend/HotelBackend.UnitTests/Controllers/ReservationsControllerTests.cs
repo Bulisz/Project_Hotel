@@ -171,4 +171,34 @@ public class ReservationsControllerTests
         var result = okResult.Value;
         Assert.AreEqual(reservations, result);
     }
+
+    [TestMethod]
+    public async Task DeleteReservationForRoom_ReturnNoContent()
+    {
+        // Arrange
+        _reservationServiceMock.Setup(m => m.DeleteReservationAsync(1));
+
+        // Act
+        var result = await _controller.DeleteReservation(1);
+
+        // Assert
+        Assert.IsInstanceOfType(result, typeof(NoContentResult));
+    }
+
+    [TestMethod]
+    public async Task DeleteReservationForRoom_WithNoReservation()
+    {
+        // Arrange
+        var error = new ArgumentException("Nincs ilyen foglalás");
+        _reservationServiceMock.Setup(m => m.DeleteReservationAsync(1)).Throws(error);
+
+        // Act
+        var result = await _controller.DeleteReservation(1);
+
+        // Assert
+        Assert.IsInstanceOfType(result, typeof(ObjectResult));
+        var objectResult = (ObjectResult)result;
+        Assert.AreEqual((int)HttpStatusCode.InternalServerError, objectResult.StatusCode);
+        Assert.AreEqual("Nincs ilyen foglalás", objectResult.Value);
+    }
 }

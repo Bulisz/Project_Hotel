@@ -30,7 +30,9 @@ public class PostService : IPostService
         Post postToCreate = _mapper.Map<Post>(postDto);
         postToCreate.CreatedAt = _dateTimeProvider.Now;
         postToCreate.Confirmed = postToCreate.Role == Role.Guest ? false : true;
-        return _mapper.Map<PostDetailsDTO>(await _postRepository.CreatePostAsync(postToCreate));
+        var p1 = await _postRepository.CreatePostAsync(postToCreate);
+        var p2 = _mapper.Map<PostDetailsDTO>(p1);
+        return p2;
     }
 
     public async Task DeletePostAsync(int id)
