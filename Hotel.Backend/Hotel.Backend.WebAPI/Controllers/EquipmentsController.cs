@@ -33,7 +33,7 @@ public class EquipmentsController : ControllerBase
         catch (HotelException ex)
         {
             _logger.LogError(ex, ex.Message);
-            var error = (new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors });
+            var error = new { type = "hotelError", message = ex.Message, errors = ex.HotelErrors };
             return StatusCode((int)ex.Status, error);
         }
         catch (Exception ex)

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CloudinaryDotNet;
 using Hotel.Backend.WebAPI.Abstractions.Repositories;
 using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Models;
@@ -12,7 +11,7 @@ public class EquipmentService : IEquipmentService
     private readonly IEquipmentRepository _equipmentRepository;
     private readonly IMapper _mapper;
 
-    public EquipmentService(IEquipmentRepository equipmentRepository, IMapper mapper, Cloudinary cloudinary)
+    public EquipmentService(IEquipmentRepository equipmentRepository, IMapper mapper)
     {
         _equipmentRepository = equipmentRepository;
         _mapper = mapper;

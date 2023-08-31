@@ -10,11 +10,11 @@ namespace Hotel.Backend.WebAPI.Services
 {
     public class StatisticsService : IStatisticsService
     {
-        private readonly IReservationRepository _reservationRepository;
+        //private readonly IReservationRepository _reservationRepository;
         private readonly IRoomRepository _roomRepository;
-        public StatisticsService(IReservationRepository reservationRepository, IRoomRepository roomRepository)
+        public StatisticsService(IRoomRepository roomRepository)
         {
-            _reservationRepository = reservationRepository;
+           // _reservationRepository = reservationRepository;
             _roomRepository = roomRepository;
 
         }
@@ -49,9 +49,6 @@ namespace Hotel.Backend.WebAPI.Services
                     {
                         bookedDays++;
                     }
-                    
-                    
-                   
                 }
                
                 double percentage = bookedDays / dayNumberInThisMonth * 100;
@@ -61,15 +58,11 @@ namespace Hotel.Backend.WebAPI.Services
                     Id = room.Id,
                     Name = room.Name,
                     Percentage = Math.Round(percentage),
-                    
                 };
                 result.Add(data);
             }
-            
             return result;
         }
-
-
 
         public async Task<IEnumerable<StatisticsPerYearDTO>> GetYearStatAsync(YearStatQueryDTO query) 
         {
@@ -79,10 +72,8 @@ namespace Hotel.Backend.WebAPI.Services
 
             foreach (var room in choosedRooms)
             {
-                
                 StatisticsPerYearDTO myRoom = new StatisticsPerYearDTO
                 {
-                   
                     Name = room.Name,
                     Data = new List<double>()
                 };
@@ -109,14 +100,11 @@ namespace Hotel.Backend.WebAPI.Services
                         {
                             bookedDays++;
                         }
-
                     }
                     double percentage = bookedDays / dayNumberInThisMonth * 100;
                     myRoom.Data.Add(Math.Round(percentage));
                 }
-
                 result.Add(myRoom);
-
             }
             return result;
         }

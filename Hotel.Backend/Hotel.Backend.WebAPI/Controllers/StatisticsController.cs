@@ -15,9 +15,9 @@ namespace Hotel.Backend.WebAPI.Controllers
     public class StatisticsController : ControllerBase
     {
         private readonly IStatisticsService _statisticsService;
-        private readonly ILogger<RoomsController> _logger;
+        private readonly ILogger<StatisticsController> _logger;
 
-        public StatisticsController(IStatisticsService statisticsService, ILogger<RoomsController> logger)
+        public StatisticsController(IStatisticsService statisticsService, ILogger<StatisticsController> logger)
         {
             _statisticsService = statisticsService;
             _logger = logger;
