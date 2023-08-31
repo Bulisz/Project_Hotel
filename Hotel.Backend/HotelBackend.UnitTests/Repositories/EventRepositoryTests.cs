@@ -141,10 +141,34 @@ namespace HotelBackend.UnitTests.Repositories
             var modifiedEventResult = await _dbContext.Events.FindAsync(1);
 
             // Assert
-            Assert.AreNotEqual("ModifiedTitle", modifiedEventResult.Title);
+            Assert.AreEqual("ModifiedTitle", modifiedEventResult.Title);
             Assert.AreEqual("Event Text for test", modifiedEventResult.Text);
             Assert.AreEqual("Hetfo 10.00 - 11.00", "Hetfo 10.00 - 11.00");
             Assert.AreEqual("EventUrlString", "EventUrlString");
         }
-    }
+
+
+        [TestMethod]
+        public async Task DeleteEventAsync_Exist()
+        {
+            // Arrange
+            var @event = new Event
+            {
+                Title = "Event1",
+                Text = "Event Text for test",
+                Schedule = "Hetfo 10.00 - 11.00",
+                ImageUrl = "EventUrlString"
+            };
+            _dbContext.Events.Add(@event);
+            await _dbContext.SaveChangesAsync();
+
+            // Act
+            var deleteEvent = await _dbContext.Events.FindAsync(1);
+            await _eventRepository.DeleteEventAsync(deleteEvent);
+            int eventAmount = _dbContext.Events.Count();
+
+            // Assert
+            Assert.AreEqual(0, eventAmount);
+        }
+        }
 }
