@@ -76,7 +76,6 @@ public class RoomServiceTests
     }
 
     [TestMethod]
-
     public async Task GetListOfRoomsAsyncTest()
     {
         // Arrange
@@ -101,4 +100,26 @@ public class RoomServiceTests
         Assert.AreEqual(1, result.ToList()[0].Id);
         Assert.AreEqual(2, result.ToList()[1].Id);
     }
+
+    [TestMethod]
+    public async Task GetRoomByIdAsyncTest()
+    {
+        // Arrange
+        int Id = 1;
+        var room = new Room() { Id = 1 };
+
+        _roomRepositoryMock.Setup(m => m.GetRoomByIdAsync(Id)).ReturnsAsync(room);
+        _mapperMock.Setup(m => m.Map<RoomDetailsDTO>(It.IsAny<Room>())).Returns<Room>(p => new RoomDetailsDTO
+        {
+            Id = p.Id,
+        });
+
+        // Act
+        var result = await _roomService.GetRoomByIdAsync(Id);
+
+        // Assert
+        Assert.AreEqual(Id, result.Id);
+
+    }
+
 }
