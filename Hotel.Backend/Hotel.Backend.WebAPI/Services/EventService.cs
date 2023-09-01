@@ -50,7 +50,6 @@ public class EventService : IEventService
         };
         var uploadResult = await _cloudinary.UploadAsync(uploadParams);
         var imageurl = uploadResult.SecureUrl.ToString();
-        var imageurl = uploadResult.
 
         @event.ImageUrl = imageurl;
 
