@@ -2,11 +2,13 @@
 using CloudinaryDotNet;
 using Hotel.Backend.WebAPI.Abstractions.Repositories;
 using Hotel.Backend.WebAPI.Abstractions.Services;
+using Hotel.Backend.WebAPI.Migrations;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Hotel.Backend.WebAPI.Services;
 using Moq;
 using System;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace HotelBackend.UnitTests.Services;
 
@@ -60,7 +62,8 @@ public class RoomServiceTests
 
         _roomRepositoryMock.Setup(m => m.GetBigEnoughRoomsAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<List<int>>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
         .ReturnsAsync(rooms);
-        _mapperMock.Setup(m => m.Map<List<RoomListDTO>>(It.IsAny<List<Room>>())).Returns<List<Room>>(p => p.Select(x => new RoomListDTO()
+        _mapperMock.Setup(m => m.Map<List<RoomListDTO>>(It.IsAny<List<Room>>()))
+            .Returns<List<Room>>(p => p.Select(x => new RoomListDTO()
         {
             Id = x.Id,
         }).ToList());
@@ -70,5 +73,32 @@ public class RoomServiceTests
 
         // Assert
         Assert.AreEqual(expectedResult, result.ToList().Count);
+    }
+
+    [TestMethod]
+
+    public async Task GetListOfRoomsAsyncTest()
+    {
+        // Arrange
+        var allRooms = new List<Room> 
+        {
+            new Room { Id = 1 }, 
+            new Room { Id = 2 }
+        };
+
+        _roomRepositoryMock.Setup(m => m.GetAllRoomsAsync()).ReturnsAsync(allRooms);
+        _mapperMock.Setup(m => m.Map<List<RoomListDTO>>(It.IsAny<List<Room>>()))
+            .Returns<List<Room>>(p => p.Select(x => new RoomListDTO()
+        {
+                Id = x.Id,
+        }).ToList());
+
+        // Act
+        var result = await _roomService.GetListOfRoomsAsync();
+
+        // Assert
+        Assert.AreEqual(2, result.ToList().Count);
+        Assert.AreEqual(1, result.ToList()[0].Id);
+        Assert.AreEqual(2, result.ToList()[1].Id);
     }
 }
