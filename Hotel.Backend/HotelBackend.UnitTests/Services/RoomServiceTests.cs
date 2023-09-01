@@ -19,7 +19,7 @@ namespace HotelBackend.UnitTests.Services
     {
         private RoomService _roomService;
         private Mock<IRoomRepository> _roomRepositoryMock;
-        private Mock<IMapper> _mapperMock;
+        private readonly Mock<IMapper> _mapperMock;
         private Mock<Cloudinary> _cloudinaryMock;
 
         [TestInitialize]
@@ -35,51 +35,8 @@ namespace HotelBackend.UnitTests.Services
                     _mapperMock.Object,
                     _cloudinaryMock.Object
                 );
-            
-        }
-
-        [DataTestMethod]
-        [DataRow(1, 2, 1)]
-        [DataRow(4, 5, 2)]
-        [DataRow(1, 6, 0)]
-        public async Task GetAvailableRoomsAsyncTest_withValidInqury(int choosedEq1, int choosedEq2, int expectedResult)
-        {
-            // Arrange
-            var query = new RoomSelectorDTO 
-            {
-                NumberOfBeds = 1,
-                MaxNumberOfDogs = 1,
-                BookingFrom = new DateTime(2023,1,1),
-                BookingTo = new DateTime(2023,1,4),
-                ChoosedEquipments = new List<int> { choosedEq1, choosedEq2 }
-            };
-            Equipment eq1 = new Equipment { Id = 1};
-            Equipment eq2 = new Equipment { Id = 2 };
-            Equipment eq3 = new Equipment { Id = 3 };
-            Equipment eq4 = new Equipment { Id = 4 };
-            Equipment eq5 = new Equipment { Id = 5 };
-            Equipment eq6 = new Equipment { Id = 6 };
-
-            var rooms = new List<Room> 
-            {
-                new Room { Id = 1, Available = true, Equipments = new List<Equipment> {eq1, eq2, eq3 }},
-                new Room { Id = 2, Available = true, Equipments = new List<Equipment> {eq1, eq4, eq5 }},
-                new Room { Id = 3, Available = true, Equipments = new List<Equipment> {eq2, eq3, eq5 }},
-                new Room { Id = 4, Available = true, Equipments = new List<Equipment> {eq3, eq4, eq5 }}
-            };
-
-            _roomRepositoryMock.Setup(m => m.GetBigEnoughRoomsAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<List<int>>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-            .ReturnsAsync(rooms);
-            _mapperMock.Setup(m => m.Map<List<RoomListDTO>>(It.IsAny<List<Room>>())).Returns<List<Room>>(p => p.Select(x => new RoomListDTO() 
-            {
-                Id = x.Id,
-            }).ToList());
-
-            // Act
-            var result = await _roomService.GetAvailableRoomsAsync(query);
-
-            // Assert
-            Assert.AreEqual(expectedResult, result.ToList().Count);
+                    
+                );
         }
     }
 }

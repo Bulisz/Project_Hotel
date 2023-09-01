@@ -55,8 +55,6 @@ public class RoomRepository : IRoomRepository
             .Where(room => room.NumberOfBeds >= guestNumber)
             .Where(room => room.MaxNumberOfDogs >= dogNumber)
             .Where(room => room.Available == true)
-            //.Where(room => choosedEquipments.All(x => room.Equipments.Select(e => e.Id).Contains(x)))
-            //.Where(room => choosedEquipments.All(x => room.Equipments.Any(e => e.Id == x)))
             .Where(room => !room.Reservations.Any(ar => ar.BookingFrom < bookingTo && ar.BookingTo > bookingFrom))
             .ToListAsync();
 
