@@ -64,24 +64,16 @@ public class RoomService : IRoomService
             int counter = 0;
             if (choosedEquipmentsId.Count != 0 && choosedEquipmentsId != null)
             {
-                foreach (int item in choosedEquipmentsId)
+                
+                foreach (Room room in allRooms)
                 {
-                    foreach (Room room in allRooms)
+                    if (choosedEquipmentsId.All(x => room.Equipments.Any(e => e.Id == x)))
                     {
-                        foreach (var equipment in room.Equipments)
-                        {
-                            if (item == equipment.Id)
-                            {
-                                counter++;
-                            }
-                        }
-                        if (counter == choosedEquipmentsId.Count)
-                        {
-                            onlyRequestedRooms.Add(room);
-                            counter = 0;
-                        }
+                        onlyRequestedRooms.Add(room);
                     }
+
                 }
+                
             }
             else
             {
