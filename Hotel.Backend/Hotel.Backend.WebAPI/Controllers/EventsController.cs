@@ -28,7 +28,7 @@ public class EventsController : ControllerBase
         try
         {
             EventDetailsDTO createdEvent = await _eventService.CreateEventAsync(createEvent);
-            return Ok(createEvent);
+            return Ok(createdEvent);
         }
         catch (HotelException ex)
         {
@@ -48,8 +48,8 @@ public class EventsController : ControllerBase
     {
         try
         {
-            var listedRooms = await _eventService.GetListOfEventsAsync();
-            return Ok(listedRooms);
+            var listedEvents = await _eventService.GetListOfEventsAsync();
+            return Ok(listedEvents);
         }
         catch (Exception ex)
         {
@@ -64,7 +64,6 @@ public class EventsController : ControllerBase
     {
         try
         {
-
             EventDetailsDTO eventDetailsDTO = await _eventService.ModifyEventAsync(modifyEvent);
             return Ok(eventDetailsDTO);
         }
