@@ -47,6 +47,7 @@ export class ReservationForRoomComponent {
     if(this.reservationForm.get('bookingFrom')?.value  && this.reservationForm.get('bookingTo')?.value){
       this.reservationForm.get('bookingFrom')?.setErrors(null)
       this.reservationForm.get('bookingTo')?.setErrors(null)
+      this.createdReservation = null
     }
   }
 
