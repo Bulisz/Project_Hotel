@@ -21,6 +21,7 @@ public class EquipmentServiceTests
     [Fact]
     public async Task CreateEquipmentTest()
     {
+        //Arrange
         CreateEquipmentDTO createEquipmentDTO = _fixture.Create<CreateEquipmentDTO>();
 
         _mapper.Map<Equipment>(Arg.Any<CreateEquipmentDTO>()).Returns(e => new Equipment()
@@ -45,6 +46,4 @@ public class EquipmentServiceTests
         result.Id.Should().Be(1);
         result.IsStandard.Should().Be(createEquipmentDTO.IsStandard);
     }
-
-    //coverlet .\bin\Debug\net7.0\XUnitTests.dll --target "dotnet" --targetargs "test --no-build"
 }
