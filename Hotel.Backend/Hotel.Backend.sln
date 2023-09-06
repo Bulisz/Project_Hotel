@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelBackend.UnitTests", "H
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelBackend.IntegrationTests", "HotelBackend.IntegrationTests\HotelBackend.IntegrationTests.csproj", "{8139A865-9A24-4953-A0CB-CDD57B694CD4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBrowserTests", "HotelBrowserTests\HotelBrowserTests.csproj", "{6ABD28CB-9B5D-41C3-BF0B-C5D32AA35595}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8139A865-9A24-4953-A0CB-CDD57B694CD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8139A865-9A24-4953-A0CB-CDD57B694CD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8139A865-9A24-4953-A0CB-CDD57B694CD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ABD28CB-9B5D-41C3-BF0B-C5D32AA35595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ABD28CB-9B5D-41C3-BF0B-C5D32AA35595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ABD28CB-9B5D-41C3-BF0B-C5D32AA35595}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ABD28CB-9B5D-41C3-BF0B-C5D32AA35595}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
