@@ -22,10 +22,10 @@ public record CreateUserForm
     public string Email { get; set; } = string.Empty;
 
     [Required]
-    [RegularExpression("^[A-ZÀ-ÖÜŐÚŰ](?!.*  )[a-zA-ZÀ-ÖØ-öø-ÿűő '-]{1,49}$", ErrorMessage = "2 és 50 betűből álló tulajdonnév")]
+    [RegularExpression("^[A-ZÀ-ÖÜŐÚŰa-zá-öüőúű](?!.*  )[a-zA-ZÀ-ÖØ-öø-ÿűő '-]{1,49}$", ErrorMessage = "2 és 50 betűből álló keresztnév")]
     public string FirstName { get; set; } = string.Empty;
 
     [Required]
-    [RegularExpression("^[A-ZÀ-ÖÜŐÚŰ](?!.*  )[a-zA-ZÀ-ÖØ-öø-ÿűő '-]{1,49}$", ErrorMessage = "2 és 50 betűből álló tulajdonnév")]
+    [RegularExpression("^[A-ZÀ-ÖÜŐÚŰa-zá-öüőúű](?!.*  )[a-zA-ZÀ-ÖØ-öø-ÿűő '.-]{1,49}$", ErrorMessage = "2 és 50 betűből álló vezetéknév")]
     public string LastName { get; set; } = string.Empty;
 }

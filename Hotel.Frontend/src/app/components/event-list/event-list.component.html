@@ -19,8 +19,8 @@
               <img src="{{sport.imageUrl}}" alt="">
             </div>
             <div class="btn-container">
-              <p *ngIf="!(role === 'Admin' || role === 'Operator')"> A FOGLALKOZÁS MINDEN KEDVES VENDÉG RÉSZÉRE
-                ELÉRHETŐ!</p>
+              <p *ngIf="!(role === 'Admin' || role === 'Operator')"> A FOGLALKOZÁS MINDENKI RÉSZÉRE
+                ELÉRHETŐ! JELENTKEZÉS A RECEPCIÓN!</p>
               <div *ngIf="role === 'Admin' || role === 'Operator'">
                 <button type="button" class="btn btn-secondary btn-admin" (click)="modifyEvent(sport.id)">Módosítás</button>
                 <button type="button" class="btn btn-secondary btn-admin" (click)="deleteEvent(sport.id)">Törlés</button>

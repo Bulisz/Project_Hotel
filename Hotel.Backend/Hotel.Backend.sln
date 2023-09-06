@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelBackend.IntegrationTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBrowserTests", "HotelBrowserTests\HotelBrowserTests.csproj", "{6ABD28CB-9B5D-41C3-BF0B-C5D32AA35595}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTests", "XUnitTests\XUnitTests.csproj", "{23D45F49-A9C5-4056-836B-387829DF2783}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{6ABD28CB-9B5D-41C3-BF0B-C5D32AA35595}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ABD28CB-9B5D-41C3-BF0B-C5D32AA35595}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ABD28CB-9B5D-41C3-BF0B-C5D32AA35595}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23D45F49-A9C5-4056-836B-387829DF2783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23D45F49-A9C5-4056-836B-387829DF2783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23D45F49-A9C5-4056-836B-387829DF2783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23D45F49-A9C5-4056-836B-387829DF2783}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
