@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Hotel.Backend.WebAPI\Hotel.Backend.WebAPI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TestResults\coverageresults\" />
+  </ItemGroup>
+
 </Project>
