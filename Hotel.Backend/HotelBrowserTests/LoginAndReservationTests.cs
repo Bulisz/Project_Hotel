@@ -18,6 +18,8 @@ namespace HotelBrowserTests
         private readonly By _userNameInputLocator = By.Id("userName");
         private readonly By _passwordInputLocator = By.Id("password");
         private readonly By _sendLoginDetailsButtonLocator = By.Id("sendButton");
+        private readonly By _homeLoanOptionsLocator = By.XPath("//select[@id='homeLoanOptions']");
+
 
         private IWebDriver _driver = null!;
 
@@ -37,7 +39,7 @@ namespace HotelBrowserTests
         [TestCleanup]
         public void TestCleanup()
         {
-            //_driver.Quit();
+            _driver.Quit();
         }
 
         [TestMethod]
