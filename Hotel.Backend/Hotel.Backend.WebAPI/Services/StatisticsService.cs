@@ -1,20 +1,16 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Repositories;
 using Hotel.Backend.WebAPI.Abstractions.Services;
-using Hotel.Backend.WebAPI.Models.DTO;
 using Hotel.Backend.WebAPI.Models;
-using Hotel.Backend.WebAPI.Repositories;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Hotel.Backend.WebAPI.Models.DTO;
 using Hotel.Backend.WebAPI.Models.DTO.StatisticsDTOs;
 
 namespace Hotel.Backend.WebAPI.Services
 {
     public class StatisticsService : IStatisticsService
     {
-        //private readonly IReservationRepository _reservationRepository;
         private readonly IRoomRepository _roomRepository;
         public StatisticsService(IRoomRepository roomRepository)
         {
-           // _reservationRepository = reservationRepository;
             _roomRepository = roomRepository;
 
         }
@@ -68,7 +64,7 @@ namespace Hotel.Backend.WebAPI.Services
         {
             List<StatisticsPerYearDTO> result = new List<StatisticsPerYearDTO>();
 
-            List<Room> choosedRooms = await _roomRepository.GetRoomsByNamesAsync(query.ChoosedRooms);
+            List<Room> choosedRooms = await _roomRepository.GetRoomsByNamesAsync(query.ChoosedRooms!);
 
             foreach (var room in choosedRooms)
             {
@@ -108,7 +104,5 @@ namespace Hotel.Backend.WebAPI.Services
             }
             return result;
         }
-
-
     }
 }

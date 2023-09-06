@@ -1,8 +1,7 @@
-﻿namespace Hotel.Backend.WebAPI.Models.DTO.StatisticsDTOs
+﻿namespace Hotel.Backend.WebAPI.Models.DTO.StatisticsDTOs;
+
+public record YearStatQueryDTO
 {
-    public class YearStatQueryDTO
-    {
-        public int Year { get; set; }
-        public List<string>? ChoosedRooms { get; set; } = new List<string>();
-    }
+    public int Year { get; set; }
+    public List<string>? ChoosedRooms { get; set; } = new List<string>();
 }

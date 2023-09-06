@@ -2,7 +2,6 @@
 using Hotel.Backend.WebAPI.Database;
 using Hotel.Backend.WebAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Hotel.Backend.WebAPI.Repositories;
 
@@ -45,8 +44,7 @@ public class RoomRepository : IRoomRepository
     }
 
 
-    public async Task<List<Room>> GetBigEnoughRoomsAsync(int guestNumber, int dogNumber, 
-        List<int> choosedEquipments, DateTime bookingFrom, DateTime bookingTo)
+    public async Task<List<Room>> GetBigEnoughRoomsAsync(int guestNumber, int dogNumber, DateTime bookingFrom, DateTime bookingTo)
     {
         List<Room> result = await _context.Rooms
             .Include(room => room.Equipments)
@@ -83,10 +81,13 @@ public class RoomRepository : IRoomRepository
 
     public async Task DeleteRoomAsync(int id)
     {
-        Room room = await _context.Rooms.FindAsync(id);
-        room.Available = false;
-        _context.Rooms.Update(room);
-        await _context.SaveChangesAsync();
+        Room? room = await _context.Rooms.FindAsync(id);
+        if (room is not null)
+        {
+            room.Available = false;
+            _context.Rooms.Update(room);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task<Room> ModifyRoomAsync(Room room)
@@ -99,7 +100,11 @@ public class RoomRepository : IRoomRepository
     public async  Task DeleteImageOfRoomAsync(string url)
     {
         Image? image = await _context.Images.FirstOrDefaultAsync(img => img.ImageUrl == url);
-        _context.Images.Remove(image);
-        await _context.SaveChangesAsync();
+
+        if (image is not null)
+        {
+            _context.Images.Remove(image);
+            await _context.SaveChangesAsync();
+        }
     }
 }

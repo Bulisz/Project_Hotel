@@ -16,10 +16,14 @@ public class PostRepository : IPostRepository
 
     public async Task ConfirmPostAsync(int id)
     {
-        Post post = await _context.Posts.FindAsync(id);
-        post.Confirmed = true;
-        _context.Posts.Update(post);
-        await _context.SaveChangesAsync();
+        Post? post = await _context.Posts.FindAsync(id);
+
+        if (post is not null)
+        {
+            post.Confirmed = true;
+            _context.Posts.Update(post);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task<Post> CreatePostAsync(Post post)
@@ -31,9 +35,13 @@ public class PostRepository : IPostRepository
 
     public async Task DeletePostAsync(int id)
     {
-        Post post = await _context.Posts.FindAsync(id);
-        _context.Posts.Remove(post);
-        await _context.SaveChangesAsync();
+        Post? post = await _context.Posts.FindAsync(id);
+
+        if (post is not null)
+        {
+            _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task<IEnumerable<Post>> GetConfirmedPostsAsync()

@@ -9,5 +9,4 @@ public interface IJwtService
     void ClearRefreshToken(string refreshToken);
     Task<TokensDTO> CreateTokensAsync(ApplicationUser user);
     Task<TokensDTO> RenewTokensAsync(string refreshToken);
-
 }

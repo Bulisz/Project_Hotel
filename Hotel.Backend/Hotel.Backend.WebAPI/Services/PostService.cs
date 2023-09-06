@@ -1,9 +1,8 @@
-﻿using Hotel.Backend.WebAPI.Models.DTO;
-using Hotel.Backend.WebAPI.Models;
-using AutoMapper;
-using CloudinaryDotNet;
-using Hotel.Backend.WebAPI.Abstractions.Services;
+﻿using AutoMapper;
 using Hotel.Backend.WebAPI.Abstractions.Repositories;
+using Hotel.Backend.WebAPI.Abstractions.Services;
+using Hotel.Backend.WebAPI.Models;
+using Hotel.Backend.WebAPI.Models.DTO;
 
 namespace Hotel.Backend.WebAPI.Services;
 

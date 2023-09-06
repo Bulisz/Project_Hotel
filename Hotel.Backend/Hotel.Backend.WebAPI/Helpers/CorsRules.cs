@@ -1,5 +1,4 @@
 ﻿namespace Hotel.Backend.WebAPI.Helpers;
-
 public static class CorsRules
 {
     public static IServiceCollection AddCorsRules(this IServiceCollection services)
@@ -9,9 +8,6 @@ public static class CorsRules
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowAnyOrigin()));
-
-                //TODO manage origin
-                //.WithOrigins("http://localhost:4200")))
 
         return services;
     }

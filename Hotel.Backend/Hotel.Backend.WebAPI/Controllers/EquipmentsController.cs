@@ -41,7 +41,6 @@ public class EquipmentsController : ControllerBase
             _logger.LogError(ex, ex.Message);
             return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
         }
-
     }
 
     [Authorize(Roles = "Admin")]

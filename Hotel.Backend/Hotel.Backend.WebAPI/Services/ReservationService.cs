@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Hotel.Backend.WebAPI.Abstractions.Repositories;
+﻿using Hotel.Backend.WebAPI.Abstractions.Repositories;
 using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
@@ -14,7 +13,7 @@ public class ReservationService : IReservationService
     private readonly IUserRepository _userRepository;
     private readonly IRoomRepository _roomRepository;
     private readonly IEmailService _emailService;
-    static SemaphoreSlim _semaphoreSlim;
+    static SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
 
     public ReservationService(IReservationRepository reservationRepository,
                               IUserRepository userRepository,
@@ -25,8 +24,6 @@ public class ReservationService : IReservationService
         _userRepository = userRepository;
         _roomRepository = roomRepository;
         _emailService = emailService;
-
-        _semaphoreSlim = new SemaphoreSlim(1, 1);
     }
 
     public async Task<ReservationDetailsDTO> CreateReservationAsync(ReservationRequestDTO request)
@@ -88,8 +85,8 @@ public class ReservationService : IReservationService
 
     private async Task ReservationNotifications(ApplicationUser? user, Reservation reservation)
     {
-        EmailDTO confirmationEmail = _emailService.CreatingReservationConfirmationEmail(user, reservation);
-        EmailDTO notification = _emailService.CreatingNotificationOfReservation(user, reservation);
+        EmailDTO confirmationEmail = _emailService.CreatingReservationConfirmationEmail(user!, reservation);
+        EmailDTO notification = _emailService.CreatingNotificationOfReservation(user!, reservation);
 
         await _emailService.SendEmailAsync(confirmationEmail);
         await _emailService.SendEmailAsync(notification);
@@ -116,7 +113,7 @@ public class ReservationService : IReservationService
             BookingFrom = reservation.BookingFrom,
             BookingTo = reservation.BookingTo,
             UserId = reservation.ApplicationUser.Id,
-            UserName = reservation.ApplicationUser.UserName,
+            UserName = reservation.ApplicationUser.UserName!,
             RoomName = reservation.Room.Name,
             FullName = reservation.ApplicationUser.LastName + " " + reservation.ApplicationUser.FirstName,
 

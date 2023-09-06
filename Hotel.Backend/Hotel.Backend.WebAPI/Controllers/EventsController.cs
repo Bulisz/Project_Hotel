@@ -1,6 +1,5 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
-using Hotel.Backend.WebAPI.Migrations;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,11 +1,9 @@
-﻿using Hotel.Backend.WebAPI.Migrations;
+﻿using Hotel.Backend.WebAPI.Database;
+using Hotel.Backend.WebAPI.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using System;
-using Hotel.Backend.WebAPI.Models;
-using Hotel.Backend.WebAPI.Database;
 
 namespace Hotel.Backend.WebAPI.Helpers;
 
@@ -13,7 +11,6 @@ public static class AuthenticationExtension
 {
     public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
     {
-
         services.AddIdentityCore<ApplicationUser>(options =>
         {
             options.User.RequireUniqueEmail = true;

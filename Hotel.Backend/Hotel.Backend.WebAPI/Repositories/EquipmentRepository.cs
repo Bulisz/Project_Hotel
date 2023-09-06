@@ -33,9 +33,12 @@ public class EquipmentRepository : IEquipmentRepository
 
     public async Task DeleteEquipmentAsync(int id)
     {
-        Equipment equipment = await _context.Equipments.FindAsync(id);
-        _context.Equipments.Remove(equipment);
-        await _context.SaveChangesAsync();
+        Equipment? equipment = await _context.Equipments.FindAsync(id);
+        if (equipment != null)
+        {
+            _context.Equipments.Remove(equipment);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task<IEnumerable<Equipment>> GetStandardEquipmentAsync()
@@ -54,21 +57,27 @@ public class EquipmentRepository : IEquipmentRepository
 
     public async Task AddEquipmentToRoomAsync(EquipmentAndRoomDTO equipmentAndRoomDTO)
     {
-        Room room = await _context.Rooms.FindAsync(equipmentAndRoomDTO.RoomId);
-        Equipment equipment = await _context.Equipments.FindAsync(equipmentAndRoomDTO.EquipmentId);
+        Room? room = await _context.Rooms.FindAsync(equipmentAndRoomDTO.RoomId);
+        Equipment? equipment = await _context.Equipments.FindAsync(equipmentAndRoomDTO.EquipmentId);
 
-        room.Equipments.Add(equipment);
-        _context.Rooms.Update(room);
-        await _context.SaveChangesAsync();
+        if (room is not null && equipment is not null)
+        {
+            room.Equipments.Add(equipment);
+            _context.Rooms.Update(room);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task RemoveEquipmentFromRoomAsync(EquipmentAndRoomDTO equipmentAndRoomDTO)
     {
-        Room room = await _context.Rooms.Include(room => room.Equipments).FirstOrDefaultAsync(room => room.Id == equipmentAndRoomDTO.RoomId);
-        Equipment equipment = await _context.Equipments.FindAsync(equipmentAndRoomDTO.EquipmentId);
+        Room? room = await _context.Rooms.Include(room => room.Equipments).FirstOrDefaultAsync(room => room.Id == equipmentAndRoomDTO.RoomId);
+        Equipment? equipment = await _context.Equipments.FindAsync(equipmentAndRoomDTO.EquipmentId);
 
-        room.Equipments.Remove(equipment);
-        _context.Rooms.Update(room);
-        await _context.SaveChangesAsync();
+        if (room is not null && equipment is not null)
+        {
+            room.Equipments.Remove(equipment);
+            _context.Rooms.Update(room);
+            await _context.SaveChangesAsync();
+        }
     }
 }

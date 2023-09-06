@@ -2,5 +2,5 @@
 
 public class AppSettings
 {
-    public string client_id { get; set; }
+    public string Client_id { get; set; } = string.Empty;
 }

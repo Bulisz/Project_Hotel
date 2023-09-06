@@ -1,5 +1,4 @@
-﻿using Hotel.Backend.WebAPI.Abstractions.Services;
-using Hotel.Backend.WebAPI.Models;
+﻿using Hotel.Backend.WebAPI.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace Hotel.Backend.WebAPI.Services;
@@ -43,6 +42,5 @@ public class UserCleanupService : BackgroundService
 
             await Task.Delay(TimeSpan.FromMinutes(7), stoppingToken);
         }
-        
     }
 }

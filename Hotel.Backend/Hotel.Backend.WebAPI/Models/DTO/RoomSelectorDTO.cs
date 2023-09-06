@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Hotel.Backend.WebAPI.Models.DTO
 {
-    public class RoomSelectorDTO
+    public record RoomSelectorDTO
     {
         [Range(1, 20)]
         public int NumberOfBeds { get; set; }
@@ -16,6 +16,5 @@ namespace Hotel.Backend.WebAPI.Models.DTO
         [NotInThePast(ErrorMessage = "Csak a jövőbeni dátumokra lehetséges foglalni")]
         public DateTime BookingTo { get; set; }
         public List<int>? ChoosedEquipments { get; set; } = new List<int>();
-
     }
 }

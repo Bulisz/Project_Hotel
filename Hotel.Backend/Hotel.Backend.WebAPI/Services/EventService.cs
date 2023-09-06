@@ -29,7 +29,7 @@ public class EventService : IEventService
         Event @event = _mapper.Map<Event>(createEventDTO);
 
         string[] supportedImageTypes = {"apng", "avif", "gif", "jpg", "jpeg", "jfif", "pjpeg", "pjp", "png", "svg", "webp" };
-        string actualType = createEventDTO.Image.FileName.Split('.')[1].ToLower();
+        string actualType = createEventDTO.Image!.FileName.Split('.')[1].ToLower();
         if (!supportedImageTypes.Contains(actualType))
         {
             List<HotelFieldError> errors = new() { new HotelFieldError("Image", "Nem támogatott kép formátum") };
@@ -112,9 +112,12 @@ public class EventService : IEventService
 
     public async Task DeleteEventAsync(int id)
     {
-        Event @event = await _eventRepository.GetEventByIdAsync(id);
-        DeleteImageAsync(@event.ImageUrl);
-        await _eventRepository.DeleteEventAsync(@event);
+        Event? @event = await _eventRepository.GetEventByIdAsync(id);
+        if (@event is not null)
+        {
+            await DeleteImageAsync(@event.ImageUrl);
+            await _eventRepository.DeleteEventAsync(@event);
+        }
     }
     private async Task DeleteImageAsync(string imageUrl)
     {
