@@ -10,6 +10,7 @@ using Hotel.Backend.WebAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
+
 namespace Hotel.Backend.WebAPI;
 
 public class Program {

@@ -203,21 +203,21 @@ public class RoomRepositoryTests
         await _dbContext.SaveChangesAsync();
 
         //Act
-        var result1 = await _roomRepository.GetBigEnoughRoomsAsync(1, 1, new() { }, DateTime.Parse("2000-02-01"), DateTime.Parse("2000-02-10"));
-        var result2 = await _roomRepository.GetBigEnoughRoomsAsync(3, 1, new() { }, DateTime.Parse("2000-02-01"), DateTime.Parse("2000-02-10"));
-        var result3 = await _roomRepository.GetBigEnoughRoomsAsync(5, 1, new() { }, DateTime.Parse("2000-02-01"), DateTime.Parse("2000-02-10"));
+        var result1 = await _roomRepository.GetBigEnoughRoomsAsync(1, 1, DateTime.Parse("2000-02-01"), DateTime.Parse("2000-02-10"));
+        var result2 = await _roomRepository.GetBigEnoughRoomsAsync(3, 1, DateTime.Parse("2000-02-01"), DateTime.Parse("2000-02-10"));
+        var result3 = await _roomRepository.GetBigEnoughRoomsAsync(5, 1, DateTime.Parse("2000-02-01"), DateTime.Parse("2000-02-10"));
 
-        var result4 = await _roomRepository.GetBigEnoughRoomsAsync(1, 1, new() { }, DateTime.Parse("2000-02-01"), DateTime.Parse("2000-02-10"));
-        var result5 = await _roomRepository.GetBigEnoughRoomsAsync(1, 3, new() { }, DateTime.Parse("2000-02-01"), DateTime.Parse("2000-02-10"));
-        var result6 = await _roomRepository.GetBigEnoughRoomsAsync(1, 5, new() { }, DateTime.Parse("2000-02-01"), DateTime.Parse("2000-02-10"));
+        var result4 = await _roomRepository.GetBigEnoughRoomsAsync(1, 1, DateTime.Parse("2000-02-01"), DateTime.Parse("2000-02-10"));
+        var result5 = await _roomRepository.GetBigEnoughRoomsAsync(1, 3, DateTime.Parse("2000-02-01"), DateTime.Parse("2000-02-10"));
+        var result6 = await _roomRepository.GetBigEnoughRoomsAsync(1, 5, DateTime.Parse("2000-02-01"), DateTime.Parse("2000-02-10"));
 
-        var result7 = await _roomRepository.GetBigEnoughRoomsAsync(1, 1, new() { }, DateTime.Parse("2000-01-05"), DateTime.Parse("2000-01-07"));
-        var result8 = await _roomRepository.GetBigEnoughRoomsAsync(1, 1, new() { }, DateTime.Parse("2000-01-08"), DateTime.Parse("2000-01-09"));
-        var result9 = await _roomRepository.GetBigEnoughRoomsAsync(1, 1, new() { }, DateTime.Parse("2000-01-30"), DateTime.Parse("2000-01-31"));
+        var result7 = await _roomRepository.GetBigEnoughRoomsAsync(1, 1, DateTime.Parse("2000-01-05"), DateTime.Parse("2000-01-07"));
+        var result8 = await _roomRepository.GetBigEnoughRoomsAsync(1, 1, DateTime.Parse("2000-01-08"), DateTime.Parse("2000-01-09"));
+        var result9 = await _roomRepository.GetBigEnoughRoomsAsync(1, 1, DateTime.Parse("2000-01-30"), DateTime.Parse("2000-01-31"));
 
-        var result10 = await _roomRepository.GetBigEnoughRoomsAsync(1, 3, new() { }, DateTime.Parse("2000-01-05"), DateTime.Parse("2000-01-07"));
-        var result11 = await _roomRepository.GetBigEnoughRoomsAsync(4, 1, new() { }, DateTime.Parse("2000-01-05"), DateTime.Parse("2000-01-07"));
-        var result12 = await _roomRepository.GetBigEnoughRoomsAsync(2, 2, new() { }, DateTime.Parse("2000-01-30"), DateTime.Parse("2000-01-31"));
+        var result10 = await _roomRepository.GetBigEnoughRoomsAsync(1, 3, DateTime.Parse("2000-01-05"), DateTime.Parse("2000-01-07"));
+        var result11 = await _roomRepository.GetBigEnoughRoomsAsync(4, 1, DateTime.Parse("2000-01-05"), DateTime.Parse("2000-01-07"));
+        var result12 = await _roomRepository.GetBigEnoughRoomsAsync(2, 2, DateTime.Parse("2000-01-30"), DateTime.Parse("2000-01-31"));
 
         //Arrange
         Assert.AreEqual(4, result1.Count);
