@@ -1,3 +1,4 @@
+using Hotel.Backend.WebAPI;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net.Http.Json;

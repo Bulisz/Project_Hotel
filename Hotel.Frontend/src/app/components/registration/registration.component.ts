@@ -39,6 +39,10 @@ export class RegistrationComponent {
     }
   }
 
+  changeMe(controlName: string){
+    this.registerForm.get(controlName)?.setErrors(null)
+  }
+
   closeRegistration() {
     this.dialogRef.close()
   }

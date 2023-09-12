@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
 using CloudinaryDotNet;
 using Hotel.Backend.WebAPI.Abstractions.Repositories;
-using Hotel.Backend.WebAPI.Abstractions.Services;
-using Hotel.Backend.WebAPI.Migrations;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Hotel.Backend.WebAPI.Services;
 using Moq;
-using System;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace HotelBackend.UnitTests.Services;
 
@@ -60,7 +56,7 @@ public class RoomServiceTests
                 new Room { Id = 4, Available = true, Equipments = new List<Equipment> {eq3, eq4, eq5 }}
             };
 
-        _roomRepositoryMock.Setup(m => m.GetBigEnoughRoomsAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<List<int>>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+        _roomRepositoryMock.Setup(m => m.GetBigEnoughRoomsAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
         .ReturnsAsync(rooms);
         _mapperMock.Setup(m => m.Map<List<RoomListDTO>>(It.IsAny<List<Room>>()))
             .Returns<List<Room>>(p => p.Select(x => new RoomListDTO()

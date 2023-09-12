@@ -11,7 +11,7 @@
 
         <div class="col-md-6">
           <div class="mb-2">
-            <input type="text" class="form-control form-control-sm" placeholder="Vezetéknév" formControlName="lastName"
+            <input type="text" class="form-control form-control-sm" placeholder="Vezetéknév" formControlName="lastName" (change)="changeMe('lastName')"
               [ngClass]="{'is-invalid': registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched} || registerForm.get('lastName')?.errors?.['serverError']">
 
             <small
@@ -38,7 +38,7 @@
 
         <div class="col-md-6">
           <div class="mb-2">
-            <input type="text" class="form-control form-control-sm" placeholder="Keresztnév" formControlName="firstName"
+            <input type="text" class="form-control form-control-sm" placeholder="Keresztnév" formControlName="firstName" (change)="changeMe('firstName')"
               [ngClass]="{'is-invalid': registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched} || registerForm.get('firstName')?.errors?.['serverError']">
 
             <small
@@ -66,7 +66,7 @@
         <div class="col-md-12">
           <div class="mb-2">
             <input type="text" class="form-control form-control-sm" placeholder="Felhasználónév"
-              formControlName="userName"
+              formControlName="userName"  (change)="changeMe('userName')"
               [ngClass]="{'is-invalid': registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched} || registerForm.get('userName')?.errors?.['serverError']">
 
             <small *ngIf="registerForm.get('userName')?.dirty
@@ -93,7 +93,7 @@
 
         <div class="col-md-12">
           <div class="mb-2">
-            <input type="text" class="form-control form-control-sm" placeholder="Email" formControlName="email"
+            <input type="text" class="form-control form-control-sm" placeholder="Email" formControlName="email"  (change)="changeMe('email')"
               [ngClass]="{'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched} || registerForm.get('email')?.errors?.['serverError']">
 
             <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.dirty
@@ -120,7 +120,7 @@
 
         <div class="col-md-12">
           <div class="mb-2">
-            <input type="password" class="form-control form-control-sm" placeholder="Jelszó" formControlName="password"
+            <input type="password" class="form-control form-control-sm" placeholder="Jelszó" formControlName="password"  (change)="changeMe('password')"
               [ngClass]="{'is-invalid': registerForm.get('password')?.invalid && registerForm.get('password')?.touched} || registerForm.get('password')?.errors?.['serverError']">
 
 
@@ -148,7 +148,7 @@
 
         <div class="col-md-12">
           <div class="mb-2">
-            <input type="password" class="form-control form-control-sm" placeholder="Jelszó megint" formControlName="confirmPassword"
+            <input type="password" class="form-control form-control-sm" placeholder="Jelszó megint" formControlName="confirmPassword"  (change)="changeMe('confirmPassword')"
               [ngClass]="{'is-invalid': registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched} || registerForm.get('confirmPassword')?.errors?.['serverError']">
 
 
