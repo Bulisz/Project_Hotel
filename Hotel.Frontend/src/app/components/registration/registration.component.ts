@@ -30,6 +30,7 @@ export class RegistrationComponent {
   async onSubmit(){
     if(this.registerForm.valid) {
       const newAccount = this.registerForm.value;
+      //this.router.navigate(['patient']);
       await this.accountService.registerNewAccout(newAccount)
       .then(() => { this.dialogRef.close('ok');
         this.router.navigate(['patient']);

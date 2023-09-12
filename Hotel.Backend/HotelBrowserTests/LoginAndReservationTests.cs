@@ -14,11 +14,15 @@ namespace HotelBrowserTests
     {
         private const string BaseAddress = "http://localhost:4200";
 
-        private readonly By _loginButtonLocator = By.Id("loginButton");
+        private readonly By _registerButtonLocator = By.Id("registerButton");
         private readonly By _userNameInputLocator = By.Id("userName");
-        private readonly By _passwordInputLocator = By.Id("password");
+        private readonly By _firstNameInputLocator = By.Id("kersztNev");
+        private readonly By _lastNameInputLocator = By.Id("csaladNev");
+        private readonly By _emailInputLocator = By.Id("emailInpt");
+        private readonly By _passwordInputLocator = By.Id("passwordInput");
+        private readonly By _passwordAgainInputLocator = By.Id("passwordAgain");
         private readonly By _sendLoginDetailsButtonLocator = By.Id("sendButton");
-        private readonly By _homeLoanOptionsLocator = By.XPath("//select[@id='homeLoanOptions']");
+        //private readonly By _homeLoanOptionsLocator = By.XPath("//select[@id='homeLoanOptions']");
 
 
         private IWebDriver _driver = null!;
@@ -56,13 +60,28 @@ namespace HotelBrowserTests
             _driver.Navigate().GoToUrl(BaseAddress);
             Wait(_driver);
 
-            // Click on login button
-            var loginButton = _driver.FindElement(_loginButtonLocator);
-            loginButton.Click();
+            // Click on register button
+            var registerButton = _driver.FindElement(_registerButtonLocator);
+            registerButton.Click();
+
+            // Enter the firstName
+            var firstNameInput = _driver.FindElement(_firstNameInputLocator);
+            firstNameInput.SendKeys("black");
+            Wait(_driver);
+
+            // Enter the lastName
+            var lastNameInput = _driver.FindElement(_lastNameInputLocator);
+            lastNameInput.SendKeys("heeler");
+            Wait(_driver);
 
             // Enter the userName
             var userNameInput = _driver.FindElement(_userNameInputLocator);
-            userNameInput.SendKeys("blueheeler");
+            userNameInput.SendKeys("blackheeler");
+            Wait(_driver);
+
+            // Enter the email
+            var emailInput = _driver.FindElement(_emailInputLocator);
+            emailInput.SendKeys("blackheeler@gmai.com");
             Wait(_driver);
 
             // Enter the password
@@ -70,9 +89,17 @@ namespace HotelBrowserTests
             passwordInput.SendKeys("123456");
             Wait(_driver);
 
+            // Enter the passwordAgain
+            var passwordAgain = _driver.FindElement(_passwordAgainInputLocator);
+            passwordAgain.SendKeys("123456");
+            Wait(_driver);
+
             // Click on send button
             var sendButton = _driver.FindElement(_sendLoginDetailsButtonLocator);
             sendButton.Click();
+
+            Wait2(_driver);
+            // patient.component.html
 
         }
 
@@ -81,7 +108,11 @@ namespace HotelBrowserTests
     [Conditional("DEBUG")] //'Release'
         private static void Wait(IWebDriver driver)
         {
-            new Actions(driver).Pause(TimeSpan.FromSeconds(5)).Perform();
+            new Actions(driver).Pause(TimeSpan.FromSeconds(2)).Perform();
+        }
+        private static void Wait2(IWebDriver driver)
+        {
+            new Actions(driver).Pause(TimeSpan.FromSeconds(10)).Perform();
         }
     }
 }

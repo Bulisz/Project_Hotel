@@ -9,7 +9,7 @@ import {
   ApexDataLabels,
   ApexTooltip,
   ApexStroke,
-  
+
 } from "ng-apexcharts";
 
 import { RoomListModel } from "src/app/models/room-list.model";
@@ -34,7 +34,7 @@ export type ChartOptions = {
 export class StatYearRoomsComponent  {
   monthNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   monthString: Array<string> = ["január", "február", "március", "április", "május", "június",
-  "július", "augusztrus", "szeptember", "október", "november", "december"];
+  "július", "augusztus", "szeptember", "október", "november", "december"];
 
   rooms!: Array<RoomListModel>
   roomsForDiagram: FormGroup;
@@ -53,21 +53,21 @@ export class StatYearRoomsComponent  {
 
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: ChartOptions;
-  
 
-  constructor(private rs: RoomService, 
+
+  constructor(private rs: RoomService,
               private statisticsService: StatisticsService,
               private formBuilder: FormBuilder) {
 
     this.roomsForDiagram = this.formBuilder.group({
       rooms: [this.preSelectedRooms],
       year: [this.yearToday],
-      
+
     })
 
 
     this.chartOptions = {
-      
+
       series: this.data,
       chart: {
         height: 350,
@@ -88,7 +88,7 @@ export class StatYearRoomsComponent  {
           format: "dd/MM/yy HH:mm"
         }
       }
-      
+
     };
   }
 
@@ -109,7 +109,7 @@ export class StatYearRoomsComponent  {
         for (let i = 0; i < this.data.length; i++) {
           let j = i % this.dogHotelColors.length;
           this.data[i].color = this.dogHotelColors[j];
-          
+
         }
         this.generateDate();
       },
@@ -123,7 +123,7 @@ export class StatYearRoomsComponent  {
     try {
       const res = await this.rs.getAllRooms();
       this.rooms = res;
-  
+
       for (let i = 0; i < this.rooms.length; i++) {
         this.roomNames[i] = this.rooms[i].name;
       }
@@ -133,7 +133,7 @@ export class StatYearRoomsComponent  {
   }
 
   onSubmit(){
-    
+
     this.statisticsService.getYearStatistics(this.roomsForDiagram.value).subscribe({
       next: res => {
         this.data = res
@@ -144,12 +144,12 @@ export class StatYearRoomsComponent  {
       },
       error: err => console.log(err)
       });
-      
+
   }
 
   generateDate() {
     this.chartOptions = {
-      
+
       series: this.data,
       chart: {
         height: 350,
@@ -170,7 +170,7 @@ export class StatYearRoomsComponent  {
           format: "dd/MM/yy HH:mm"
         }
       }
-      
+
     };
   }
 }

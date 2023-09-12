@@ -11,7 +11,7 @@
 
         <div class="col-md-6">
           <div class="mb-2">
-            <input type="text" class="form-control form-control-sm" placeholder="Vezetéknév" formControlName="lastName"
+            <input type="text" id="csaladNev" class="form-control form-control-sm" placeholder="Vezetéknév" formControlName="lastName"
               [ngClass]="{'is-invalid': registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched} || registerForm.get('lastName')?.errors?.['serverError']">
 
             <small
@@ -38,11 +38,11 @@
 
         <div class="col-md-6">
           <div class="mb-2">
-            <input type="text" class="form-control form-control-sm" placeholder="Keresztnév" formControlName="firstName"
+            <input type="text" id="kersztNev" class="form-control form-control-sm" placeholder="Keresztnév" formControlName="firstName"
               [ngClass]="{'is-invalid': registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched} || registerForm.get('firstName')?.errors?.['serverError']">
 
             <small
-              *ngIf="registerForm.get('firstName')?.invalid 
+              *ngIf="registerForm.get('firstName')?.invalid
               && registerForm.get('firstName')?.touched
               && !registerForm.get('firstName')?.errors?.['pattern']
               && !registerForm.get('firstName')?.errors?.['serverError']"
@@ -65,7 +65,7 @@
 
         <div class="col-md-12">
           <div class="mb-2">
-            <input type="text" class="form-control form-control-sm" placeholder="Felhasználónév"
+            <input type="text" id="userName" class="form-control form-control-sm" placeholder="Felhasználónév"
               formControlName="userName"
               [ngClass]="{'is-invalid': registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched} || registerForm.get('userName')?.errors?.['serverError']">
 
@@ -76,9 +76,9 @@
             </small>
 
             <small
-              *ngIf="registerForm.get('userName')?.invalid 
-              && registerForm.get('userName')?.touched 
-              && !registerForm.get('userName')?.errors?.['pattern'] 
+              *ngIf="registerForm.get('userName')?.invalid
+              && registerForm.get('userName')?.touched
+              && !registerForm.get('userName')?.errors?.['pattern']
               && !registerForm.get('userName')?.errors?.['serverError']"
               class="text-danger">
               Adja meg a felhasználónevét
@@ -93,7 +93,7 @@
 
         <div class="col-md-12">
           <div class="mb-2">
-            <input type="text" class="form-control form-control-sm" placeholder="Email" formControlName="email"
+            <input type="text" id="emailInpt" class="form-control form-control-sm" placeholder="Email" formControlName="email"
               [ngClass]="{'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched} || registerForm.get('email')?.errors?.['serverError']">
 
             <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.dirty
@@ -103,8 +103,8 @@
             </small>
 
             <small
-              *ngIf="registerForm.get('email')?.invalid 
-              && registerForm.get('email')?.touched 
+              *ngIf="registerForm.get('email')?.invalid
+              && registerForm.get('email')?.touched
               && !registerForm.get('email')?.errors?.['pattern']
               && !registerForm.get('email')?.errors?.['serverError']"
               class="text-danger">
@@ -120,14 +120,14 @@
 
         <div class="col-md-12">
           <div class="mb-2">
-            <input type="password" class="form-control form-control-sm" placeholder="Jelszó" formControlName="password"
+            <input type="password" id="passwordInput" class="form-control form-control-sm" placeholder="Jelszó" formControlName="password"
               [ngClass]="{'is-invalid': registerForm.get('password')?.invalid && registerForm.get('password')?.touched} || registerForm.get('password')?.errors?.['serverError']">
 
 
             <small
-              *ngIf="registerForm.get('password')?.invalid 
-              && registerForm.get('password')?.touched 
-              && !registerForm.get('password')?.errors?.['pattern'] 
+              *ngIf="registerForm.get('password')?.invalid
+              && registerForm.get('password')?.touched
+              && !registerForm.get('password')?.errors?.['pattern']
               && !registerForm.get('password')?.errors?.['serverError']"
               class="text-danger">
               Adja meg a kívánt jelszót
@@ -148,14 +148,14 @@
 
         <div class="col-md-12">
           <div class="mb-2">
-            <input type="password" class="form-control form-control-sm" placeholder="Jelszó megint" formControlName="confirmPassword"
+            <input type="password" id="passwordAgain" class="form-control form-control-sm" placeholder="Jelszó megint" formControlName="confirmPassword"
               [ngClass]="{'is-invalid': registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched} || registerForm.get('confirmPassword')?.errors?.['serverError']">
 
 
             <small
-              *ngIf="registerForm.get('confirmPassword')?.invalid 
-              && registerForm.get('confirmPassword')?.touched 
-              && !registerForm.get('confirmPassword')?.errors?.['pattern'] 
+              *ngIf="registerForm.get('confirmPassword')?.invalid
+              && registerForm.get('confirmPassword')?.touched
+              && !registerForm.get('confirmPassword')?.errors?.['pattern']
               && !registerForm.get('confirmPassword')?.errors?.['serverError']"
               class="text-danger">
               Ismételje meg a kívánt jelszót
@@ -176,7 +176,7 @@
 
       </div>
       <div class="text-center">
-        <button type="submit" class="btn btn-secondary btn-lg" [disabled]="registerForm.invalid">
+        <button type="submit" id="sendButton" class="btn btn-secondary btn-lg" [disabled]="registerForm.invalid">
           Regisztrálok
         </button>
 

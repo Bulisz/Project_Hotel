@@ -30,7 +30,7 @@
     <div class="col-md-3 text-end">
       <div *ngIf="!user">
         <button type="button" class="btn btn-secondary me-2 px-4" id="loginButton" (click)="loginPopup()" >Bejelentkezés</button>
-        <button type="button" class="btn btn-secondary me-2 px-4" (click)="registerPopup()">Regisztráció</button>
+        <button type="button" class="btn btn-secondary me-2 px-4" id="registerButton" (click)="registerPopup()">Regisztráció</button>
       </div>
       <div *ngIf="user">
         <button type="button" class="btn btn-secondary me-2" routerLink="personal">Profilom</button>
