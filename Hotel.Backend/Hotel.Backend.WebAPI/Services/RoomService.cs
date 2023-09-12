@@ -188,19 +188,17 @@ public class RoomService : IRoomService
 
     public async Task<RoomDetailsDTO> CreateRoomAsync(CreateRoomDTO createRoomDTO)
     {
-        List<Room> allRooms = await _roomRepository.GetAllRoomNamesAsync();
+        List<string> roomName = new List<string>();
+        roomName.Add(createRoomDTO.Name);
+        List<Room> existingRoom = await _roomRepository.GetRoomsByNamesAsync(roomName);
 
         Room newRoom = _mapper.Map<Room>(createRoomDTO);
-
-        foreach (Room room in allRooms)
+        if (existingRoom.Count == 1)
         {
-            if (room.Name.Equals(newRoom.Name))
-            {
-                List<HotelFieldError> errors = new() { new HotelFieldError("Name", "Ez a név már foglalt") };
-                throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
-            }
-           
+            List<HotelFieldError> errors = new() { new HotelFieldError("name", "Ez a név már foglalt") };
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotelError occured");
         }
+        
         return _mapper.Map<RoomDetailsDTO>(await _roomRepository.CreateRoomAsync(newRoom));
     }
 
