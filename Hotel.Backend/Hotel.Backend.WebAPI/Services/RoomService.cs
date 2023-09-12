@@ -185,11 +185,23 @@ public class RoomService : IRoomService
         await _cloudinary.DestroyAsync(dp);
     }
 
+
     public async Task<RoomDetailsDTO> CreateRoomAsync(CreateRoomDTO createRoomDTO)
     {
-        Room room = _mapper.Map<Room>(createRoomDTO);
-        return _mapper.Map<RoomDetailsDTO>(await _roomRepository.CreateRoomAsync(room));
+        List<string> roomName = new List<string>();
+        roomName.Add(createRoomDTO.Name);
+        List<Room> existingRoom = await _roomRepository.GetRoomsByNamesAsync(roomName);
+
+        Room newRoom = _mapper.Map<Room>(createRoomDTO);
+        if (existingRoom.Count == 1)
+        {
+            List<HotelFieldError> errors = new() { new HotelFieldError("name", "Ez a név már foglalt") };
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotelError occured");
+        }
+        
+        return _mapper.Map<RoomDetailsDTO>(await _roomRepository.CreateRoomAsync(newRoom));
     }
+
 
     public async Task DeleteRoomAsync(int id)
     {

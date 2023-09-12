@@ -13,7 +13,7 @@ public class ReservationService : IReservationService
     private readonly IUserRepository _userRepository;
     private readonly IRoomRepository _roomRepository;
     private readonly IEmailService _emailService;
-    static SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
+    static readonly SemaphoreSlim _semaphoreSlim = new(1, 1);
 
     public ReservationService(IReservationRepository reservationRepository,
                               IUserRepository userRepository,
@@ -33,8 +33,18 @@ public class ReservationService : IReservationService
             List<HotelFieldError> errors = new() { new HotelFieldError("BookingTo", "A távozásnak később kell lennie, mint az érkezésnek"), new HotelFieldError("BookingFrom", "A távozásnak később kell lennie, mint az érkezésnek") };
             throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
         }
+        else if ((request.BookingFrom - DateTime.Now).TotalDays > 730)
+        {
+            List<HotelFieldError> errors = new() { new HotelFieldError("BookingFrom", "Csak 2 éven belül foglalhatsz.") };
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+        }
+        else if ((request.BookingTo - DateTime.Now).TotalDays > 730)
+        {
+            List<HotelFieldError> errors = new() { new HotelFieldError("BookingTo", "Csak 2 éven belül foglalhatsz.") };
+            throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
+        }
 
-        ReservationDetailsDTO response = new ReservationDetailsDTO();
+        ReservationDetailsDTO response = new();
 
         await _semaphoreSlim.WaitAsync();
         try

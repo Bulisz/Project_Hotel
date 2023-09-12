@@ -159,7 +159,7 @@ public class UsersController : ControllerBase
     }
 
     [Authorize]
-    [HttpDelete("{userId}")]
+    [HttpDelete("DeleteUser/{userId}")]
     public async Task<ActionResult> DeleteUser(string userId)
     {
         try

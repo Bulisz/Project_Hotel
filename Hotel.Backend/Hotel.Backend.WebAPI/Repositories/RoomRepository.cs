@@ -23,7 +23,7 @@ public class RoomRepository : IRoomRepository
             .Where(room => room.Available == true)
             .ToListAsync();
     }
-
+       
     public async Task<Room?> GetRoomByIdAsync(int id)
     {
         return await _context.Rooms
@@ -42,7 +42,6 @@ public class RoomRepository : IRoomRepository
 
         return rooms;
     }
-
 
     public async Task<List<Room>> GetBigEnoughRoomsAsync(int guestNumber, int dogNumber, DateTime bookingFrom, DateTime bookingTo)
     {

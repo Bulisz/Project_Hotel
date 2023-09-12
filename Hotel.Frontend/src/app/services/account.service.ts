@@ -71,12 +71,11 @@ export class AccountService {
   }
 
   async deleteProfile(userId: string): Promise<any> {
-    return await firstValueFrom(this.http.delete(`${environment.apiUrl}/${this.BASE_URL}/${userId}`))
-    .then(() => this.logout())
+    return await firstValueFrom(this.http.delete(`${environment.apiUrl}/${this.BASE_URL}/DeleteUser/${userId}`))
   }
 
   async updateUser(user: UpdateUserModel): Promise<UserModel> {
-    return await firstValueFrom(this.http.put<UserModel>(`${environment.apiUrl}/${this.BASE_URL}/updateuser`,user))
+    return await firstValueFrom(this.http.put<UserModel>(`${environment.apiUrl}/${this.BASE_URL}/UpdateUser`,user))
   }
 
   async getUsers(): Promise<Array<UserListModel>>{
