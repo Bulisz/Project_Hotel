@@ -6,7 +6,7 @@ public interface IRoomRepository
 {
     Task<List<Room>> GetAllRoomsAsync();
     Task<Room?> GetRoomByIdAsync(int id);
-    Task<List<Room>> GetBigEnoughRoomsAsync(int guestNumber, int dogNumebr, List<int> choosedEquipments,
+    Task<List<Room>> GetBigEnoughRoomsAsync(int guestNumber, int dogNumebr,
         DateTime bookingFrom, DateTime bookingTo);
     Task SaveOneImageAsync(Image image);
     Task SaveMoreImageAsync(List<Image> images);

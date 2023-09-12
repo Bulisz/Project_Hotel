@@ -1,7 +1,6 @@
-﻿namespace Hotel.Backend.WebAPI.Abstractions.Services
+﻿namespace Hotel.Backend.WebAPI.Abstractions.Services;
+
+public interface IDateTimeProvider
 {
-    public interface IDateTimeProvider
-    {
-        DateTime Now { get; }
-    }
+    DateTime Now { get; }
 }

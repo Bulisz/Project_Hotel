@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CA2253: Named placeholders should not be numeric values
+dotnet_diagnostic.CA2253.severity = none

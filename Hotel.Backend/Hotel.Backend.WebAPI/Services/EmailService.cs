@@ -21,11 +21,11 @@ public class EmailService : IEmailService
         _logger = logger;
     }
 
-    public EmailDTO CreatingVerificationEmail(string emailAddress, string lastName, string firstName, string url)
+    public EmailDTO CreatingVerificationEmail(string? emailAddress, string lastName, string firstName, string url)
     {
-        EmailDTO email = new EmailDTO
+        EmailDTO email = new()
         {
-            To = emailAddress,
+            To = emailAddress!,
             Subject = "Regisztráció megerősítése",
             Body = $"Kedves {lastName} {firstName}! <br>" +
             $" Erre a linkre kattintva megerősítheted honlapunkon a regisztrációt: <a href=\"{url}\"> aktiváló link</a>. <br>" +
@@ -37,7 +37,7 @@ public class EmailService : IEmailService
 
     public EmailDTO CreatingForgottenPasswordEmail(string emailAddress, string username, string url)
     {
-        EmailDTO email = new EmailDTO
+        EmailDTO email = new()
         {
             To = emailAddress,
             Subject = "Elfelejtett jelszó pótlása",
@@ -51,9 +51,9 @@ public class EmailService : IEmailService
 
     public EmailDTO CreatingReservationConfirmationEmail(ApplicationUser user, Reservation reservation)
     {
-        EmailDTO email = new EmailDTO
+        EmailDTO email = new()
         {
-            To = user.Email,
+            To = user.Email!,
             Subject = "Sikeres foglalás",
             Body = $"Kedves {user.LastName} {user.FirstName}! <br>" +
             $"A foglalásodhoz tartozó adatok: <br>" +
@@ -71,7 +71,7 @@ public class EmailService : IEmailService
     {
         EmailDTO email = new EmailDTO
         {
-            To = reservation.ApplicationUser.Email,
+            To = reservation.ApplicationUser.Email!,
             Subject = "Foglalás törlése",
             Body = $"Kedves {reservation.ApplicationUser.LastName} {reservation.ApplicationUser.FirstName}! <br>" +
             $"Sajnálattal fogadtuk, hogy lemondtad a {reservation.BookingFrom.ToString("yyyy. MM. dd.")}-tól " +
@@ -87,7 +87,7 @@ public class EmailService : IEmailService
     {
         EmailDTO notification = new EmailDTO
         {
-            To = _config.GetValue<string>("EmailConfig:Username"),
+            To = _config.GetValue<string>("EmailConfig:Username")!,
             Subject = "ÉRTESÍTÉS: új foglalás",
             Body = "Új foglalás történt <br>" +
             "Adatok: <br>" +
@@ -103,7 +103,7 @@ public class EmailService : IEmailService
     {
         EmailDTO notification = new EmailDTO
         {
-            To = _config.GetValue<string>("EmailConfig:Username"),
+            To = _config.GetValue<string>("EmailConfig:Username")!,
             Subject = "ÉRTESÍTÉS: foglalás törlése",
             Body = "Foglalás törlésre került <br>" +
             "Adatok: <br>" +
@@ -139,7 +139,7 @@ public class EmailService : IEmailService
         try
         {
             smtp.CheckCertificateRevocation = false;
-            smtp.ServerCertificateValidationCallback = MySslCertificateValidationCallback;
+            smtp.ServerCertificateValidationCallback = MySslCertificateValidationCallback!;
             await smtp.ConnectAsync(_config.GetValue<string>("EmailConfig:Host"), 465, true);
             smtp.AuthenticationMechanisms.Remove("XOAUTH2");
             await smtp.AuthenticateAsync(_config.GetValue<string>("EmailConfig:Username"), _config.GetValue<string>("EmailConfig:Password"));

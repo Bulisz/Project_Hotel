@@ -2,6 +2,6 @@
 
 public record TokensDTO
 {
-    public JwtToken AccessToken { get; set; }
-    public JwtToken RefreshToken { get; set; }
+    public JwtToken AccessToken { get; set; } = null!;
+    public JwtToken RefreshToken { get; set; } = null!;
 }

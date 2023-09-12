@@ -2,5 +2,5 @@
 
 public record DeleteImageDTO
 {
-    public string imageUrl {  get; set; } = string.Empty;
+    public string ImageUrl {  get; set; } = string.Empty;
 }

@@ -1,6 +1,5 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
-using Hotel.Backend.WebAPI.Migrations;
 using Hotel.Backend.WebAPI.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -145,7 +144,7 @@ public class RoomsController : ControllerBase
     {
         try
         {
-            await _roomService.DeleteImageOfRoomAsync(image.imageUrl);
+            await _roomService.DeleteImageOfRoomAsync(image.ImageUrl);
             return Ok();
         }
         catch (Exception ex)

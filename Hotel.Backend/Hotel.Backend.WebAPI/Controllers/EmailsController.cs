@@ -1,13 +1,7 @@
 ﻿using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Models.DTO;
-using Hotel.Backend.WebAPI.Services;
-using MailKit.Net.Smtp;
-using MailKit.Security;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MimeKit;
-using MimeKit.Text;
 using System.Net;
 
 namespace Hotel.Backend.WebAPI.Controllers;

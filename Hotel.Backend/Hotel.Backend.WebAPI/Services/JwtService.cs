@@ -70,7 +70,7 @@ public class JwtService : IJwtService
 
         JwtToken refreshToken = CreateToken(refreshTokenOptions, claims);
 
-        _memoryCache.Set(refreshToken.Value, 0, refreshToken.Expiration);
+        _memoryCache.Set(refreshToken.Value!, 0, refreshToken.Expiration);
 
         return refreshToken;
     }
@@ -151,6 +151,4 @@ public class JwtService : IJwtService
     {
         _memoryCache.Remove(refreshToken);
     }
-
-
 }

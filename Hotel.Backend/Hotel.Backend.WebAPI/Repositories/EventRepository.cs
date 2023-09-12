@@ -33,9 +33,10 @@ public class EventRepository : IEventRepository
             .ToListAsync();
     }
 
-    public async Task<Event> GetEventByIdAsync(int id)
+    public async Task<Event?> GetEventByIdAsync(int id)
     {
-        return await _context.Events.FindAsync(id);
+        Event? @event = await _context.Events.FindAsync(id);
+        return @event;
     }
 
     public async Task<Event> ModifyEventAsync(Event eventToModify)

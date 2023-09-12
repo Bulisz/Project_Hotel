@@ -142,7 +142,7 @@ public class UsersController : ControllerBase
         try
         {
             UserDetailsDTO userDTOlogin = await _userService.LoginAsync(request);
-            TokensDTO loginResponse = await _jwtService.CreateTokensAsync(userDTOlogin.User);
+            TokensDTO loginResponse = await _jwtService.CreateTokensAsync(userDTOlogin.User!);
             return Ok(loginResponse);
         }
         catch (HotelException ex)
@@ -285,7 +285,7 @@ public class UsersController : ControllerBase
     {
         var settings = new GoogleJsonWebSignature.ValidationSettings()
         {
-            Audience = new List<string> { _applicationSettings.client_id }
+            Audience = new List<string> { _applicationSettings.Client_id }
         };
 
         var payload = await GoogleJsonWebSignature.ValidateAsync(login.Credential, settings);
@@ -309,11 +309,9 @@ public class UsersController : ControllerBase
             };
 
             UserDetailsDTO createdUser = await _userService.RegisterGoogleUserAsync(userToCreate);
-            TokensDTO tokens = await _jwtService.CreateTokensAsync(createdUser.User);
+            TokensDTO tokens = await _jwtService.CreateTokensAsync(createdUser.User!);
 
             return Ok(tokens);
         }
-
     }
-
 }

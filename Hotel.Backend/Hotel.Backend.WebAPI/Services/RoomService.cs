@@ -6,7 +6,6 @@ using Hotel.Backend.WebAPI.Abstractions.Services;
 using Hotel.Backend.WebAPI.Helpers;
 using Hotel.Backend.WebAPI.Models;
 using Hotel.Backend.WebAPI.Models.DTO;
-using Hotel.Backend.WebAPI.Repositories;
 using System.Net;
 using System.Text;
 
@@ -54,26 +53,22 @@ public class RoomService : IRoomService
         {
             int guestNumber = query.NumberOfBeds;
             int dogNumber = query.MaxNumberOfDogs;
-            List<int> choosedEquipmentsId = query.ChoosedEquipments;
+            List<int>? choosedEquipmentsId = query.ChoosedEquipments;
             DateTime bookingFrom = query.BookingFrom;
             DateTime bookingTo = query.BookingTo;
 
             List<Room> allRooms = await _roomRepository.GetBigEnoughRoomsAsync(
-                guestNumber, dogNumber, choosedEquipmentsId, bookingFrom, bookingTo);
+                guestNumber, dogNumber, bookingFrom, bookingTo);
             List<Room> onlyRequestedRooms = new();
-            int counter = 0;
-            if (choosedEquipmentsId.Count != 0 && choosedEquipmentsId != null)
+            if (choosedEquipmentsId is not null && choosedEquipmentsId.Count != 0)
             {
-                
                 foreach (Room room in allRooms)
                 {
                     if (choosedEquipmentsId.All(x => room.Equipments.Any(e => e.Id == x)))
                     {
                         onlyRequestedRooms.Add(room);
                     }
-
                 }
-                
             }
             else
             {
@@ -89,15 +84,14 @@ public class RoomService : IRoomService
 
         List<HotelFieldError> errors = new() { new HotelFieldError("BookingTo", "A távozásnak később kell lennie, mint az érkezésnek"), new HotelFieldError("BookingFrom", "A távozásnak később kell lennie, mint az érkezésnek") };
         throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
-
     }
 
     public async Task SaveOneImageAsync(SaveOneImageDTO saveOneImage)
     {
-        Room room = await _roomRepository.GetRoomByIdAsync(int.Parse(saveOneImage.RoomId));
+        Room? room = await _roomRepository.GetRoomByIdAsync(int.Parse(saveOneImage.RoomId));
 
         string[] supportedImageTypes = { "apng", "avif", "gif", "jpg", "jpeg", "jfif", "pjpeg", "pjp", "png", "svg", "webp" };
-        string actualType = saveOneImage.Image.FileName.Split('.')[1].ToLower();
+        string actualType = saveOneImage.Image!.FileName.Split('.')[1].ToLower();
         if (!supportedImageTypes.Contains(actualType))
         {
             List<HotelFieldError> errors = new() { new HotelFieldError("Images", "Nem támogatott kép formátum") };
@@ -119,11 +113,11 @@ public class RoomService : IRoomService
         var uploadResult = await _cloudinary.UploadAsync(uploadParams);
         var imageurl = uploadResult.SecureUrl.ToString();
 
-        Image newImage = new Image
+        Image newImage = new()
         {
             Description = saveOneImage.Description,
             ImageUrl = imageurl,
-            Room = room
+            Room = room!
         };
 
         await _roomRepository.SaveOneImageAsync(newImage);
@@ -131,13 +125,13 @@ public class RoomService : IRoomService
 
     public async Task SaveMoreImageAsync(SaveMoreImageDTO saveMoreImage)
     {
-        Room room = await _roomRepository.GetRoomByIdAsync(int.Parse(saveMoreImage.RoomId));
+        Room? room = await _roomRepository.GetRoomByIdAsync(int.Parse(saveMoreImage.RoomId));
         List<Image> images = new();
 
         string[] supportedImageTypes = { "apng", "avif", "gif", "jpg", "jpeg", "jfif", "pjpeg", "pjp", "png", "svg", "webp" };
         foreach (var actualImage in saveMoreImage.Images)
         {
-            string actualType = actualImage.FileName.Split('.')[1].ToLower();
+            string actualType = actualImage!.FileName.Split('.')[1].ToLower();
             if (!supportedImageTypes.Contains(actualType))
             {
                 List<HotelFieldError> errors = new() { new HotelFieldError("Images", "Nem támogatott kép formátum") };
@@ -169,7 +163,7 @@ public class RoomService : IRoomService
             {
                 Description = saveMoreImage.Description,
                 ImageUrl = imageurl,
-                Room = room
+                Room = room!
             };
 
             images.Add(image);
@@ -211,6 +205,6 @@ public class RoomService : IRoomService
     public async Task DeleteImageOfRoomAsync(string url)
     {
         await _roomRepository.DeleteImageOfRoomAsync(url);
-        DeleteImageAsync(url);
+        await DeleteImageAsync(url);
     }
 }

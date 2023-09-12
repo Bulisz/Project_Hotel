@@ -59,8 +59,8 @@ public class UserRepository : IUserRepository
 
     public async Task<bool> VerifyEmailAsync(EmailVerificationDTO emailVerification)
     {
-        ApplicationUser user = await _userManager.FindByEmailAsync(emailVerification.Email);
-        if(user != null)
+        ApplicationUser? user = await _userManager.FindByEmailAsync(emailVerification.Email);
+        if(user is not null)
         {
             string token = DecodingToken(emailVerification.Token);
 
@@ -75,20 +75,26 @@ public class UserRepository : IUserRepository
 
     public async Task<UserDetailsDTO?> GetUserByNameAsync(string name)
     {
-        UserDetailsDTO userDetailsDTO = new UserDetailsDTO();
+        UserDetailsDTO? userDetailsDTO = new UserDetailsDTO();
         ApplicationUser? user = await _userManager.FindByNameAsync(name);
-        userDetailsDTO.User = user;
-        userDetailsDTO.Roles = await _userManager.GetRolesAsync(user);
+        if (user is not null)
+        {
+            userDetailsDTO.User = user;
+            userDetailsDTO.Roles = await _userManager.GetRolesAsync(user);
+        }
 
         return userDetailsDTO;
     }
 
-    public async Task<UserDetailsDTO> GetUserByIdAsync(string id)
+    public async Task<UserDetailsDTO?> GetUserByIdAsync(string id)
     {
         UserDetailsDTO userDetailsDTO = new UserDetailsDTO();
         ApplicationUser? user = await _userManager.FindByIdAsync(id);
-        userDetailsDTO.User = user;
-        userDetailsDTO.Roles = await _userManager.GetRolesAsync(user);
+        if (user is not null)
+        {
+            userDetailsDTO.User = user;
+            userDetailsDTO.Roles = await _userManager.GetRolesAsync(user);
+        }
 
         return userDetailsDTO;
     }
@@ -128,24 +134,27 @@ public class UserRepository : IUserRepository
     public async Task DeleteUserAsync(string userId)
     {
         ApplicationUser? user = await _userManager.FindByIdAsync(userId);
-        await _userManager.DeleteAsync(user);
+        if (user is not null)
+        {
+            await _userManager.DeleteAsync(user);
+        }
     }
 
     public async Task<UserDetailsDTO> UpdateUserAsync(UserUpdateDTO updateUser)
     {
         ApplicationUser? user = await _userManager.FindByIdAsync(updateUser.Id);
-        user.UserName = updateUser.Username;
-        user.FirstName = updateUser.FirstName;
-        user.LastName = updateUser.LastName;
-        user.Email = updateUser.Email;
-        if(user is not null)
+        UserDetailsDTO userDetails = new();
+        if (user is not null)
         {
+            user.UserName = updateUser.Username;
+            user.FirstName = updateUser.FirstName;
+            user.LastName = updateUser.LastName;
+            user.Email = updateUser.Email;
             await _userManager.UpdateAsync(user);
-        }
 
-        UserDetailsDTO userDetails = new UserDetailsDTO();
-        userDetails.User = user;
-        userDetails.Roles = await _userManager.GetRolesAsync(user);
+            userDetails.User = user;
+            userDetails.Roles = await _userManager.GetRolesAsync(user);
+        }
 
         return userDetails;
     }
@@ -167,7 +176,7 @@ public class UserRepository : IUserRepository
         foreach(var listedUser  in listedUsers)
         {
             var user = await _userManager.FindByIdAsync(listedUser.Id);
-            var roles = await _userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user!);
             listedUser.Role = roles[0];
         }
 
@@ -176,21 +185,22 @@ public class UserRepository : IUserRepository
 
     public async Task<UserDetailsDTO> UpdateUserAsAdminAsync(UserDetailsForAdmin request)
     {
-        ApplicationUser user = await _userManager.FindByIdAsync(request.Id);
-        
+        ApplicationUser? user = await _userManager.FindByIdAsync(request.Id);
+        UserDetailsDTO userDetails = new();
+
+        if (user is not null)
+        {
             await ChangeRoleAsync(request.Role, user);
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
             user.Email = request.Email;
             user.EmailConfirmed = Convert.ToBoolean(request.EmailConfirmed);
             user.UserName = request.Username;
-
             await _userManager.UpdateAsync(user);
-        
 
-        UserDetailsDTO userDetails = new UserDetailsDTO();
-        userDetails.User = user;
-        userDetails.Roles = await _userManager.GetRolesAsync(user);
+            userDetails.User = user;
+            userDetails.Roles = await _userManager.GetRolesAsync(user);
+        }
 
         return userDetails;
     }
@@ -209,8 +219,8 @@ public class UserRepository : IUserRepository
 
     public async Task ForgotPasswordAsync(ForgotPasswordDTO request)
     {
-        ApplicationUser user = await _userManager.FindByEmailAsync(request.Email);
-        if(user == null)
+        ApplicationUser? user = await _userManager.FindByEmailAsync(request.Email);
+        if(user is null)
         {
             List<HotelFieldError> errors = new() {new HotelFieldError("Email", "Nincs regisztrálva ez az email-cím")};
             throw new HotelException(HttpStatusCode.BadRequest, errors, "One or more hotel errors occurred.");
@@ -221,15 +231,15 @@ public class UserRepository : IUserRepository
         var validPasswordToken = WebEncoders.Base64UrlEncode(encodedForgotPasswordToken);
         string url = $"https://doghotel-001-site1.dtempurl.com/newPassword/?email={user.Email}&token={validPasswordToken}";
 
-        EmailDTO email = _emailService.CreatingForgottenPasswordEmail(user.Email, user.UserName, url);
+        EmailDTO email = _emailService.CreatingForgottenPasswordEmail(user.Email!, user.UserName!, url);
 
         await _emailService.SendEmailAsync(email);
     }
 
     public async Task<bool> ResetPasswordAsync(ResetPasswordDTO request)
     {
-        ApplicationUser user = await _userManager.FindByEmailAsync(request.Email);
-        if(user == null)
+        ApplicationUser? user = await _userManager.FindByEmailAsync(request.Email);
+        if (user is null)
         {
             throw new Exception("Valami nem sikerült. Próbálja újra!");
         }
