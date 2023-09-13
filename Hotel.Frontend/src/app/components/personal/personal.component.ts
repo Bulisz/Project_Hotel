@@ -55,7 +55,10 @@ export class PersonalComponent implements OnInit {
     let result = await this.dialogService.confirmationDialog("Biztosan törlöd a profilodat?")
     if(result === "agree"){
       this.accountService.deleteProfile(userId)
-        .then(() => this.router.navigate(['']))
+        .then(() => {
+          this.accountService.logout()
+          this.router.navigate([''])
+        })
     }
   }
 
