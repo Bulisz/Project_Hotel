@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/hotel.frontend",
+            "outputPath": "../Hotel.Backend/Hotel.Backend.WebAPI/wwwroot",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
