@@ -163,7 +163,6 @@ export class StatMonthBarComponent {
     };
   }
 
-
   async ngOnInit() {
 
     this.dateToday = new Date(Date.now());
@@ -174,10 +173,7 @@ export class StatMonthBarComponent {
       this.yearsForStat[i] = this.foundationYear + i;
     }
 
-
-
-
-    this.statisticsService.getRoomMonthStat(this.yearToday, this.monthToday).subscribe({
+      this.statisticsService.getRoomMonthStat(this.yearToday, this.monthToday).subscribe({
       next: res => {
         this.data = res;
 
@@ -200,8 +196,6 @@ export class StatMonthBarComponent {
 
   }
 
-
-
   onSubmit(){
 
     for (let i = 0; i < this.monthString.length-1; i++) {
@@ -209,7 +203,6 @@ export class StatMonthBarComponent {
         this.monthToday = i+1;
       }
     }
-
 
     this.yearToday = Number(this.roomsForDiagram.controls['year'].value);
 
@@ -253,7 +246,7 @@ export class StatMonthBarComponent {
       plotOptions: {
         bar: {
           dataLabels: {
-            position: "top" // top, center, bottom
+            position: "top" 
           }
         }
       },
