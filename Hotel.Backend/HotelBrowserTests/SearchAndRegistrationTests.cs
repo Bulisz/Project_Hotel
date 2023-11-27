@@ -1,15 +1,9 @@
-using CloudinaryDotNet.Actions;
 using Hotel.Backend.WebAPI.Database;
-using Hotel.Backend.WebAPI.Models;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using NLog.Layouts;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
-using System.Data;
 using System.Diagnostics;
-using static OpenQA.Selenium.Interactions.WheelInputDevice;
 
 namespace HotelBrowserTests
 {
